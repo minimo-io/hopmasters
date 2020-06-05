@@ -1,7 +1,7 @@
 <template>
   <div>
-    Brewery: {{ $route.params.slug }}
-     <router-view></router-view>
+    Brewery: {{ $route.params.slug_brewery }}
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      slug:this.$route.params.slug,
+      slug:this.$route.params.slug_brewery,
       content: {}
     }
   },

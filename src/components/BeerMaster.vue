@@ -1,9 +1,11 @@
 <template>
   <div>
-
         <b-container fluid>
+            {{ $route.params.slug_brewery }}
+            <!--  Country Brewery View -->
+            <router-view></router-view>
             <!-- User Interface controls -->
-            <b-row>
+            <b-row >
                 <b-col lg="12" class="my-1">
                     <b-form inline>
                       <label class="mr-sm-2" for="inline-form-custom-select-pref">La mejor</label>
@@ -237,6 +239,8 @@ export default {
   mounted() {
     // Set the initial number of items
     this.totalRows = this.items.length
+    // Set the dropdown value on init
+    if (this.$route.path) this.country_selected = this.$route.path;
   },
   methods: {
     info(item, index, button) {
@@ -254,18 +258,14 @@ export default {
       this.currentPage = 1
     },
     onChangeCountry(value) {
-      // alert(value);
-      // router.push(value);
-
       this.$router.push(value);
-
-      // console.log(this.$router);
     }
   },
   watch: {
     $route(to, from) {
+      // set the dropdown value once the component was already initiated
       this.country_selected = to.path;
-      // react to route changes...
+
     }
   }
 }

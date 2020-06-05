@@ -1,6 +1,6 @@
 <template>
   <div>
-    Single Beer: {{ $route.params.single_slug }}
+    Single Beer: {{ $route.params.slug_beer }}
     <!-- {{ $route.params.slug }}  -->
   </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      slug:this.$route.params.slug,
+      slug:this.$route.params.slug_beer,
       content: {}
     }
   },

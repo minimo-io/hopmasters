@@ -9,6 +9,9 @@
         <br>
         ¿Y en el mundo?
       </h2>
+      <b-link to="/uruguay">Uruguay</b-link> |
+      <b-link to="/uruguay/oso-pardo">Oso Pardo</b-link> |
+      <b-link to="/uruguay/oso-pardo/maracuyipa">Maracuyipa</b-link>
     </div>
 </template>
 
