@@ -22,14 +22,14 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <div class="alt-header__user alt-header__user--anonymous d-none d-sm-inline-block">
             <div class="alt-user-nav">
-              <b-link :to="{ path: '/login' }" title="Sign In" class="alt-header__sign-in">Ingresar</b-link>
+              <b-link :to="{ path: '/login' }" title="Ingresar" class="alt-header__sign-in">Ingresar</b-link>
             </div>
           </div>
 
           <span class="alt-header__separator alt-separator">/</span>
           <a href="#"><i class="fas fa-search"></i></a>
           <span class="alt-header__separator alt-separator">/</span>
-          <a href="#"><i class="fas fa-shopping-cart"></i></a>
+          <b-link :to="{ path: '/store' }" title="Tienda" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
 
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
@@ -60,16 +60,16 @@
           <b-form-select id="side-language" class="mb-0" v-model="lang_selected" :options="langs"></b-form-select>
         </b-form-group>
 
-        <b-form-group label="Hopmasters de" label-for="beer-type">
+        <!-- <b-form-group label="Hopmasters de" label-for="beer-type">
           <b-form-select id="beer-type" v-model="country_selected" :options="countries"></b-form-select>
         </b-form-group>
-
+        {{ country_selected }} -->
         <!-- <h2>Essential Links</h2> -->
         <ul>
           <li><b-link :to="{ path: '/' }"><i class="fas fa-home mr-1"></i>Inicio</b-link></li>
-          <li><a href="#"><i class="fas fa-shopping-cart mr-1"></i>Tienda</a></li>
-          <li><a href="#"><i class="fab fa-leanpub mr-1"></i>Escuela</a></li>
-          <li><a href="#"><i class="fas fa-newspaper mr-1"></i>Notícias</a></li>
+          <li><b-link :to="{ path: '/store' }"><i class="fas fa-shopping-cart mr-1"></i>Tienda</b-link></li>
+          <li><b-link :to="{ path: '/school' }"><i class="fab fa-leanpub mr-1"></i>Escuela</b-link></li>
+          <li><b-link :to="{ path: '/news' }"><i class="fas fa-newspaper mr-1"></i>Notícias</b-link></li>
         </ul>
 
         <h2>Información</h2>
@@ -98,13 +98,6 @@ export default{
         "English",
         "Português",
       ],
-      country_selected: 'El Mundo',
-      countries: [
-        'El Mundo',
-        'Uruguay',
-        'Argentina',
-        'USA'
-      ]
     }
   },
   computed: {

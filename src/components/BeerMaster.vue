@@ -16,6 +16,7 @@
                       <b-form-select
                         id="inline-form-custom-select-pref"
                         class="mb-2 mr-sm-2 mb-sm-0"
+                        @change="onChangeCountry"
                         :options="countries"
                         v-model="country_selected"
                       ></b-form-select>
@@ -161,11 +162,11 @@ export default {
         { value: 'stout', text: 'Stout' },
         { value: 'weissbier', text: 'Weissbier' },
       ],
-      country_selected: 'De Uruguay',
+      country_selected: '/',
       countries: [
-        "Del Mundo",
-        "De Uruguay",
-        "De USA"
+        { value: '/', text: 'Del Mundo' },
+        { value: '/uruguay', text: 'De Uruguay' },
+        { value: '/usa', text: 'De USA' },
       ],
 
       items: [
@@ -251,6 +252,20 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    onChangeCountry(value) {
+      // alert(value);
+      // router.push(value);
+
+      this.$router.push(value);
+
+      // console.log(this.$router);
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.country_selected = to.path;
+      // react to route changes...
     }
   }
 }
