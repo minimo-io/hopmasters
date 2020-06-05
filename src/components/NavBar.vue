@@ -82,6 +82,7 @@
         <ul>
           <li><a rel="nofollow" target="_blank" href="https://www.instagram.com/hopmasters/"><i class="fab fa-instagram-square mr-1"></i>Instagram</a></li>
           <li><a rel="nofollow" target="_blank" href="#"><i class="fab fa-facebook-square mr-1"></i>Facebook</a></li>
+          <li><a rel="nofollow" target="_blank" href="https://github.com/minimo-io/hopmasters"><i class="fab fa-github-square mr-1"></i>Github</a></li>
         </ul>
       </div>
     </b-sidebar>
