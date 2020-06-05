@@ -1,0 +1,97 @@
+:root {
+  --app-cutured:#F2F2F2;
+  --app-pine-tree:#1B2313;
+  --app-yellow-green:#8CC63F;
+  --app-green-ryb:#77A835;
+  --app-chinese-yellow:#FAB300;
+}
+
+/* reset some ALT. stuff */
+path { fill:inherit; }
+.zoom:hover {
+  transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1)
+}
+/* end reset some ALT. stuff */
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
+.app-logo, .b-sidebar-header{
+  /* position:relative; */
+  font-family: Nunito, sans-serif;
+  font-weight: bold;
+  font-size:1.2rem !important;
+}
+/* .app-logo a, .b-sidebar-header strong{ padding-left:1.4rem;} */
+.app-logo::before, .b-sidebar-header::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+
+  /* font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0fc";
+  color: var(--beer-color);
+  margin-right:0.25rem; */
+
+  content: "";
+  background-image:url("../logo.png");
+  background-size:cover;
+  width: 23px;
+  height: 25px;
+  vertical-align: middle;
+  display:inline-block;
+  margin-right:.25rem;
+  position:relative;
+  top:-0.15rem;
+}
+
+.app-logo i{ color:var(--beer-color); }
+.text-app{ color:var(--app-main-color); }
+
+.loader{
+  display:block;
+  position: fixed;
+  z-index: 102;
+  bottom:.1rem;
+  right:.3rem;
+}
+.loader i{
+  font-size:1rem;
+  color:var(--app-green-ryb);
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%); */
+}
+
+
+/* media queries compatible with bootstrap breakpoints */
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+}
+@media (max-width: 576px) {
+  .app-logo a{ font-size:.9rem !important; }
+  .b-sidebar-header{ font-size:1rem !important; }
+  .app-logo::before, .b-sidebar-header::before{
+    /* font-size:1rem; */
+    width: 19px;
+    height: 19px;
+    margin-right:.2rem;
+  }
+
+
+}
