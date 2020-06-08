@@ -8,9 +8,7 @@
 
     <main class="container mt-4 pt-5">
       <transition name="fade" mode="out-in">
-        <keep-alive>
           <router-view></router-view>
-          </keep-alive>
       </transition>
     </main>
 

@@ -10,8 +10,8 @@
         ¿Y en el mundo?
       </h2>
       <b-link to="/uruguay">Uruguay</b-link> |
-      <b-link to="/uruguay/oso-pardo">Oso Pardo</b-link> |
-      <b-link to="/uruguay/oso-pardo/maracuyipa">Maracuyipa</b-link>
+      <b-link :to="{ name: 'brewery', params: { slug_country:'uruguay', slug_brewery:'oso-pardo' } }">Oso pardo </b-link>
+      <b-link :to="{ name: 'beer', params: { slug_country:'uruguay', slug_brewery:'oso-pardo', slug_beer: 'maracuyipa' } }">Maracuyipa</b-link>
     </div>
 </template>
 

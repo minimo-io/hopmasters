@@ -32,21 +32,7 @@ const router = new VueRouter({
     }
   }
 });
-// router.beforeEach((to, from, next) => {
-router.beforeResolve((to, from, next) => {
-  // app.loading = true
-  if (to.path){
-    NProgress.start();
-  }
-  if (next) next();
-});
 
-router.afterEach((to, from, next) => {
-  // setTimeout(() => app.loading = false, 1500); // timeout for demo purposes
-  // app.loading = false;
-  // NProgress.done();
-	if (next) next();
-});
 
 Vue.mixin({
   data: function() {

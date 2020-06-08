@@ -1,8 +1,10 @@
 <template>
   <div>
         <b-container fluid>
-            {{ $route.params.slug_brewery }}
-            <!--  Country Brewery View -->
+            Country: {{ $route.params.slug_country }}
+            Brewery: {{ $route.params.slug_brewery }}
+            Beer: {{ $route.params.slug_beer }}
+
             <router-view></router-view>
             <!-- User Interface controls -->
             <b-row >
@@ -226,6 +228,17 @@ export default {
        }
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    // console.log('UPDATINGGG slug from'+from+' to '+to);
+    next() //make sure you always call next()
+  },
+  beforeRouteEnter(to, from, next){
+    console.log(from);
+    console.log(to);
+    console.log('UPDATINGGG view from'+from+' to '+to);
+    // this.$forceUpdate();
+    next() //make sure you always call next()
+  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
@@ -259,14 +272,25 @@ export default {
     },
     onChangeCountry(value) {
       this.$router.push(value);
-    }
+    },
   },
   watch: {
     $route(to, from) {
       // set the dropdown value once the component was already initiated
       this.country_selected = to.path;
+      // console.log(this.$route);
+      // console.log("Route change: " + to.path);
+      // this.$forceUpdate();
+      if (this.$route.params.slug_brewery){
+        //console.log("OH THIS IS A BREWERY!");
+      }
+      if (this.$route.params.slug_beer){
+        //console.log("OH THIS IS A BEEEEEEEEER!");
+        //this.$router.push("/uruguay/oso-pardo/maracuyipa")
+      }
 
     }
-  }
+  },
+
 }
 </script>

@@ -1,32 +1,34 @@
-import Homepage from './components/Homepage.vue';
-import NotFound from './components/NotFound.vue';
-import BeerMaster from './components/BeerMaster.vue';
-import Login from './components/Login.vue';
-import Signup from './components/Signup.vue';
-import Page from './components/Page.vue';
-import School from './components/School.vue';
-import News from './components/News.vue';
-import Store from './components/Store.vue';
-import SingleBrewery from './components/SingleBrewery.vue';
-import SingleBeer from './components/SingleBeer.vue';
+import Homepage from './components/views/Homepage.vue';
+import NotFound from './components/views/NotFound.vue';
+import Login from './components/views/Login.vue';
+import Store from './components/views/Store.vue';
+
+import Page from './components/views/Page.vue';
+import School from './components//views/School.vue';
+import News from './components/views/News.vue';
+
+import Country from './components/views/Country.vue';
+import Brewery from './components/views/Brewery.vue';
+import Beer from './components/views/Beer.vue';
+
 
 export default[
   { path: '*', component: NotFound },
   { path: '/', component: Homepage },
 
   { path: '/login', component: Login },
-  { path: '/signup', component: Signup },
   { path: '/school', component: School },
   { path: '/news', component: News },
   { path: '/store', component: Store },
 
   { path: '/page/:slug', component: Page },
 
-  { path: '/:slug_country', component: BeerMaster, children: [
+  { name: 'country', path: '/:slug_country', component: Country, children: [
       {
+        name: 'brewery',
         path: ':slug_brewery',
-        component: SingleBrewery,
-        children:[ { path: ':slug_beer', component: SingleBeer } ]
+        component: Brewery,
+        children:[ { name: 'beer', path: ':slug_beer', component: Beer } ]
       }
     ]
   },

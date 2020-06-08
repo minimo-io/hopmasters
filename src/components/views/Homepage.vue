@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import BeerMaster from './BeerMaster.vue'
-import Welcome from './Welcome.vue'
+import BeerMaster from '../BeerMaster.vue'
+import Welcome from '../Welcome.vue'
 
 export default {
   components:{
