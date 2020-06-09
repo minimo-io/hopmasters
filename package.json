@@ -1,27 +1,23 @@
 {
   "name": "hopmasters",
-  "description": "Who are the hop masters in your country?",
   "version": "1.0.1",
-  "author": "nicolas-ea <nicolas@minimo.io>",
-  "license": "MIT",
   "private": true,
+  "description": "Who are the hop masters in your country?",
+  "author": "nicolas-ea <nicolas@minimo.io>",
   "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.17.3",
     "vue-nprogress": "^0.1.5",
     "vue-router": "^3.3.2"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -30,9 +26,16 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "vue-cli-plugin-i18n": "~1.0.1",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "license": "MIT"
 }

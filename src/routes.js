@@ -23,7 +23,8 @@ export default[
 
   { path: '/page/:slug', component: Page },
 
-  { name: 'country', path: '/:slug_country', component: Country, children: [
+  { path: '/country', redirect: '/' },
+  { name: 'country', path: '/country/:slug_country', component: Country, children: [
       {
         name: 'brewery',
         path: ':slug_brewery',
@@ -32,5 +33,36 @@ export default[
       }
     ]
   },
+
+  {
+    path: "/:lang",
+    component: {
+      render(c) { return c('router-view'); }
+    },
+    children:[
+      { path: '/', component: Homepage },
+
+      { path: 'login', component: Login },
+      { path: 'school', component: School },
+      { path: 'news', component: News },
+      { path: 'store', component: Store },
+
+      { path: '/page/:slug', component: Page },
+
+      { path: 'country', redirect: '/:lang' },
+      { name: 'country', path: 'country/:slug_country', component: Country, children: [
+          {
+            name: 'brewery',
+            path: ':slug_brewery',
+            component: Brewery,
+            children:[ { name: 'beer', path: ':slug_beer', component: Beer } ]
+          }
+        ]
+      },
+    ]
+  },
+
+
+
 
 ]

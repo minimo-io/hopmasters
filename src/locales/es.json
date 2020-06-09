@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "menu" : "Menú",
+    "signin" : "Ingresar",
+    "store": "Tienda",
+    "spanish": "Español",
+    "english": "English",
+    "language": "Idioma",
+    "home": "Inicio",
+    "school" : "Escuela",
+    "news": "Notícias",
+    "about_us": "Sobre nosotros",
+    "faq": "F.A.Q",
+    "information": "Información",
+    "networks": "Redes"
+  }
+}

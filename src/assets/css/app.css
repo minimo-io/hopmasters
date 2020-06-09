@@ -75,7 +75,6 @@ path { fill:inherit; }
   transform: -ms-translate(-50%, -50%); */
 }
 
-
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
 
