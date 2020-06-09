@@ -32,11 +32,10 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
             <b-nav-item-dropdown
-                  text="ES"
+                  :text="$i18n.locale"
                   toggle-class="nav-link-custom"
                 >
-                  <b-dropdown-item>{{ $t('nav.spanish') }}</b-dropdown-item>
-                  <b-dropdown-item>{{ $t('nav.english') }}</b-dropdown-item>
+                  <b-dropdown-item :to="language_url(lang)" v-for="(lang, i) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
               </b-nav-item-dropdown>
           </b-nav>
 
@@ -51,12 +50,11 @@
 
 
       <div class="px-3 py-2 mt-2">
-        <b-button to="login" pill block variant="outline-secondary" size="sm" class="mb-4">{{ $t('nav.signin') }}</b-button>
-        <!-- <b-button to="signup" pill block variant="secondary" size="sm" class="mb-4">Registrarse</b-button> -->
+        <b-button to="login" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
 
-        <b-form-group :label="$t('nav.language')" label-for="side-language" class="d-block d-sm-none">
-          <b-form-select id="side-language" class="mb-0" v-model="lang_selected" :options="langs"></b-form-select>
-        </b-form-group>
+        <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4">
+          <b-dropdown-item :to="language_url(lang)" v-for="(lang, i) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
+        </b-dropdown>
 
         <!-- <b-form-group label="Hopmasters de" label-for="beer-type">
           <b-form-select id="beer-type" v-model="country_selected" :options="countries"></b-form-select>
@@ -91,15 +89,22 @@
 export default{
   data(){
     return {
-      lang_selected : 'Español',
-      langs: [
-        "Español",
-        "English",
-        "Português",
-      ],
+
     }
   },
+  methods: {
+    language_url(lang){
+      return "/" + lang
+    },
+    language_name(lang_code){
+      if (lang_code == "es") return "Español";
+      if (lang_code == "en") return "English";
+    },
+  },
   computed: {
+    // get_language_name($){
+    //   return this.lang_names[];
+    // },
     isAuthenticated() {
       // return this.$store.getters.isAuthenticated
       return true;

@@ -169,8 +169,8 @@ export default {
       country_selected: '/',
       countries: [
         { value: '/', text: 'Del Mundo' },
-        { value: '/uruguay', text: 'De Uruguay' },
-        { value: '/usa', text: 'De USA' },
+        { value: '/country/uruguay', text: 'De Uruguay' },
+        { value: '/country/usa', text: 'De USA' },
       ],
 
       items: [
@@ -281,13 +281,6 @@ export default {
       // console.log(this.$route);
       // console.log("Route change: " + to.path);
       // this.$forceUpdate();
-      if (this.$route.params.slug_brewery){
-        //console.log("OH THIS IS A BREWERY!");
-      }
-      if (this.$route.params.slug_beer){
-        //console.log("OH THIS IS A BEEEEEEEEER!");
-        //this.$router.push("/uruguay/oso-pardo/maracuyipa")
-      }
 
     }
   },
