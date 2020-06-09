@@ -16,5 +16,12 @@
   },
   "homepage": {
     "slogan": "¿Quienes son los <strong><u>Maestros del Lúpulo</u></strong> en tu país?<br>¿Y en el mundo?"
+  },
+  "login": {
+    "signin" : "Ingresar",
+    "remember" : "Recuérdame",
+    "name" : "Nombre",
+    "username": "Usuario",
+    "password": "Contraseña"
   }
 }

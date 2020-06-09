@@ -16,5 +16,12 @@
   },
   "homepage": {
     "slogan": "Who are the <strong><u>Hop Masters</u></strong> in your country?<br>And around the globe?"
+  },
+  "login": {
+    "signin" : "Sign in",
+    "remember" : "Remember me",
+    "name" : "Name",    
+    "username": "Username",
+    "password": "Password"
   }
 }
