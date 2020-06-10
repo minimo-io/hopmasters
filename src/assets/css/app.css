@@ -75,6 +75,14 @@ path { fill:inherit; }
   transform: -ms-translate(-50%, -50%); */
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
 

@@ -18,7 +18,6 @@
 
   </div>
 </template>
-
 <script>
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Foot.vue'
@@ -29,6 +28,7 @@ const BeerMaster = () => ({
   loading: NprogressContainer,
   delay: 500
 });
+
 
 export default {
   name: 'app',

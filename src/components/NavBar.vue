@@ -35,7 +35,7 @@
                   :text="$i18n.locale"
                   toggle-class="nav-link-custom"
                 >
-                  <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang, i) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
+                  <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
               </b-nav-item-dropdown>
           </b-nav>
 
@@ -53,7 +53,7 @@
         <b-button to="login" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
 
         <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4">
-          <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang, i) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
+          <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
         </b-dropdown>
 
         <!-- <b-form-group label="Hopmasters de" label-for="beer-type">

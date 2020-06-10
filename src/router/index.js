@@ -1,18 +1,22 @@
-import Homepage from './components/views/Homepage.vue';
-import NotFound from './components/views/NotFound.vue';
-import Login from './components/views/Login.vue';
-import Store from './components/views/Store.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-import Page from './components/views/Page.vue';
-import School from './components//views/School.vue';
-import News from './components/views/News.vue';
+import Homepage from '@/views/Homepage.vue';
+import NotFound from '@/views/NotFound.vue';
+import Login from '@/views/Login.vue';
+import Store from '@/views/Store.vue';
 
-import Country from './components/views/Country.vue';
-import Brewery from './components/views/Brewery.vue';
-import Beer from './components/views/Beer.vue';
+import Page from '@/views/Page.vue';
+import School from '@/views/School.vue';
+import News from '@/views/News.vue';
 
+import Country from '@/views/Country.vue';
+import Brewery from '@/views/Brewery.vue';
+import Beer from '@/views/Beer.vue';
 
-export default[
+Vue.use(VueRouter)
+
+const routes = [
   { path: '*', component: NotFound },
   { path: '/', component: Homepage },
 
@@ -62,7 +66,19 @@ export default[
     ]
   },
 
-
-
-
 ]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
+  routes
+})
+
+export default router
