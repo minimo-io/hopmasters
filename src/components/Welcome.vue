@@ -13,7 +13,6 @@ import Welcome from './Welcome.vue'
 
 export default {
   components:{
-    'welcome' : Welcome,
   },
   data () {
     return {

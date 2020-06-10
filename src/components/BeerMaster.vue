@@ -12,13 +12,13 @@
                     <b-form inline>
                       <label class="mr-sm-2" for="inline-form-custom-select-pref">La mejor</label>
                       <b-form-select
-                        id="inline-form-custom-select-pref"
+                        id="beer_type"
                         class="mb-2 mr-sm-2 mb-sm-0"
                         :options="options"
                         v-model="selected"
                       ></b-form-select>
                       <b-form-select
-                        id="inline-form-custom-select-pref"
+                        id="country"
                         class="mb-2 mr-sm-2 mb-sm-0"
                         @change="onChangeCountry"
                         :options="countries"

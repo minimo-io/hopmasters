@@ -11,8 +11,8 @@ import Welcome from '../Welcome.vue'
 
 export default {
   components:{
-    'beermaster' : BeerMaster,
-    'welcome' : Welcome,
+    'beermaster': BeerMaster,
+    'welcome': Welcome,
   },
   data () {
     return {
