@@ -1,4 +1,7 @@
 {
+  "global": {
+    "back" : "volver"
+  },
   "nav": {
     "menu" : "Menú",
     "signin" : "Ingresar",
@@ -9,7 +12,7 @@
     "home": "Inicio",
     "school" : "Escuela",
     "news": "Notícias",
-    "about_us": "Sobre nosotros",
+    "about_us": "Nosotros",
     "faq": "F.A.Q",
     "information": "Información",
     "networks": "Redes"
@@ -23,5 +26,9 @@
     "name" : "Nombre",
     "username": "Usuario",
     "password": "Contraseña"
-  }
+  },
+
+
+  "about-us-title" : "Hola<span class='app-text-green'>!</span>",
+  "about-us-content" : ""
 }

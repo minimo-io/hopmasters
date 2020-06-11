@@ -1,9 +1,9 @@
 :root {
-  --app-cutured:#F2F2F2;
-  --app-pine-tree:#1B2313;
+  --app-green:#02b44c;
+  --app-yellow:#ffff00;
+  --app-grey:#F2F2F2;
+  --app-dark:#1B2313;
   --app-yellow-green:#8CC63F;
-  --app-green-ryb:#77A835;
-  --app-chinese-yellow:#FAB300;
 }
 
 /* reset some ALT. stuff */
@@ -21,6 +21,13 @@ path { fill:inherit; }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
 }
+.app-text-selected{
+   background: rgba(255,255,0,0.5);
+
+}
+.app-text-green{ color: var(--app-green); }
+.app-text-yellow{ color: var(--app-yellow); }
+
 
 .app-logo, .b-sidebar-header{
   /* position:relative; */
@@ -66,7 +73,7 @@ path { fill:inherit; }
 }
 .loader i{
   font-size:1rem;
-  color:var(--app-green-ryb);
+  color:var(--app-green);
   /* top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -75,13 +82,16 @@ path { fill:inherit; }
   transform: -ms-translate(-50%, -50%); */
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+ul.beer-list{
+  list-style-type: none;
+  padding:0;
+  margin:0;
 }
-
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0
+ul.beer-list li:nth-child(even){
+  margin-top:.5rem;
+  margin-bottom:.5rem;
 }
+ul.beer-list i{ font-size:1rem;  }
 
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
@@ -91,6 +101,14 @@ path { fill:inherit; }
 
 }
 @media (max-width: 576px) {
+  /* resets for ALT. template */
+  .category-title, .post-title {
+      font-size: 1.3rem;
+  }
+  /* end resets for ALT. template */
+
+
+
   .app-logo a{ font-size:.9rem !important; }
   .b-sidebar-header{ font-size:1rem !important; }
   .app-logo::before, .b-sidebar-header::before{

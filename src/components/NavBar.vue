@@ -7,7 +7,6 @@
           <h1 class="app-logo zoom" :title="app_title" itemprop="name headline">
             <b-link :to="{ path: '/' }">{{ app_title }}</b-link>
           </h1>
-
         </nav>
 
         <!-- right nav -->

@@ -1,4 +1,7 @@
 {
+  "global": {
+    "back" : "back"
+  },
   "nav": {
     "menu" : "Menu",
     "signin" : "Sign in",
@@ -20,8 +23,11 @@
   "login": {
     "signin" : "Sign in",
     "remember" : "Remember me",
-    "name" : "Name",    
+    "name" : "Name",
     "username": "Username",
     "password": "Password"
-  }
+  },
+
+  "about-us-title" : "Hello<span class='app-text-green'>!</span>",
+  "about-us-content" : ""
 }

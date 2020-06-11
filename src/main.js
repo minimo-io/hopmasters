@@ -13,11 +13,20 @@ Vue.config.productionTip = false
 Vue.use(NProgress)
 
 
+
 router.beforeEach((to, from, next) => {
   let language = to.params.lang;
   if (!language) language = "es";
   i18n.locale = language;
-  next();
+
+  // in case is /es/ then remove the prefix since spanish is the default
+  if (to.path.includes('/es/')){
+    var goto = "/" + to.path.replace(/\/es\//g, '')
+    next(goto);
+  }else{
+    next();
+  }
+
 });
 
 
@@ -28,6 +37,11 @@ Vue.mixin({
       get app_title() {
         return "Hopmasters";
       }
+    }
+  },
+  methods:{
+    app_goback(steps){
+      this.$router.go(steps)
     }
   }
 });
@@ -42,10 +56,10 @@ const app = new Vue({
 
 router.beforeResolve((to, from, next) => {
   if (to.path){
-    NProgress.start();
+    //NProgress.start();
   }
   next();
 });
 router.afterEach( () => {
-  NProgress.done()
+  //NProgress.done()
 });

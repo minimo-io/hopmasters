@@ -1,4 +1,4 @@
-# hopmasters2
+# hopmasters
 
 ## Project setup
 ```

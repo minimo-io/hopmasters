@@ -6,7 +6,7 @@
   <div id="app">
     <navbar></navbar>
 
-    <main class="container mt-4 pt-5">
+    <main class="container mt-4 px-lg-0">
       <transition name="fade" mode="out-in">
           <router-view></router-view>
       </transition>
