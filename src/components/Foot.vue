@@ -1,5 +1,6 @@
 <template>
-    <footer class="alt-footer">
+  <div>
+    <footer class="alt-footer alt-footer-complex" v-if="footer_type == 'complex'">
       <div class="container">
         <div class="row">
           <div class="col-12 col-md">
@@ -47,21 +48,22 @@
         </div>
       </div>
     </footer>
+
+    <footer
+    v-if="footer_type == 'simple'"
+    class="alt-footer my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2020 {{ app_title }}</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><b-link :href="$t('global.dev-link')" target="_blank">Por <i class="fas fa-circle mr-1"></i>Mínimo</b-link></li>
+      </ul>
+    </footer>
+  </div>
 </template>
-<style scoped>
-.alt-footer {
-    padding: 2.5rem 0;
-    color: #999;
-    text-align: center;
-    background-color: #f9f9f9;
-    border-top: .05rem solid #e5e5e5;
-}
-</style>
 <script>
 export default{
   data(){
     return {
-
+      "footer_type" : "simple"
     }
   }
 }

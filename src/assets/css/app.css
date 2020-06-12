@@ -13,6 +13,7 @@ path { fill:inherit; }
   -ms-transform: scale(1.1);
   -webkit-transform: scale(1.1)
 }
+.figure-caption{ text-align:right; }
 /* end reset some ALT. stuff */
 
 .fade-enter-active, .fade-leave-active {
@@ -22,12 +23,12 @@ path { fill:inherit; }
   opacity: 0
 }
 .app-text-selected{
-   background: rgba(255,255,0,0.5);
+   background: rgba(255,255,0,0.4);
 
 }
 .app-text-green{ color: var(--app-green); }
 .app-text-yellow{ color: var(--app-yellow); }
-
+.bg-appyellow {background: rgba(255,255,0,0.5);}
 
 .app-logo, .b-sidebar-header{
   /* position:relative; */
@@ -101,14 +102,6 @@ ul.beer-list i{ font-size:1rem;  }
 
 }
 @media (max-width: 576px) {
-  /* resets for ALT. template */
-  .category-title, .post-title {
-      font-size: 1.3rem;
-  }
-  /* end resets for ALT. template */
-
-
-
   .app-logo a{ font-size:.9rem !important; }
   .b-sidebar-header{ font-size:1rem !important; }
   .app-logo::before, .b-sidebar-header::before{

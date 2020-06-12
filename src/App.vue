@@ -1,5 +1,5 @@
 <style>
-@import 'https://cdn.jsdelivr.net/npm/@minimo-labs/alt-template@0.5.6/dist/alt.min.css';
+@import 'https://cdn.jsdelivr.net/npm/@minimo-labs/alt-template@0.5.7/dist/alt.min.css';
 @import './assets/css/app.css';
 </style>
 <template>

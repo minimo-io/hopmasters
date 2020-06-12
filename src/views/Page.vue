@@ -4,32 +4,35 @@
         <b-link @click.prevent="app_goback(-1)" class="breadcrumb-back-button">
           <i class="fas fa-reply"></i>&nbsp;{{ $t("global.back") }}
         </b-link>
+
         <h1 class="post-title category-title" itemprop="name headline">
-          <span v-html="$t(this.slug + '-title')"></span>
+          <span v-html="$t(this.slug + '.title')"></span>
         </h1>
-        <h2 class="post-subtitle category-subtitle Xread-more" v-html="$t(this.slug + '-content')"></h2>
 
         <h2 class="post-subtitle category-subtitle mt-3">
-          <a href="#what" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Qué hacemos?</a>
-          <p class="mt-2">
-            Hopmasters pretende promover la cultura cervecera artesanal alrededor del <i class='fas fa-globe-americas'></i>
-            <br>
-            Para eso creamos 3 tipos de herramientas:
-          </p>
-          <p>
-            <ul class="beer-list">
-              <li>
-                <i class="fas fa-arrow-circle-right mr-1"></i>Para que los brewers y microcervecerías puedan promocionar y vender sus productos a un precio justo sin tener que encargarse de la parte tecnológica.
-              </li>
-              <li>
-                <i class="fas fa-arrow-circle-right mr-1"></i>Para que los usuarios puedan comentar, votar y comprar sus cervezas preferidas y encontrar novedades.
-              </li>
-              <li>
-                <i class="fas fa-arrow-circle-right mr-1"></i>Para que los nuevos cerveceros puedan aprender cómo producir su propia cerveza artesanal
-                junto a los maestros cerveceros de la  <b-link to='/school'><i class="fas fa-graduation-cap mr-0"></i>Escuela de Hopmasters</b-link>
-                y mediante el intercambio con otros miembros de la comunidad.
-              </li>
-            </ul>
+          <b-alert show variant="warning">
+            <i class="fas fa-code mr-1"></i>{{ $t(this.slug + '.content.alert') }}
+            <span  v-if="app_link('whatsapp')">
+              {{ $t(this.slug + '.content.alert-soon-whatsapp') }}
+              <b-link :href="app_link('whatsapp')" target="_blank"><i class="fab fa-whatsapp mr-1"></i>{{ app_title }}</b-link>
+              {{ $t(this.slug + '.content.alert-soon-instagram') }}
+              <b-link :href="app_link('instagram')" target="_blank"><i class="fab fa-instagram mr-1"></i>Instagram</b-link>.
+            </span>
+          </b-alert>
+
+          <figure class="figure">
+            <b-img src="@/assets/homebrewing-adam-wilson.jpg" rounded fluid alt="imagen-de-cerveza"></b-img>
+            <figcaption class="figure-caption">{{ $t(this.slug + '.content.photo-figure') }}</figcaption>
+          </figure>
+
+
+          <a href="#what" class="app-text-selected"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-what') }}</a>
+          <p class="mt-2" v-html="$t(this.slug + '.content.what-content-1')"></p>
+          <p v-html="$t(this.slug + '.content.what-content-2', {
+            link_store: '#',
+            link_rankings: '#',
+            link_school: '#'
+          })">
           </p>
 
           <a href="#why" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Porqué lo hacemos?</a>
@@ -47,8 +50,14 @@
             personas se decidan por la cerveza artesanal.
           </p>
           <br>
-          <a href="#rutina" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Quienes somos?</a>
-          <p class="mt-2">Una manga de borrachos que saben programar y sacar fotos.</p>
+          <a href="#rutina" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Quiénes somos?</a>
+          <p class="mt-2">
+            Una banda de borrachos con habilidades de programación y aficionados a la cerveza artensanal <i class="fas fa-smile-beam"></i>
+            <br>
+            En realidad, Hopmasters fue desarrollado por <b-link :href="$t('global.dev-link')" target="_blank"><i class="fas fa-circle mr-1"></i>Mínimo</b-link>,
+            un laboratorio de ideas digitales basado en Uruguay,
+            con la idea de aportar al fortalecimiento de la comunidad cervecera artesanal.
+          </p>
         </h2>
       </header>
   </div>
@@ -59,7 +68,6 @@ export default {
   data () {
     return {
       slug:this.$route.params.slug,
-      content: {}
     }
   },
   watch: {

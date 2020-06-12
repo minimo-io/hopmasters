@@ -1,6 +1,7 @@
 {
   "global": {
-    "back" : "volver"
+    "back" : "volver",
+    "dev-link": "https://minimo.io"
   },
   "nav": {
     "menu" : "Menú",
@@ -29,6 +30,17 @@
   },
 
 
-  "about-us-title" : "Hola<span class='app-text-green'>!</span>",
-  "about-us-content" : ""
+  "about-us": {
+    "title" : "Nosotros<span class='app-text-green'>.</span>",
+    "content" : {
+      "alert": "Hopmasters está en etapa de desarrollo.",
+      "alert-soon-whatsapp": "Mientras tanto podés recibir novedades u ofertas suscribiéndote al grupo",
+      "alert-soon-instagram": "o siguiéndonos en la cuenta de",
+      "photo-figure": "Foto por Adam Wilson en Unsplash.",
+      "title-what": "¿Qué hacemos?",
+      "what-content-1": "Hopmasters pretende promover la cultura cervecera artesanal alrededor del <i class='fas fa-globe-americas'></i><br>Para eso creamos diferentes herramientas:",
+      "what-content-2": "<ol class='beer-list'><li>Una <b-link href='{link_store}'><i class='fas fa-shopping-cart mr-1'></i>Tienda</b-link> abierta para que los brewers y microcervecerías puedan promocionar y vender sus productos a un precio justo sin tener que encargarse de la parte tecnológica.</li><li>Un <b-link href='{link_ranking}'><i class='fas fa-medal mr-1'></i>Ranking</b-link> de cervezas por país, basado en las votaciones de los usuarios, para que estos puedan votar, discutir y comprar sus cervezas preferidas y recibir novedades sobre sus cervecerías favoritas.</li><li>Una <b-link href='{link_school}'><i class='fas fa-graduation-cap mr-1'></i>Escuela</b-link> para que los nuevos cerveceros puedan aprender cómo producir su propia cerveza artesanal junto a maestros cerveceros calificados, con recetas y métodos probados, y mediante el intercambio con miembros de la comunidad.</li></ol>"
+    }
+  }
+
 }

@@ -45,7 +45,7 @@
     </header>
 
     <!-- Sidebar -->
-    <b-sidebar id="sidebar-1" title="HOPMASTERS"  backdrop-variant="warning" lazy backdrop shadow>
+    <b-sidebar id="sidebar-1" title="HOPMASTERS"  backdrop-variant="appyellow" lazy backdrop shadow>
 
 
       <div class="px-3 py-2 mt-2">
@@ -75,9 +75,9 @@
 
         <h2>{{ $t('nav.networks') }}</h2>
         <ul>
-          <li><a rel="nofollow" target="_blank" href="https://www.instagram.com/hopmasters/"><i class="fab fa-instagram-square mr-1"></i>Instagram</a></li>
-          <li><a rel="nofollow" target="_blank" href="#"><i class="fab fa-facebook-square mr-1"></i>Facebook</a></li>
-          <li><a rel="nofollow" target="_blank" href="https://github.com/minimo-io/hopmasters"><i class="fab fa-github-square mr-1"></i>Github</a></li>
+          <li v-if="app_link('instagram')"><a rel="nofollow" target="_blank" :href="app_link('instagram')"><i class="fab fa-instagram-square mr-1"></i>Instagram</a></li>
+          <li v-if="app_link('facebook')"><a rel="nofollow" target="_blank" :href="app_link('facebook')"><i class="fab fa-facebook-square mr-1"></i>Facebook</a></li>
+          <li v-if="app_link('github')"><a rel="nofollow" target="_blank" :href="app_link('github')"><i class="fab fa-github-square mr-1"></i>Github</a></li>
         </ul>
       </div>
     </b-sidebar>
@@ -88,7 +88,6 @@
 export default{
   data(){
     return {
-
     }
   },
   methods: {

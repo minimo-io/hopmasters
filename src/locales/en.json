@@ -1,6 +1,7 @@
 {
   "global": {
-    "back" : "back"
+    "back" : "back",
+    "dev-link": "https://minimo.io/en/"    
   },
   "nav": {
     "menu" : "Menu",
