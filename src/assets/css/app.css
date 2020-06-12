@@ -14,6 +14,14 @@ path { fill:inherit; }
   -webkit-transform: scale(1.1)
 }
 .figure-caption{ text-align:right; }
+.category-title, .post-title {
+  font-size: 2rem;
+}
+.alert{ font-size: 1rem; }
+.post-subtitle{
+  color:var(--app-grey);
+}
+
 /* end reset some ALT. stuff */
 
 
@@ -24,6 +32,7 @@ path { fill:inherit; }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
 }
+.breadcrumb-back-button{ display: none; }
 .app-text-selected{
    background: rgba(255,255,0,0.4);
 
@@ -106,6 +115,13 @@ ul.beer-list i{ font-size:1rem;  }
 
 }
 @media (max-width: 576px) {
+  /* alt reset */
+  .category-title, .post-title {
+      font-size: 1.2rem;
+  }
+  .alert{ font-size: .8rem; }
+  /* end of alt reset  */
+
   .app-logo a{ font-size:.9rem !important; }
   .b-sidebar-header{ font-size:1rem !important; }
   .app-logo::before, .b-sidebar-header::before{

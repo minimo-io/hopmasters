@@ -1,17 +1,17 @@
 <template>
-  <div class="container primary-container pt-0 px-0 mt-0">
+  <div class="container primary-container pt-0 px-0 mt-3 mt-lg-5">
       <header class="alt-post-header alt-top-title mx-0">
         <b-link @click.prevent="app_goback(-1)" class="breadcrumb-back-button">
           <i class="fas fa-reply"></i>&nbsp;{{ $t("global.back") }}
         </b-link>
 
-        <h1 class="post-title category-title" itemprop="name headline">
+        <h1 class="post-title category-title d-none" itemprop="name headline">
           <span v-html="$t(this.slug + '.title')"></span>
         </h1>
 
         <h2 class="post-subtitle category-subtitle mt-3">
           <b-alert show variant="warning">
-            <i class="fas fa-code mr-1"></i>{{ $t(this.slug + '.content.alert') }}
+            <i class="fas fa-code mr-1"></i><span v-html="$t(this.slug + '.content.alert')"></span>
             <span  v-if="app_link('whatsapp')">
               {{ $t(this.slug + '.content.alert-soon-instagram') }}
               <b-link :href="app_link('instagram')" target="_blank" class="text-nowrap"><i class="fab fa-instagram mr-1"></i>Instagram</b-link>.

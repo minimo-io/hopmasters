@@ -41,7 +41,7 @@
   "about-us": {
     "title" : "Nosotros<span class='app-text-green'>.</span>",
     "content" : {
-      "alert": "Hopmasters está en etapa de desarrollo.",
+      "alert": "<strong>Hopmasters</strong> está en etapa de desarrollo.",
       "alert-soon-instagram": "Mientras tanto te invitamos a enterarte de las novedades en nuestra cuenta de",
       "photo-figure": "Foto por Adam Wilson en Unsplash.",
 
