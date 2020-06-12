@@ -1,7 +1,8 @@
 :root {
   --app-green:#02b44c;
   --app-yellow:#ffff00;
-  --app-grey:#6c757d;
+  /* --app-grey:#6c757d; */
+  --app-grey:#879099;
   --app-dark:#1B2313;
   --app-yellow-green:#8CC63F;
 }
@@ -21,8 +22,9 @@ path { fill:inherit; }
 .post-subtitle{
   color:var(--app-grey);
 }
-
+.primary-container p, .primary-container .alert{ font-family: "Nunito", sans-serif;}
 /* end reset some ALT. stuff */
+
 
 
 .disabled{ opacity:.5; }

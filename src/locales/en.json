@@ -41,7 +41,7 @@
   "about-us": {
     "title" : "About us<span class='app-text-green'>.</span>",
     "content" : {
-      "alert": "Hopmasters is under development.",
+      "alert": "<strong>Hopmasters</strong> is under development.",
       "alert-soon-instagram": "Meanwhile we invite you to follow up news, updates and beers here",
       "photo-figure": "Photo of Adam Wilson on Unsplash.",
 
