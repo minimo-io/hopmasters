@@ -1,7 +1,7 @@
 :root {
   --app-green:#02b44c;
   --app-yellow:#ffff00;
-  --app-grey:#F2F2F2;
+  --app-grey:#6c757d;
   --app-dark:#1B2313;
   --app-yellow-green:#8CC63F;
 }
@@ -16,6 +16,8 @@ path { fill:inherit; }
 .figure-caption{ text-align:right; }
 /* end reset some ALT. stuff */
 
+
+.disabled{ opacity:.5; }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s
 }
@@ -26,6 +28,8 @@ path { fill:inherit; }
    background: rgba(255,255,0,0.4);
 
 }
+.app-text-grey{ color:var(--app-grey); }
+.app-text-grey:hover{ color:var(--app-dark); }
 .app-text-green{ color: var(--app-green); }
 .app-text-yellow{ color: var(--app-yellow); }
 .bg-appyellow {background: rgba(255,255,0,0.5);}

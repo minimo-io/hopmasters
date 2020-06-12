@@ -13,10 +13,8 @@
           <b-alert show variant="warning">
             <i class="fas fa-code mr-1"></i>{{ $t(this.slug + '.content.alert') }}
             <span  v-if="app_link('whatsapp')">
-              {{ $t(this.slug + '.content.alert-soon-whatsapp') }}
-              <b-link :href="app_link('whatsapp')" target="_blank"><i class="fab fa-whatsapp mr-1"></i>{{ app_title }}</b-link>
               {{ $t(this.slug + '.content.alert-soon-instagram') }}
-              <b-link :href="app_link('instagram')" target="_blank"><i class="fab fa-instagram mr-1"></i>Instagram</b-link>.
+              <b-link :href="app_link('instagram')" target="_blank" class="text-nowrap"><i class="fab fa-instagram mr-1"></i>Instagram</b-link>.
             </span>
           </b-alert>
 
@@ -28,35 +26,34 @@
 
           <a href="#what" class="app-text-selected"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-what') }}</a>
           <p class="mt-2" v-html="$t(this.slug + '.content.what-content-1')"></p>
-          <p v-html="$t(this.slug + '.content.what-content-2', {
-            link_store: '#',
-            link_rankings: '#',
-            link_school: '#'
-          })">
+          <p>
+            <ol class='beer-list'>
+              <li>
+                {{ $t('global.a-female') }} <b-link to="/store"><i class='fas fa-shopping-cart mr-1'></i>{{ $t("nav.store") }}</b-link>
+                {{ $t(this.slug + '.content.what-content-2') }}
+              </li>
+              <li>
+                {{ $t('global.a-male') }} <b-link to='/'><i class='fas fa-medal mr-1'></i>{{ $t("nav.ranking") }}</b-link>
+                {{ $t(this.slug + '.content.what-content-3') }}
+              </li>
+              <li>
+                {{ $t('global.a-female') }} <b-link to='/school'><i class='fas fa-graduation-cap mr-1'></i>{{ $t("nav.school") }}</b-link>
+                {{ $t(this.slug + '.content.what-content-4') }}
+              </li>
+            </ol>
           </p>
 
-          <a href="#why" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Porqué lo hacemos?</a>
-          <p class="mt-2">
-            Junto con la cervercería artesanal crece una comunidad de entusiastas.
-          </p>
+          <b-link href="#why" class="app-text-selected"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-why') }}</b-link>
+          <p class="mt-2" v-html="$t(this.slug + '.content.why-content-1')"></p>
+          <p v-html="$t(this.slug + '.content.why-content-2')"></p>
+          <p v-html="$t(this.slug + '.content.why-content-3')"></p>
+
+          <b-link href="#who" class="app-text-selected"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-who') }}</b-link>
+          <p class="mt-2">{{ $t(this.slug + '.content.who-content-1') }} <i class="fas fa-grin-beam-sweat"></i>
           <p>
-            Una que favorece las economías locales en el consumo de cerveza creada por la pasión misma en el producto.
-            Una que investiga nuevos sabores y procesos, que comparte porque sabe
-            que su fuerza y energía radica en eso, aumentando a su vez la diversidad y calidad de la oferta general.
-          </p>
-          <p>
-            A esa comunidad es a la que Hopmasters quiere servir con herramientas e
-            información de calidad que respete los principios que hacen que cada vez mas
-            personas se decidan por la cerveza artesanal.
-          </p>
-          <br>
-          <a href="#rutina" class="app-text-selected"><i class="fas fa-location-arrow"></i> ¿Quiénes somos?</a>
-          <p class="mt-2">
-            Una banda de borrachos con habilidades de programación y aficionados a la cerveza artensanal <i class="fas fa-smile-beam"></i>
-            <br>
-            En realidad, Hopmasters fue desarrollado por <b-link :href="$t('global.dev-link')" target="_blank"><i class="fas fa-circle mr-1"></i>Mínimo</b-link>,
-            un laboratorio de ideas digitales basado en Uruguay,
-            con la idea de aportar al fortalecimiento de la comunidad cervecera artesanal.
+            {{ $t(this.slug + '.content.who-content-2') }} <b-link :href="$t('global.dev-link')" target="_blank" class="text-nowrap"><i class="fas fa-circle mr-1"></i>{{ $t("global.dev-name") }}</b-link>,
+            {{ $t(this.slug + '.content.who-content-3') }}
+            {{ $t(this.slug + '.content.who-content-4') }}
           </p>
         </h2>
       </header>
@@ -65,6 +62,7 @@
 
 <script>
 export default {
+
   data () {
     return {
       slug:this.$route.params.slug,

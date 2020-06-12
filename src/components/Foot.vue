@@ -52,9 +52,9 @@
     <footer
     v-if="footer_type == 'simple'"
     class="alt-footer my-5 pt-5 text-muted text-center text-small">
-      <p class="mb-1">© 2020 {{ app_title }}</p>
+      <p class="mb-0 text-uppercase">© 2020 {{ app_title }}</p>
       <ul class="list-inline">
-        <li class="list-inline-item"><b-link :href="$t('global.dev-link')" target="_blank">Por <i class="fas fa-circle mr-1"></i>Mínimo</b-link></li>
+        <li class="list-inline-item text-capitalize"><b-link :href="$t('global.dev-link')" class="app-text-grey text-nowrap" target="_blank">{{ $t("global.by") }} <i class="fas fa-circle mr-1"></i>Mínimo</b-link></li>
       </ul>
     </footer>
   </div>

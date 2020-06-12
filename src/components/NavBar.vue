@@ -19,14 +19,14 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <div class="alt-header__user alt-header__user--anonymous d-none d-sm-inline-block">
             <div class="alt-user-nav">
-              <b-link :to="{ path: '/login' }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
+              <b-link :to="{ path: '/login' }" disabled :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
             </div>
           </div>
 
           <span class="alt-header__separator alt-separator">/</span>
-          <a href="#"><i class="fas fa-search"></i></a>
+          <b-link href="#" disabled><i class="fas fa-search"></i></b-link>
           <span class="alt-header__separator alt-separator">/</span>
-          <b-link :to="{ path: '/store' }" :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
+          <b-link :to="{ path: '/store' }" disabled :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
 
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
@@ -49,7 +49,7 @@
 
 
       <div class="px-3 py-2 mt-2">
-        <b-button to="login" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
+        <b-button to="login" disabled block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
 
         <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4">
           <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
@@ -61,16 +61,16 @@
         {{ country_selected }} -->
         <!-- <h2>Essential Links</h2> -->
         <ul>
-          <li><b-link :to="{ path: '/' }"><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
-          <li><b-link :to="{ path: '/store' }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
-          <li><b-link :to="{ path: '/school' }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
-          <li><b-link :to="{ path: '/news' }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
+          <li><b-link :to="{ path: '/' }" disabled><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
+          <li><b-link :to="{ path: '/store' }" disabled><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
+          <li><b-link :to="{ path: '/school' }" disabled><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
+          <li><b-link :to="{ path: '/news' }" disabled><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.information') }}</h2>
         <ul>
           <li><b-link :to="{ path: '/page/about-us' }">{{ $t('nav.about_us') }}</b-link></li>
-          <li><b-link :to="{ path: '/page/faq' }">{{ $t('nav.faq') }}</b-link></li>
+          <li><b-link :to="{ path: '/page/faq' }" disabled>{{ $t('nav.faq') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.networks') }}</h2>

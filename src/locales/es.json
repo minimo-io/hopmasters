@@ -1,7 +1,11 @@
 {
   "global": {
     "back" : "volver",
-    "dev-link": "https://minimo.io"
+    "a-female": "Una",
+    "a-male": "Un",
+    "by": "por",
+    "dev-link": "https://minimo.io",
+    "dev-name": "Mínimo"
   },
   "nav": {
     "menu" : "Menú",
@@ -16,7 +20,8 @@
     "about_us": "Nosotros",
     "faq": "F.A.Q",
     "information": "Información",
-    "networks": "Redes"
+    "networks": "Redes",
+    "ranking":  "Ranking"
   },
   "homepage": {
     "slogan": "¿Quienes son los <strong><u>Maestros del Lúpulo</u></strong> en tu país?<br>¿Y en el mundo?"
@@ -29,17 +34,33 @@
     "password": "Contraseña"
   },
 
+  "not-found":{
+    "title": "Página no encontrada."
+  },
 
   "about-us": {
     "title" : "Nosotros<span class='app-text-green'>.</span>",
     "content" : {
       "alert": "Hopmasters está en etapa de desarrollo.",
-      "alert-soon-whatsapp": "Mientras tanto podés recibir novedades u ofertas suscribiéndote al grupo",
-      "alert-soon-instagram": "o siguiéndonos en la cuenta de",
+      "alert-soon-instagram": "Mientras tanto te invitamos a enterarte de las novedades en nuestra cuenta de",
       "photo-figure": "Foto por Adam Wilson en Unsplash.",
+
       "title-what": "¿Qué hacemos?",
-      "what-content-1": "Hopmasters pretende promover la cultura cervecera artesanal alrededor del <i class='fas fa-globe-americas'></i><br>Para eso creamos diferentes herramientas:",
-      "what-content-2": "<ol class='beer-list'><li>Una <b-link href='{link_store}'><i class='fas fa-shopping-cart mr-1'></i>Tienda</b-link> abierta para que los brewers y microcervecerías puedan promocionar y vender sus productos a un precio justo sin tener que encargarse de la parte tecnológica.</li><li>Un <b-link href='{link_ranking}'><i class='fas fa-medal mr-1'></i>Ranking</b-link> de cervezas por país, basado en las votaciones de los usuarios, para que estos puedan votar, discutir y comprar sus cervezas preferidas y recibir novedades sobre sus cervecerías favoritas.</li><li>Una <b-link href='{link_school}'><i class='fas fa-graduation-cap mr-1'></i>Escuela</b-link> para que los nuevos cerveceros puedan aprender cómo producir su propia cerveza artesanal junto a maestros cerveceros calificados, con recetas y métodos probados, y mediante el intercambio con miembros de la comunidad.</li></ol>"
+      "what-content-1": "Hopmasters pretende promover la cultura cervecera artesanal alrededor del mundo.<br>Para alcanzar ese objetivo creamos diferentes herramientas:",
+      "what-content-2": "abierta para que los brewers y microcervecerías puedan promocionar y vender sus productos a un precio justo sin tener que encargarse de la parte tecnológica.",
+      "what-content-3": "de cervezas por país, basado en las votaciones de los usuarios, para que estos puedan votar, discutir y comprar sus cervezas preferidas, además de recibir novedades sobre sus cervecerías favoritas.",
+      "what-content-4": "para que los nuevos cerveceros puedan aprender cómo producir su propia cerveza artesanal junto a maestros cerveceros calificados, con recetas y métodos probados, y mediante el intercambio con miembros de la comunidad.",
+
+      "title-why": "¿Porqué lo hacemos?",
+      "why-content-1": "Junto con la cervercería artesanal crece una comunidad de entusiastas.",
+      "why-content-2": "Una que favorece las economías locales mediante el consumo de cerveza creada por la pasión misma en el producto. Una que experimenta con nuevos sabores y procesos, que comparte porque sabe que su fuerza y energía radica en eso, aumentando a su vez la diversidad y calidad de la oferta general.",
+      "why-content-3": "A esa comunidad es a la que Hopmasters quiere servir con herramientas e información de calidad que respete los principios que hacen que cada vez mas personas se decidan por la cerveza artesanal.",
+
+      "title-who": "¿Quiénes somos?",
+      "who-content-1": "Una banda de borrachos con habilidades de programación",
+      "who-content-2": "En realidad, Hopmasters fue desarrollado por",
+      "who-content-3": "un laboratorio de ideas digitales basado en Uruguay,",
+      "who-content-4": "con la iniciativa de aportar al fortalecimiento de la comunidad cervecera artesanal."
     }
   }
 
