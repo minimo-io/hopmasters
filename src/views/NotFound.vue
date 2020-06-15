@@ -8,6 +8,7 @@
 <script>
 import Welcome from '@/components/Welcome'
 export default {
+  name: "NotFound",
   components:{
     'welcome': Welcome
   },

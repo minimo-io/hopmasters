@@ -2,42 +2,36 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Homepage from '@/views/Homepage.vue';
-import NotFound from '@/views/NotFound.vue';
-import Login from '@/views/Login.vue';
-import Store from '@/views/Store.vue';
-
-import Page from '@/views/Page.vue';
-import School from '@/views/School.vue';
-import News from '@/views/News.vue';
-
-import Country from '@/views/Country.vue';
-import Brewery from '@/views/Brewery.vue';
-import Beer from '@/views/Beer.vue';
 
 Vue.use(VueRouter)
 
-
-
 const routes = [
 
-  { name:"NotFound", path: '*', component: NotFound },
+  { name:"NotFound", path: '*', component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFound.vue') },
   { name:"Homepage", path: '/', component: Homepage },
 
-  { name: "Login", path: '/login', component: Login },
-  { name: "School", path: '/school', component: School },
-  { name: "News", path: '/news', component: News },
-  { name: "Store", path: '/store', component: Store },
+  { name: "Login", path: '/login', component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue') },
+  { name: "School", path: '/school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
+  { name: "News", path: '/news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
+  { name: "Store", path: '/store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
 
 
-  { name: "Page", path: '/page/:slug', component: Page },
+  { name: "Page", path: '/page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
 
   { path: '/country', redirect: '/' },
-  { name: "Country", path: '/country/:slug_country', component: Country, children: [
+  { name: "Country",
+    path: '/country/:slug_country',
+    component: () => import(/* webpackChunkName: "Country" */ '@/views/Country.vue'),
+    children: [
       {
         name: "Brewery",
         path: ':slug_brewery',
-        component: Brewery,
-        children:[ { name: "Beer", path: ':slug_beer', component: Beer } ]
+        component: () => import(/* webpackChunkName: "Brewery" */ '@/views/Brewery.vue'),
+        children:[ {
+          name: "Beer",
+          path: ':slug_beer',
+          component: () => import(/* webpackChunkName: "Beer" */ '@/views/Beer.vue'),
+        } ]
       }
     ]
   },
@@ -51,20 +45,27 @@ const routes = [
     children:[
       { name: "Homepage_en", path: '/', component: Homepage },
 
-      { name: "Login_en", path: 'login', component: Login },
-      { name: "School_en", path: 'school', component: School },
-      { name: "News_en", path: 'news', component: News },
-      { name: "Store_en", path: 'store', component: Store },
+      { name: "Login_en", path: 'login', component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue') },
+      { name: "School_en", path: 'school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
+      { name: "News_en", path: 'news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
+      { name: "Store_en", path: 'store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
 
-      { name: "Page_en", path: 'page/:slug', component: Page },
+      { name: "Page_en", path: 'page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
 
       { path: 'country', redirect: '/:lang' },
-      { name: "Country_en", path: 'country/:slug_country', component: Country, children: [
+      { name: "Country_en",
+        path: 'country/:slug_country',
+        component: () => import(/* webpackChunkName: "Country" */ '@/views/Country.vue'),
+        children: [
           {
             name: "Brewery_en",
             path: ':slug_brewery',
-            component: Brewery,
-            children:[ { name: "Beer_en", path: ':slug_beer', component: Beer } ]
+            component: () => import(/* webpackChunkName: "Brewery" */ '@/views/Brewery.vue'),
+            children:[ {
+              name: "Beer_en",
+              path: ':slug_beer',
+              component: () => import(/* webpackChunkName: "Beer" */ '@/views/Beer.vue'),
+            } ]
           }
         ]
       },

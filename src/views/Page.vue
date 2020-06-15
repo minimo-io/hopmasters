@@ -62,7 +62,7 @@
 
 <script>
 export default {
-
+  name: "Page",
   data () {
     return {
       slug:this.$route.params.slug,

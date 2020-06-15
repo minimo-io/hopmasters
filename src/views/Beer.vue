@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: "Beer",
   data () {
     return {
       // slug:this.$route.params.slug_beer,

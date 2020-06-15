@@ -24,9 +24,9 @@
           </div>
 
           <span class="alt-header__separator alt-separator">/</span>
-          <b-link href="#" disabled><i class="fas fa-search"></i></b-link>
+          <b-link href="#"><i class="fas fa-search"></i></b-link>
           <span class="alt-header__separator alt-separator">/</span>
-          <b-link :to="{ path: '/store' }" disabled :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
+          <b-link :to="{ path: '/store' }" :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
 
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
@@ -62,15 +62,15 @@
         <!-- <h2>Essential Links</h2> -->
         <ul>
           <li><b-link :to="{ path: '/' }"><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
-          <li><b-link :to="{ path: '/store' }" disabled><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
-          <li><b-link :to="{ path: '/school' }" disabled><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
-          <li><b-link :to="{ path: '/news' }" disabled><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
+          <li><b-link :to="{ path: '/store' }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
+          <li><b-link :to="{ path: '/school' }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
+          <li><b-link :to="{ path: '/news' }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.information') }}</h2>
         <ul>
           <li><b-link :to="{ path: '/page/about-us' }">{{ $t('nav.about_us') }}</b-link></li>
-          <li><b-link :to="{ path: '/page/faq' }" disabled>{{ $t('nav.faq') }}</b-link></li>
+          <li><b-link :to="{ path: '/page/faq' }">{{ $t('nav.faq') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.networks') }}</h2>
