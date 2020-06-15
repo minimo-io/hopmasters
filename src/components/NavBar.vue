@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="alt-header alt-header--top">
+    <header class="alt-header alt-header--top" :class="{ 'alt-fixed-top': hasScrolled }">
       <div class="alt-container alt-header__container">
         <!-- left nav -->
         <nav class="alt-header__left">
@@ -88,8 +88,16 @@
 export default{
   data(){
     return {
+      hasScrolled : false
     }
   },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+
   methods: {
     language_url(lang){
       return "/" + lang
@@ -98,6 +106,15 @@ export default{
       if (lang_code == "es") return "Español";
       if (lang_code == "en") return "English";
     },
+    handleScroll: function (event) {
+      if (window.scrollY > 200) {
+        this.hasScrolled = true;
+      } else {
+        this.hasScrolled = false;
+      }
+      // console.log(window.scrollY);
+
+    }
   },
   computed: {
     // get_language_name($){

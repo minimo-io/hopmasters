@@ -20,23 +20,11 @@
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Foot.vue'
 
-// const BeerMaster = () => ({
-//   component: import("@/components/BeerMaster"),
-//   loading: NprogressContainer,
-//   delay: 500
-// });
-
-
 export default {
   name: 'app',
   components:{
     'navbar' : NavBar,
     'foot' : Footer,
-  },
-  methods:{
-    start_nprogress(){
-
-    }
   },
   data () {
     return {

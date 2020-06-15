@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import i18n from '../i18n'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 import Homepage from '@/views/Homepage.vue';
 
@@ -85,6 +88,30 @@ const router = new VueRouter({
     }
   },
   routes
+})
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+      NProgress.start()
+  }
+  next()
+})
+router.afterEach((to, from) => {
+  NProgress.done()
+})
+router.beforeEach((to, from, next) => {
+  let language = to.params.lang;
+  if (!language) language = "es";
+  i18n.locale = language;
+
+  // in case is /es/ then remove the prefix since spanish is the default
+  if (to.path.includes('/es/')){
+    var goto = "/" + to.path.replace(/\/es\//g, '')
+    next(goto);
+  }else{
+    next();
+  }
+
 })
 
 
