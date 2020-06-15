@@ -14,20 +14,17 @@
 
     <foot></foot>
 
-    <nprogress-container></nprogress-container>
-
   </div>
 </template>
 <script>
-import NavBar from './components/NavBar.vue'
-import Footer from './components/Foot.vue'
-import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Foot.vue'
 
-const BeerMaster = () => ({
-  component: import("@/components/BeerMaster"),
-  loading: NprogressContainer,
-  delay: 500
-});
+// const BeerMaster = () => ({
+//   component: import("@/components/BeerMaster"),
+//   loading: NprogressContainer,
+//   delay: 500
+// });
 
 
 export default {
@@ -35,7 +32,11 @@ export default {
   components:{
     'navbar' : NavBar,
     'foot' : Footer,
-    'nprogress-container' : NprogressContainer
+  },
+  methods:{
+    start_nprogress(){
+
+    }
   },
   data () {
     return {

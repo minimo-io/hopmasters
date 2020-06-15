@@ -16,75 +16,59 @@ import Beer from '@/views/Beer.vue';
 
 Vue.use(VueRouter)
 
+
+
 const routes = [
-  { path: '*', component: NotFound },
-  // { path: '/', component: Homepage },
-  //
-  // { path: '/login', component: Login },
-  // { path: '/school', component: School },
-  // { path: '/news', component: News },
-  // { path: '/store', component: Store },
+
+  { name:"NotFound", path: '*', component: NotFound },
+  { name:"Homepage", path: '/', component: Homepage },
+
+  { name: "Login", path: '/login', component: Login },
+  { name: "School", path: '/school', component: School },
+  { name: "News", path: '/news', component: News },
+  { name: "Store", path: '/store', component: Store },
 
 
-  { path: '/', redirect: '/page/about-us' },
-  { path: '/en', redirect: '/en/page/about-us' },
-    { path: '/en/login', redirect: '/page/about-us' },
-    { path: '/en/school', redirect: '/page/about-us' },
-    { path: '/en/news', redirect: '/page/about-us' },
-    { path: '/en/store', redirect: '/page/about-us' },
-    { path: '/en/page/faq', redirect: '/page/about-us' },
-    
-  { path: '/es', redirect: '/page/about-us' },
-    { path: '/login', redirect: '/page/about-us' },
-    { path: '/school', redirect: '/page/about-us' },
-    { path: '/news', redirect: '/page/about-us' },
-    { path: '/store', redirect: '/page/about-us' },
-    { path: '/page/faq', redirect: '/page/about-us' },
+  { name: "Page", path: '/page/:slug', component: Page },
 
-  { path: '/page/:slug', component: Page },
-
-  // { path: '/country', redirect: '/' },
-  // { name: 'country', path: '/country/:slug_country', component: Country, children: [
-  //     {
-  //       name: 'brewery',
-  //       path: ':slug_brewery',
-  //       component: Brewery,
-  //       children:[ { name: 'beer', path: ':slug_beer', component: Beer } ]
-  //     }
-  //   ]
-  // },
+  { path: '/country', redirect: '/' },
+  { name: "Country", path: '/country/:slug_country', component: Country, children: [
+      {
+        name: "Brewery",
+        path: ':slug_brewery',
+        component: Brewery,
+        children:[ { name: "Beer", path: ':slug_beer', component: Beer } ]
+      }
+    ]
+  },
 
   {
+    name: "Language",
     path: "/:lang",
     component: {
       render(c) { return c('router-view'); }
     },
     children:[
-      { path: 'page/:slug', component: Page },
-      { path: '/*', redirect: '/en/page/about-us' },
-      // { path: '/', component: Homepage },
-      //
-      // { path: 'login', component: Login },
-      // { path: 'school', component: School },
-      // { path: 'news', component: News },
-      // { path: 'store', component: Store },
-      // { path: '/', redirect: '/page/about-us' },
+      { name: "Homepage_en", path: '/', component: Homepage },
 
+      { name: "Login_en", path: 'login', component: Login },
+      { name: "School_en", path: 'school', component: School },
+      { name: "News_en", path: 'news', component: News },
+      { name: "Store_en", path: 'store', component: Store },
 
-      // { path: 'country', redirect: '/:lang' },
-      // { name: 'country', path: 'country/:slug_country', component: Country, children: [
-      //     {
-      //       name: 'brewery',
-      //       path: ':slug_brewery',
-      //       component: Brewery,
-      //       children:[ { name: 'beer', path: ':slug_beer', component: Beer } ]
-      //     }
-      //   ]
-      // },
+      { path: 'country', redirect: '/:lang' },
+      { name: "Country_en", path: 'country/:slug_country', component: Country, children: [
+          {
+            name: "Brewery_en",
+            path: ':slug_brewery',
+            component: Brewery,
+            children:[ { name: "Beer_en", path: ':slug_beer', component: Beer } ]
+          }
+        ]
+      },
     ]
   },
 
-  { path: '/*', redirect: '/page/about-us' },
 ]
 
 const router = new VueRouter({
@@ -99,5 +83,6 @@ const router = new VueRouter({
   },
   routes
 })
+
 
 export default router

@@ -1,6 +1,6 @@
 {
-  "name": "Hopmasters",
-  "version": "0.1.2",
+  "name": "testnp",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,18 +9,19 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.5",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-i18n": "^8.17.3",
-    "vue-nprogress": "^0.1.5",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-router": "^4.4.1",
+    "@vue/cli-plugin-router": "^4.4.4",
     "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.3.1",
@@ -41,15 +42,12 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-      "no-unused-vars": "off"
-    }
+    "rules": {}
   },
   "browserslist": [
     "> 1%",

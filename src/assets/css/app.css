@@ -30,6 +30,15 @@ path { fill:inherit; }
 { font-family: "Nunito", sans-serif;}
 /* end reset some ALT. stuff */
 
+#nprogress .bar {
+  /* background: red !important; */
+}
+#nprogress .spinner-icon {
+  /* border-left-color: green !important;
+  border-top-color: yellow  !important; */
+  display:none;
+}
+
 .primary-container .app-title{
   text-transform: uppercase;
   font-weight: bold;

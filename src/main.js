@@ -3,16 +3,41 @@ import 'mutationobserver-shim'
 import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
-import router from './router'
-import NProgress from 'vue-nprogress'
-import 'nprogress/nprogress.css';
+import VueRouter from 'vue-router'
 import i18n from './i18n'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 Vue.config.productionTip = false
 
-Vue.use(NProgress)
 
+import router from './router'
+// Vue.use(VueRouter)
+// import Homepage from './views/Homepage.vue';
+// import Login from './views/Login.vue';
+// const routes = [
+//   {
+//         name: 'Homepage',
+//         path: '/',
+//         component: Homepage
+//   },
+//   {
+//         name: 'Login',
+//         path: '/login',
+//         component: Login
+//   }
+// ];
+// const router = new VueRouter({ mode: 'history', routes: routes });
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+      NProgress.start()
+  }
+  next()
+})
 
+router.afterEach((to, from) => {
+  NProgress.done()
+})
 
 router.beforeEach((to, from, next) => {
   let language = to.params.lang;
@@ -27,7 +52,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 
-});
+})
 
 Vue.mixin({
   data: function() {
@@ -35,14 +60,14 @@ Vue.mixin({
       get app_title() {
         return "Hopmasters";
       },
+      get app_version(){
+        return require('../package.json').version || '0';
+      }
     }
   },
   methods:{
     app_goback(steps){
       this.$router.go(steps)
-    },
-    app_version(){
-      return require('../package.json').version || '0';
     },
     app_link(name){
       switch(name){
@@ -67,19 +92,8 @@ Vue.mixin({
   }
 });
 
-const app = new Vue({
-  router,
+new Vue({
+  render: h => h(App),
   i18n,
-  render: h => h(App)
+  router
 }).$mount('#app')
-
-
-router.beforeResolve((to, from, next) => {
-  if (to.path){
-    //NProgress.start();
-  }
-  next();
-});
-router.afterEach( () => {
-  //NProgress.done()
-});
