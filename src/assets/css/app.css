@@ -31,7 +31,7 @@ path { fill:inherit; }
 /* end reset some ALT. stuff */
 
 #nprogress .bar {
-  /* background: red !important; */
+  background: var(--app-yellow-green) !important;
 }
 #nprogress .spinner-icon {
   /* border-left-color: green !important;

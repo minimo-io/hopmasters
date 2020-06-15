@@ -56,6 +56,8 @@ const routes = [
       { name: "News_en", path: 'news', component: News },
       { name: "Store_en", path: 'store', component: Store },
 
+      { name: "Page_en", path: 'page/:slug', component: Page },
+
       { path: 'country', redirect: '/:lang' },
       { name: "Country_en", path: 'country/:slug_country', component: Country, children: [
           {
