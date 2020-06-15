@@ -21,7 +21,7 @@
     "faq": "F.A.Q",
     "information": "Information",
     "networks": "Socials",
-    "ranking":  "Ranking"
+    "rankings":  "Rankings"
   },
   "homepage": {
     "slogan": "Who are the <strong><u>Hop Masters</u></strong> in your country?<br>And around the globe?"
@@ -41,7 +41,7 @@
   "about-us": {
     "title" : "About us<span class='app-text-green'>.</span>",
     "content" : {
-      "alert": "<strong>Hopmasters</strong> is under development.",
+      "alert": "Hopmasters is under development.",
       "alert-soon-instagram": "Meanwhile we invite you to follow up news, updates and beers here",
       "photo-figure": "Photo of Adam Wilson on Unsplash.",
 

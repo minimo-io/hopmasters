@@ -18,13 +18,23 @@ path { fill:inherit; }
 .category-title, .post-title {
   font-size: 2rem;
 }
-.alert{ font-size: 1rem; }
+.alert{ font-size: 1.1rem; }
+.alert a{ color: rgb(133, 100, 4);font-weight: bold;}
+.alert a:hover{ opacity:.5;}
 .post-subtitle{
   color:var(--app-grey);
 }
-.primary-container p, .primary-container .alert{ font-family: "Nunito", sans-serif;}
+.primary-container p,
+.primary-container .app-title,
+.primary-container .alert
+{ font-family: "Nunito", sans-serif;}
 /* end reset some ALT. stuff */
 
+.primary-container .app-title{
+  text-transform: uppercase;
+  font-weight: bold;
+  display:block;
+}
 
 
 .disabled{ opacity:.5; }
@@ -124,7 +134,7 @@ ul.beer-list i{ font-size:1rem;  }
   .alert{ font-size: .8rem; }
   /* end of alt reset  */
 
-  .app-logo a{ font-size:.9rem !important; }
+  .app-logo a{ font-size:1rem !important; }
   .b-sidebar-header{ font-size:1rem !important; }
   .app-logo::before, .b-sidebar-header::before{
     /* font-size:1rem; */

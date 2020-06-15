@@ -41,6 +41,9 @@ Vue.mixin({
     app_goback(steps){
       this.$router.go(steps)
     },
+    app_version(){
+      return require('../package.json').version || '0';
+    },
     app_link(name){
       switch(name){
         case "whatsapp":
