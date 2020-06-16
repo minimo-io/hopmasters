@@ -29,15 +29,15 @@
           <p>
             <ol class='beer-list'>
               <li>
-                {{ $t('global.a-female') }} <b-link to="/store"><i class='fas fa-shopping-cart mr-1'></i>{{ $t("nav.store") }}</b-link>
+                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/store')"><i class='fas fa-shopping-cart mr-1'></i>{{ $t("nav.store") }}</b-link>
                 {{ $t(this.slug + '.content.what-content-2') }}
               </li>
               <li>
-                <b-link to='/'><i class='fas fa-medal mr-1'></i>{{ $t("nav.rankings") }}</b-link>
+                <b-link :to="lg_build_path('/')"><i class='fas fa-medal mr-1'></i>{{ $t("nav.rankings") }}</b-link>
                 {{ $t(this.slug + '.content.what-content-3') }}
               </li>
               <li>
-                {{ $t('global.a-female') }} <b-link to='/school'><i class='fas fa-graduation-cap mr-1'></i>{{ $t("nav.school") }}</b-link>
+                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/school')"><i class='fas fa-graduation-cap mr-1'></i>{{ $t("nav.school") }}</b-link>
                 {{ $t(this.slug + '.content.what-content-4') }}
               </li>
             </ol>

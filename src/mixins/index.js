@@ -33,5 +33,19 @@ export default{
           /* eslint-enable */
       }
     },
+    lg_build_path(to){
+      let lg_prefix = "/" + this.$i18n.locale;
+      if (this.$i18n.locale == "es") lg_prefix = "";
+
+      let goto = lg_prefix + to;
+      // console.log("Goto: " + goto);
+      // console.log("Prefix: " + lg_prefix);
+      // console.log("To: "+ to);
+      if (this.$i18n.locale != "es" && goto.slice(-1) == "/"){
+          goto = goto.slice(0, -1);
+      }
+
+      return goto;
+    },    
   }
 }
