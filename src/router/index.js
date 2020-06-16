@@ -100,9 +100,24 @@ router.afterEach((to, from) => {
   NProgress.done()
 })
 router.beforeEach((to, from, next) => {
+
   let language = to.params.lang;
+  var prev_locale = i18n.locale;
   if (!language) language = "es";
   i18n.locale = language;
+
+  // if the current language is NOT es, then check if the goto url
+  // has the language code, if NOT then add it
+  if (prev_locale != "es"){
+    if ( ! to.path.includes("/" + prev_locale) ){
+      var goto = "/" + prev_locale + to.path;
+      if (goto.slice(-1) == "/") goto = goto.slice(0, -1);
+      next(goto);
+    }else{
+      next();
+    }
+  }
+
 
   // in case is /es/ then remove the prefix since spanish is the default
   if (to.path.includes('/es/')){
@@ -111,6 +126,9 @@ router.beforeEach((to, from, next) => {
   }else{
     next();
   }
+
+
+
 
 })
 

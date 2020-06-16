@@ -5,7 +5,7 @@
         <!-- left nav -->
         <nav class="alt-header__left">
           <h1 class="app-logo zoom" :title="app_title" itemprop="name headline">
-            <b-link :to="{ path: '/' }">{{ app_title }}</b-link>
+            <b-link :to="{ path: lg_build_path('/') }">{{ app_title }}</b-link>
           </h1>
         </nav>
 
@@ -19,14 +19,14 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <div class="alt-header__user alt-header__user--anonymous d-none d-sm-inline-block">
             <div class="alt-user-nav">
-              <b-link :to="{ path: '/login' }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
+              <b-link :to="{ path: lg_build_path('/login') }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
             </div>
           </div>
 
           <span class="alt-header__separator alt-separator">/</span>
           <b-link href="#"><i class="fas fa-search"></i></b-link>
           <span class="alt-header__separator alt-separator">/</span>
-          <b-link :to="{ path: '/store' }" :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
+          <b-link :to="{ path: lg_build_path('/store') }" :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
 
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
@@ -34,7 +34,7 @@
                   :text="$i18n.locale"
                   toggle-class="nav-link-custom"
                 >
-                  <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
+                  <b-dropdown-item :to="language_switcher(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
               </b-nav-item-dropdown>
           </b-nav>
 
@@ -52,7 +52,7 @@
         <b-button to="login" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
 
         <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4">
-          <b-dropdown-item :to="language_url(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
+          <b-dropdown-item :to="language_switcher(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
         </b-dropdown>
 
         <!-- <b-form-group label="Hopmasters de" label-for="beer-type">
@@ -61,16 +61,16 @@
         {{ country_selected }} -->
         <!-- <h2>Essential Links</h2> -->
         <ul>
-          <li><b-link :to="{ path: '/' }"><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
-          <li><b-link :to="{ path: '/store' }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
-          <li><b-link :to="{ path: '/school' }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
-          <li><b-link :to="{ path: '/news' }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/') }"><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/store') }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/school') }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/news') }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.information') }}</h2>
         <ul>
-          <li><b-link :to="{ path: '/page/about-us' }">{{ $t('nav.about_us') }}</b-link></li>
-          <li><b-link :to="{ path: '/page/faq' }">{{ $t('nav.faq') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/page/about-us') }">{{ $t('nav.about_us') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/page/faq') }">{{ $t('nav.faq') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.networks') }}</h2>
@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import i18n from '../i18n'
 export default{
   data(){
     return {
@@ -99,12 +100,42 @@ export default{
   },
 
   methods: {
-    language_url(lang){
-      return "/" + lang
+    language_switcher(lang){
+      // console.log("---------------");
+      // console.log("Current path: " + this.$route.path);
+      // console.log("Current lang: " + this.$i18n.locale);
+      // console.log("Goto Lang: " + lang);
+
+      var goto = "";
+
+      // if what is current lang is es, the we have to add the
+      // language code to the base url, else we have to remove it
+      if (this.$i18n.locale == "es"){
+        goto = "/" + lang + this.$route.path;
+        if (goto.slice(-1) == "/") goto = goto.slice(0, -1);
+      }
+      // if goto language is spanish, replace the lang base code and go
+      if (lang == "es"){
+        var goto = this.$route.path.replace("/"+this.$i18n.locale, '');
+        if (goto == "") goto = "/";
+      }
+      return goto;
     },
     language_name(lang_code){
       if (lang_code == "es") return "Español";
       if (lang_code == "en") return "English";
+    },
+    lg_build_path(to){
+      let lg_prefix = this.$i18n.locale;
+      if (this.$i18n.locale == "es") lg_prefix = "";
+
+      let goto = "/" + lg_prefix + to;
+      console.log("Goto: " + goto);
+      console.log("Prefix: " + lg_prefix);
+      console.log("To: "+ to);
+      if (goto.slice(-1) == "/") goto = goto.slice(0, -1);
+
+      return goto;
     },
     handleScroll: function (event) {
       if (window.scrollY > 200) {
