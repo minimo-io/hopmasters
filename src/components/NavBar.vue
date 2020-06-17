@@ -19,7 +19,9 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <div class="alt-header__user alt-header__user--anonymous d-none d-sm-inline-block">
             <div class="alt-user-nav">
-              <b-link :to="{ path: lg_build_path('/login') }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
+              <b-link v-if="user.loggedIn" @click.prevent="signOut" :title="$t('nav.logout')" class="alt-header__sign-in">{{ $t('nav.logout') }} {{ user.data.displayName }}</b-link>
+              <b-link v-else :to="{ path: lg_build_path('/login') }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
+
             </div>
           </div>
 
@@ -86,11 +88,20 @@
 
 <script>
 import i18n from '../i18n'
+import { mapGetters } from "vuex";
+import firebase from "firebase";
+
 export default{
   data(){
     return {
       hasScrolled : false
     }
+  },
+  computed: {
+    ...mapGetters({
+      // map `this.user` to `this.$store.getters.user`
+      user: "user"
+    })
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
@@ -133,16 +144,16 @@ export default{
       }
       // console.log(window.scrollY);
 
+    },
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.app_notification("notifications.bye", true);
+          this.$router.replace({path: "/"});
+        });
     }
   },
-  computed: {
-    // get_language_name($){
-    //   return this.lang_names[];
-    // },
-    isAuthenticated() {
-      // return this.$store.getters.isAuthenticated
-      return true;
-    },
-  }
 }
 </script>

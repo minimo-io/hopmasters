@@ -1,3 +1,5 @@
+
+
 export default{
   data: function() {
     return {
@@ -33,6 +35,23 @@ export default{
           /* eslint-enable */
       }
     },
+    app_notification(notification, isTranslate){
+      var final_msg = notification;
+      if (isTranslate) final_msg = this.$t(notification);
+
+      this.$bvToast.toast(final_msg , {
+        title: this.$t("notifications.notification-title"),
+        autoHideDelay: 10000,
+        appendToast: true
+      });
+    },
+    // app_user_is_auth(){
+    //   return (firebase.auth().currentUser ? true : false);
+    //
+    // },
+    // app_user_logout(){
+    //   alert("OUTTTT!");
+    // },
     lg_build_path(to){
       let lg_prefix = "/" + this.$i18n.locale;
       if (this.$i18n.locale == "es") lg_prefix = "";
@@ -46,6 +65,6 @@ export default{
       }
 
       return goto;
-    },    
+    },
   }
 }

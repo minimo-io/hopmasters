@@ -13,7 +13,6 @@
     </main>
 
     <foot></foot>
-
   </div>
 </template>
 <script>

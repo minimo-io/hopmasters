@@ -1,8 +1,12 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import i18n from '../i18n'
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import fireDb from '@/firebase/init.js'
+import firebase from 'firebase'
+import store from '@/store'
 
 import Homepage from '@/views/Homepage.vue';
 
@@ -17,6 +21,11 @@ const routes = [
   { name: "School", path: '/school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
   { name: "News", path: '/news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
   { name: "Store", path: '/store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
+  { name: "Admin",
+    path: '/admin',
+    component: () => import(/* webpackChunkName: "Admin" */ '@/views/Admin.vue'),
+    meta: { requiresAuth: true }
+  },
 
 
   { name: "Page", path: '/page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
@@ -40,7 +49,7 @@ const routes = [
   },
 
   {
-    name: "Language",
+    // name: "Language",
     path: "/:lang",
     component: {
       render(c) { return c('router-view'); }
@@ -52,6 +61,11 @@ const routes = [
       { name: "School_en", path: 'school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
       { name: "News_en", path: 'news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
       { name: "Store_en", path: 'store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
+      { name: "Admin_en",
+        path: 'admin',
+        component: () => import(/* webpackChunkName: "Admin" */ '@/views/Admin.vue'),
+        meta: { requiresAuth: true }
+      },
 
       { name: "Page_en", path: 'page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
 
@@ -99,12 +113,22 @@ router.beforeResolve((to, from, next) => {
 router.afterEach((to, from) => {
   NProgress.done()
 })
+
 router.beforeEach((to, from, next) => {
 
   let language = to.params.lang;
   var prev_locale = i18n.locale;
   if (!language) language = "es";
   i18n.locale = language;
+
+  // protected views
+  if (to.matched.some(route => route.meta.requiresAuth)){
+    if (store.getters.user.loggedIn){
+      next();
+    }else{
+      next({ path: '/login' });
+    }
+  }
 
   // if the current language is NOT es, then check if the goto url
   // has the language code, if NOT then add it
@@ -117,8 +141,6 @@ router.beforeEach((to, from, next) => {
       next();
     }
   }
-
-
   // in case is /es/ then remove the prefix since spanish is the default
   if (to.path.includes('/es/')){
     var goto = "/" + to.path.replace(/\/es\//g, '')

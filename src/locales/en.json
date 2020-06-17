@@ -10,6 +10,7 @@
   "nav": {
     "menu" : "Menu",
     "signin" : "Sign in",
+    "logout":  "Logout",
     "store": "Store",
     "spanish": "Español",
     "english": "English",
@@ -28,10 +29,22 @@
   },
   "login": {
     "signin" : "Sign in",
+    "email": "Email",
     "remember" : "Remember me",
     "name" : "Name",
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "password-repeat": "Repeat your password"
+  },
+
+  "error": {
+    "passwords-dont-match": "Passwords do not match, please verify the data entered."
+  },
+  "notifications":{
+    "notification-title": "Notice",
+    "ok-signup": "You have successfully registered. Lets start!",
+    "ok-login": "Hey! Welcome!",
+    "bye": "Byeeeeeeeeeeeee!"
   },
 
   "not-found":{

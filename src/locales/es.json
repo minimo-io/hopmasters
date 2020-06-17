@@ -10,6 +10,7 @@
   "nav": {
     "menu" : "Menú",
     "signin" : "Ingresar",
+    "logout":  "Salir",
     "store": "Tienda",
     "spanish": "Español",
     "english": "English",
@@ -28,10 +29,23 @@
   },
   "login": {
     "signin" : "Ingresar",
+    "email": "Correo electrónico",
     "remember" : "Recuérdame",
     "name" : "Nombre",
     "username": "Usuario",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "password-repeat": "Repite la contraseña"
+  },
+
+  "notifications":{
+    "notification-title": "Notificación",
+    "ok-signup": "Te has registrado correctamente. ¡A comenzar!",
+    "ok-login": "Hola! Bienvenid@!",
+    "bye": "¡Chauuuuuuuuu!"
+  },
+
+  "error": {
+    "passwords-dont-match": "Las contraseñas no coinciden, por favor verifica los datos ingresados."
   },
 
   "not-found":{
