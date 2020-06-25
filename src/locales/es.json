@@ -3,7 +3,7 @@
     "basetitle": "Hopmasters",
     "delimiter": " - ",
     "title": "Hopmasters - ¿Quiénes son los maestros del lúpulo?",
-    "description": "Las mejores cervezas artesanales, cervecerías y maestros cerveceros. Cervezas, insumos, cursos y descuentos en la tienda.",
+    "description": "Sigue y vota las mejores cervezas artesanales, cervecerías y maestros cerveceros. En la tienda: cervezas, insumos, cursos y descuentos. ¡Salud!",
     "back" : "volver",
     "from": "de",
     "a-female": "Una",
@@ -28,7 +28,7 @@
     },
     "store": {
       "title": "Tienda",
-      "description": "Cervezas artesanales y suministros para cerveceros, cervecerías y borrachos."
+      "description": "Cervezas artesanales y suministros para cerveceros, cervecerías y borrachos en la tienda abierta."
     },
     "news": {
       "title": "Notícias",

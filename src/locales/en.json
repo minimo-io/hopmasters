@@ -3,7 +3,7 @@
     "basetitle": "Hopmasters",
     "delimiter": " - ",
     "title": "Hopmasters - Who are the hop masters?",
-    "description": "The best craft beers, breweries & brew masters. Beers, supplies, courses & discounts at the store.",
+    "description": "Follow and vote the best craft beers, breweries & brew masters. At the Store: Beers, supplies, courses & discounts. Cheers!",
     "back" : "back",
     "from": "from",
     "a-female": "A",
@@ -28,7 +28,7 @@
     },
     "store": {
       "title": "Store",
-      "description": "Oh boy! You should not be here."
+      "description": "Craft beers and supplies for brewers, breweries, and drunks at the open store."
     },
     "news": {
       "title": "News",
@@ -36,7 +36,7 @@
     },
     "admin":{
       "title": "Admin",
-      "description": ""
+      "description": "Oh boy! You should not be here."
     },
     "logout":  "Logout",
     "spanish": "Español",
