@@ -258,7 +258,7 @@ router.beforeEach((to, from, next) => {
   var prev_locale = i18n.locale;
   if (!language) language = "es";
   i18n.locale = language;
-
+  document.getElementsByTagName("html")[0].lang = i18n.locale;
 
 
   const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);

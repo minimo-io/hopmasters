@@ -1,6 +1,7 @@
 <template>
   <div>
-    Store.
+    <h1>{{ $t("nav.store.title") }}</h1>
+    {{ $t("nav.store.description") }}
   </div>
 </template>
 
