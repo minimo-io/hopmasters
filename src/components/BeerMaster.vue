@@ -1,9 +1,10 @@
 <template>
   <div>
         <b-container fluid>
-            Country: {{ $route.params.slug_country }}
-            Brewery: {{ $route.params.slug_brewery }}
-            Beer: {{ $route.params.slug_beer }}
+          <br><br><br><br><br>
+            Country: {{ this.country }}
+            Brewery: {{ this.brewery }}
+            Beer: {{ this.beer }}
 
             <router-view></router-view>
             <!-- User Interface controls -->
@@ -151,6 +152,10 @@
 export default {
   data () {
     return {
+      country: this.$route.params.slug_country || false,
+      brewery: this.$route.params.slug_brewery || false,
+      beer: this.$route.params.slug_beer || false,
+
       selected: 'ipa',
       options: [
         { value: 'ipa', text: 'IPA' },
@@ -274,14 +279,15 @@ export default {
   },
   watch: {
     $route(to, from) {
-      // set the dropdown value once the component was already initiated
+
       this.country_selected = to.path;
-      // console.log(this.$route);
-      // console.log("Route change: " + to.path);
-      // this.$forceUpdate();
+      // document.title = "";
 
     }
   },
+  created(){
+    // document.title = "";
+  }
 
 }
 </script>

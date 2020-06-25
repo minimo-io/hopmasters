@@ -1,6 +1,11 @@
 {
   "global": {
+    "basetitle": "Hopmasters",
+    "delimiter": " - ",
+    "title": "Hopmasters - ¿Quiénes son los maestros del lúpulo?",
+    "description": "Las mejores cervezas artesanales, cervecerías y maestros cerveceros. Cervezas, insumos, cursos y descuentos en la tienda.",
     "back" : "volver",
+    "from": "de",
     "a-female": "Una",
     "a-male": "Un",
     "by": "por",
@@ -9,15 +14,36 @@
   },
   "nav": {
     "menu" : "Menú",
-    "signin" : "Ingresar",
+    "signin" : {
+      "title": "Ingresar",
+      "description": "Ingresa para seguir y votr tus cervezas artesanales y cervecerías favoritas. Además mira los descuentos en la tienda."
+    },
+    "signup" : {
+      "title": "Registrate",
+      "description": "Regístrate y vota tus cervezas artesanales favoritas, sigue a las cervecerías que te gustan y compra con descuentos en la tienda."
+    },
+    "school" : {
+      "title": "Escuela",
+      "description": "¿Cómo hacer cerveza? Cursos gratuitos y pagos para microcerveceros y aficionados, guías y recetas de nuestros maestros cerveceros."
+    },
+    "store": {
+      "title": "Tienda",
+      "description": "Cervezas artesanales y suministros para cerveceros, cervecerías y borrachos."
+    },
+    "news": {
+      "title": "Notícias",
+      "description": "La agencia de notícias del mundo de la cerveza artesanal. Cervecerías, cervezas, lúpulos, maestros cerveceros y mas."
+    },
+    "admin":{
+      "title": "Administración",
+      "description": "¡Oh chico! No deberías estar aquí."
+    },
     "logout":  "Salir",
-    "store": "Tienda",
     "spanish": "Español",
     "english": "English",
     "language": "Idioma",
     "home": "Inicio",
-    "school" : "Escuela",
-    "news": "Notícias",
+
     "about_us": "Nosotros",
     "faq": "F.A.Q",
     "information": "Información",
@@ -36,6 +62,15 @@
     "password": "Contraseña",
     "password-repeat": "Repite la contraseña"
   },
+  "country" : {
+    "titlebase" : "Cervezas artesanales de"
+  },
+  "brewery" : {
+    "titlebase" : "Cervecería"
+  },
+  "beer" : {
+    "titlebase" : "Cerveza artesanal"
+  },
 
   "notifications":{
     "notification-title": "Notificación",
@@ -53,7 +88,7 @@
   },
 
   "about-us": {
-    "title" : "Nosotros<span class='app-text-green'>.</span>",
+    "title" : "Nosotros",
     "content" : {
       "alert": "<strong>Hopmasters</strong> está en etapa de desarrollo.",
       "alert-soon-instagram": "Mientras tanto te invitamos a enterarte de las novedades en nuestra cuenta de",

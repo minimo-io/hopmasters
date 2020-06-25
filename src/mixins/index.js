@@ -15,6 +15,13 @@ export default{
     app_goback(steps){
       this.$router.go(steps)
     },
+    sanitize(t){
+      // replace param dash
+      t = t.replace("-", " ")      
+      // t = t.charAt(0).toUpperCase() + t.slice(1);
+      t = t.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+      return t;
+    },
     app_link(name){
       switch(name){
         case "whatsapp":
@@ -41,7 +48,7 @@ export default{
 
       this.$bvToast.toast(final_msg , {
         title: this.$t("notifications.notification-title"),
-        autoHideDelay: 10000,
+        autoHideDelay: 4000,
         appendToast: true
       });
     },

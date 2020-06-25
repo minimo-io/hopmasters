@@ -1,6 +1,11 @@
 {
   "global": {
+    "basetitle": "Hopmasters",
+    "delimiter": " - ",
+    "title": "Hopmasters - Who are the hop masters?",
+    "description": "The best craft beers, breweries & brew masters. Beers, supplies, courses & discounts at the store.",
     "back" : "back",
+    "from": "from",
     "a-female": "A",
     "a-male": "A",
     "by": "by",
@@ -9,15 +14,35 @@
   },
   "nav": {
     "menu" : "Menu",
-    "signin" : "Sign in",
+    "signin" : {
+      "title": "Sign in",
+      "description": "Login to follow and vote your favorite craft beers and breweries. Also look at the discounts in the store."
+    },
+    "signup" : {
+      "title": "Registrate",
+      "description": "Signup and vote for your favorite craft beers, follow the breweries you love and shop with discounts at the store."
+    },
+    "school" : {
+      "title": "School",
+      "description": "How to brew craft beer? Free and paid courses for microbrewers and amateurs, guides and recipes from our master brewers."
+    },
+    "store": {
+      "title": "Store",
+      "description": "Oh boy! You should not be here."
+    },
+    "news": {
+      "title": "News",
+      "description": "The news agency of the world of craft beer. Breweries, beers, hops, brewmasters and more."
+    },
+    "admin":{
+      "title": "Admin",
+      "description": ""
+    },
     "logout":  "Logout",
-    "store": "Store",
     "spanish": "Español",
     "english": "English",
     "language": "Language",
     "home": "Home",
-    "school" : "School",
-    "news": "News",
     "about_us": "About us",
     "faq": "F.A.Q",
     "information": "Information",
@@ -37,6 +62,16 @@
     "password-repeat": "Repeat your password"
   },
 
+  "country" : {
+    "titlebase" : "Craft Beers from"
+  },
+  "brewery" : {
+    "titlebase" : "Brewery"
+  },
+  "beer" : {
+    "titlebase" : "Craft Beer"
+  },
+
   "error": {
     "passwords-dont-match": "Passwords do not match, please verify the data entered."
   },
@@ -52,7 +87,7 @@
   },
 
   "about-us": {
-    "title" : "About us<span class='app-text-green'>.</span>",
+    "title" : "About us",
     "content" : {
       "alert": "Hopmasters is under development.",
       "alert-soon-instagram": "Meanwhile we invite you to follow up news, updates and beers here",

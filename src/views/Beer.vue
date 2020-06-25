@@ -1,9 +1,10 @@
 <template>
   <div>
-    Single Beer: {{ $route.params.slug_beer }}
-
-
-    <!-- {{ $route.params.slug }}  -->
+    <h1>{{ this.title }}</h1>
+    <p>
+      Miles de cosas sobre la Maracuyipa, un enorme bla bla bla con cosas
+      bastante saladas que cuenta la verdad sobre la mejor IPA saborizada del Uruguay.
+    </p>
   </div>
 </template>
 
@@ -12,19 +13,19 @@ export default {
   name: "Beer",
   data () {
     return {
-      // slug:this.$route.params.slug_beer,
-      content: {}
+      title: this.$t("beer.titlebase") + " " + this.sanitize(this.$route.params.slug_beer) + " " + this.$t("global.from") + " " + this.sanitize(this.$route.params.slug_brewery),
+      // slug:this.$route.params.slug_brewery,
     }
   },
-  // watch: {
-  //   $route(to, from) {
-  //     // react to route changes in the same (reused) component
-  //     this.content = "Page for " + to.params.slug;
-  //   }
-  // },
-  // created(){
-  //   this.content = "Page for " + this.slug;
-  // },
+  watch: {
+    $route(to, from) {
+      document.title = this.title + this.$t("global.delimiter") + this.$t("global.basetitle");
+    }
+  },
+  created(){
+
+    document.title = this.title + this.$t("global.delimiter") + this.$t("global.basetitle");
+  },
 
 }
 </script>

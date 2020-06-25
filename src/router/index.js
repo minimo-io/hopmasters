@@ -12,24 +12,102 @@ import Homepage from '@/views/Homepage.vue';
 
 Vue.use(VueRouter)
 
+
 const routes = [
 
   { name:"NotFound", path: '*', component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFound.vue') },
-  { name:"Homepage", path: '/', component: Homepage },
+  {
+    name:"Homepage",
+    path: '/',
+    component: Homepage,
+    meta: {
+      title: "global.title",
+      metaTags:[
+        {
+            name: 'description',
+            content: "global.description",
+        },
+      ]
+    }
+  },
 
-  { name: "Login", path: '/login', component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue') },
-  { name: "School", path: '/school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
-  { name: "News", path: '/news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
-  { name: "Store", path: '/store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
+  {
+    name: "Login",
+    path: '/login',
+    component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue'),
+    meta: {
+      title: "nav.signin.title",
+      metaTags:[
+        {
+          name: 'description',
+          content: "nav.signin.description",
+        },
+      ]
+    }
+  },
+  {
+    name: "School",
+    path: '/school',
+    component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue'),
+    meta: {
+      title: "nav.school.title",
+      metaTags:[
+        {
+          name: 'description',
+          content: "nav.school.description",
+        },
+      ]
+    }
+  },
+  {
+    name: "Store",
+    path: '/store',
+    component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue'),
+    meta: {
+      title: "nav.store.title",
+      metaTags:[
+        {
+          name: 'description',
+          content: "nav.store.description",
+        },
+      ]
+    }
+  },
+  {
+    name: "News",
+    path: '/news',
+    component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue'),
+    meta: {
+      title: "nav.news.title",
+      metaTags:[
+        {
+          name: 'description',
+          content: "nav.news.description",
+        },
+      ]
+    }
+  },
   { name: "Admin",
     path: '/admin',
     component: () => import(/* webpackChunkName: "Admin" */ '@/views/Admin.vue'),
-    meta: { requiresAuth: true }
+    meta: {
+      requiresAuth: true,
+      title: "nav.admin.title",
+      metaTags:[
+        {
+          name: 'description',
+          content: "nav.admin.description",
+        },
+      ]
+    }
   },
 
 
-  { name: "Page", path: '/page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
-
+  {
+    name: "Page",
+    path: '/page/:slug',
+    component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue')
+  },
   { path: '/country', redirect: '/' },
   { name: "Country",
     path: '/country/:slug_country',
@@ -55,16 +133,76 @@ const routes = [
       render(c) { return c('router-view'); }
     },
     children:[
-      { name: "Homepage_en", path: '/', component: Homepage },
+      {
+        name: "Homepage_en",
+        path: '/',
+        component: Homepage,
+        meta: {
+          title: "global.title",
+          metaTags:[
+            {
+                name: 'description',
+                content: "global.description",
+            },
+          ]
+        }
+     },
 
-      { name: "Login_en", path: 'login', component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue') },
-      { name: "School_en", path: 'school', component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue') },
-      { name: "News_en", path: 'news', component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue') },
-      { name: "Store_en", path: 'store', component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue') },
+     {
+       name: "Login_en",
+       path: 'login',
+       component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue'),
+       meta: {
+         title: "nav.signin.title",
+         metaTags:[
+           {
+             name: 'description',
+             content: "nav.signin.description",
+           },
+         ]
+       }
+     },
+     {
+       name: "School_en",
+       path: 'school',
+       component: () => import(/* webpackChunkName: "School" */ '@/views/School.vue'),
+       meta: {
+         title: "nav.school.title",
+         metaTags:[
+           {
+             name: 'description',
+             content: "nav.school.description",
+           },
+         ]
+       }
+     },
+     {
+       name: "Store_en",
+       path: 'store',
+       component: () => import(/* webpackChunkName: "Store" */ '@/views/Store.vue'),
+       meta: {
+         title: "nav.store.title",
+         metaTags:[
+           {
+             name: 'description',
+             content: "nav.store.description",
+           },
+         ]
+       }
+     },
       { name: "Admin_en",
         path: 'admin',
         component: () => import(/* webpackChunkName: "Admin" */ '@/views/Admin.vue'),
-        meta: { requiresAuth: true }
+        meta: {
+          requiresAuth: true,
+          title: "nav.admin.title",
+          metaTags:[
+            {
+              name: 'description',
+              content: "nav.admin.description",
+            },
+          ]
+        }
       },
 
       { name: "Page_en", path: 'page/:slug', component: () => import(/* webpackChunkName: "Page" */ '@/views/Page.vue') },
@@ -120,6 +258,47 @@ router.beforeEach((to, from, next) => {
   var prev_locale = i18n.locale;
   if (!language) language = "es";
   i18n.locale = language;
+
+
+
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+
+  const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+  const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+
+  if (nearestWithTitle){
+    let title_complement = i18n.t("global.delimiter") + i18n.t("global.basetitle");
+    if (nearestWithTitle.name.includes("Homepage")){
+      title_complement = "";
+    }
+    document.title = i18n.t(nearestWithTitle.meta.title) + title_complement;
+
+  }else{
+    document.title = i18n.t("global.basetitle");
+  }
+
+  Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
+
+  // if (!nearestWithMeta) return next();
+  if (nearestWithMeta){
+    nearestWithMeta.meta.metaTags.map(tagDef => {
+            const tag = document.createElement('meta');
+
+            Object.keys(tagDef).forEach(key => {
+                let attr_value = tagDef[key];
+                if (key == "content") attr_value = i18n.t(attr_value);
+                tag.setAttribute(key, attr_value);
+            });
+
+            tag.setAttribute('data-vue-router-controlled', '');
+
+            return tag;
+        })
+        .forEach(tag => document.head.appendChild(tag));
+
+
+  }
+
 
   // protected views
   if (to.matched.some(route => route.meta.requiresAuth)){

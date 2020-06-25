@@ -1,12 +1,13 @@
 <template>
   <div class="container primary-container pt-0 px-0 mt-3 mt-lg-5">
-      <header class="alt-post-header alt-top-title mx-0">
+      <header class="alt-post-margins alt-top-title mx-0">
         <b-link @click.prevent="app_goback(-1)" class="breadcrumb-back-button">
           <i class="fas fa-reply"></i>&nbsp;{{ $t("global.back") }}
         </b-link>
 
-        <h1 class="post-title category-title d-none" itemprop="name headline">
+        <h1 class="post-title category-title" itemprop="name headline">
           <span v-html="$t(this.slug + '.title')"></span>
+          <span class='app-text-green'>.</span>
         </h1>
 
         <div class="post-subtitle category-subtitle mt-3">
@@ -24,12 +25,12 @@
           </figure>
 
 
-          <b-link href="#what" class="app-title Xapp-text-selected mt-4"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-what') }}</b-link>
+          <b-link href="#what" class="app-title Xapp-text-selected mt-4"><i class="fas fa-hashtag"></i> {{ $t(this.slug + '.content.title-what') }}</b-link>
           <p class="mt-2" v-html="$t(this.slug + '.content.what-content-1')"></p>
           <p>
             <ol class='beer-list'>
               <li>
-                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/store')"><i class='fas fa-shopping-cart mr-1'></i>{{ $t("nav.store") }}</b-link>
+                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/store')"><i class='fas fa-shopping-cart mr-1'></i>{{ $t("nav.store.title") }}</b-link>
                 {{ $t(this.slug + '.content.what-content-2') }}
               </li>
               <li>
@@ -37,18 +38,18 @@
                 {{ $t(this.slug + '.content.what-content-3') }}
               </li>
               <li>
-                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/school')"><i class='fas fa-graduation-cap mr-1'></i>{{ $t("nav.school") }}</b-link>
+                {{ $t('global.a-female') }} <b-link :to="lg_build_path('/school')"><i class='fas fa-graduation-cap mr-1'></i>{{ $t("nav.school.title") }}</b-link>
                 {{ $t(this.slug + '.content.what-content-4') }}
               </li>
             </ol>
           </p>
 
-          <b-link href="#why" class="app-title Xapp-text-selected mt-4"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-why') }}</b-link>
+          <b-link href="#why" class="app-title Xapp-text-selected mt-4"><i class="fas fa-hashtag"></i> {{ $t(this.slug + '.content.title-why') }}</b-link>
           <p class="mt-2" v-html="$t(this.slug + '.content.why-content-1')"></p>
           <p v-html="$t(this.slug + '.content.why-content-2')"></p>
           <p v-html="$t(this.slug + '.content.why-content-3')"></p>
 
-          <b-link href="#who" class="app-title Xapp-text-selected mt-4"><i class="fas fa-location-arrow"></i> {{ $t(this.slug + '.content.title-who') }}</b-link>
+          <b-link href="#who" class="app-title Xapp-text-selected mt-4"><i class="fas fa-hashtag"></i> {{ $t(this.slug + '.content.title-who') }}</b-link>
           <p class="mt-2">{{ $t(this.slug + '.content.who-content-1') }} <i class="fas fa-grin-beam-sweat"></i>
           <p>
             {{ $t(this.slug + '.content.who-content-2') }} <b-link :href="$t('global.dev-link')" target="_blank" class="text-nowrap"><i class="fas fa-circle mr-1"></i>{{ $t("global.dev-name") }}</b-link>,
@@ -61,6 +62,8 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
+
 export default {
   name: "Page",
   data () {
@@ -70,12 +73,11 @@ export default {
   },
   watch: {
     $route(to, from) {
-      // react to route changes in the same (reused) component
-      this.content = "Page for " + to.params.slug;
+      document.title = this.$t(this.slug + '.title') + this.$t("global.delimiter") + this.$t("global.basetitle");
     }
   },
   created(){
-    this.content = "Page for " + this.slug;
+    document.title = this.$t(this.slug + '.title') + this.$t("global.delimiter") + this.$t("global.basetitle");
   }
 
 }

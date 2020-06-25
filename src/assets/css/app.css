@@ -64,6 +64,9 @@ path { fill:inherit; }
 .app-text-yellow{ color: var(--app-yellow); }
 .bg-appyellow {background: rgba(255,255,0,0.5);}
 
+.b-sidebar-outer{
+  z-index:8000;
+}
 .app-logo, .b-sidebar-header{
   /* position:relative; */
   font-family: Nunito, sans-serif;

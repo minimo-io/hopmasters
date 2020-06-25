@@ -19,8 +19,8 @@
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <div class="alt-header__user alt-header__user--anonymous d-none d-sm-inline-block">
             <div class="alt-user-nav">
-              <b-link v-if="user.loggedIn" @click.prevent="signOut" :title="$t('nav.logout')" class="alt-header__sign-in">{{ $t('nav.logout') }} {{ user.data.displayName }}</b-link>
-              <b-link v-else :to="{ path: lg_build_path('/login') }" :title="$t('nav.signin')" class="alt-header__sign-in">{{ $t('nav.signin') }}</b-link>
+              <b-link v-if="user.loggedIn" @click.prevent="signOut" :title="$t('nav.logout')" class="alt-header__sign-in">{{ $t('nav.logout') }} {{user.data.displayName}}</b-link>
+              <b-link v-else :to="{ path: lg_build_path('/login') }" :title="$t('nav.signin.title')" class="alt-header__sign-in">{{ $t('nav.signin.title') }}</b-link>
 
             </div>
           </div>
@@ -28,7 +28,7 @@
           <span class="alt-header__separator alt-separator">/</span>
           <b-link href="#"><i class="fas fa-search"></i></b-link>
           <span class="alt-header__separator alt-separator">/</span>
-          <b-link :to="{ path: lg_build_path('/store') }" :title="$t('nav.store')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
+          <b-link :to="{ path: lg_build_path('/store') }" :title="$t('nav.store.title')" class="alt-header__sign-in"><i class="fas fa-shopping-cart"></i></b-link>
 
           <span class="alt-header__separator alt-separator d-none d-sm-inline-block">/</span>
           <b-nav class="navbar-nav navbar-main ml-auto order-1 d-none d-sm-inline-block">
@@ -51,9 +51,11 @@
 
 
       <div class="px-3 py-2 mt-2">
-        <b-button to="login" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin') }}</b-button>
 
-        <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4">
+        <b-button v-if="user.loggedIn" @click.prevent="signOut"  block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.logout') }}</b-button>
+        <b-button v-else :to="{ path: lg_build_path('/login') }" block variant="outline-secondary" size="sm" class="mb-1">{{ $t('nav.signin.title') }}</b-button>
+
+        <b-dropdown :text="language_name($i18n.locale)" variant="outline-secondary" toggle-class="nav-link-custom" block size="sm" class="mb-4 mt-2">
           <b-dropdown-item :to="language_switcher(lang)" :key="lang" v-for="(lang) in $i18n.availableLocales">{{ language_name(lang) }}</b-dropdown-item>
         </b-dropdown>
 
@@ -64,9 +66,9 @@
         <!-- <h2>Essential Links</h2> -->
         <ul>
           <li><b-link :to="{ path: lg_build_path('/') }"><i class="fas fa-home mr-1"></i>{{ $t('nav.home') }}</b-link></li>
-          <li><b-link :to="{ path: lg_build_path('/store') }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store') }}</b-link></li>
-          <li><b-link :to="{ path: lg_build_path('/school') }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school') }}</b-link></li>
-          <li><b-link :to="{ path: lg_build_path('/news') }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/store') }"><i class="fas fa-shopping-cart mr-1"></i>{{ $t('nav.store.title') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/school') }"><i class="fab fa-leanpub mr-1"></i>{{ $t('nav.school.title') }}</b-link></li>
+          <li><b-link :to="{ path: lg_build_path('/news') }"><i class="fas fa-newspaper mr-1"></i>{{ $t('nav.news.title') }}</b-link></li>
         </ul>
 
         <h2>{{ $t('nav.information') }}</h2>
@@ -88,8 +90,9 @@
 
 <script>
 import i18n from '../i18n'
-import { mapGetters } from "vuex";
-import firebase from "firebase";
+import { mapGetters } from "vuex"
+import firebase from "firebase"
+import NProgress from 'nprogress'
 
 export default{
   data(){
@@ -146,12 +149,14 @@ export default{
 
     },
     signOut() {
+      NProgress.start();
       firebase
         .auth()
         .signOut()
         .then(() => {
+          NProgress.done();
           this.app_notification("notifications.bye", true);
-          this.$router.replace({path: "/"});
+          this.$router.push({path: this.lg_build_path("/") }).catch(err => {});
         });
     }
   },
