@@ -3,11 +3,11 @@
     <!-- Login form -->
     <b-overlay :show="isLoading" z-index="8000" rounded="sm">
       <b-card
+        v-if="isLogin"
         class="alt-form alt-form-dark"
         no-body>
-
           <b-card-body class="z-index-6000">
-            <b-card-title>Formulario de ingreso</b-card-title>
+            <b-card-title v-html="$t('login.title')"></b-card-title>
             <b-card-sub-title>{{ $t("nav.signin.description") }}</b-card-sub-title>
 
             <b-form @submit.prevent="onLogin" class="mt-4">
@@ -30,7 +30,8 @@
                   :placeholder="$t('login.password')"></b-form-input>
               </b-form-group>
 
-              <b-button type="submit" variant="dark" class="btn-xs-block btn-dark">{{ $t("login.signin") }}</b-button>
+              <b-button type="submit" variant="dark" class="btn-xs-block btn-dark mr-2">{{ $t("login.btn-signin") }}</b-button>
+              <b-button type="button" @click="showSignUp" variant="light" class="btn-xs-block">{{ $t("login.btn-signup") }}</b-button>
             </b-form>
           </b-card-body>
           <div class="overlay overlay-dark"></div>
@@ -39,7 +40,13 @@
     </b-overlay>
     <!-- Signup form -->
     <b-overlay :show="isLoading" rounded="sm" z-index="8000">
-      <b-card title="Formulario de registro" :sub-title="$t('nav.signup.description')" class="mt-4">
+      <b-card v-if="isSignUp" no-body class="mt-4 alt-form alt-form-dark">
+
+      <b-card-body class="z-index-6000">
+        <b-card-title v-html="$t('signup.title')"></b-card-title>
+        <b-card-sub-title>{{ $t("nav.signin.description") }}</b-card-sub-title>
+
+
         <b-form @submit.prevent="onSignup" v-if="show_signup">
 
           <b-form-group id="input-group-0" :label="$t('login.name')" label-for="input-name">
@@ -81,8 +88,11 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="submit" variant="green" class="mr-2">Submit</b-button>
+          <b-button type="button" variant="light" @click="cancelSignUp">Cancel</b-button>
         </b-form>
+        </b-card-body>
+        <div class="overlay overlay-green"></div>
       </b-card>
     </b-overlay>
 
@@ -104,6 +114,9 @@ export default {
   data () {
     return {
       isLoading: false,
+      isLogin: true,
+      isSignUp: false,
+      slug:this.$route.params.slug,
       login: {
         username: '',
         password: '',
@@ -196,7 +209,14 @@ export default {
 
       }
     },
-
+    showSignUp: function(){
+      this.isSignUp = true;
+      this.isLogin = false;
+    },
+    cancelSignUp: function(){
+      this.isSignUp = false;
+      this.isLogin = true;
+    }
   }
 }
 </script>

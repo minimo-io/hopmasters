@@ -53,15 +53,19 @@
     "slogan": "Who are the <strong><u>Hop Masters</u></strong> in your country?<br>And around the globe?"
   },
   "login": {
-    "signin" : "Sign in",
+    "title" : "Sign in",
     "email": "Email",
     "remember" : "Remember me",
     "name" : "Name",
     "username": "Username",
     "password": "Password",
-    "password-repeat": "Repeat your password"
+    "password-repeat": "Repeat your password",
+    "btn-signin": "Login",
+    "btn-signup": "Sign up"
   },
-
+  "signup":{
+    "title": "Signup form"
+  },
   "country" : {
     "titlebase" : "Craft Beers from"
   },

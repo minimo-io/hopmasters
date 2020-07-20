@@ -16,7 +16,7 @@
     "menu" : "Menú",
     "signin" : {
       "title": "Ingresar",
-      "description": "Ingresa para seguir y votr tus cervezas artesanales y cervecerías favoritas. Además mira los descuentos en la tienda."
+      "description": "Sigue y vota tus cervezas artesanales y cervecerías favoritas. Además mira los descuentos en la tienda."
     },
     "signup" : {
       "title": "Registrate",
@@ -54,13 +54,18 @@
     "slogan": "¿Quienes son los <strong><u>Maestros del Lúpulo</u></strong> en tu país?<br>¿Y en el mundo?"
   },
   "login": {
-    "signin" : "Ingresar",
+    "title" : "Ingresar",
     "email": "Correo electrónico",
     "remember" : "Recuérdame",
     "name" : "Nombre",
     "username": "Usuario",
     "password": "Contraseña",
-    "password-repeat": "Repite la contraseña"
+    "password-repeat": "Repite la contraseña",
+    "btn-signin": "Ingresar",
+    "btn-signup": "Registrarse"
+  },
+  "signup":{
+    "title": "Formulario de registro"
   },
   "country" : {
     "titlebase" : "Cervezas artesanales de"
