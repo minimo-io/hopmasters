@@ -42,7 +42,7 @@ export default{
           /* eslint-enable */
       }
     },
-    app_notification(notification, isTranslate, variant = "info"){
+    app_notification(notification, isTranslate, variant = "success"){
       var final_msg = notification;
       if (isTranslate) final_msg = this.$t(notification);
       // if (! variant) variant = 'info';
