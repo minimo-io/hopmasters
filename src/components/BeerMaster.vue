@@ -1,10 +1,10 @@
 <template>
   <div>
         <b-container fluid>
-          <br><br><br><br><br>
-            Country: {{ this.country }}
+          <!-- <br><br><br><br><br> -->
+            <!-- Country: {{ this.country }}
             Brewery: {{ this.brewery }}
-            Beer: {{ this.beer }}
+            Beer: {{ this.beer }} -->
 
             <router-view></router-view>
             <!-- User Interface controls -->
