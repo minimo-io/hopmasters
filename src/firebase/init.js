@@ -18,11 +18,11 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.database();
-const db_users = db.ref("users");
+// const db_users = db.ref("users");
 // firebaseApp.firestore().settings({
 //   timestampsInSnapshot: true
 // });
 
 
 // export default firebaseApp.firestore();
-export default db_users;
+export default db;

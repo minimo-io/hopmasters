@@ -17,7 +17,7 @@ export default{
     },
     sanitize(t){
       // replace param dash
-      t = t.replace("-", " ")      
+      t = t.replace("-", " ")
       // t = t.charAt(0).toUpperCase() + t.slice(1);
       t = t.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
       return t;
@@ -42,13 +42,17 @@ export default{
           /* eslint-enable */
       }
     },
-    app_notification(notification, isTranslate){
+    app_notification(notification, isTranslate, variant = "info"){
       var final_msg = notification;
       if (isTranslate) final_msg = this.$t(notification);
+      // if (! variant) variant = 'info';
 
       this.$bvToast.toast(final_msg , {
         title: this.$t("notifications.notification-title"),
-        autoHideDelay: 4000,
+        variant: variant,
+        solid: true,
+        toaster: 'b-toaster-bottom-right',
+        autoHideDelay: 5000,
         appendToast: true
       });
     },

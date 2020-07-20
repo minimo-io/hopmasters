@@ -88,6 +88,11 @@
 
   </div>
 </template>
+<style>
+.b-toaster{
+  z-index:8000 !important;
+}
+</style>
 <script>
 import fireDb from '@/firebase/init.js'
 import firebase from 'firebase'
@@ -122,32 +127,37 @@ export default {
         }
         this.isLoading = true;
         NProgress.start();
+
+        var o_this = this;
         // create user
         firebase.auth().createUserWithEmailAndPassword(
           this.signup.email,
           this.signup.password
         ).then(data => {
+          console.log(data);
           data.user
             .updateProfile({
-              displayName: this.signup.name // this seems to not be working
+              displayName: o_this.signup.name // this seems to not be working
             })
             .then(() => {
+              const db_users = fireDb.ref("users");
 
-              fireDb.push().set({
-                author: "alanisawesome",
-                title: "The Turing Machine"
+              db_users.push().set({
+              // db_users.set({
+                user_id: data.user.uid,
+                user_name: o_this.signup.name
               }, function(error) {
 
                 if (error) {
-                  this.app_notification( error );
+                  o_this.app_notification( error, false, "danger" );
                 } else {
 
-                  store.getters.user.data.displayName = this.signup.name;
+                  store.getters.user.data.displayName = o_this.signup.name;
 
-                  this.isLoading = false;
+                  o_this.isLoading = false;
                   NProgress.done();
-                  this.app_notification( 'notifications.ok-signup', true );
-                  this.$router.push({ path: this.lg_build_path("/") });
+                  o_this.app_notification( 'notifications.ok-signup', true );
+                  o_this.$router.push({ path: o_this.lg_build_path("/") });
                 }
 
               });
@@ -157,7 +167,7 @@ export default {
         }).catch( err => {
           this.isLoading = false;
           NProgress.done();
-          this.app_notification( err.message );
+          this.app_notification( err.message, false, 'danger' );
         });
 
       }
@@ -181,7 +191,7 @@ export default {
         }).catch( err => {
           this.isLoading = false;
           NProgress.done();
-          this.app_notification( err.message );
+          this.app_notification( err.message, false, 'danger' );
         });
 
       }
