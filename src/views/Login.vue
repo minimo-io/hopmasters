@@ -30,7 +30,7 @@
                   :placeholder="$t('login.password')"></b-form-input>
               </b-form-group>
 
-              <b-button type="submit" variant="dark" class="btn-xs-block btn-dark mr-2">{{ $t("login.btn-signin") }}</b-button>
+              <b-button type="submit" variant="green" class="btn-xs-block btn-dark mr-2">{{ $t("login.btn-signin") }}</b-button>
               <b-button type="button" @click="showSignUp" variant="light" class="btn-xs-block">{{ $t("login.btn-signup") }}</b-button>
             </b-form>
           </b-card-body>
@@ -39,8 +39,8 @@
 
     </b-overlay>
     <!-- Signup form -->
-    <b-overlay :show="isLoading" rounded="sm" z-index="8000">
-      <b-card v-if="isSignUp" no-body class="mt-4 alt-form alt-form-dark">
+    <b-overlay v-if="isSignUp" :show="isLoading" rounded="sm" z-index="8000">
+      <b-card no-body class="mt-4 alt-form alt-form-dark">
 
       <b-card-body class="z-index-6000">
         <b-card-title v-html="$t('signup.title')"></b-card-title>
