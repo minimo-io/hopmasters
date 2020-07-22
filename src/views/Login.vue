@@ -10,7 +10,29 @@
             <b-card-title v-html="$t('login.title')"></b-card-title>
             <b-card-sub-title>{{ $t("nav.signin.description") }}</b-card-sub-title>
 
-            <b-form @submit.prevent="onLogin" class="mt-4">
+            <br>
+            <b-button type="button" @click="googleLogin" block variant="outline-dark" class="btn-xs-block">
+              <i class="fab fa-google mr-1"></i>
+              {{ $t("login.btn-socialLogin") }} Google
+            </b-button>
+            <b-button type="button" @click="googleLogin" block variant="outline-primary" class="btn-xs-block">
+              <i class="fab fa-facebook mr-1"></i>
+              {{ $t("login.btn-socialLogin") }} Facebook
+            </b-button>
+            <b-button type="button" @click="googleLogin" block variant="outline-light" class="btn-xs-block">
+              <i class="fas fa-envelope mr-1"></i>
+              {{ $t("login.btn-socialLogin") }} Correo
+            </b-button>
+            <hr>
+
+            <h6 class="text-center">
+              {{ $t('login.orSingUpMessage') }}
+              <b-button type="button" @click="showSignUp" block variant="outline-green" class="btn-xs-block mt-2">
+                {{ $t('login.orSingUpButtonText') }}
+              </b-button>
+            </h6>
+
+            <!-- <b-form @submit.prevent="onLogin" class="mt-4">
 
               <b-form-group id="input-group-1" :label="$t('login.email')" label-for="login_username">
                 <b-form-input
@@ -32,10 +54,14 @@
 
               <b-button type="submit" variant="green" class="btn-xs-block btn-dark mr-2">{{ $t("login.btn-signin") }}</b-button>
               <b-button type="button" @click="showSignUp" variant="light" class="btn-xs-block">{{ $t("login.btn-signup") }}</b-button>
-            </b-form>
+            </b-form> -->
+
+
           </b-card-body>
           <div class="overlay overlay-dark"></div>
       </b-card>
+
+
 
     </b-overlay>
     <!-- Signup form -->
@@ -131,6 +157,25 @@ export default {
     }
   },
   methods: {
+    googleLogin(evt){
+      console.log("Login with Google");
+      let provider = new firebase.auth.GoogleAuthProvider();
+        this.isLoading = true;
+        NProgress.start();
+        // create user
+        firebase.auth().signInWithPopup(provider).then(user => {
+          this.isLoading = false;
+          NProgress.done();
+          this.app_notification( 'notifications.ok-login', true );
+          this.$router.push({path: this.lg_build_path("/") });
+
+        }).catch( err => {
+          this.isLoading = false;
+          NProgress.done();
+          this.app_notification( err.message, false, 'danger' );
+        });
+
+    },
     onSignup(evt) {
 
       if (this.signup.name && this.signup.email && this.signup.password){

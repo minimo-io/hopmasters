@@ -62,7 +62,10 @@
     "password": "Contraseña",
     "password-repeat": "Repite la contraseña",
     "btn-signin": "Ingresar",
-    "btn-signup": "Registrarse"
+    "btn-signup": "Registrarse",
+    "btn-socialLogin": "Ingresa con",
+    "orSingUpMessage": "¿No tienes cuenta?",
+    "orSingUpButtonText": "¡Regístrate!"
   },
   "signup":{
     "title": "Formulario de registro"

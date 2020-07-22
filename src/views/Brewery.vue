@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ this.title }}</h1>
-    <b-link :to="lg_build_path('/country/uruguay/oso-pardo/maracuyipa')">Maracuyipa</b-link>
+    <!-- <b-link :to="lg_build_path('/beer/uruguay/oso-pardo/maracuyipa')">Maracuyipa</b-link> -->
     <!-- BEER VIEW -->
     <router-view></router-view>
 
@@ -13,7 +13,7 @@ export default {
   name: "Brewery",
   data () {
     return {
-      title: this.$t("brewery.titlebase") + " " + this.sanitize(this.$route.params.slug_brewery) + " " + this.$t("global.from") + " " + this.sanitize(this.$route.params.slug_country),
+      title: this.$t("brewery.titlebase") + " " + this.sanitize(this.$route.params.slug_brewery),
       // slug:this.$route.params.slug_brewery,
     }
   },

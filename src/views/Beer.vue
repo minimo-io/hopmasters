@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ this.title }}</h1>
+    <h1>{{ title }}</h1>
     <p>
       Miles de cosas sobre la Maracuyipa, un enorme bla bla bla con cosas
       bastante saladas que cuenta la verdad sobre la mejor IPA saborizada del Uruguay.
@@ -13,7 +13,7 @@ export default {
   name: "Beer",
   data () {
     return {
-      title: this.$t("beer.titlebase") + " " + this.sanitize(this.$route.params.slug_beer) + " " + this.$t("global.from") + " " + this.sanitize(this.$route.params.slug_brewery),
+      title: this.$t("beer.titlebase") + " " + this.sanitize(this.$route.params.slug_beer),
       // slug:this.$route.params.slug_brewery,
     }
   },

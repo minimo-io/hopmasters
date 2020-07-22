@@ -61,7 +61,11 @@
     "password": "Password",
     "password-repeat": "Repeat your password",
     "btn-signin": "Login",
-    "btn-signup": "Sign up"
+    "btn-signup": "Sign up",
+    "btn-socialLogin": "Sign In with",
+    "orSingUpMessage": "No account?",
+    "orSingUpButtonText": "Create one!"
+
   },
   "signup":{
     "title": "Signup form"
