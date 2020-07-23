@@ -11,23 +11,23 @@
             <b-card-sub-title>{{ $t("nav.signin.description") }}</b-card-sub-title>
 
             <br>
-            <b-button type="button" @click="googleLogin" block variant="outline-dark" class="btn-xs-block">
+            <b-button type="button" @click="googleLogin" block variant="outline-danger" class="btn-xs-block">
               <i class="fab fa-google mr-1"></i>
               {{ $t("login.btn-socialLogin") }} Google
             </b-button>
-            <b-button type="button" @click="googleLogin" block variant="outline-primary" class="btn-xs-block">
-              <i class="fab fa-facebook mr-1"></i>
+            <b-button type="button" @click="googleLogin" block variant="outline-primary" class="btn-xs-block mt-3">
+              <i class="fab fa-facebook-f mr-1"></i>
               {{ $t("login.btn-socialLogin") }} Facebook
             </b-button>
-            <b-button type="button" @click="googleLogin" block variant="outline-light" class="btn-xs-block">
+            <b-button type="button" @click="googleLogin" block variant="outline-dark" class="btn-xs-block mt-3">
               <i class="fas fa-envelope mr-1"></i>
               {{ $t("login.btn-socialLogin") }} Correo
             </b-button>
             <hr>
 
-            <h6 class="text-center">
+            <h6 class="text-center mt-4">
               {{ $t('login.orSingUpMessage') }}
-              <b-button type="button" @click="showSignUp" block variant="outline-green" class="btn-xs-block mt-2">
+              <b-button type="button" @click="showSignUp" block variant="outline-green" class="btn-xs-block mt-3">
                 {{ $t('login.orSingUpButtonText') }}
               </b-button>
             </h6>
