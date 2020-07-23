@@ -15,7 +15,7 @@
               <i class="fab fa-google mr-1"></i>
               {{ $t("login.btn-socialLogin") }} Google
             </b-button>
-            <b-button type="button" @click="googleLogin" block variant="outline-primary" class="btn-xs-block mt-3">
+            <b-button type="button" @click="googleLogin" block variant="outline-success" class="btn-xs-block mt-3">
               <i class="fab fa-facebook-f mr-1"></i>
               {{ $t("login.btn-socialLogin") }} Facebook
             </b-button>

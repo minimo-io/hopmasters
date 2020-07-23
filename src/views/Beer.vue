@@ -2,7 +2,7 @@
   <div>
     <!-- <h2 class="card-title">{{ title }}</h2> -->
     <div v-if="beerLoadedOk">
-      <b-card :title="title" class="mt-4">
+      <b-card class="mt-4">
         <div class="container-fluid">
     			<div class="container px-0">
             <div class="row">
@@ -12,9 +12,15 @@
         						</center>
         				</div>
         				<div class="col-md-7">
-        					<div class="product-title">Corsair GS600 600 Watt PSU</div>
+        					<div class="product-title font-weight-bold">{{ title }}</div>
         					<div class="product-desc">The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC</div>
-        					<div class="product-rating mt-3"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+        					<div class="product-rating mt-3">
+                    <i class="fa fa-star gold"></i>
+                    <i class="fa fa-star gold"></i>
+                    <i class="fa fa-star gold"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
         					<hr>
         					<div class="product-price">$ 1234.00</div>
         					<div class="product-stock">In Stock</div>
@@ -82,7 +88,9 @@
 /*********************************************
 					PRODUCTS
 *********************************************/
-
+.gold{
+  color:#e0e334;
+}
 .product{
 	border: 1px solid #dddddd;
 	height: 321px;
