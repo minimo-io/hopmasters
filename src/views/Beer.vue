@@ -3,7 +3,7 @@
     <!-- <h2 class="card-title">{{ title }}</h2> -->
     <div v-if="beerLoadedOk">
       <b-card class="mt-4">
-        <div class="container-fluid">
+        <!-- <div class="container-fluid"> -->
     			<div class="container px-0">
             <div class="row">
         				<div class="col-md-4">
@@ -12,29 +12,66 @@
         						</center>
         				</div>
         				<div class="col-md-7">
-        					<div class="product-title font-weight-bold">{{ title }}</div>
-        					<div class="product-desc">The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC</div>
-        					<div class="product-rating mt-3">
+        					<div class="beer-title text-center text-sm-left font-weight-bold">
+                    Cerveza {{ beer.beerName }}
+                  </div>
+                  <div class="beer-origin text-center text-sm-left">
+                    De
+                    <b-avatar class="no-shadow mr-1" size="1.2rem" :src="require('@/assets/flags/spain.png')"></b-avatar>España
+                  </div>
+                  <div class="beer-meta softer mb-3 text-center text-sm-left">
+                    <b-badge variant="info mr-2">{{ beer.type.typeName }}</b-badge>
+                    <b-badge variant="primary mr-2">ABV: {{ beer.ABV }}%</b-badge>
+                    <b-badge variant="green">IBU: {{ beer.IBU }}</b-badge>
+                  </div>
+
+        					<div class="product-desc text-center text-sm-left">
+                    <p>The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC.</p>
+                  </div>
+
+        					<div class="product-rating mt-3 mb-3 text-center text-sm-left">
                     <i class="fa fa-star gold"></i>
                     <i class="fa fa-star gold"></i>
                     <i class="fa fa-star gold"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                   </div>
+                  <div class="beer-signature text-center text-sm-left">
+                    Por
+                    <b-link class="brewerylink text-uppercase font-weight-bold" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
+                      <b-avatar class="no-shadow" :src="beer.brewery.breweryLogo"></b-avatar>
+                      {{ beer.brewery.breweryName }}
+                    </b-link>
+                  </div>
         					<hr>
-        					<div class="product-price">$ 1234.00</div>
-        					<div class="product-stock">In Stock</div>
+        					<div class="product-price text-center text-sm-left">$ 1234.00</div>
+        					<!-- <div class="product-stock">In Stock</div> -->
         					<hr>
-        					<div class="btn-group cart">
-                    <b-button size="sm" variant="outline-success mr-3">Add to cart</b-button>
-        					</div>
-        					<div class="btn-group wishlist">
-        						<b-button size="sm" variant="outline-danger"><i class="far fa-heart"></i> Favorita</b-button>
-        					</div>
+                  <b-button size="sm" variant="outline-danger" class="btn-sm-block mr-3"><i class="far fa-heart"></i> Favorita</b-button>
+                  <b-button size="sm" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3"><i class="far fa-thumbs-up"></i> Votar</b-button>
+                  <b-button size="sm" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0"><i class="fas fa-shopping-cart"></i> Comprar</b-button>
         				</div>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
+      </b-card>
+
+      <b-card class="mt-3">
+        <b-card-title>Fanáticos <b-badge variant="primary softer">285</b-badge></b-card-title>
+        <b-card-text>
+          <b-avatar-group size="40px">
+            <b-avatar></b-avatar>
+            <b-avatar text="BV" variant="primary"></b-avatar>
+            <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+            <b-avatar text="OK" variant="danger"></b-avatar>
+            <b-avatar variant="warning"></b-avatar>
+            <b-avatar src="https://placekitten.com/320/320" variant="dark"></b-avatar>
+            <b-avatar icon="music-note" variant="success"></b-avatar>
+            <b-avatar variant="warning"></b-avatar>
+            <b-avatar src="https://placekitten.com/320/320" variant="dark"></b-avatar>
+            <b-avatar icon="music-note" variant="success"></b-avatar>
+          </b-avatar-group>
+        </b-card-text>
       </b-card>
 
       <div class="mt-3">
@@ -43,11 +80,11 @@
 
 
           <b-card no-body>
-            <b-tabs card>
-              <b-tab title="PRODUCT INFO" active>
+            <b-tabs class="beer-tabs" card>
+              <b-tab title="INFO" active>
                 <b-card-text>
 
-                  <section class="container product-info mt-0">
+                  <section class="product-info mt-0 p-0 p-sm-3">
                     The Corsair Gaming Series GS600 power supply is the ideal price-performance solution for building or upgrading a Gaming PC. A single +12V rail provides up to 48A of reliable, continuous power for multi-core gaming PCs with multiple graphics cards. The ultra-quiet, dual ball-bearing fan automatically adjusts its speed according to temperature, so it will never intrude on your music and games. Blue LEDs bathe the transparent fan blades in a cool glow. Not feeling blue? You can turn off the lighting with the press of a button.
                     <br><br>
                     <h3>Corsair Gaming Series GS600 Features:</h3>
@@ -66,11 +103,19 @@
 
                 </b-card-text>
               </b-tab>
-              <b-tab title="REVIEWS">
-                <b-card-text>Tab contents 2</b-card-text>
+              <b-tab title="RESEÑAS" disabled>
+                <b-card-text>
+                  <section class="product-info mt-0 p-0 p-sm-3">
+
+                  </section>
+                </b-card-text>
               </b-tab>
-              <b-tab title="COMPRAR EN">
-                <b-card-text>Tab contents 3</b-card-text>
+              <b-tab title="COMPRAR" disabled>
+                <b-card-text>
+                  <section class="product-info mt-0 p-0 p-sm-3">
+
+                  </section>
+                </b-card-text>
               </b-tab>
             </b-tabs>
           </b-card>
@@ -85,9 +130,6 @@
   </div>
 </template>
 <style scoped>
-/*********************************************
-					PRODUCTS
-*********************************************/
 .gold{
   color:#e0e334;
 }
@@ -105,9 +147,7 @@
 	margin-bottom: 25px;
 }
 
-.product-title{
-	font-size: 20px;
-}
+
 
 .product-desc{
 	font-size: 14px;
@@ -123,9 +163,7 @@
 	margin-top: 10px;
 }
 
-.product-info{
-		margin-top: 50px;
-}
+
 
 
 /* .container {
