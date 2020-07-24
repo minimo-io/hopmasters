@@ -26,7 +26,7 @@
                   </div>
 
         					<div class="product-desc text-center text-sm-left">
-                    <p>The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC.</p>
+                    <p>The Corsair Gaming Series GS600 is the ideal price/performance choice for mid-spec gaming PC (<b-link href="#info-tab">+Mas</b-link>).</p>
                   </div>
 
         					<div class="product-rating mt-3 mb-3 text-center text-sm-left">
@@ -81,7 +81,7 @@
 
           <b-card no-body>
             <b-tabs class="beer-tabs" card>
-              <b-tab title="INFO" active>
+              <b-tab id="info-tab" title="INFO" active>
                 <b-card-text>
 
                   <section class="product-info mt-0 p-0 p-sm-3">
@@ -129,53 +129,10 @@
 
   </div>
 </template>
-<style scoped>
-.gold{
-  color:#e0e334;
-}
-.product{
-	border: 1px solid #dddddd;
-	height: 321px;
-}
-
-.product>img{
-	max-width: 230px;
-}
-
-.product-rating{
-	font-size: 20px;
-	margin-bottom: 25px;
-}
-
-
-
-.product-desc{
-	font-size: 14px;
-}
-
-.product-price{
-	font-size: 22px;
-}
-
-.product-stock{
-	color: #74DF00;
-	font-size: 20px;
-	margin-top: 10px;
-}
-
-
-
-
-/* .container {
-	padding-left: 0px;
-	padding-right: 0px;
-	max-width: 100%;
-} */
-
-</style>
 <script>
 import fireDb from '@/firebase/init.js'
 import Firebase from 'firebase'
+import NProgress from 'nprogress'
 
 export default {
   name: "Beer",
@@ -196,6 +153,7 @@ export default {
 
     let beersRef = Firebase.database().ref("beers");
     let o_beer = this;
+
     // let o_store = this.$store;
     // this.$store.commit("setLoading"); // app loading something
     beersRef.orderByChild('beerSlug').equalTo(this.beerSlug).limitToLast(1).on("value", function(snapshot) {
