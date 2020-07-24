@@ -47,9 +47,9 @@
         					<div class="product-price text-center text-sm-left">$ 1234.00</div>
         					<!-- <div class="product-stock">In Stock</div> -->
         					<hr>
-                  <b-button size="sm" variant="outline-danger" class="btn-sm-block mr-3"><i class="far fa-heart"></i> Favorita</b-button>
-                  <b-button size="sm" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3"><i class="far fa-thumbs-up"></i> Votar</b-button>
-                  <b-button size="sm" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0"><i class="fas fa-shopping-cart"></i> Comprar</b-button>
+                  <b-button size="sm" variant="outline-danger" class="btn-sm-block mr-3"><i class="far fa-heart mr-2"></i>Favorita</b-button>
+                  <b-button size="sm" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3"><i class="far fa-thumbs-up mr-2"></i>Votar</b-button>
+                  <b-button size="sm" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0"><i class="fas fa-shopping-cart mr-2"></i>Comprar</b-button>
         				</div>
             </div>
           </div>
@@ -132,7 +132,6 @@
 <script>
 import fireDb from '@/firebase/init.js'
 import Firebase from 'firebase'
-import NProgress from 'nprogress'
 
 export default {
   name: "Beer",
