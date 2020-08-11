@@ -7,7 +7,7 @@
       <b-img :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="animated infinite pulse"></b-img>
 
     </div> -->
-    <div class="welcome-box col-lg-12 text-center text-lg-left pr-lg-5 order-lg-1">
+    <div class="welcome-box col-lg-12 text-center text-lg-left order-lg-1">
 
       <!-- <b-alert show variant="warning" class="mt-0">
         <span v-html="$t('about-us.content.alert')"></span>
@@ -17,43 +17,37 @@
         </span>
       </b-alert> -->
 
-      <b-card no-body class="p-4 pt-0 mt-0">
-        <b-card-body class="z-index-6000 text-center">
+      <b-card no-body class="p-0 pt-0 mt-0" style="border:0;">
+        <b-card-body class="z-index-6000 text-center p-5" Xstyle="border:1px solid blue;">
         <center>
           <!-- <span class="app-text-green">.</span> -->
           <h2 v-if="withText" v-html="$t('homepage.slogan')" class="hero-h1 mt-0 mb-5 bd-text-purple-bright display-4"></h2>
 
           <div class="row">
-              <div class="col-md-4">
-                  <center>
-                    <b-img style="width:200px;" :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="mt-0 mb-0 animated infinite pulse"></b-img>
-                  </center>
+              <div class="col-md-4 text-right">
+
+                    <b-img style="width:170px;" :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="mt-0 mb-0 animated infinite pulse"></b-img>
+
               </div>
               <div class="col-md-7 mt-2">
 
-                  <h3 v-html="$t('homepage.description')"></h3>
-                  <!-- <div class="container px-0">
-                    <div class="text-left" Xstyle="margin:auto;">
-                      <b-button class="mr-3" variant="outline-danger"  size="md"><i class="fas fa-beer mr-1"></i>Cervezas&nbsp;<b-badge variant="danger">158</b-badge></b-button>
+                  <h3 class="post-subtitle" v-html="$t('homepage.description')"></h3>
+                  <div class="container px-0 mt-4 mb-0 text-left">
+                    <b-button size="md" variant="outline-danger" class="btn-sm-block mr-3">
+                      <i class="fas fa-beer mr-1"></i>Cervezas
+                      <b-badge pill variant="danger">28</b-badge>
+                    </b-button>
+                    <b-button size="md" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3">
+                      <i class="fas fa-industry mr-1"></i>Cervecerías
+                      <b-badge pill variant="dark">23</b-badge>
+                    </b-button>
+                    <b-button size="md" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0">
+                      <i class="fas fa-shopping-cart mr-1"></i>Tienda
+                    </b-button>
+                  </div>
 
-                      <b-button  variant="outline-info"  size="md"><i class="fas fa-industry mr-1"></i>Cervecerías&nbsp;<b-badge variant="info">29</b-badge></b-button>
-
-                    </div>
-                  </div> -->
-                  <div class="container px-0 text-left">
-                  <b-button size="sm" variant="outline-danger" class="btn-sm-block mr-3">
-                    <i class="fas fa-beer mr-1"></i>Cervezas
-                    <!-- <b-badge pill variant="danger">28</b-badge> -->
-                  </b-button>
-                  <b-button size="sm" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3">
-                    <i class="fas fa-industry mr-1"></i>Cervecerías
-                    <!-- <b-badge pill variant="dark">23</b-badge> -->
-                  </b-button>
-                  <b-button size="sm" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0">
-                    <i class="fas fa-shopping-cart mr-1"></i>Tienda
-                  </b-button>
-                </div>
               </div>
+
           </div>
 
 
@@ -84,6 +78,13 @@
       font-weight: 700;
       color: #3c3c3c;
       line-height: 1.35em;
+  }
+  .overlay-dark::after {
+      background: linear-gradient(to bottom left, transparent 20%, rgba(52, 58, 64, .8) 100%);
+  }
+  .overlay-dark:hover::after {
+    background: linear-gradient(to bottom left, transparent 20%, rgba(52, 58, 64, .8) 100%) !important;
+    opacity: unset;
   }
 
 </style>

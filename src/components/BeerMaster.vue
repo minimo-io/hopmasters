@@ -33,6 +33,12 @@
                   </b-col>
             </b-row>
 
+            <br><br>
+            <div class="btn-group" role="group" aria-label="Tipo de visualización">
+              <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-light btn-listview" data-toggle="tooltip" data-placement="top" data-original-title="Vista de lista"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+            </div>
+
             <b-overlay :show="isLoadingBeers" spinner-variant="green" spinner-type="grow">
             <div>
               <b-container class="px-0 mx-0">

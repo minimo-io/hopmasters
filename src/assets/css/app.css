@@ -8,7 +8,7 @@
 }
 /*
 @import url("https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap"); */
-
+/* .fa-heart{ color:var(--red); } */
 
 
 /* reset some ALT. stuff */
@@ -200,7 +200,7 @@ ul.beer-list i{ font-size:1rem;  }
   /* background-image: url("../homebrewing-adam-wilson.jpg") */
   font-size:1.1rem;
   font-family: "Space mono", monospace;
-  text-align: justify;
+  text-align: left;
 }
 .highlight-word {
   display: inline-block;

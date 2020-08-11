@@ -53,7 +53,7 @@
   },
   "homepage": {
     "slogan": "¿Quienes son los <strong>Maestros del Lúpulo</strong>?",
-    "description": "Mira los <i class='fas fa-medal mr-1'></i>Rankings. Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos. Aprende en la <i class='fas fa-graduation-cap mr-1'></i>Escuela y accede a descuentos en la <i class='fas fa-shopping-cart mr-1'></i>Tienda."
+    "description": "Mira los <a href='#'><i class='fas fa-medal mr-1'></i>Rankings</a>. Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos. Aprende a fabricar en la <a href='#'><i class='fas fa-graduation-cap mr-1'></i>Escuela</a> y accede a descuentos en la <a href='#'><i class='fas fa-shopping-cart mr-1'></i>Tienda</a>. Si eres una cervecería <a href='#'>contactanos</a> que queremos darte <a href='#'><i class='fas fa-heart'></i></a>"
   },
   "login": {
     "title" : "Ingresar",
