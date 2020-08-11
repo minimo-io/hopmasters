@@ -9,13 +9,6 @@
     </div> -->
     <div class="welcome-box col-lg-12 text-center text-lg-left order-lg-1">
 
-      <!-- <b-alert show variant="warning" class="mt-0">
-        <span v-html="$t('about-us.content.alert')"></span>
-        <span  v-if="app_link('whatsapp')">
-          {{ $t('about-us.content.alert-soon-instagram') }}
-          <b-link :href="app_link('instagram')" target="_blank" class="text-nowrap"><i class="fab fa-instagram mr-1"></i>Instagram</b-link>.
-        </span>
-      </b-alert> -->
 
       <b-card no-body class="p-0 pt-0 mt-0" style="border:0;">
         <b-card-body class="z-index-6000 text-center p-5" Xstyle="border:1px solid blue;">
