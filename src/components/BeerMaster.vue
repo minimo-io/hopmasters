@@ -9,10 +9,10 @@
             <router-view></router-view>
 
             <!-- User Interface controls -->
-            <b-row>
+            <b-row class="text-center">
                 <b-col lg="12" class="my-1">
 
-                    <b-form inline>
+                    <b-form inline style="text-align:center;" class="justify-content-center">
                       <label class="mr-sm-2" for="beer_type">La mejor</label>
                       <b-form-select
                         id="beer_type"
