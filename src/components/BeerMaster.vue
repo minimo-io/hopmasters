@@ -9,10 +9,11 @@
             <router-view></router-view>
 
             <!-- User Interface controls -->
-            <b-row >
+            <b-row>
                 <b-col lg="12" class="my-1">
+
                     <b-form inline>
-                      <label class="mr-sm-2" for="inline-form-custom-select-pref">La mejor</label>
+                      <label class="mr-sm-2" for="beer_type">La mejor</label>
                       <b-form-select
                         id="beer_type"
                         class="mb-2 mr-sm-2 mb-sm-0"
@@ -28,12 +29,53 @@
                       ></b-form-select>
                       <b-button variant="success">Buscar</b-button>
                     </b-form>
+
                   </b-col>
             </b-row>
 
-            <ul id="example-1">
+
+
+            <b-overlay :show="isLoadingBeers" spinner-variant="green" spinner-type="grow">
+            <div>
+              <b-container class="px-0 mt-4">
+
+                <b-row>
+
+                  <b-col v-for="beer in beers" :key="beer.key" sm="4" class="px-0">
+
+
+                    <b-card
+                      :title="beer.beerName"
+                      class="beer-card mb-2 mr-0 mr-md-2"
+
+                    >
+                      <b-card-text class="text-center">
+                        <img :src="beer.beerImage" />
+                      </b-card-text>
+
+                      <!-- <router-link class="text-center" :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }">
+
+                      </router-link> -->
+
+                      <!-- <template v-slot:footer>
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                      </template> -->
+                      <!-- <b-button href="#" variant="primary">Go somewhere</b-button> -->
+
+                      <b-button :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }" variant="outline-info" size="sm" block>Details</b-button>
+                    </b-card>
+
+                  </b-col>
+
+                </b-row>
+
+              </b-container>
+
+            </div>
+            </b-overlay>
+
+            <!-- <ul>
               <li v-for="beer in beers" :key="beer.key">
-                <!-- <router-link :to="{ path: '/book/' + beer.beerSlug }">{{ beer.beerName }} - {{ beer.countrySlug }}</router-link> -->
                 <router-link :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }">
                     {{ beer.beerName }}
                 </router-link>
@@ -47,7 +89,7 @@
                 </router-link>
               </li>
 
-            </ul>
+            </ul> -->
 
           </b-container>
 
@@ -66,6 +108,7 @@ import Firebase from 'firebase'
 export default {
   data () {
     return {
+      isLoadingBeers: false,
       country: this.$route.params.slug_country || false,
       brewery: this.$route.params.slug_brewery || false,
       beer: this.$route.params.slug_beer || false,
@@ -118,18 +161,30 @@ export default {
   mounted() {
     // Set the dropdown value on init
     if (this.$route.path) this.country_selected = this.$route.path;
-
+    this.isLoadingBeers = true;
     let dbBeers = fireDb.ref("beers");
 
     // dbBeers.push().set({
-    //   beerName: "Maracuyipa",
-    //   beerImage: "",
-    //   brewerySlug: "oso-pardo",
+    //   ABV: 4,
+    //   IBU: 91,
+    //   beerDescription: "Esta es una descripción sobre la bilirrubina",
+    //   beerImage: '',
+    //   beerName: "Starcarster",
+    //   beerSlug: "starcarster",
+    //   brewerySlug: "malafama",
+    //   countrySlug: "uruguay",
     //   votes: 0,
     //   brewery: {
-    //     breweryName: "Oso Pardo",
-    //     brewerySlug: "oso-pardo",
+    //     breweryName: "Malafama",
+    //     brewerySlug: "malafama",
     //     breweryLogo: ""
+    //   },
+    //   country: {
+    //     countryName: "Uruguay"
+    //   },
+    //   type: {
+    //     typeColor: "green",
+    //     typeName: "IPA"
     //   }
     // }, function(error) {
     //
@@ -146,9 +201,9 @@ export default {
        let data = snapshot.val();
 
        this.beers = data;
+       this.isLoadingBeers = false;
        // let messages = [];
        Object.keys(data).forEach(key => {
-
          // messages.push({
          //   id: key,
          //   username: data[key].username,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <welcome></welcome>
-    <beermaster></beermaster>
+    <beermaster slot="homepage"></beermaster>
 
   </div>
 </template>

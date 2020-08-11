@@ -168,8 +168,6 @@ ul.beer-list i{ font-size:1rem;  }
 	margin-bottom: 25px;
 }
 
-
-
 .product-desc{
 	font-size: 14px;
 }
@@ -182,6 +180,16 @@ ul.beer-list i{ font-size:1rem;  }
 	color: #74DF00;
 	font-size: 20px;
 	margin-top: 10px;
+}
+
+.beer-card{
+
+}
+.beer-card .card-title{
+  text-align:center;
+}
+.beer-card img{
+  /* max-width:14rem; */
 }
 
 /* media queries compatible with bootstrap breakpoints */
