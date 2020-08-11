@@ -10,7 +10,8 @@
     "a-male": "A",
     "by": "by",
     "dev-link": "https://minimo.io/en/",
-    "dev-name": "Mínimo"
+    "dev-name": "Mínimo",
+    "breweries": "Breweries"
   },
   "nav": {
     "menu" : "Menu",
@@ -50,7 +51,8 @@
     "rankings":  "Rankings"
   },
   "homepage": {
-    "slogan": "Who are the <strong><u>Hop Masters</u></strong> in your country?<br>And around the globe?"
+    "slogan": "Who are the <strong>Hop Masters</strong>?",
+    "description": "Who are the hop masters in your country? And around the globe? Vote, share, and follow your favorite breweries and beers, learn and access discounts at the store: beers, supplies & courses."
   },
   "login": {
     "title" : "Sign in",

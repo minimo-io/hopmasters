@@ -10,7 +10,8 @@
     "a-male": "Un",
     "by": "por",
     "dev-link": "https://minimo.io",
-    "dev-name": "Mínimo"
+    "dev-name": "Mínimo",
+    "breweries": "Cervecerías"
   },
   "nav": {
     "menu" : "Menú",
@@ -51,7 +52,8 @@
     "rankings":  "Rankings"
   },
   "homepage": {
-    "slogan": "¿Quienes son los <strong><u>Maestros del Lúpulo</u></strong> en tu país?<br>¿Y en el mundo?"
+    "slogan": "¿Quienes son los <strong>Maestros del Lúpulo</strong>?",
+    "description": "Mira los <i class='fas fa-medal mr-1'></i>Rankings. Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos. Aprende en la <i class='fas fa-graduation-cap mr-1'></i>Escuela y accede a descuentos en la <i class='fas fa-shopping-cart mr-1'></i>Tienda."
   },
   "login": {
     "title" : "Ingresar",

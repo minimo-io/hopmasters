@@ -33,12 +33,30 @@
                   </b-col>
             </b-row>
 
-
-
             <b-overlay :show="isLoadingBeers" spinner-variant="green" spinner-type="grow">
             <div>
-              <b-container class="px-0 mt-4">
-
+              <b-container class="px-0 mx-0">
+                <!-- <b-row class="px-0 mx-0">
+                  <b-col class="mb-3 mt-3 px-0 mx-0">
+                    <b-card>
+                      <b-card-title>{{ $t("global.breweries") }} <b-badge variant="danger softer">28</b-badge></b-card-title>
+                      <b-card-text>
+                        <b-avatar-group size="50px">
+                          <b-avatar></b-avatar>
+                          <b-avatar text="BV" variant="primary"></b-avatar>
+                          <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                          <b-avatar text="OK" variant="danger"></b-avatar>
+                          <b-avatar variant="warning"></b-avatar>
+                          <b-avatar src="https://placekitten.com/320/320" variant="dark"></b-avatar>
+                          <b-avatar icon="music-note" variant="success"></b-avatar>
+                          <b-avatar variant="warning"></b-avatar>
+                          <b-avatar src="https://placekitten.com/320/320" variant="dark"></b-avatar>
+                          <b-avatar icon="music-note" variant="success"></b-avatar>
+                        </b-avatar-group>
+                      </b-card-text>
+                    </b-card>
+                  </b-col>
+                </b-row> -->
                 <b-row>
 
                   <b-col v-for="beer in beers" :key="beer.key" sm="4" class="px-0">

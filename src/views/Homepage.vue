@@ -1,6 +1,7 @@
 <template>
   <div>
     <welcome></welcome>
+    <!-- <hr class="mt-0 pt-0 mb-5"> -->
     <beermaster slot="homepage"></beermaster>
 
   </div>
