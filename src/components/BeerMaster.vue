@@ -1,6 +1,6 @@
 <template>
   <div>
-        <b-container fluid>
+        <b-container>
           <!-- <br><br><br><br><br> -->
             <!-- Country: {{ this.country }}
             Brewery: {{ this.brewery }}
@@ -34,13 +34,14 @@
             </b-row>
 
             <br><br>
-            <div class="btn-group" role="group" aria-label="Tipo de visualización">
-              <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-light btn-listview" data-toggle="tooltip" data-placement="top" data-original-title="Vista de lista"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+            <div class="text-right">
+              <div class="btn-group" role="group" aria-label="Tipo de visualización">
+                <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-light btn-listview" data-toggle="tooltip" data-placement="top" data-original-title="Vista de lista"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+              </div>
             </div>
 
-            <b-overlay :show="isLoadingBeers" spinner-variant="green" spinner-type="grow">
-            <div>
+              <div class="text-center"><b-spinner v-if="isLoadingBeers" variant="info" type="grow" label="Spinning"></b-spinner></div>
               <b-container class="px-0 mx-0">
                 <!-- <b-row class="px-0 mx-0">
                   <b-col class="mb-3 mt-3 px-0 mx-0">
@@ -95,8 +96,7 @@
 
               </b-container>
 
-            </div>
-            </b-overlay>
+
 
             <!-- <ul>
               <li v-for="beer in beers" :key="beer.key">

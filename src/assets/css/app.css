@@ -196,28 +196,27 @@ ul.beer-list i{ font-size:1rem;  }
 .beer-card img{
   /* max-width:14rem; */
 }
+.hero-h1 {
+  font-size: 35px !important;
+  font-weight: 700;
+  color: #3c3c3c;
+  line-height: 1.35em;
+}
+.welcome-box h2{
+  font-size:1.1rem;
+  font-family: sans-serif;
+  text-align: center;
+}
 .welcome-box h3{
   /* background-image: url("../homebrewing-adam-wilson.jpg") */
   font-size:1.1rem;
   font-family: "Space mono", monospace;
   text-align: left;
 }
-.highlight-word {
-  display: inline-block;
-  position: relative;
-  z-index: 0;
-}
-.highlight-word:before {
-  content: '';
-  background: url('https://www.betizen.org/wp-content/themes/aipim-theme/assets/images/highlight.png') no-repeat center center;
-  background-size: 100% auto;
-  width: 108%;
-  height: 100%;
-  display: block;
-  position: absolute;
-  z-index: -1;
-  transform: translate(-3%,0);
-}
+
+.welcome-image-box{ text-align:right; }
+.welcome-image-box img{ width:170px; }
+
 
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
@@ -252,4 +251,11 @@ ul.beer-list i{ font-size:1rem;  }
     font-size: .8rem;
     /* padding: .5rem .4rem; */
   }
+  .welcome-box h3{
+    text-align: justify;
+    font-size:1rem;
+  }
+  .welcome-image-box{ text-align:center; }
+  .welcome-image-box img{ width:120px; }
+  .hero-h1{ font-size:1.4rem !important; }
 }

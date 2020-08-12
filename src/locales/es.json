@@ -11,7 +11,8 @@
     "by": "por",
     "dev-link": "https://minimo.io",
     "dev-name": "Mínimo",
-    "breweries": "Cervecerías"
+    "breweries": "Cervecerías",
+    "beers": "Cervezas"
   },
   "nav": {
     "menu" : "Menú",
@@ -53,7 +54,7 @@
   },
   "homepage": {
     "slogan": "¿Quienes son los <strong>Maestros del Lúpulo</strong>?",
-    "description": "Mira los <a href='#'><i class='fas fa-medal mr-1'></i>Rankings</a>. Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos. Aprende a fabricar en la <a href='#'><i class='fas fa-graduation-cap mr-1'></i>Escuela</a> y accede a descuentos en la <a href='#'><i class='fas fa-shopping-cart mr-1'></i>Tienda</a>. Si eres una cervecería <a href='#'>contactanos</a> que queremos darte <a href='#'><i class='fas fa-heart'></i></a>"
+    "description": ""
   },
   "login": {
     "title" : "Ingresar",

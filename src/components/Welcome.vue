@@ -11,31 +11,45 @@
 
 
       <b-card no-body class="p-0 pt-0 mt-0" style="border:0;">
-        <b-card-body class="z-index-6000 text-center p-5" Xstyle="border:1px solid blue;">
+        <b-card-body class="z-index-6000 text-center p-5">
         <center>
-          <!-- <span class="app-text-green">.</span> -->
-          <h2 v-if="withText" v-html="$t('homepage.slogan')" class="hero-h1 mt-0 mb-5 bd-text-purple-bright display-4"></h2>
+          <h2 v-if="withText" v-html="$t('homepage.slogan')" class="hero-h1 mt-0 mb-4 mb-md-5 bd-text-purple-bright display-4"></h2>
 
           <div class="row">
-              <div class="col-md-4 text-right">
+              <div class="col-md-4 mb-3 welcome-image-box Xtext-right">
 
-                    <b-img style="width:170px;" :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="mt-0 mb-0 animated infinite pulse"></b-img>
+                    <b-img :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="mt-0 mb-0 animated infinite pulse"></b-img>
 
               </div>
               <div class="col-md-7 mt-2">
 
-                  <h3 class="post-subtitle" v-html="$t('homepage.description')"></h3>
+                  <h3 v-if="this.$i18n.locale == 'es'" class="post-subtitle">
+                    Mira los <b-link :to="lg_build_path('/')"><span class="text-nowrap"><i class='fas fa-medal mr-1'></i>Rankings</span></b-link> cerveceros.
+                    <span class='d-none d-lg-inline-block'>Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos.</span>
+                    Aprende a fabricar en la <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>Escuela</span></b-link> y accede a descuentos en la
+                    <b-link :to="lg_build_path('/store')"><span class="text-nowrap"><i class='fas fa-shopping-cart mr-1'></i>Tienda</span></b-link>.
+                    Si eres una cervecería <b-link target="_blank" :href="app_link('instagram')">contactanos</b-link> que queremos darte <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
+                  </h3>
+                  <h3 v-if="this.$i18n.locale == 'en'" class="post-subtitle">
+                    Look at the beer <b-link :to="lg_build_path('/')"><span class="text-nowrap"><i class='fas fa-medal mr-1'></i>Rankings</span></b-link>.
+                    <span class='d-none d-lg-inline-block'>Vote and follow your favorite beers and breweries for new releases.</span>
+                    Learn to brew at <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>School</span></b-link> and access discounts at the
+                    <b-link :to="lg_build_path('/store')"><span class="text-nowrap"><i class='fas fa-shopping-cart mr-1'></i>Store</span></b-link>.
+                    If you are a brewery <b-link target="_blank" :href="app_link('instagram')">contact us</b-link>, as we want to give you <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
+                  </h3>
+
+
                   <div class="container px-0 mt-4 mb-0 text-left">
                     <b-button size="md" variant="outline-danger" class="btn-sm-block mr-3">
-                      <i class="fas fa-beer mr-1"></i>Cervezas
+                      <i class="fas fa-beer mr-1"></i>{{ $t("global.beers") }}
                       <b-badge pill variant="danger">28</b-badge>
                     </b-button>
                     <b-button size="md" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3">
-                      <i class="fas fa-industry mr-1"></i>Cervecerías
+                      <i class="fas fa-industry mr-1"></i>{{ $t("global.breweries") }}
                       <b-badge pill variant="dark">23</b-badge>
                     </b-button>
                     <b-button size="md" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0">
-                      <i class="fas fa-shopping-cart mr-1"></i>Tienda
+                      <i class="fas fa-shopping-cart mr-1"></i>{{ $t("nav.store.title") }}
                     </b-button>
                   </div>
 
@@ -59,19 +73,6 @@
 
 </template>
 <style scoped>
-  h2{
-    font-size:1.1rem;
-    font-family: sans-serif;
-    text-align: center;
-    /* font-family: "Nunito", sans-serif; */
-
-  }
-  .hero-h1 {
-      font-size: 35px !important;
-      font-weight: 700;
-      color: #3c3c3c;
-      line-height: 1.35em;
-  }
   .overlay-dark::after {
       background: linear-gradient(to bottom left, transparent 20%, rgba(52, 58, 64, .8) 100%);
   }
