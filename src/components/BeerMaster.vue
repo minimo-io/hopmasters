@@ -35,7 +35,7 @@
 
             <br><br>
             <div class="text-right">
-              <div class="btn-group" role="group" aria-label="Tipo de visualización">
+              <div class="btn-group btn-group-sm" role="group" aria-label="Tipo de visualización">
                 <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
                 <button type="button" class="btn btn-light btn-listview" data-toggle="tooltip" data-placement="top" data-original-title="Vista de lista"><i class="fa fa-th-list" aria-hidden="true"></i></button>
               </div>
@@ -66,33 +66,55 @@
                 </b-row> -->
                 <b-row>
 
-                  <b-col v-for="beer in beers" :key="beer.key" sm="4" class="px-0">
+                  <b-col v-for="beer in beers" :key="beer.key" sm="4" class="px-2 px-sm-0">
 
 
                     <b-card
                       :title="beer.beerName"
                       class="beer-card mb-2 mr-0 mr-md-2"
-
                     >
+                      <div class="beer-signature text-center justify-content-center mb-3">
+                        <b-link class="brewerylink text-uppercase font-weight-bold" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
+                          <!-- <b-avatar size="1.5rem" class="no-shadow" :src="beer.brewery.breweryLogo"></b-avatar> -->
+                            <b-avatar class="no-shadow mr-1" size="1.2rem" :src="require('@/assets/flags/svg/uy.svg')"></b-avatar>
+                          {{ beer.brewery.breweryName }}
+                        </b-link>
+                      </div>
                       <b-card-text class="text-center">
                         <img :src="beer.beerImage" />
                       </b-card-text>
+                      <div class="product-rating mt-3 mb-0 text-center">
+                        <i class="fa fa-star gold"></i>
+                        <i class="fa fa-star gold"></i>
+                        <i class="fa fa-star gold"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
 
-                      <!-- <router-link class="text-center" :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }">
+                      <div class="product-price text-center mb-3">627 fanáticos</div>
 
-                      </router-link> -->
+                      <div class="beer-meta softer mb-2 text-center">
+                        <b-badge variant="info mr-2">{{ beer.type.typeName }}</b-badge>
+                        <b-badge variant="primary mr-2">ABV: {{ beer.ABV }}%</b-badge>
+                        <b-badge variant="green">IBU: {{ beer.IBU }}</b-badge>
+                      </div>
+                      <template v-slot:footer>
+                        <div class="text-center">
+                          <b-button :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }" variant="outline-info" size="sm" class="mr-2" block>
+                            <i class="fas fa-info-circle mr-1"></i>{{ $t("global.details") }}
+                          </b-button>
+                          <!-- <b-button :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }" variant="outline-danger" size="sm">
+                            <i class="far fa-heart"></i>
+                          </b-button> -->
 
-                      <!-- <template v-slot:footer>
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                      </template> -->
-                      <!-- <b-button href="#" variant="primary">Go somewhere</b-button> -->
-
-                      <b-button :to="{ path: lg_build_path('/beer/' + beer.beerSlug) }" variant="outline-info" size="sm" block>Details</b-button>
+                        </div>
+                      </template>
                     </b-card>
 
                   </b-col>
-
+                  <button class="btn btn-outline-info btn-block mt-3 mx-1"><i class="fa fa-plus fa-fw"></i></button>
                 </b-row>
+
 
               </b-container>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- <h2 class="card-title">{{ title }}</h2> -->
     <div v-if="breweryLoadedOk">
       <b-card class="mt-4">

@@ -187,14 +187,15 @@ ul.beer-list i{ font-size:1rem;  }
 	margin-top: 10px;
 }
 
-.beer-card{
-
-}
+.beer-card .product-price{ font-size:1rem; }
 .beer-card .card-title{
   text-align:center;
+  margin-bottom:0;
+  font-size:1.2rem;
 }
 .beer-card img{
   /* max-width:14rem; */
+  width:12rem;
 }
 .hero-h1 {
   font-size: 35px !important;
@@ -251,6 +252,10 @@ ul.beer-list i{ font-size:1rem;  }
     font-size: .8rem;
     /* padding: .5rem .4rem; */
   }
+  .beer-card{ margin-top:1rem; }
+  .beer-card .card-title{ font-size:1.4rem; }
+  .beer-card img{ width:10rem;}
+  .beer-card .product-price{ font-size:.9rem; }
   .welcome-box h3{
     text-align: justify;
     font-size:1rem;

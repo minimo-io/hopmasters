@@ -11,7 +11,9 @@
     "by": "by",
     "dev-link": "https://minimo.io/en/",
     "dev-name": "Mínimo",
-    "breweries": "Breweries"
+    "breweries": "Breweries",
+    "beers": "Beers",
+    "details": "Details"
   },
   "nav": {
     "menu" : "Menu",

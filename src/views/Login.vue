@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="container mt-5">
     <!-- Login form -->
     <b-overlay :show="isLoading" z-index="8000" rounded="sm">
       <b-card

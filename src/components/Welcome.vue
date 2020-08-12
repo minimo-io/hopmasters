@@ -33,7 +33,7 @@
                   <h3 v-if="this.$i18n.locale == 'en'" class="post-subtitle">
                     Look at the beer <b-link :to="lg_build_path('/')"><span class="text-nowrap"><i class='fas fa-medal mr-1'></i>Rankings</span></b-link>.
                     <span class='d-none d-lg-inline-block'>Vote and follow your favorite beers and breweries for new releases.</span>
-                    Learn to brew at <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>School</span></b-link> and access discounts at the
+                    Learn to brew at the <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>School</span></b-link> and access discounts at the
                     <b-link :to="lg_build_path('/store')"><span class="text-nowrap"><i class='fas fa-shopping-cart mr-1'></i>Store</span></b-link>.
                     If you are a brewery <b-link target="_blank" :href="app_link('instagram')">contact us</b-link>, as we want to give you <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
                   </h3>

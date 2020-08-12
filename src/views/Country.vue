@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>{{ this.title }}</h1>
     <b-link :to="lg_build_path('/country/uruguay/oso-pardo')">Oso Pardo</b-link>
     <!-- BEER VIEW -->

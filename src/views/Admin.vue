@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     Hello, you are a user admin (maybe ;)
 
 
