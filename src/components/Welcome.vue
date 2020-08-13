@@ -2,12 +2,9 @@
 @import '../assets/css/animate.css';
 </style>
 <template>
-  <div class="row align-items-center mb-5 mt-5">
-    <!-- <div class="col-4 col-lg-4 mx-auto order-lg-2">
-      <b-img :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="animated infinite pulse"></b-img>
+  <div class="align-items-center mb-4 mt-5">
 
-    </div> -->
-    <div class="welcome-box col-lg-12 text-center text-lg-left order-lg-1">
+    <div class="welcome-box col-lg-12 text-center text-lg-left order-lg-1 px-0">
 
 
       <b-card no-body class="p-0 pt-0 mt-0" style="border:0;">

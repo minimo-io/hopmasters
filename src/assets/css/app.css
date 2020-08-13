@@ -188,6 +188,23 @@ ul.beer-list i{ font-size:1rem;  }
 }
 
 .beer-card .product-price{ font-size:1rem; }
+.beer-card .beer-favoriter{
+  position:absolute;
+  top:1%;
+  right:4%;
+  font-size:1.2rem;
+  opacity:.25;
+
+}
+.beer-favoriter a{
+  /* font-family: "Font Awesome 5 Free";
+  content: "\f004"; */
+  color:grey;
+  font-weight: 900;
+}
+.beer-favoriter a:hover{
+  color:red;
+}
 .beer-card .card-title,
 .topBreweries-card h2{
   text-align:center;

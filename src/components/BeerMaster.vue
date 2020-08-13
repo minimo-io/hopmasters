@@ -73,6 +73,7 @@
                       :title="beer.beerName"
                       class="beer-card mb-2 mr-0 mr-md-2"
                     >
+                      <div class="beer-favoriter" v-b-tooltip.hover title="¿Favorito?"><b-link href="#"><i class="fas fa-heart"></i></b-link></div>
                       <div class="beer-signature text-center justify-content-center mb-3">
                         <b-link class="brewerylink text-uppercase" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
                           <!-- <b-avatar size="1.5rem" class="no-shadow" :src="beer.brewery.breweryLogo"></b-avatar> -->
