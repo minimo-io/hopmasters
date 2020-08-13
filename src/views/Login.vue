@@ -60,10 +60,9 @@
           </b-card-body>
           <div class="overlay overlay-dark"></div>
       </b-card>
-
-
-
     </b-overlay>
+
+
     <!-- Signup form -->
     <b-overlay v-if="isSignUp" :show="isLoading" rounded="sm" z-index="8000">
       <b-card no-body class="mt-4 alt-form alt-form-dark">
@@ -119,6 +118,22 @@
         </b-form>
         </b-card-body>
         <div class="overlay overlay-green"></div>
+      </b-card>
+    </b-overlay>
+
+    <p class="text-center mt-3">{{ $t("global.or") }}</p>
+
+    <b-overlay :show="isLoading" z-index="8000" rounded="sm">
+      <b-card
+        class="alt-form alt-form-light mt-3"
+        no-body>
+          <b-card-body class="z-index-6000">
+            <b-card-title class="text-center">{{ $t("login.areYouABrewery") }}</b-card-title>
+            <b-button type="button" @click="googleLogin" block variant="outline-dark" class="btn-xs-block">
+               {{ $t("login.contactWorkTogether") }}
+            </b-button>
+          </b-card-body>
+          <div class="overlay overlay-secondary"></div>
       </b-card>
     </b-overlay>
 

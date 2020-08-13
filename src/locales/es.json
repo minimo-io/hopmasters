@@ -15,7 +15,13 @@
     "beers": "Cervezas",
     "details": "Detalles",
     "topBreweries": "Mejores cervecerías",
-    "seeAllBreweries": "Ver todas <span class='d-none d-sm-inline-block'>las cervecerías</span>"
+    "seeAllBreweries": "Ver todas <span class='d-none d-sm-inline-block'>las cervecerías</span>",
+    "grid": "Cuadrícula",
+    "list": "Lista",
+    "map": "Mapa",
+    "or": "ó",
+    "favorite": "¿Favorita?",
+    "searchForTheBest": "Buscar la mejor"    
   },
   "nav": {
     "menu" : "Menú",
@@ -71,7 +77,9 @@
     "btn-signup": "Registrarse",
     "btn-socialLogin": "Ingresa con",
     "orSingUpMessage": "¿No tienes cuenta?",
-    "orSingUpButtonText": "¡Regístrate!"
+    "orSingUpButtonText": "¡Regístrate!",
+    "areYouABrewery": "¿Eres una cervecería?",
+    "contactWorkTogether": "Registrate, ¡trabajemos juntos!"
   },
   "signup":{
     "title": "Formulario de registro"

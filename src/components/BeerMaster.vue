@@ -9,11 +9,10 @@
             <router-view></router-view>
 
             <!-- User Interface controls -->
-            <b-row class="text-center">
+            <b-row class="text-center mt-4">
                 <b-col lg="12" class="my-1">
-
+                    <h2 class="text-uppercase font-weight-bold mb-2">{{ $t("global.searchForTheBest") }}</h2>
                     <b-form inline style="text-align:center;" class="justify-content-center">
-                      <label class="mr-sm-2" for="beer_type">La mejor</label>
                       <b-form-select
                         id="beer_type"
                         class="mb-2 mr-sm-2 mb-sm-0"
@@ -36,8 +35,9 @@
             <br>
             <div class="text-right">
               <div class="btn-group btn-group-sm" role="group" aria-label="Tipo de visualización">
-                <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-light btn-listview" data-toggle="tooltip" data-placement="top" data-original-title="Vista de lista"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-light btn-galleryview active" v-b-tooltip.hover :title="$t('global.grid')"><i class="fa fa-th" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-light btn-listview" v-b-tooltip.hover :title="$t('global.list')"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-light btn-listview" v-b-tooltip.hover :title="$t('global.map')"><i class="fas fa-map-marker-alt"></i></button>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
                       :title="beer.beerName"
                       class="beer-card mb-2 mr-0 mr-md-2"
                     >
-                      <div class="beer-favoriter" v-b-tooltip.hover title="¿Favorito?"><b-link href="#"><i class="fas fa-heart"></i></b-link></div>
+                      <div class="beer-favoriter" v-b-tooltip.hover :title="$t('global.favorite')"><b-link href="#"><i class="fas fa-heart"></i></b-link></div>
                       <div class="beer-signature text-center justify-content-center mb-3">
                         <b-link class="brewerylink text-uppercase" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
                           <!-- <b-avatar size="1.5rem" class="no-shadow" :src="beer.brewery.breweryLogo"></b-avatar> -->
@@ -95,8 +95,8 @@
                       <div class="product-price text-center mb-3">627 fanáticos</div>
 
                       <div class="beer-meta softer mb-2 text-center">
-                        <b-badge variant="info mr-2">{{ beer.type.typeName }}</b-badge>
-                        <b-badge variant="primary mr-2">ABV: {{ beer.ABV }}%</b-badge>
+                        <b-badge variant="info" class="mr-2">{{ beer.type.typeName }}</b-badge>
+                        <b-badge variant="primary" class="mr-2">ABV: {{ beer.ABV }}%</b-badge>
                         <b-badge variant="green">IBU: {{ beer.IBU }}</b-badge>
                       </div>
                       <template v-slot:footer>

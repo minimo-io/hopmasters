@@ -15,7 +15,13 @@
     "beers": "Beers",
     "details": "Details",
     "topBreweries": "Top breweries",
-    "seeAllBreweries": "See all <span class='d-none d-sm-inline-block'>breweries</span>"
+    "seeAllBreweries": "See all <span class='d-none d-sm-inline-block'>breweries</span>",
+    "grid": "Grid",
+    "list": "List",
+    "map": "Map",
+    "or": "or",
+    "favorite": "Favorite?",
+    "searchForTheBest": "Search for the best"     
   },
   "nav": {
     "menu" : "Menu",
@@ -70,8 +76,9 @@
     "btn-signup": "Sign up",
     "btn-socialLogin": "Sign In with",
     "orSingUpMessage": "No account?",
-    "orSingUpButtonText": "Create one!"
-
+    "orSingUpButtonText": "Create one!",
+    "areYouABrewery": "Are you a brewery?",
+    "contactWorkTogether": "Sign up, lets work together!"
   },
   "signup":{
     "title": "Signup form"
