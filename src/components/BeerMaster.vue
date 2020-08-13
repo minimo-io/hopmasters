@@ -27,13 +27,13 @@
                         :options="countries"
                         v-model="country_selected"
                       ></b-form-select>
-                      <b-button variant="success">Buscar</b-button>
+                      <b-button variant="success" class="btn-sm-block">Buscar</b-button>
                     </b-form>
 
                   </b-col>
             </b-row>
 
-            <br><br>
+            <br>
             <div class="text-right">
               <div class="btn-group btn-group-sm" role="group" aria-label="Tipo de visualización">
                 <button type="button" class="btn btn-light btn-galleryview active" data-toggle="tooltip" data-placement="top" data-original-title="Vista de galería"><i class="fa fa-th" aria-hidden="true"></i></button>
@@ -74,7 +74,7 @@
                       class="beer-card mb-2 mr-0 mr-md-2"
                     >
                       <div class="beer-signature text-center justify-content-center mb-3">
-                        <b-link class="brewerylink text-uppercase font-weight-bold" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
+                        <b-link class="brewerylink text-uppercase" :to="lg_build_path('/brewery/' + beer.brewery.brewerySlug)">
                           <!-- <b-avatar size="1.5rem" class="no-shadow" :src="beer.brewery.breweryLogo"></b-avatar> -->
                             <b-avatar class="no-shadow mr-1" size="1.2rem" :src="require('@/assets/flags/svg/uy.svg')"></b-avatar>
                           {{ beer.brewery.breweryName }}

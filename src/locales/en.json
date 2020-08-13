@@ -13,7 +13,9 @@
     "dev-name": "Mínimo",
     "breweries": "Breweries",
     "beers": "Beers",
-    "details": "Details"
+    "details": "Details",
+    "topBreweries": "Top breweries",
+    "seeAllBreweries": "See all <span class='d-none d-sm-inline-block'>breweries</span>"
   },
   "nav": {
     "menu" : "Menu",

@@ -13,7 +13,9 @@
     "dev-name": "Mínimo",
     "breweries": "Cervecerías",
     "beers": "Cervezas",
-    "details": "Detalles"
+    "details": "Detalles",
+    "topBreweries": "Mejores cervecerías",
+    "seeAllBreweries": "Ver todas <span class='d-none d-sm-inline-block'>las cervecerías</span>"
   },
   "nav": {
     "menu" : "Menú",

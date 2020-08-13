@@ -188,7 +188,8 @@ ul.beer-list i{ font-size:1rem;  }
 }
 
 .beer-card .product-price{ font-size:1rem; }
-.beer-card .card-title{
+.beer-card .card-title,
+.topBreweries-card h2{
   text-align:center;
   margin-bottom:0;
   font-size:1.2rem;
@@ -218,13 +219,16 @@ ul.beer-list i{ font-size:1rem;  }
 .welcome-image-box{ text-align:right; }
 .welcome-image-box img{ width:170px; }
 
+.topBreweries-avatars{ font-size: 2rem; }
+.topBreweries-card h2{  font-family: Nunito, sans-serif;}
+.topBreweries-card .b-avatar{ margin-right:1rem; margin-top:1rem; }
 
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
 
 }
 @media (max-width: 768px) {
-
+  .welcome-image-box{ text-align:center; }
 }
 @media (max-width: 576px) {
   /* alt reset */
@@ -253,7 +257,8 @@ ul.beer-list i{ font-size:1rem;  }
     /* padding: .5rem .4rem; */
   }
   .beer-card{ margin-top:1rem; }
-  .beer-card .card-title{ font-size:1.4rem; }
+  .beer-card .card-title{ font-size:1.3rem; }
+  .topBreweries-card h2{ font-size:1.1rem; }
   .beer-card img{ width:10rem;}
   .beer-card .product-price{ font-size:.9rem; }
   .welcome-box h3{
@@ -263,4 +268,5 @@ ul.beer-list i{ font-size:1rem;  }
   .welcome-image-box{ text-align:center; }
   .welcome-image-box img{ width:120px; }
   .hero-h1{ font-size:1.4rem !important; }
+  .topBreweries-avatars{ font-size: 1.5rem; }
 }

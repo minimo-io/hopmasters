@@ -25,17 +25,17 @@
 
                   <h3 v-if="this.$i18n.locale == 'es'" class="post-subtitle">
                     Mira los <b-link :to="lg_build_path('/')"><span class="text-nowrap"><i class='fas fa-medal mr-1'></i>Rankings</span></b-link> cerveceros.
-                    <span class='d-none d-lg-inline-block'>Vota y sigue a tus cervezas y cervecerías favoritas para conocer nuevos lanzamientos.</span>
+                    <span class='d-none d-lg-inline-block'>Vota y sigue a tus cervezas y cervecerías favoritas para conocer los nuevos lanzamientos.</span>
                     Aprende a fabricar en la <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>Escuela</span></b-link> y accede a descuentos en la
                     <b-link :to="lg_build_path('/store')"><span class="text-nowrap"><i class='fas fa-shopping-cart mr-1'></i>Tienda</span></b-link>.
-                    Si eres una cervecería <b-link target="_blank" :href="app_link('instagram')">contactanos</b-link> que queremos darte <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
+                    Si eres una cervecería contactanos en <b-link target="_blank" :href="app_link('instagram')"><span class="text-nowrap"><i class='fab fa-instagram-square mr-1'></i>Instagram</span></b-link> que queremos darte <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
                   </h3>
                   <h3 v-if="this.$i18n.locale == 'en'" class="post-subtitle">
                     Look at the beer <b-link :to="lg_build_path('/')"><span class="text-nowrap"><i class='fas fa-medal mr-1'></i>Rankings</span></b-link>.
-                    <span class='d-none d-lg-inline-block'>Vote and follow your favorite beers and breweries for new releases.</span>
+                    <span class='d-none d-lg-inline-block'>Vote and follow your favorite beers and breweries to find out about new releases.</span>
                     Learn to brew at the <b-link :to="lg_build_path('/school')"><span class="text-nowrap"><i class='fas fa-graduation-cap mr-1'></i>School</span></b-link> and access discounts at the
                     <b-link :to="lg_build_path('/store')"><span class="text-nowrap"><i class='fas fa-shopping-cart mr-1'></i>Store</span></b-link>.
-                    If you are a brewery <b-link target="_blank" :href="app_link('instagram')">contact us</b-link>, as we want to give you <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
+                    If you are a brewery contact us on <b-link target="_blank" :href="app_link('instagram')"><span class="text-nowrap"><i class='fab fa-instagram-square mr-1'></i>Instagram</span></b-link>, as we want to give you <b-link :to="lg_build_path('/')"><i class='fas fa-heart'></i></b-link>
                   </h3>
 
 
@@ -65,7 +65,6 @@
         </b-card-body>
         <div class="overlay overlay-dark"></div>
       </b-card>
-
 
 
     </div>
