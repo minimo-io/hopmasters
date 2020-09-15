@@ -242,7 +242,7 @@ ul.beer-list i{ font-size:1rem;  }
 
 .welcome-box .overlay{
   /* background-image:url('../keith-misner-h0Vxgz5tyXA-unsplash.jpg'); */
-  background-image:url('../hops-4.jpg');
+  background-image:url('../hops-lg.jpg');
   background-size:cover;
   -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
   filter: grayscale(50%);
