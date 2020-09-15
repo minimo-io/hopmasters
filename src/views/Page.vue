@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-0 ">
+  <div class="container pt-0 ">
     <div class="container primary-container pt-0 px-0 mt-3 mt-lg-5">
         <header class="alt-post-margins alt-top-title mx-0">
           <b-link @click.prevent="app_goback(-1)" class="breadcrumb-back-button">

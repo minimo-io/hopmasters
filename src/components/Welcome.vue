@@ -8,16 +8,17 @@
 
 
       <b-card no-body class="p-0 pt-0 mt-0" style="border:0;">
+        <div class="overlay overlay-dark"></div>
         <b-card-body class="z-index-6000 text-center p-5">
         <center>
-          <h2 v-if="withText" v-html="$t('homepage.slogan')" class="hero-h1 mt-0 mb-4 mb-md-5 bd-text-purple-bright display-4"></h2>
+          <h2 v-if="withText" v-html="$t('homepage.slogan')" class="hero-h1 mt-0 mb-4 mb-md-4 bd-text-purple-bright display-4"></h2>
 
           <div class="row">
-              <div class="col-md-4 mb-3 welcome-image-box Xtext-right">
+              <!-- <div class="col-md-4 mb-3 welcome-image-box Xtext-right">
 
                     <b-img :src="require('../assets/logo.png')" fluid alt="bienvenido-a-hopmasters" class="mt-0 mb-0 animated infinite pulse"></b-img>
 
-              </div>
+              </div> -->
               <div class="col-md-7 mt-2">
 
                   <h3 v-if="this.$i18n.locale == 'es'" class="post-subtitle">
@@ -37,15 +38,15 @@
 
 
                   <div class="container px-0 mt-4 mb-0 text-left">
-                    <b-button size="md" variant="outline-danger" class="btn-sm-block mr-3">
+                    <b-button size="md" variant="danger" class="btn-sm-block mr-3">
                       <i class="fas fa-beer mr-1"></i>{{ $t("global.beers") }}
                       <b-badge pill variant="danger">28</b-badge>
                     </b-button>
-                    <b-button size="md" variant="outline-dark" class="btn-sm-block mt-3 mt-sm-0 mr-3">
+                    <b-button size="md" variant="dark" class="btn-sm-block mt-3 mt-sm-0 mr-3">
                       <i class="fas fa-industry mr-1"></i>{{ $t("global.breweries") }}
                       <b-badge pill variant="dark">23</b-badge>
                     </b-button>
-                    <b-button size="md" variant="outline-success" class="btn-sm-block mt-3 mt-sm-0">
+                    <b-button size="md" variant="success" class="btn-sm-block mt-3 mt-sm-0">
                       <i class="fas fa-shopping-cart mr-1"></i>{{ $t("nav.store.title") }}
                     </b-button>
                   </div>
@@ -60,7 +61,7 @@
 
         </center>
         </b-card-body>
-        <div class="overlay overlay-dark"></div>
+
       </b-card>
 
 
@@ -68,19 +69,7 @@
   </div>
 
 </template>
-<style scoped>
-  .overlay-dark::after {
-      background: linear-gradient(to bottom left, transparent 20%, rgba(52, 58, 64, .8) 100%);
-  }
-  .overlay-dark:hover::after {
-    background: linear-gradient(to bottom left, transparent 20%, rgba(52, 58, 64, .8) 100%) !important;
-    opacity: unset;
-  }
-
-</style>
 <script>
-import Welcome from './Welcome.vue'
-
 export default {
   props: {
     withText: { type: Boolean, default: true}

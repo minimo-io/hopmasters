@@ -224,7 +224,7 @@ ul.beer-list i{ font-size:1rem;  }
 .welcome-box h2{
   font-size:1.1rem;
   font-family: sans-serif;
-  text-align: center;
+  text-align: left;
 }
 .welcome-box h3{
   /* background-image: url("../homebrewing-adam-wilson.jpg") */
@@ -239,6 +239,40 @@ ul.beer-list i{ font-size:1rem;  }
 .topBreweries-avatars{ font-size: 2rem; }
 .topBreweries-card h2{  font-family: Nunito, sans-serif;}
 .topBreweries-card .b-avatar{ margin-right:1rem; margin-top:1rem; }
+
+.welcome-box .overlay{
+  /* background-image:url('../keith-misner-h0Vxgz5tyXA-unsplash.jpg'); */
+  background-image:url('../hops-4.jpg');
+  background-size:cover;
+}
+.welcome-box .overlay:after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* background: linear-gradient(180deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 3.5%,rgba(0,0,0,.379) 7%,rgba(0,0,0,.377) 10.35%,rgba(0,0,0,.375) 13.85%,rgba(0,0,0,.372) 17.35%,rgba(0,0,0,.369) 20.85%,rgba(0,0,0,.366) 24.35%,rgba(0,0,0,.364) 27.85%,rgba(0,0,0,.361) 31.35%,rgba(0,0,0,.358) 34.85%,rgba(0,0,0,.355) 38.35%,rgba(0,0,0,.353) 41.85%,rgba(0,0,0,.351) 45.35%,rgba(0,0,0,.35) 48.85%,rgba(0,0,0,.353) 52.35%,rgba(0,0,0,.36) 55.85%,rgba(0,0,0,.371) 59.35%,rgba(0,0,0,.385) 62.85%,rgba(0,0,0,.402) 66.35%,rgba(0,0,0,.42) 69.85%,rgba(0,0,0,.44) 73.35%,rgba(0,0,0,.46) 76.85%,rgba(0,0,0,.48) 80.35%,rgba(0,0,0,.498) 83.85%,rgba(0,0,0,.515) 87.35%,rgba(0,0,0,.529) 90.85%,rgba(0,0,0,.54) 94.35%,rgba(0,0,0,.547) 97.85%,rgba(0,0,0,.55)); */
+
+
+  background: rgb(112,112,112);
+  background: -moz-linear-gradient(360deg, rgba(112,112,112,0.2903536414565826) 0%, rgba(28,28,29,1) 20%);
+  background: -webkit-linear-gradient(360deg, rgba(112,112,112,0.2903536414565826) 0%, rgba(28,28,29,1) 20%);
+  background: linear-gradient(360deg, rgba(112,112,112,0.2903536414565826) 0%, rgba(28,28,29,1) 20%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#707070",endColorstr="#1c1c1d",GradientType=1);
+  width: 100%;
+  height: 100%;
+
+}
+
+.welcome-box .post-subtitle{
+  color:#d1d1d1 !important;
+}
+.welcome-box .post-subtitle{  }
+.welcome-box a, .welcome-box h2{
+  color:#FFFFFF !important;
+}
+.welcome-box .card-body{
+  margin-left:13%;
+}
 
 /* media queries compatible with bootstrap breakpoints */
 @media (max-width: 992px) {
@@ -282,8 +316,15 @@ ul.beer-list i{ font-size:1rem;  }
     text-align: justify;
     font-size:1rem;
   }
+  .welcome-box h2{
+    text-align: center;
+  }
   .welcome-image-box{ text-align:center; }
   .welcome-image-box img{ width:120px; }
   .hero-h1{ font-size:1.4rem !important; }
   .topBreweries-avatars{ font-size: 1.5rem; }
+  .welcome-box .card-body{
+    margin-left:0%;
+  }
+
 }
