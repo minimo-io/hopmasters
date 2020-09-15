@@ -244,6 +244,9 @@ ul.beer-list i{ font-size:1rem;  }
   /* background-image:url('../keith-misner-h0Vxgz5tyXA-unsplash.jpg'); */
   background-image:url('../hops-4.jpg');
   background-size:cover;
+  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(50%);
+  background-position:bottom;
 }
 .welcome-box .overlay:after{
   content: "";
@@ -322,6 +325,9 @@ ul.beer-list i{ font-size:1rem;  }
   .topBreweries-avatars{ font-size: 1.5rem; }
   .welcome-box .card-body{
     margin-left:0%;
+  }
+  .welcome-box .overlay{
+    background-position: 53%;
   }
 
 }
