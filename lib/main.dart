@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Hopmaster Flutter'),
+      home: MyHomePage(title: 'Hopmaster Flutter, lo que sd ?'),
     );
   }
 }
