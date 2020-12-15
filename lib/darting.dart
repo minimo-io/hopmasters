@@ -65,4 +65,34 @@ void main() {
   int numb; // null
   print(numb ??= 666);
   print(numb);
+
+  // regular loop
+  for (int a = 1; a < 10; a++){
+    print(a);
+  }
+  // in loop
+  var aNumbers = [1, 5, 1341, 515351];
+  for (var n in aNumbers){
+    print(n);
+  }
+  // forEach loop with fn
+  aNumbers.forEach( (n) => print(n));
+
+  List names = ['This', 'is', 'just', 'an', 'array'];
+  print(names[2]);
+
+  // we can also use inference
+  var otherNames = ['Also', 'works', 20, true];
+  print(otherNames);
+
+  // a typed list
+  List <String> people = const['Maryanne', 'Pepe', 'Felizberto'];
+  // people[2] = 'Peter';
+  print(people);
+
+
+  // copy an array to another obj
+  var morePeople = [...people];
+  morePeople[2] = 'Marcus';
+  print(morePeople);
 }
