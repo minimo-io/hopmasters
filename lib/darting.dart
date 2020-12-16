@@ -95,4 +95,41 @@ void main() {
   var morePeople = [...people];
   morePeople[2] = 'Marcus';
   print(morePeople);
+
+  // collections; SET: a unique collection of items
+  var somePeopleNames = <String>{'pepe', 'gonzalo', 'pepe'}; // last pepe does not exits
+  print(somePeopleNames.runtimeType);
+  for (var x in somePeopleNames){
+    print("Person name: " + x);
+  }
+
+  // another type of collections; MAP: similar to a json object
+  var someOtherPeopleNames = {
+    'value': 'pair',
+    'naughty': 'name'
+  };
+  someOtherPeopleNames['otherValue'] = 'anotherPair';
+  print(someOtherPeopleNames['otherValue']);
+
+  // functions: are an object, and also typed
+  dynamic fnToWin(var num){
+    return num * num;
+  }
+  print(fnToWin(3));
+
+  // another way to define simple functions
+  dynamic fnToWinBig(int num) => num * num;
+  print(fnToWinBig(8));
+
+  // it is also possible to have named parameters, they are optional and can
+  // have default values
+  dynamic fnNamed({ int var1, int var2 = 0 }){
+    return var1 + var2;
+  }
+  print( fnNamed(var2: 7, var1: 3) );
+  print( fnNamed(var1: 3) );
+
+  // optional parameters can also option, with []
+  dynamic fnOptionalFixed(int var1, [var var2]) => var1 + (var2 ?? 0);
+  print(fnOptionalFixed(2));
 }
