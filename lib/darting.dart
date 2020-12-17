@@ -1,3 +1,8 @@
+/// This is just a dart example, based on this basic course:
+/// https://www.youtube.com/watch?v=Ej_Pcr4uC2Q
+///
+/// Run fron the console: dart darting.dart
+
 import 'dart:io'; // some shita que nao interessa
 
 class Num{
