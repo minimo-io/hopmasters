@@ -2,13 +2,29 @@ import 'dart:io'; // some shita que nao interessa
 
 class Num{
   int someNum = 1232;
-}
+  static const String aClassVariable = 'Not an object variable'; // so to access
+  // we must call the object
 
+  // constructor
+  Num(int aNum){
+    this.someNum = aNum;
+  }
+}
+int fnGreatedThanZero(var val){
+  if (val <=0){
+    throw Exception('Chem, el valor tiene que ser mayor a cero.');
+  }
+  return val;
+}
 /*
   This can just be main(), void will be assumed.
 */
 void main() {
+
+  print("A class variable: " + Num.aClassVariable);
+
   /// Documentation comment
+
   var lastName = 'Erramuspe';
   String firstName = 'Nicolas';
   print(firstName + ' ' + lastName);
@@ -132,4 +148,19 @@ void main() {
   // optional parameters can also option, with []
   dynamic fnOptionalFixed(int var1, [var var2]) => var1 + (var2 ?? 0);
   print(fnOptionalFixed(2));
+
+  // exception handling
+  var someIntVal = 0;
+  try{
+    var greaterThanZeroVal = fnGreatedThanZero(someIntVal);
+    print(greaterThanZeroVal);
+  }catch(e){
+    print(e);
+  }finally{
+    if (someIntVal == null || someIntVal<=0){
+      print("Value not accepted, must be greated than zero.");
+    }else{
+      print("Value ok: " + someIntVal.toString());
+    }
+  }
 }
