@@ -8,7 +8,7 @@ class Nav extends StatelessWidget{
 
     const drawerHeader = UserAccountsDrawerHeader(
       accountName: Text(
-        "Peperina",
+        "Nicolas",
       ),
       accountEmail: Text(
         "nicolas@minimo.io",
@@ -24,6 +24,34 @@ class Nav extends StatelessWidget{
           padding: const EdgeInsets.all(8.0),
           child: Container(child: Text("Hopmasters")),
         )),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (BuildContext context){
+
+                            return Scaffold(
+                                appBar: AppBar(
+                                    title: Text("Saved Beers")
+                                ),
+                                body: ListView()
+                            );
+                          }
+                      )
+                  );
+
+                },
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 26.0,
+                ),
+              )
+          )
+        ],
       ),
       drawer: Drawer(
         child: ListView(
