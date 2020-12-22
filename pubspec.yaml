@@ -30,6 +30,7 @@ dependencies:
 
   # This was for test purposes onyl.
   english_words: ^3.1.5
+  firebase_core: 0.5.3
 
 dev_dependencies:
   flutter_test:
