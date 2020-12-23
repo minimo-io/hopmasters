@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import './top_beers.dart';
-import './nav.dart';
+import 'package:hopmasters/constants.dart';
+import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/routes.dart';
+
+import 'package:hopmasters/components/nav.dart';
+import 'views/homeView.dart';
 
 const String _appTitle = "Hopmasters";
 
@@ -16,19 +20,11 @@ class HopmastersApp extends StatelessWidget{
   Widget build(BuildContext context){
     // this is from the material package.
     // more docs here: https://api.flutter.dev/flutter/material/MaterialApp-class.html
-    /*
     return MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.amber
-        ),
-        home: TopBeers()
-    );
-    */
-    return MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.amber
-        ),
-        home: Nav()
+      title: _appTitle,
+      theme: hopmastersTheme(),
+      initialRoute: '/',
+      routes: routes,
     );
   }
 }
