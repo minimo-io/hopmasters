@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Open Cart Page
-void openPage(BuildContext context){
-  Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (BuildContext context){
-
-            return Scaffold(
-                appBar: AppBar(
-                    title: Text("Carrito")
-                ),
-                body: ListView()
-            );
-          }
-      )
-  );
-}
+import 'package:hopmasters/theme/style.dart';
 
 class homeView extends StatelessWidget{
   homeView({Key key}) : super(key: key);
@@ -35,6 +19,25 @@ class homeView extends StatelessWidget{
       ),
     );
 
+    var bottomNavigationBarItems = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.home),
+        label: "Inicio",
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.sports_bar),
+        label: "Cervezas",
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.store),
+        label: "Cervecerías",
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.shopping_bag),
+        label: "Tienda",
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -45,16 +48,16 @@ class homeView extends StatelessWidget{
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.shopping_cart),
-            tooltip: 'Pop',
+            tooltip: 'Carrito',
             onPressed: () {
-              openPage(context);
+              Navigator.pushNamed(context, '/cart');
             },
           ),
           IconButton(
-            icon: const Icon(Icons.add_alert),
-            tooltip: 'Next page',
+            icon: const Icon(Icons.search),
+            tooltip: 'Buscar',
             onPressed: () {
-              openPage(context);
+              Navigator.pushNamed(context, '/search');
             },
           ),
         ],
@@ -83,6 +86,16 @@ class homeView extends StatelessWidget{
             ],
           )
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.black.withOpacity(0.5),
+        selectedItemColor: Colors.black,
+        backgroundColor: colorScheme.primaryVariant,
+        items: bottomNavigationBarItems,
+        currentIndex: 0,
+        selectedFontSize: textTheme.caption.fontSize,
+        unselectedFontSize: textTheme.caption.fontSize,
+      )
     );
   }
 
