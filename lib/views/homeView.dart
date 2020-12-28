@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/components/nav_bottom.dart';
 
 class homeView extends StatelessWidget{
   homeView({Key key}) : super(key: key);
@@ -18,25 +18,6 @@ class homeView extends StatelessWidget{
         child: FlutterLogo(size: 42.0),
       ),
     );
-
-    var bottomNavigationBarItems = <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.home),
-        label: "Inicio",
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.sports_bar),
-        label: "Cervezas",
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.store),
-        label: "Cervecerías",
-      ),
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.shopping_bag),
-        label: "Tienda",
-      ),
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -86,16 +67,8 @@ class homeView extends StatelessWidget{
             ],
           )
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.black.withOpacity(0.5),
-        selectedItemColor: Colors.black,
-        backgroundColor: colorScheme.primaryVariant,
-        items: bottomNavigationBarItems,
-        currentIndex: 0,
-        selectedFontSize: textTheme.caption.fontSize,
-        unselectedFontSize: textTheme.caption.fontSize,
-      )
+      bottomNavigationBar: new NavBottom(),
+      body: Center(child: Text("La pantalla principal"))
     );
   }
 

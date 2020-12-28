@@ -6,7 +6,7 @@ class breweriesView extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Center(child: Text("Invitados por Mandy Goldberg <mandy@4kingmedia.com> de Betchain.")),
+      body: Center(child: Text("Listado de cervecerías")),
       appBar: AppBar(
         title: Text("Cervecerías")
       )

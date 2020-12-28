@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/routes.dart';
-
-import 'package:hopmasters/components/nav.dart';
-import 'views/homeView.dart';
 
 const String _appTitle = "Hopmasters";
 
 void main() => runApp(HopmastersApp());
 
 class HopmastersApp extends StatelessWidget{
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   // The override is not required but nice to specify
