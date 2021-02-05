@@ -8,7 +8,7 @@ class storeView extends StatelessWidget{
         appBar: AppBar(
             title: Text("Tienda")
         ),
-        body: Center(child: Text("Un listado de las cervezas disponibles para comprar"))
+        body: Center(child: Text("Un listado de las cervezas disponibles para comprar!"))
     );
   }
 }

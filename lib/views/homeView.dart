@@ -35,7 +35,7 @@ class homeView extends StatelessWidget{
             },
           ),
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.notifications),
             tooltip: 'Buscar',
             onPressed: () {
               Navigator.pushNamed(context, '/search');

@@ -26,6 +26,10 @@ class _NavBottomState extends State<NavBottom>{
       label: "Cervecerías",
     ),
     BottomNavigationBarItem(
+      icon: const Icon(Icons.local_drink),
+      label: "Bares",
+    ),
+    BottomNavigationBarItem(
       icon: const Icon(Icons.shopping_bag),
       label: "Tienda",
     ),
@@ -35,6 +39,7 @@ class _NavBottomState extends State<NavBottom>{
     "/",
     "/beers",
     "/breweries",
+    "/bars",
     "/store"
   ];
 
