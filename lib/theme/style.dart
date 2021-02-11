@@ -78,7 +78,7 @@ letterSpacing: 1.5
 ThemeData hopmastersTheme() {
   return ThemeData.from(
     colorScheme: colorScheme,
-    textTheme: textTheme
+    // textTheme: textTheme
   );
 }
 

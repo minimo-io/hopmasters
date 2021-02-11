@@ -18,6 +18,7 @@ class HopmastersApp extends StatelessWidget{
     // this is from the material package.
     // more docs here: https://api.flutter.dev/flutter/material/MaterialApp-class.html
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: _appTitle,
       theme: hopmastersTheme(),
       initialRoute: '/',

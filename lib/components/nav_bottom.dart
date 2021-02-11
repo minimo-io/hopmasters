@@ -18,29 +18,24 @@ class _NavBottomState extends State<NavBottom>{
       label: "Inicio",
     ),
     BottomNavigationBarItem(
-      icon: const Icon(Icons.sports_bar),
-      label: "Cervezas",
+      icon: const Icon(Icons.favorite),
+      label: "Favoritas",
+    ),
+    BottomNavigationBarItem(
+      icon: const Icon(Icons.shopping_cart),
+      label: "Tienda",
     ),
     BottomNavigationBarItem(
       icon: const Icon(Icons.room),
-      label: "Cervecerías",
-    ),
-    BottomNavigationBarItem(
-      icon: const Icon(Icons.local_drink),
       label: "Bares",
-    ),
-    BottomNavigationBarItem(
-      icon: const Icon(Icons.shopping_bag),
-      label: "Tienda",
     ),
   ];
 
   List<String> TabsRedirect = [
     "/",
-    "/beers",
-    "/breweries",
+    "/favorites",
+    "/store",
     "/bars",
-    "/store"
   ];
 
   void onTapped(int index){
@@ -55,7 +50,7 @@ class _NavBottomState extends State<NavBottom>{
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.black.withOpacity(0.5),
       selectedItemColor: Colors.black,
-      backgroundColor: colorScheme.primaryVariant,
+      backgroundColor: colorScheme.background,
       items: bottomNavigationBarItems,
       currentIndex: currentNavigationTabIndex,
       selectedFontSize: textTheme.caption.fontSize,

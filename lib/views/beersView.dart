@@ -8,7 +8,14 @@ class beersView extends StatelessWidget{
       appBar: AppBar(
         title: Text("Cervezas")
       ),
-      body: Center(child: Text("Listado de cervezas por novedades y mas votadas"))
+      body: Container(
+        padding: EdgeInsets.fromLTRB(10,10,10,0),
+        height: 220,
+        width: double.maxFinite,
+        child: Card(
+          elevation: 5,
+        ),
+      ),
     );
   }
 }
