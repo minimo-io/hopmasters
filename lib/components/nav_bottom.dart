@@ -53,8 +53,8 @@ class _NavBottomState extends State<NavBottom>{
       backgroundColor: colorScheme.background,
       items: bottomNavigationBarItems,
       currentIndex: currentNavigationTabIndex,
-      selectedFontSize: textTheme.caption.fontSize,
-      unselectedFontSize: textTheme.caption.fontSize,
+//      selectedFontSize: textTheme.caption.fontSize,
+//      unselectedFontSize: textTheme.caption.fontSize,
       onTap: onTapped,
     );
   }

@@ -31,7 +31,7 @@ dependencies:
   # This was for test purposes onyl.
   english_words: ^3.1.5
   # firebase_core: 0.5.3
-  google_fonts: ^1.1.1
+  #google_fonts: ^1.1.1
   search_page: ^1.4.0
   vector_math: ^2.0.8
 
@@ -52,9 +52,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - google_fonts/
-    - lib/assets/
-    - lib/assets/images/
+  #  - google_fonts/
+    - assets/
+    - assets/images/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

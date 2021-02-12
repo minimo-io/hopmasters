@@ -8,7 +8,6 @@ import 'package:vector_math/vector_math.dart' as vector;
 
 const brands = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
-
 /// This is a very simple class, used to
 /// demo the `SearchPage` package
 class Person {
@@ -18,12 +17,12 @@ class Person {
   Person(this.name, this.surname, this.age);
 }
 
-class homeView extends StatefulWidget{
+class homeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<homeView>{
+class _HomeViewState extends State<homeView> {
   // homeView({Key key}) : super(key: key);
 
   static List<Person> people = [
@@ -34,9 +33,29 @@ class _HomeViewState extends State<homeView>{
     Person('Annette', 'Brooks', 39),
   ];
 
-  @override
-  Widget build(BuildContext context){
+  static List<Beer> beers = [
+    Beer(
+      image: 'lib/assets/images/beer.jpg',
+      type: 'IPA',
+      name: 'Maracuyipa',
+      price: 250,
+    ),
+    Beer(
+      image: 'lib/assets/images/beer.jpg',
+      type: 'APA',
+      name: 'Cruda Realidad',
+      price: 280,
+    ),
+    Beer(
+      image: 'lib/assets/images/beer.jpg',
+      type: 'Kolsch',
+      name: 'Dortmunder',
+      price: 150,
+    ),
+  ];
 
+  @override
+  Widget build(BuildContext context) {
     const drawerHeader = UserAccountsDrawerHeader(
       accountName: Text(
         "Nicolas",
@@ -51,64 +70,72 @@ class _HomeViewState extends State<homeView>{
 
     Widget _buildBeerBox(BuildContext context) {
       Widget _buildBottomItem(Beer beer) => Card(
-        elevation: 4,
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 5.0, right: 8),
-                        child: Icon(Icons.favorite_border),
-                      )),
-                  Expanded(
-                    child: Transform.rotate(
-                        angle: vector.radians(18),
-                        child: Image.asset(beer.image)),
-                  ),
-                  Text(
-                    beer.name,
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "\$${beer.price}",
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
-            ),
-            RotatedBox(
-              quarterTurns: 3,
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 18.0, vertical: 4),
-                  child: Text(
-                    'NUEVO',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
+            elevation: 4,
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 5.0, right: 8),
+                            child: Icon(Icons.favorite_border),
+                          )),
+                      Expanded(
+                        child: Transform.rotate(
+                            angle: vector.radians(18),
+                            child: Image.asset(beer.image)),
+                      ),
+                      Text(
+                        beer.name,
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Text(
+                        "\$${beer.price}",
+                        style: TextStyle(fontSize: 11),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
                   ),
                 ),
-                color: Colors.pinkAccent,
-              ),
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 4),
+                      child: Text(
+                        'NUEVO',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    color: Colors.pinkAccent,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-
+          );
 
       const beersBottom = [
-        const Beer(name: 'Maracuyipa', type: "IPA", abv: 8, price: 170.00, image: "lib/assets/images/beer.jpg"),
         const Beer(
-            name: 'NIKE AIR FORCE', type: "APA", abv:6, price: 130.00, image: "lib/assets/images/beer.jpg")
+            name: 'Maracuyipa',
+            type: "IPA",
+            abv: 8,
+            price: 170.00,
+            image: "lib/assets/images/beer.jpg"),
+        const Beer(
+            name: 'NIKE AIR FORCE',
+            type: "APA",
+            abv: 6,
+            price: 130.00,
+            image: "lib/assets/images/beer.jpg")
       ];
 
       return Container(
@@ -168,7 +195,10 @@ class _HomeViewState extends State<homeView>{
                 scrollDirection: Axis.horizontal,
                 itemCount: brands.length,
                 itemBuilder: (_, index) => Padding(
-                  padding: index == 0 ? const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4) : const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
+                  padding: index == 0
+                      ? const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4)
+                      : const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 4),
                   child: Text(
                     brands[index],
                     style: TextStyle(
@@ -184,6 +214,7 @@ class _HomeViewState extends State<homeView>{
         ),
       );
     }
+
     final Orientation orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
@@ -214,11 +245,12 @@ class _HomeViewState extends State<homeView>{
               ),
             ),
           ),
-          child:Icon(Icons.search),
+          child: Icon(Icons.search),
         ),
         appBar: AppBar(
           centerTitle: false,
-          title: Center(child: Padding(
+          title: Center(
+              child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(child: Text("Hopmasters")),
           )),
@@ -234,61 +266,50 @@ class _HomeViewState extends State<homeView>{
         ),
         drawer: Drawer(
             child: ListView(
-              padding: EdgeInsets.zero,
-              children: const <Widget>[
-                drawerHeader,
-                ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Mensajes'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Perfil'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Configuración'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.article),
-                  title: Text('Blog'),
-                ),
-              ],
-            )
-        ),
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            drawerHeader,
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Mensajes'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Perfil'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Configuración'),
+            ),
+            ListTile(
+              leading: Icon(Icons.article),
+              title: Text('Blog'),
+            ),
+          ],
+        )),
         bottomNavigationBar: new NavBottom(),
-        body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(marginSide),
-                child: _buildHeader(),
-              ),
-              Expanded(child: _buildBeerBox(context)),
-              Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: GridView.count(
-                        crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-                        childAspectRatio: (orientation == Orientation.portrait) ? 1.0 : 1.3,
-                        children: List.generate(20,(index){
-                          return Container(
-                            child: Card(
-                              color: colorScheme.background,
-                            ),
-                          );
-                        }),
-                      )
-                  )
-              )
-            ]
-        )
-    );
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(marginSide),
+            child: _buildHeader(),
+          ),
+          Expanded(child: _buildBeerBox(context)),
+          Expanded(
+              child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: GridView.count(
+                    crossAxisCount:
+                        (orientation == Orientation.portrait) ? 2 : 3,
+                    childAspectRatio:
+                        (orientation == Orientation.portrait) ? 1.0 : 1.3,
+                    children: beers.map<Widget>((Beer beer) {
+                      return  new BeerGridTile( name: beer.name, type: beer.type, image: beer.image, price: beer.price );
+                    }).toList(),
+                  )))
+        ]));
   }
 }
 
 // class homeView extends StatelessWidget{
-
-
-
 
 // }

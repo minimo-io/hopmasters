@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 final ColorScheme colorScheme = ColorScheme.light(
   primary: Color.fromRGBO(252, 215, 52, 1),
@@ -9,7 +9,7 @@ final ColorScheme colorScheme = ColorScheme.light(
   background: Color.fromRGBO(252, 252, 255, 1),
 );
 
-final TextTheme textTheme  = TextTheme(
+/*final TextTheme textTheme  = TextTheme(
 headline1: GoogleFonts.roboto(
 fontSize: 96,
 fontWeight: FontWeight.w300,
@@ -73,7 +73,7 @@ fontSize: 10,
 fontWeight: FontWeight.w400,
 letterSpacing: 1.5
 ),
-);
+);*/
 
 ThemeData hopmastersTheme() {
   return ThemeData.from(
