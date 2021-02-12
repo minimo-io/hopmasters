@@ -4,7 +4,6 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
 import 'package:hopmasters/components/beer.dart';
-import 'package:vector_math/vector_math.dart' as vector;
 
 const brands = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 const dimmyBeerImagePath = "assets/images/beer.jpg";
@@ -85,10 +84,9 @@ class _HomeViewState extends State<homeView> {
                             child: Icon(Icons.favorite_border),
                           )),
                       Expanded(
-                        child: Transform.rotate(
-                            angle: vector.radians(18),
-                            child: Image.asset(beer.image)),
+                        child: Image.asset(beer.image),
                       ),
+                      Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
                       Text(
                         beer.name,
                         style: TextStyle(fontSize: 12),
