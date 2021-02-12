@@ -7,6 +7,7 @@ import 'package:hopmasters/components/beer.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
 const brands = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
+const dimmyBeerImagePath = "assets/images/beer.jpg";
 
 /// This is a very simple class, used to
 /// demo the `SearchPage` package
@@ -35,19 +36,19 @@ class _HomeViewState extends State<homeView> {
 
   static List<Beer> beers = [
     Beer(
-      image: 'lib/assets/images/beer.jpg',
+      image: dimmyBeerImagePath,
       type: 'IPA',
       name: 'Maracuyipa',
       price: 250,
     ),
     Beer(
-      image: 'lib/assets/images/beer.jpg',
+      image: dimmyBeerImagePath,
       type: 'APA',
       name: 'Cruda Realidad',
       price: 280,
     ),
     Beer(
-      image: 'lib/assets/images/beer.jpg',
+      image: dimmyBeerImagePath,
       type: 'Kolsch',
       name: 'Dortmunder',
       price: 150,
@@ -129,13 +130,13 @@ class _HomeViewState extends State<homeView> {
             type: "IPA",
             abv: 8,
             price: 170.00,
-            image: "lib/assets/images/beer.jpg"),
+            image: dimmyBeerImagePath),
         const Beer(
             name: 'NIKE AIR FORCE',
             type: "APA",
             abv: 6,
             price: 130.00,
-            image: "lib/assets/images/beer.jpg")
+            image: dimmyBeerImagePath)
       ];
 
       return Container(
