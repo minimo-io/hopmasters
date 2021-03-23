@@ -4,6 +4,8 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
 import 'package:hopmasters/components/beer.dart';
+import 'package:hopmasters/services/wordpress.dart';
+
 
 const brands = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 const dimmyBeerImagePath = "assets/images/beer.jpg";
@@ -53,6 +55,7 @@ class _HomeViewState extends State<homeView> {
       price: 150,
     ),
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -258,7 +261,10 @@ class _HomeViewState extends State<homeView> {
               icon: const Icon(Icons.shopping_cart),
               tooltip: 'Carrito',
               onPressed: () {
+
                 Navigator.pushNamed(context, '/cart');
+
+                topBeers();
               },
             ),
           ],

@@ -15,7 +15,7 @@ class _NavBottomState extends State<NavBottom>{
   var bottomNavigationBarItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: const Icon(Icons.home),
-      label: "Inicio",
+      label: "Descubrir",
     ),
     BottomNavigationBarItem(
       icon: const Icon(Icons.favorite),
