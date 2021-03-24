@@ -13,10 +13,46 @@ final ColorScheme colorScheme = ColorScheme.light(
 
 final ColorScheme colorScheme = ColorScheme.light(
   primary: Color.fromRGBO(255, 255, 255, 1),
-  primaryVariant: Color.fromRGBO(255, 255, 107, 1),
   secondary: Color.fromRGBO(27, 29, 31, 1),
+  primaryVariant: Color.fromRGBO(255, 255, 107, 1),
   secondaryVariant: Color.fromRGBO(95, 116, 129, 1),
   background: Colors.grey[400],
+);
+
+const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
+const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
+
+/* OLD YELLOWY COLORS
+var GRADIENT_COLORS = [
+  Color.fromRGBO(216, 170, 0, 0.6),
+  Color.fromRGBO(234, 186, 0, 0.6),
+  Color.fromRGBO(250, 205, 0, 0.6),
+  Color.fromRGBO(255, 212, 53, 0.6),
+];
+*/
+
+const PRIMARY_GRADIENT_COLOR = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.topRight,
+  stops: [0.1, 0.5, 0.7, 0.9],
+  colors: [
+    Color.fromRGBO(236, 236, 236, 1),
+    Color.fromRGBO(243, 243, 243, 1),
+    Color.fromRGBO(249, 249, 249, 1),
+    Color.fromRGBO(255, 255, 255, 1),
+  ],
+);
+
+const SECONDARY_GRADIENT_COLOR = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.topRight,
+  stops: [0.1, 0.5, 0.7, 0.9],
+  colors: [
+    Color.fromRGBO(216, 170, 0, 0.6),
+    Color.fromRGBO(234, 186, 0, 0.6),
+    Color.fromRGBO(250, 205, 0, 0.6),
+    Color.fromRGBO(255, 212, 53, 0.6),
+  ],
 );
 
 /*final TextTheme textTheme  = TextTheme(

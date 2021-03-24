@@ -4,7 +4,8 @@ import 'package:search_page/search_page.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
-import 'package:hopmasters/components/bannerBreweries.dart';
+import 'package:hopmasters/components/home/bannerBreweries.dart';
+import 'package:hopmasters/components/home/specialOffers.dart';
 import 'package:hopmasters/components/beer.dart';
 import 'package:hopmasters/services/wordpress.dart';
 
@@ -174,7 +175,7 @@ class _HomeViewState extends State<homeView> {
       return Padding(
         /*padding: const EdgeInsets.only(top: 8.0),*/
         padding:const EdgeInsets.symmetric(
-        horizontal: 15.0, vertical: 8.0),
+        horizontal: 15.0, vertical: 0.0),
         child: Column(
       children: [
         Row(
@@ -224,7 +225,7 @@ class _HomeViewState extends State<homeView> {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromRGBO(0, 223, 106, 1),
+          backgroundColor: SECONDARY_BUTTON_COLOR,
           foregroundColor: Colors.white,
           onPressed: () => showSearch(
             context: context,
@@ -233,7 +234,7 @@ class _HomeViewState extends State<homeView> {
               items: people,
               searchLabel: 'Buscar...',
               suggestion: Center(
-                child: Text('¡Encuentra cervezas, cervecerías y locales!'),
+                child: Text('¡Encuentra cervezas y cervecerías!'),
               ),
               failure: Center(
                 child: Text('Ups! No encontramos nada :('),
@@ -259,12 +260,7 @@ class _HomeViewState extends State<homeView> {
           elevation: 0.0,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: GRADIENT_COLORS,
-              ),
+              gradient: PRIMARY_GRADIENT_COLOR
             ),
           ),
           iconTheme: IconThemeData(
@@ -296,90 +292,76 @@ class _HomeViewState extends State<homeView> {
                 },
               ),
             ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(0.0, 18.0, 20.0, 0.0),
-              child: IconButton(
-                icon: const Icon(Icons.notifications_none_outlined),
-                tooltip: 'Menu',
-                onPressed: () {
-
-                },
-              ),
+            Stack(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0.0, 18.0, 6.0, 0),
+                    child: IconButton(
+                      icon: const Icon(Icons.notifications_none_outlined),
+                      tooltip: 'Notificaciones',
+                      onPressed: () {
+                          print("OHH BOY MENU");
+                      },
+                   ),
+                  ),
+                  Positioned(
+                    right:15,
+                    top:20,
+                    child: Container(
+                      height: 18,
+                      width:18,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 1.5, color: Colors.white)
+                      ),
+                      child: Center(child: Text("4", style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
+                    ),
+                  )
+                ]
             )
-
           ],
         ),
-        endDrawer: Drawer(
-            child: Container(
-                color: colorScheme.primary,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: const <Widget>[
-                    drawerHeader,
-                    ListTile(
-                      leading: Icon(Icons.message),
-                      title: Text('Mensajes'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.account_circle),
-                      title: Text('Perfil'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.settings),
-                      title: Text('Configuración'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.article),
-                      title: Text('Blog'),
-                    ),
-                  ],
-                )
-            )),
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: GRADIENT_COLORS,
-              ),
+              gradient: PRIMARY_GRADIENT_COLOR,
             ),
             child:NavBottom()
         ),
-        body:Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: GRADIENT_COLORS,
+        body:SafeArea(
+          
+          child: Container(
+              decoration: BoxDecoration(
+                gradient: PRIMARY_GRADIENT_COLOR,
               ),
-            ),
-            child:Column(children: [
-              Container(child: DiscountBanner())
-              ,
-        Padding(
-          padding: const EdgeInsets.all(marginSide),
-          child: _buildHeader(),
-        ),
-        Expanded(child: _buildBeerBox(context)),
-
-        Expanded(
-            child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: GridView.count(
-                  crossAxisCount:
-                  (orientation == Orientation.portrait) ? 2 : 3,
-                  childAspectRatio:
-                  (orientation == Orientation.portrait) ? 1.0 : 1.3,
-                  children: beers.map<Widget>((Beer beer) {
-                    return  new BeerGridTile( name: beer.name, type: beer.type, image: beer.image, price: beer.price );
-                  }).toList(),
-                ))
-        )
-
-        ]
-        )));
+              child:Column(
+                  children: [
+                Container(child: BreweriesBanner()),
+                SpecialOffers(),
+                Padding(
+                  padding: const EdgeInsets.all(marginSide),
+                  child: _buildHeader(),
+                ),
+                Expanded(child: _buildBeerBox(context)),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: GridView.count(
+                          crossAxisCount:
+                              (orientation == Orientation.portrait) ? 2 : 3,
+                          childAspectRatio:
+                              (orientation == Orientation.portrait) ? 1.0 : 1.3,
+                          children: beers.map<Widget>((Beer beer) {
+                            return new BeerGridTile(
+                                name: beer.name,
+                                type: beer.type,
+                                image: beer.image,
+                                price: beer.price);
+                          }).toList(),
+                        )))
+              ]
+          )),
+        ));
   }
 }
 

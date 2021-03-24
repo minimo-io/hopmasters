@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/theme/style.dart';
 
-class DiscountBanner extends StatelessWidget {
-  const DiscountBanner({
+class BreweriesBanner extends StatelessWidget {
+  const BreweriesBanner({
     Key key,
   }) : super(key: key);
 
@@ -15,17 +16,23 @@ class DiscountBanner extends StatelessWidget {
         horizontal: (20),
         vertical: (15),
       ),
+        /*
       decoration: BoxDecoration(
-        color: Color.fromRGBO(67, 203, 131, 1),
+        color: PRIMARY_BUTTON_COLOR,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      */
+      decoration: BoxDecoration(
+        color: SECONDARY_BUTTON_COLOR,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text.rich(
         TextSpan(
           style: TextStyle(color: Colors.white),
           children: [
-            TextSpan(text: "A Summer Surpise\n"),
+            TextSpan(text: "Seguí a tus cervecerías favoritas\n"),
             TextSpan(
-              text: "Cashback 20%",
+              text: "Ver ranking de cervecerías",
               style: TextStyle(
                 fontSize: (24),
                 fontWeight: FontWeight.bold,
