@@ -23,32 +23,32 @@ class BeerGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridTile(
       footer: GestureDetector(
-        onTap: () {},
-        child: GridTileBar(
-          backgroundColor: Colors.black45,
-          title: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(this.name),
-          ),
-          subtitle: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(this.type),
-          ),
-          trailing: Row(
-            children: [
-              Text(
-                  '\$' + this.price.toString(),
-                  style: TextStyle(color: colorScheme.background, fontSize: 16.0)
-              )
-            ],
-          ),
-        ),
+    onTap: () {},
+    child: GridTileBar(
+      backgroundColor: Colors.transparent,
+      title: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: Text(this.name),
+      ),
+      subtitle: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: Text(this.type),
+      ),
+      trailing: Row(
+        children: [
+          Text(
+              '\$' + this.price.toString(),
+              style: TextStyle(color: colorScheme.background, fontSize: 16.0)
+          )
+        ],
+      ),
+    ),
       ),
       child: Image.asset(
-        this.image,
-        fit: BoxFit.cover,
+    this.image,
+    fit: BoxFit.cover,
       ),
     );
   }

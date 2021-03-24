@@ -47,10 +47,11 @@ class _NavBottomState extends State<NavBottom>{
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      elevation: 0,
       type: BottomNavigationBarType.fixed,
-      unselectedItemColor: Colors.black.withOpacity(0.5),
-      selectedItemColor: Colors.black,
-      backgroundColor: colorScheme.background,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
+      selectedItemColor: Colors.white,
+      backgroundColor: Colors.transparent,
       items: bottomNavigationBarItems,
       currentIndex: currentNavigationTabIndex,
 //      selectedFontSize: textTheme.caption.fontSize,

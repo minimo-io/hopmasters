@@ -24,3 +24,8 @@ const firstHeaderDesktopTopPadding = 5.0;
 
 
 const marginSide = 18.0;
+
+
+const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
+
+const dimmyBeerImagePath = "assets/images/beer.jpg";
