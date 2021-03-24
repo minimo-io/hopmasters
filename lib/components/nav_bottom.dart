@@ -26,8 +26,8 @@ class _NavBottomState extends State<NavBottom>{
       label: "Tienda",
     ),
     BottomNavigationBarItem(
-      icon: const Icon(Icons.room),
-      label: "Bares",
+      icon: const Icon(Icons.account_circle),
+      label: "Cuenta",
     ),
   ];
 
@@ -48,10 +48,11 @@ class _NavBottomState extends State<NavBottom>{
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       elevation: 0,
-      type: BottomNavigationBarType.fixed,
-      unselectedItemColor: Colors.white.withOpacity(0.5),
-      selectedItemColor: Colors.white,
+      showUnselectedLabels: true,
       backgroundColor: Colors.transparent,
+      type: BottomNavigationBarType.fixed,
+      unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
+      selectedItemColor: colorScheme.secondary,
       items: bottomNavigationBarItems,
       currentIndex: currentNavigationTabIndex,
 //      selectedFontSize: textTheme.caption.fontSize,

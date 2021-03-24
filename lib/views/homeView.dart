@@ -4,6 +4,7 @@ import 'package:search_page/search_page.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
+import 'package:hopmasters/components/bannerBreweries.dart';
 import 'package:hopmasters/components/beer.dart';
 import 'package:hopmasters/services/wordpress.dart';
 
@@ -185,7 +186,7 @@ class _HomeViewState extends State<homeView> {
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 25,
-                color: Colors.white,
+                color: colorScheme.secondary,
               ),
             ),
           ],
@@ -207,7 +208,7 @@ class _HomeViewState extends State<homeView> {
                 beerStyles[index],
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
-                  color: index == 0 ? Colors.white : Colors.white.withOpacity(0.5)  ,
+                  color: index == 0 ? colorScheme.secondary : colorScheme.secondary.withOpacity(0.5)  ,
                   fontSize: 17,
                 ),
               ),
@@ -223,7 +224,7 @@ class _HomeViewState extends State<homeView> {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: colorScheme.primary,
+          backgroundColor: Color.fromRGBO(0, 223, 106, 1),
           foregroundColor: Colors.white,
           onPressed: () => showSearch(
             context: context,
@@ -262,17 +263,12 @@ class _HomeViewState extends State<homeView> {
                 begin: Alignment.topLeft,
                 end: Alignment.topRight,
                 stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  Colors.yellow[800],
-                  Colors.yellow[700],
-                  Colors.yellow[600],
-                  Colors.yellow[500],
-                ],
+                colors: GRADIENT_COLORS,
               ),
             ),
           ),
           iconTheme: IconThemeData(
-              color: Colors.white
+              color: colorScheme.secondary
           ),
           /*
           title: Padding(
@@ -283,12 +279,12 @@ class _HomeViewState extends State<homeView> {
           title: Padding(
             padding: const EdgeInsets.fromLTRB(15, 28.0, 0, 8.0),
             child: Container(child: Text("HOPMASTERS", style: GoogleFonts.russoOne(
-                textStyle: TextStyle(color: Colors.white)
+                textStyle: TextStyle(color: colorScheme.secondary)
             ))),
           ),
           actions: <Widget>[
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
               child: IconButton(
                 icon: const Icon(Icons.shopping_cart),
                 tooltip: 'Carrito',
@@ -301,9 +297,9 @@ class _HomeViewState extends State<homeView> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(5.0, 18.0, 20.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 18.0, 20.0, 0.0),
               child: IconButton(
-                icon: const Icon(Icons.menu),
+                icon: const Icon(Icons.notifications_none_outlined),
                 tooltip: 'Menu',
                 onPressed: () {
 
@@ -339,22 +335,29 @@ class _HomeViewState extends State<homeView> {
                   ],
                 )
             )),
-        bottomNavigationBar: new NavBottom(),
+        bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                stops: [0.1, 0.5, 0.7, 0.9],
+                colors: GRADIENT_COLORS,
+              ),
+            ),
+            child:NavBottom()
+        ),
         body:Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.topRight,
                 stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  Colors.yellow[800],
-                  Colors.yellow[700],
-                  Colors.yellow[600],
-                  Colors.yellow[500],
-                ],
+                colors: GRADIENT_COLORS,
               ),
             ),
             child:Column(children: [
+              Container(child: DiscountBanner())
+              ,
         Padding(
           padding: const EdgeInsets.all(marginSide),
           child: _buildHeader(),

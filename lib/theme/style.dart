@@ -12,12 +12,11 @@ final ColorScheme colorScheme = ColorScheme.light(
 */
 
 final ColorScheme colorScheme = ColorScheme.light(
-  /*primary: Color.fromRGBO(255, 255, 255, 1),*/
-    primary: Color.fromRGBO(67, 203, 131, 1),
+  primary: Color.fromRGBO(255, 255, 255, 1),
   primaryVariant: Color.fromRGBO(255, 255, 107, 1),
   secondary: Color.fromRGBO(27, 29, 31, 1),
   secondaryVariant: Color.fromRGBO(95, 116, 129, 1),
-  background: Colors.yellow[800],
+  background: Colors.grey[400],
 );
 
 /*final TextTheme textTheme  = TextTheme(
