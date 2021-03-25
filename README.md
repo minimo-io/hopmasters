@@ -2,6 +2,10 @@
 
 Find & Buy local beers
 
+<center>
+    <img src="https://hopmasters.net/wp-content/uploads/2021/03/hopmasters-github.jpg" />
+</center>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
