@@ -29,4 +29,5 @@ const marginSide = 18.0;
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
-const dummyBeerImagePath = "assets/images/beer.jpg";
+const dummyBeerImagePath = "assets/images/avante-supernauta.jpg";
+const dummyBeerImagePath2 = "assets/images/mastra-app.jpg";

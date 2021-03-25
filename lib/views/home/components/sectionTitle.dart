@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:hopmasters/theme/style.dart';
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
@@ -16,11 +16,15 @@ class SectionTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: (18),
-            color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical:0, horizontal: 12),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: colorScheme.secondary,
+            ),
           ),
         ),
         GestureDetector(

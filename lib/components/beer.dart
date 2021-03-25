@@ -10,17 +10,3 @@ class Beer{
 
   const Beer({this.name, this.type, this.image, this.abv, this.price});
 }
-
-
-class BeerGridTile extends StatelessWidget {
-  final String name, image, type;
-  final num price;
-
-  const BeerGridTile({this.name, this.image, this.type, this.price});
-
-
-  @override
-  Widget build(BuildContext context) {
-    // return false;
-  }
-}

@@ -22,6 +22,13 @@ final ColorScheme colorScheme = ColorScheme.light(
 const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
 const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
 
+/*
+const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
+const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
+*/
+
+
+
 /* OLD YELLOWY COLORS
 var GRADIENT_COLORS = [
   Color.fromRGBO(216, 170, 0, 0.6),

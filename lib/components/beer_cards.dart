@@ -67,17 +67,17 @@ class BeerCards extends StatelessWidget {
 
     const beersBottom = [
       const Beer(
-          name: 'Maracuyipa',
-          type: "IPA",
+          name: 'Avante Supernauta',
+          type: "Hazy Sour IPA",
           abv: 8,
           price: 170.00,
           image: dummyBeerImagePath),
       const Beer(
-          name: 'Rompecabezas',
-          type: "IPA",
+          name: 'Mastra Strong',
+          type: "Strong Pale Ale",
           abv: 6,
           price: 130.00,
-          image: dummyBeerImagePath)
+          image: dummyBeerImagePath2)
     ];
 
     return Container(
