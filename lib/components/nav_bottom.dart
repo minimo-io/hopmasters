@@ -35,7 +35,7 @@ class _NavBottomState extends State<NavBottom>{
     "/",
     "/favs",
     "/store",
-    "/bars",
+    "/account",
   ];
 
   void onTapped(int index){
