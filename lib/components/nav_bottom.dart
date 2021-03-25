@@ -33,7 +33,7 @@ class _NavBottomState extends State<NavBottom>{
 
   List<String> TabsRedirect = [
     "/",
-    "/favorites",
+    "/favs",
     "/store",
     "/bars",
   ];

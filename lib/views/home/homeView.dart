@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
 import 'package:hopmasters/components/search_button.dart';
+import 'package:hopmasters/components/top_app_bar.dart';
 import 'package:hopmasters/services/wordpress.dart';
 
 import 'components/body.dart';
@@ -30,7 +31,7 @@ class _HomeViewState extends State<homeView> {
           elevation: 0.0,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              gradient: PRIMARY_GRADIENT_COLOR
+                gradient: PRIMARY_GRADIENT_COLOR
             ),
           ),
           iconTheme: IconThemeData(
@@ -58,7 +59,7 @@ class _HomeViewState extends State<homeView> {
 
                   Navigator.pushNamed(context, '/cart');
 
-                  topBeers();
+                  //topBeers();
                 },
               ),
             ),
@@ -70,22 +71,22 @@ class _HomeViewState extends State<homeView> {
                       icon: const Icon(Icons.notifications_none_outlined),
                       tooltip: 'Notificaciones',
                       onPressed: () {
-                          print("OHH BOY MENU");
+                        print("OHH BOY MENU");
                       },
-                   ),
+                    ),
                   ),
                   Positioned(
                     right:15,
                     top:20,
                     child: Container(
-                      height: 18,
-                      width:18,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                        border: Border.all(width: 1.5, color: Colors.white)
-                      ),
-                      child: Center(child: Text("4", style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
+                        height: 18,
+                        width:18,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1.5, color: Colors.white)
+                        ),
+                        child: Center(child: Text("4", style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
                     ),
                   )
                 ]
