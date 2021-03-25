@@ -29,4 +29,4 @@ const marginSide = 18.0;
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
-const dimmyBeerImagePath = "assets/images/beer.jpg";
+const dummyBeerImagePath = "assets/images/beer.jpg";

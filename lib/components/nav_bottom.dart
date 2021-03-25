@@ -46,18 +46,23 @@ class _NavBottomState extends State<NavBottom>{
   }
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      elevation: 0,
-      showUnselectedLabels: true,
-      backgroundColor: Colors.transparent,
-      type: BottomNavigationBarType.fixed,
-      unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
-      selectedItemColor: colorScheme.secondary,
-      items: bottomNavigationBarItems,
-      currentIndex: currentNavigationTabIndex,
+    return Container(
+        decoration: BoxDecoration(
+          gradient: PRIMARY_GRADIENT_COLOR,
+        ),
+        child:BottomNavigationBar(
+          elevation: 0,
+          showUnselectedLabels: true,
+          backgroundColor: Colors.transparent,
+          type: BottomNavigationBarType.fixed,
+          unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
+          selectedItemColor: colorScheme.secondary,
+          items: bottomNavigationBarItems,
+          currentIndex: currentNavigationTabIndex,
 //      selectedFontSize: textTheme.caption.fontSize,
 //      unselectedFontSize: textTheme.caption.fontSize,
-      onTap: onTapped,
+          onTap: onTapped,
+        )
     );
   }
 }

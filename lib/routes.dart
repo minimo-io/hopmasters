@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:hopmasters/views/homeView.dart';
+import 'package:hopmasters/views/home/homeView.dart';
 import 'package:hopmasters/views/cartView.dart';
 import 'package:hopmasters/views/beersView.dart';
 import 'package:hopmasters/views/breweriesView.dart';
