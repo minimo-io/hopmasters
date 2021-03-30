@@ -16,13 +16,16 @@ class _TopAppBarState extends State<TopAppBar> {
     return AppBar(
       centerTitle: false,
       backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false,
       bottomOpacity: 0.0,
       elevation: 0.0,
+      /*
       leading: Padding(
           padding: EdgeInsets.symmetric(vertical: 18, horizontal: 0),
           child:BackButton(
           color: colorScheme.secondary
       )),
+      */
       flexibleSpace: Container(
         decoration: BoxDecoration(
             gradient: PRIMARY_GRADIENT_COLOR

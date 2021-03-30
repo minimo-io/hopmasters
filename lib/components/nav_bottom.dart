@@ -70,6 +70,8 @@ class _NavBottomState extends State<NavBottom>{
               onTap: (index){
                 menu.setCurrentIndex(index);
                 Navigator.pushNamed(context, TabsRedirect[menu.currentIndex]);
+                //Navigator.pushReplacementNamed(context, TabsRedirect[menu.currentIndex]);
+
               },
             );
           },
