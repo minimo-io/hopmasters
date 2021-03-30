@@ -3,28 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/components/top_app_bar.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
+import 'package:hopmasters/components/search_button.dart';
 
 import 'components/body.dart';
 
 class FavoritesView extends StatelessWidget{
-  @override
+  static const String routeName = "/favs";
 
+  @override
   Widget build(BuildContext context){
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text("Favoritas"),
-        backgroundColor: Colors.transparent,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: PRIMARY_GRADIENT_COLOR
-          ),
-        ),
-      ),
-      */
       appBar: TopAppBar(),
+      floatingActionButton: SearchButton(),
       body: Body(),
       bottomNavigationBar: NavBottom(),
     );

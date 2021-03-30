@@ -68,8 +68,13 @@ class _NavBottomState extends State<NavBottom>{
               //      selectedFontSize: textTheme.caption.fontSize,
               //      unselectedFontSize: textTheme.caption.fontSize,
               onTap: (index){
-                menu.setCurrentIndex(index);
-                Navigator.pushNamed(context, TabsRedirect[menu.currentIndex]);
+
+                // Navigator.pop(context);
+                if (index != menu.currentIndex){
+                  menu.setCurrentIndex(index);
+                  Navigator.pushNamed(context, TabsRedirect[menu.currentIndex]);
+
+                }
                 //Navigator.pushReplacementNamed(context, TabsRedirect[menu.currentIndex]);
 
               },

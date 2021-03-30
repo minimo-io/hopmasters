@@ -4,7 +4,7 @@ import 'package:hopmasters/views/store/storeView.dart';
 import 'package:hopmasters/views/account/accountView.dart';
 import 'package:hopmasters/views/favorites/favoritesView.dart';
 
-import 'package:hopmasters/views/cartView.dart';
+import 'package:hopmasters/views/cart/cartView.dart';
 //import 'package:hopmasters/views/beersView.dart';
 // import 'package:hopmasters/views/breweriesView.dart';
 

@@ -17,11 +17,17 @@ class Body extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Consumer<NavMenuProvider>(
-                  builder: (context, menu, child){
-                    return Text("Current index: " + menu.currentIndex.toString());
-                  }
+              SizedBox(height: (30)),
+              Row(
+                children: [
+                  Consumer<NavMenuProvider>(
+                      builder: (context, menu, child){
+                        return Container(child: Center(child: Text("Current index: " + menu.currentIndex.toString())));
+                      }
+                  ),
+                ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height),
             ],
           ),
         ),
