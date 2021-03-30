@@ -31,3 +31,5 @@ const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
 const dummyBeerImagePath = "assets/images/avante-supernauta.jpg";
 const dummyBeerImagePath2 = "assets/images/mastra-app.jpg";
+
+enum HopsMenuState { home, favourite, store, profile }

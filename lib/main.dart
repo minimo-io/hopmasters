@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/routes.dart';
+import 'package:provider/provider.dart';
+import 'package:hopmasters/models/nav_menu_provider.dart';
 
 const String _appTitle = "Hopmasters";
 
@@ -17,12 +19,15 @@ class HopmastersApp extends StatelessWidget{
   Widget build(BuildContext context){
     // this is from the material package.
     // more docs here: https://api.flutter.dev/flutter/material/MaterialApp-class.html
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: _appTitle,
-      theme: hopmastersTheme(),
-      initialRoute: '/',
-      routes: routes,
+    return ChangeNotifierProvider(
+      create: (context) => NavMenuProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: _appTitle,
+        theme: hopmastersTheme(),
+        initialRoute: '/',
+        routes: routes,
+      ),
     );
   }
 }

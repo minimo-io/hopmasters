@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
+import 'package:hopmasters/components/nav_bottom_v2.dart';
 import 'package:hopmasters/components/search_button.dart';
 import 'package:hopmasters/components/top_app_bar.dart';
 import 'package:hopmasters/services/wordpress.dart';
 
+import 'package:provider/provider.dart';
+import 'package:hopmasters/models/nav_menu_provider.dart';
+
 import 'components/body.dart';
+
 
 class homeView extends StatefulWidget {
   @override
@@ -24,6 +30,7 @@ class _HomeViewState extends State<homeView> {
     return Scaffold(
         floatingActionButton: SearchButton(),
         bottomNavigationBar: NavBottom(),
+        /*bottomNavigationBar: CustomBottomNavBar(selectedMenu: HopsMenuState.home),*/
         appBar: AppBar(
           centerTitle: false,
           backgroundColor: Colors.transparent,

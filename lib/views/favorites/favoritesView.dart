@@ -4,17 +4,9 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/components/top_app_bar.dart';
 import 'package:hopmasters/components/nav_bottom.dart';
 
-
 import 'components/body.dart';
 
-class FavoritesView extends StatefulWidget{
-  @override
-  _favoritesViewState createState() => _favoritesViewState();
-
-}
-
-class _favoritesViewState extends State<FavoritesView>{
-
+class FavoritesView extends StatelessWidget{
   @override
 
   Widget build(BuildContext context){

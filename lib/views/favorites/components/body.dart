@@ -4,6 +4,9 @@ import 'package:hopmasters/theme/style.dart';
 
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
 
+import 'package:provider/provider.dart';
+import 'package:hopmasters/models/nav_menu_provider.dart';
+
 import 'favs_tabs.dart';
 
 class Body extends StatelessWidget {
@@ -17,6 +20,11 @@ class Body extends StatelessWidget {
           ),
           child: Column(
             children: [
+              Consumer<NavMenuProvider>(
+                  builder: (context, menu, child){
+                    return Text("Current index: " + menu.currentIndex.toString());
+                  }
+              ),
               FavsTabs(),
             ],
           ),
