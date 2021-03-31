@@ -34,7 +34,7 @@ class BreweriesBanner extends StatelessWidget {
             TextSpan(
               text: "Ver ranking de cervecerías",
               style: TextStyle(
-                fontSize: (24),
+                fontSize: (21),
                 fontWeight: FontWeight.bold,
               ),
             ),

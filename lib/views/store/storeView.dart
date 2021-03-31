@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/components/top_app_bar.dart';
-import 'package:hopmasters/components/nav_bottom.dart';
-import 'package:hopmasters/components/search_button.dart';
-import 'components/body.dart';
+import 'package:hopmasters/constants.dart';
+import 'package:hopmasters/theme/style.dart';
+
+import 'package:provider/provider.dart';
+import 'package:hopmasters/models/nav_menu_provider.dart';
+
 
 class StoreView extends StatelessWidget {
-  static const String routeName = "/store";
-
+  const StoreView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopAppBar(),
-      floatingActionButton: SearchButton(),
-      bottomNavigationBar: NavBottom(),
-      body: Body(),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: PRIMARY_GRADIENT_COLOR,
+          ),
+          child: Column(
+            children: [
+              SizedBox(height: (30)),
+              Row(
+                children: [
+                  Consumer<NavMenuProvider>(
+                      builder: (context, menu, child){
+                        return Container(child: Center(child: Text("Current index: " + menu.currentIndex.toString())));
+                      }
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

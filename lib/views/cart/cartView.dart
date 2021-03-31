@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 
-class cartView extends StatelessWidget{
+class cartView extends StatefulWidget{
   final String name;
   final int count;
 
@@ -11,9 +11,14 @@ class cartView extends StatelessWidget{
   cartView({ this.name, this.count });
 
   @override
+  _cartViewState createState() => _cartViewState();
+}
+
+class _cartViewState extends State<cartView> {
+  @override
   Widget build(BuildContext context){
     return Scaffold(
-      body: Body(count: count, name: name),
+      body: Body(count: widget.count, name: widget.name),
       appBar: AppBar(
         title: Text("Carrito")
       ),

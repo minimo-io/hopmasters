@@ -1,31 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/components/top_app_bar.dart';
-import 'package:hopmasters/components/nav_bottom.dart';
-import 'package:hopmasters/components/search_button.dart';
+import 'package:hopmasters/constants.dart';
+import 'package:hopmasters/theme/style.dart';
 
-import 'components/body.dart';
+import 'components/account_profile_pic.dart';
+import 'components/profile_menu.dart';
 
-class AccountView extends StatefulWidget {
+class AccountView extends StatelessWidget {
+
   final String userID;
-
   const AccountView ({ Key key, this.userID }): super(key: key);
 
-  @override
-  _AccountViewState createState() => _AccountViewState();
-}
 
-class _AccountViewState extends State<AccountView> {
-
-  static const String routeName = "/account";
-
-  // widget.breweryID
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopAppBar(),
-      floatingActionButton: SearchButton(),
-      bottomNavigationBar: NavBottom(),
-      body: Body(),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: PRIMARY_GRADIENT_COLOR,
+          ),
+          child: Column(
+            children: [
+              SizedBox(height: 40),
+              BreweryProfilePic(),
+              SizedBox(height: 20),
+              ProfileMenu(
+                text: "Mi cuenta",
+                icon: Icon(Icons.verified_user),
+                press: () => {},
+              ),
+              ProfileMenu(
+                text: "Notificaciones",
+                icon: Icon(Icons.notifications),
+                press: () {},
+              ),
+              ProfileMenu(
+                text: "Configuración",
+                icon: Icon(Icons.settings),
+                press: () {},
+              ),
+              ProfileMenu(
+                text: "Ayuda",
+                icon: Icon(Icons.help_center),
+                press: () {},
+              ),
+              ProfileMenu(
+                text: "Salir",
+                icon: Icon(Icons.logout),
+                press: () {},
+              ),
+              SizedBox(height: 100),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

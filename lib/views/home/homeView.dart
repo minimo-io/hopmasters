@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/components/nav_bottom.dart';
-import 'package:hopmasters/components/search_button.dart';
-import 'package:hopmasters/components/top_app_bar.dart';
-import 'package:hopmasters/services/wordpress.dart';
 
-import 'components/body.dart';
+import 'package:hopmasters/components/beer_cards.dart';
+import 'package:hopmasters/views/home/components/bannerBreweries.dart';
+import 'package:hopmasters/views/home/components/specialOffers.dart';
+import 'package:hopmasters/views/home/components/discover_beers_header.dart';
 
 
-class homeView extends StatefulWidget {
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<homeView> {
-  // homeView({Key key}) : super(key: key);
-
-  static const String routeName = "/";
+class HomeView extends StatelessWidget {
+  const HomeView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    // final Orientation orientation = MediaQuery.of(context).orientation;
-
-    return Scaffold(
-        floatingActionButton: SearchButton(),
-        bottomNavigationBar: NavBottom(),
-        appBar: TopAppBar(),
-        body: Body()
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: PRIMARY_GRADIENT_COLOR,
+          ),
+          child: Column(
+            children: [
+              BreweriesBanner(),
+              SizedBox(height: (10)),
+              SpecialOffers(),
+              SizedBox(height: (10)),
+              DiscoverBeersHeader(),
+              BeerCards(),
+              SizedBox(height: (30)),
+              SizedBox(height: (3000)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
-
-// class homeView extends StatelessWidget{
-
-// }

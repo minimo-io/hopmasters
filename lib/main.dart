@@ -5,6 +5,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:hopmasters/models/nav_menu_provider.dart';
+import 'package:hopmasters/views/notFound/not_found_page.dart';
 
 const String _appTitle = "Hopmasters";
 
@@ -27,6 +28,13 @@ class HopmastersApp extends StatelessWidget{
         theme: hopmastersTheme(),
         initialRoute: '/',
         routes: routes,
+        onUnknownRoute: (RouteSettings setting) {
+          // To can ask the RouterSettings for unknown router name.
+          String unknownRoute = setting.name ;
+          return new MaterialPageRoute(
+              builder: (context) => NotFoundPage()
+          );
+        },
       ),
     );
   }
