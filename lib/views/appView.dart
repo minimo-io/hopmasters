@@ -5,7 +5,6 @@ import 'package:hopmasters/theme/style.dart';
 // import 'package:hopmasters/components/nav_bottom.dart';
 import 'package:hopmasters/components/search_button.dart';
 import 'package:hopmasters/components/top_app_bar.dart';
-import 'package:hopmasters/services/wordpress.dart';
 
 import 'package:hopmasters/models/nav_menu_provider.dart';
 
