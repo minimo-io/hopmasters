@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/views/brewery_detail/header/diagonally_cut_colored_image.dart';
+import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/views/brewery_detail/components/header/diagonally_cut_colored_image.dart';
 import 'package:hopmasters/models/brewery.dart';
 import 'package:meta/meta.dart';
 
-class FriendDetailHeader extends StatelessWidget {
-  static const BACKGROUND_IMAGE = 'images/profile_header_background.png';
+class BreweryDetailHeader extends StatelessWidget {
+  static const BACKGROUND_IMAGE = 'assets/images/beer-toast-bg-2.png';
 
-  FriendDetailHeader(
-    this.friend, {
+  BreweryDetailHeader(
+    this.brewery, {
     @required this.avatarTag,
   });
 
-  final Friend friend;
+  final Brewery brewery;
   final Object avatarTag;
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
@@ -21,10 +22,10 @@ class FriendDetailHeader extends StatelessWidget {
       new Image.asset(
         BACKGROUND_IMAGE,
         width: screenWidth,
-        height: 280.0,
+        height: 335.0,
         fit: BoxFit.cover,
       ),
-      color: const Color(0xBB8338f4),
+      color: Color.fromRGBO(234, 186, 0, 0.6),
     );
   }
 
@@ -32,28 +33,20 @@ class FriendDetailHeader extends StatelessWidget {
     return new Hero(
       tag: avatarTag,
       child: new CircleAvatar(
-        backgroundImage: new NetworkImage(friend.avatar),
+        backgroundImage: new NetworkImage(brewery.avatar),
         radius: 50.0,
       ),
     );
   }
 
   Widget _buildFollowerInfo(TextTheme textTheme) {
-    var followerStyle =
-        textTheme.subhead.copyWith(color: const Color(0xBBFFFFFF));
 
     return new Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text('90 Following', style: followerStyle),
-          new Text(
-            ' | ',
-            style: followerStyle.copyWith(
-                fontSize: 24.0, fontWeight: FontWeight.normal),
-          ),
-          new Text('100 Followers', style: followerStyle),
+          new Text('90 seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
         ],
       ),
     );
@@ -69,41 +62,32 @@ class FriendDetailHeader extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _createPillButton(
-            'HIRE ME',
-            backgroundColor: theme.accentColor,
-          ),
-          new DecoratedBox(
-            decoration: new BoxDecoration(
-              border: new Border.all(color: Colors.white30),
-              borderRadius: new BorderRadius.circular(30.0),
+          ClipRRect(
+            borderRadius: new BorderRadius.circular(10.0),
+            child: ElevatedButton.icon(
+                icon: Icon(Icons.favorite_border_outlined),
+                label: Text(
+                    "SEGUIR",
+                    style: TextStyle(fontSize: 14)
+                ),
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
+                    backgroundColor: MaterialStateProperty.all<Color>(PRIMARY_BUTTON_DARK),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide(color: PRIMARY_BUTTON_DARK)
+                        )
+                    )
+                ),
+                onPressed: () => null
             ),
-            child: _createPillButton(
-              'FOLLOW',
-              textColor: Colors.white70,
-            ),
-          ),
+          )
         ],
       ),
     );
   }
 
-  Widget _createPillButton(
-    String text, {
-    Color backgroundColor = Colors.transparent,
-    Color textColor = Colors.white70,
-  }) {
-    return new ClipRRect(
-      borderRadius: new BorderRadius.circular(30.0),
-      child: new MaterialButton(
-        minWidth: 140.0,
-        color: backgroundColor,
-        textColor: textColor,
-        onPressed: () {},
-        child: new Text(text),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

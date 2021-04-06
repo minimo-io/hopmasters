@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/views/brewery_detail/footer/articles_showcase.dart';
-import 'package:hopmasters/views/brewery_detail/footer/portfolio_showcase.dart';
-import 'package:hopmasters/views/brewery_detail/footer/skills_showcase.dart';
+import 'package:hopmasters/views/brewery_detail/components/footer/articles_showcase.dart';
+import 'package:hopmasters/views/brewery_detail/components/footer/portfolio_showcase.dart';
+import 'package:hopmasters/views/brewery_detail/components/footer/skills_showcase.dart';
 import 'package:hopmasters/models/brewery.dart';
+import 'package:hopmasters/theme/style.dart';
 
-class FriendShowcase extends StatefulWidget {
-  FriendShowcase(this.friend);
+class BreweryShowcase extends StatefulWidget {
+  BreweryShowcase(this.brewery);
 
-  final Friend friend;
+  final Brewery brewery;
 
   @override
-  _FriendShowcaseState createState() => new _FriendShowcaseState();
+  _BreweryShowcaseState createState() => new _BreweryShowcaseState();
 }
 
-class _FriendShowcaseState extends State<FriendShowcase>
+class _BreweryShowcaseState extends State<BreweryShowcase>
     with TickerProviderStateMixin {
   List<Tab> _tabs;
   List<Widget> _pages;
@@ -23,9 +24,9 @@ class _FriendShowcaseState extends State<FriendShowcase>
   void initState() {
     super.initState();
     _tabs = [
-      new Tab(text: 'Portfolio'),
-      new Tab(text: 'Skills'),
-      new Tab(text: 'Articles'),
+      new Tab(text: 'Cervezas'),
+      new Tab(text: 'Estilos'),
+      new Tab(text: 'Artículos'),
     ];
     _pages = [
       new PortfolioShowcase(),
@@ -47,7 +48,7 @@ class _FriendShowcaseState extends State<FriendShowcase>
           new TabBar(
             controller: _controller,
             tabs: _tabs,
-            indicatorColor: Colors.white,
+            indicatorColor: SECONDARY_TEXT_DARK,
           ),
           new SizedBox.fromSize(
             size: const Size.fromHeight(300.0),

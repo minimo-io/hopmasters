@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/brewery.dart';
 
-class FriendDetailBody extends StatelessWidget {
-  FriendDetailBody(this.friend);
-  final Friend friend;
+class BreweryDetailBody extends StatelessWidget {
+  BreweryDetailBody(this.brewery);
+  final Brewery brewery;
 
   Widget _buildLocationInfo(TextTheme textTheme) {
     return new Row(
       children: <Widget>[
         new Icon(
           Icons.place,
-          color: Colors.white,
+          color: SECONDARY_TEXT_DARK,
           size: 16.0,
         ),
         new Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: new Text(
-            friend.location,
-            style: textTheme.subhead.copyWith(color: Colors.white),
+            brewery.location,
+            style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8)),
           ),
         ),
       ],
@@ -26,12 +27,12 @@ class FriendDetailBody extends StatelessWidget {
 
   Widget _createCircleBadge(IconData iconData, Color color) {
     return new Padding(
-      padding: const EdgeInsets.only(left: 8.0),
+      padding: const EdgeInsets.only(left: 1.0),
       child: new CircleAvatar(
         backgroundColor: color,
         child: new Icon(
           iconData,
-          color: Colors.white,
+          color: (color == Colors.white12 ? Colors.black : Colors.white ) ,
           size: 16.0,
         ),
         radius: 16.0,
@@ -48,8 +49,8 @@ class FriendDetailBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         new Text(
-          friend.name,
-          style: textTheme.headline.copyWith(color: Colors.white),
+          brewery.name,
+          style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -57,21 +58,18 @@ class FriendDetailBody extends StatelessWidget {
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: new Text(
-            'Lorem Ipsum is simply dummy text of the printing and typesetting '
-                'industry. Lorem Ipsum has been the industry\'s standard dummy '
-                'text ever since the 1500s.',
-            style:
-                textTheme.body1.copyWith(color: Colors.white70, fontSize: 16.0),
+          child: new Text(brewery.description,
+            style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8), height: 1.3),
           ),
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: new Row(
             children: <Widget>[
-              _createCircleBadge(Icons.beach_access, theme.accentColor),
-              _createCircleBadge(Icons.cloud, Colors.white12),
-              _createCircleBadge(Icons.shop, Colors.white12),
+              _createCircleBadge(Icons.sports_bar, theme.accentColor),
+//              _createCircleBadge(Icons.cloud, Colors.white12),
+//              _createCircleBadge(Icons.shop, Colors.white12),
+              Padding( padding: EdgeInsets.only(left:6.0), child: Text("25 cervezas"))
             ],
           ),
         ),

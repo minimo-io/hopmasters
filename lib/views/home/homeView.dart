@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/models/brewery.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -55,7 +56,32 @@ class _HomeViewState extends State<HomeView> {
               DiscoverBeersHeader(),
               BeerCards(),
               SizedBox(height: (30)),
+              ClipRRect(
+                borderRadius: new BorderRadius.circular(30.0),
+                child: new OutlineButton.icon(
+                  icon: Icon(Icons.sports_bar),
+                  onPressed: () {
 
+                    Brewery breweryTmp = Brewery(
+                      avatar: 'https://hopmasters.net/wp-content/uploads/2021/03/cerveceria-malafama-logo.png',
+                      email:'nicolas@minimo.io',
+                      location:'Montevideo, UY',
+                      name: 'Malafama',
+                      description: 'Promovemos la cultura cervecera artesanal alrededor del mundo con herramientas e información de calidad que respetan los principios de colaboración que hacen fuerte a la comunidad. ¡Sumate!'
+                    );
+
+                    Navigator.pushNamed(
+                      context,
+                      "/brewery",
+                      arguments: {'brewery': breweryTmp, 'breweryId' : 43, 'avatar': 'beer-1'
+                      },
+
+                    );
+                  },
+                  label: new Text("Malafama"),
+                ),
+              ),
+              SizedBox(height: (30)),
               Text(_beers.toString()),
               SizedBox(height: (3000)),
             ],

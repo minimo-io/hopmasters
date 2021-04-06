@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -42,7 +43,7 @@ class _TopAppBarState extends State<TopAppBar> {
           */
       title: Padding(
         padding: const EdgeInsets.fromLTRB(15, 28.0, 0, 8.0),
-        child: Container(child: Text("HOPMASTERS", style: GoogleFonts.russoOne(
+        child: Container(child: Text(APP_TITLE, style: GoogleFonts.russoOne(
             textStyle: TextStyle(color: colorScheme.secondary)
         ))),
       ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/widgets.dart';
+
 import 'package:hopmasters/views/appView.dart';
 import 'package:hopmasters/views/cart/cartView.dart';
+import 'package:hopmasters/views/brewery_detail/breweryView.dart';
 import 'package:hopmasters/views/notFound/not_found_page.dart';
-
+import 'package:hopmasters/models/brewery.dart';
 /*
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/": (BuildContext context) => AppView(),
@@ -34,6 +35,15 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => CartView( name: nameArg, count: countArg ),
+          );
+
+        case BreweryView.routeName:
+          final breweryArg = args['brewery'] as Brewery;
+          final breweryAvatarTag = args['avatar'] as Object;
+
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => BreweryView(brewery: breweryArg, avatarTag: breweryAvatarTag),
           );
 
         /*

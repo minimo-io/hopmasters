@@ -20,7 +20,10 @@ final ColorScheme colorScheme = ColorScheme.light(
 );
 
 const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
+const Color PRIMARY_BUTTON_DARK = Color.fromRGBO(67, 203, 130, 1);
 const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
+
+const Color SECONDARY_TEXT_DARK = Color.fromRGBO(48, 49, 51, 1);
 
 /*
 const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);

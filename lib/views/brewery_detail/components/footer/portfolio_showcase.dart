@@ -6,7 +6,7 @@ class PortfolioShowcase extends StatelessWidget {
 
     for (var i = 1; i <= 6; i++) {
       var image = new Image.asset(
-        'images/portfolio_$i.jpeg',
+        'assets/images/portfolio_$i.jpeg',
         width: 200.0,
         height: 200.0,
       );
