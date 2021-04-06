@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mates/ui/friends/friend.dart';
+import 'package:hopmasters/models/brewery.dart';
 
 class FriendDetailBody extends StatelessWidget {
   FriendDetailBody(this.friend);

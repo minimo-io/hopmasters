@@ -54,8 +54,11 @@ class _TopAppBarState extends State<TopAppBar> {
             tooltip: 'Carrito',
             onPressed: () {
 
-              Navigator.pushNamed(context, '/cart');
-
+              Navigator.pushNamed(
+                context,
+                "/cart",
+                arguments: {'name': "Maracuyipas", "count": 125},
+              );
               //topBeers();
             },
           ),

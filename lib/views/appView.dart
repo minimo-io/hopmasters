@@ -15,6 +15,7 @@ import 'package:hopmasters/views/favorites/favoritesView.dart';
 
 
 class AppView extends StatefulWidget {
+  static const routeName = '/';
   const AppView({Key key}) : super(key: key);
 
   @override

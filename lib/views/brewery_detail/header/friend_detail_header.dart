@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mates/ui/frienddetails/header/diagonally_cut_colored_image.dart';
-import 'package:flutter_mates/ui/friends/friend.dart';
+import 'package:hopmasters/views/brewery_detail/header/diagonally_cut_colored_image.dart';
+import 'package:hopmasters/models/brewery.dart';
 import 'package:meta/meta.dart';
 
 class FriendDetailHeader extends StatelessWidget {

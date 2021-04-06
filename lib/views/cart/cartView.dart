@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 
-class cartView extends StatefulWidget{
+class CartView extends StatefulWidget{
   final String name;
   final int count;
 
   static const String routeName = "/cart";
 
-  cartView({ this.name, this.count });
+  CartView({ this.name, this.count });
 
   @override
-  _cartViewState createState() => _cartViewState();
+  _CartViewState createState() => _CartViewState();
 }
 
-class _cartViewState extends State<cartView> {
+class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context){
     return Scaffold(

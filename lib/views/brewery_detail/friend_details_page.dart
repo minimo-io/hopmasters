@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hopmasters/views/brewery_detail/footer/friend_detail_footer.dart';
 import 'package:hopmasters/views/brewery_detail/friend_detail_body.dart';
 import 'package:hopmasters/views/brewery_detail/header/friend_detail_header.dart';
-
+import 'package:hopmasters/models/brewery.dart';
 import 'package:meta/meta.dart';
 
 class FriendDetailsPage extends StatefulWidget {

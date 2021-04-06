@@ -4,7 +4,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:hopmasters/models/nav_menu_provider.dart';
-import 'package:hopmasters/views/notFound/not_found_page.dart';
+
 
 void main() => runApp(HopmastersApp());
 
@@ -21,15 +21,10 @@ class HopmastersApp extends StatelessWidget{
         debugShowCheckedModeBanner: false,
         title: APP_TITLE,
         theme: hopmastersTheme(),
-        initialRoute: '/',
-        routes: routes,
-        onUnknownRoute: (RouteSettings setting) {
-          // To can ask the RouterSettings for unknown router name.
-          String unknownRoute = setting.name ;
-          return new MaterialPageRoute(
-              builder: (context) => NotFoundPage()
-          );
-        },
+        //initialRoute: '/',
+        //routes: routes,
+        onGenerateRoute: Routes.generateRoute,
+        onUnknownRoute: Routes.errorRoute,
       ),
     );
   }

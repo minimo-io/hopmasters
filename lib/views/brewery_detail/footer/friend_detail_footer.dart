@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mates/ui/frienddetails/footer/articles_showcase.dart';
-import 'package:flutter_mates/ui/frienddetails/footer/portfolio_showcase.dart';
-import 'package:flutter_mates/ui/frienddetails/footer/skills_showcase.dart';
-import 'package:flutter_mates/ui/friends/friend.dart';
+import 'package:hopmasters/views/brewery_detail/footer/articles_showcase.dart';
+import 'package:hopmasters/views/brewery_detail/footer/portfolio_showcase.dart';
+import 'package:hopmasters/views/brewery_detail/footer/skills_showcase.dart';
+import 'package:hopmasters/models/brewery.dart';
 
 class FriendShowcase extends StatefulWidget {
   FriendShowcase(this.friend);
