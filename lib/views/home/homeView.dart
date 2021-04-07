@@ -58,6 +58,25 @@ class _HomeViewState extends State<HomeView> {
               DiscoverBeersHeader(),
               BeerCards(),
               SizedBox(height: (30)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    "/brewery",
+                    arguments: { 'breweryId': 89059 },
+
+                  );
+                }, // handle your image tap here
+                child: Hero(
+                  tag: "brewery-89059",
+                  child: Image.network(
+                    'https://i2.wp.com/hopmasters.net/wp-content/uploads/2021/03/cerveceria-malafama-logo.png?resize=150%2C150&ssl=1',
+                    fit: BoxFit.cover, // this is the solution for border
+                    width: 110.0,
+                    height: 110.0,
+                  ),
+                ),
+              ),
               ClipRRect(
                 borderRadius: new BorderRadius.circular(30.0),
                 child: new OutlineButton.icon(
