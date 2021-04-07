@@ -25,7 +25,7 @@ class BreweryDetailHeader extends StatelessWidget {
         height: 335.0,
         fit: BoxFit.cover,
       ),
-      color: Color.fromRGBO(234, 186, 0, 0.6),
+      color: brewery.rgbColor.withOpacity(0.3)
     );
   }
 
@@ -46,7 +46,7 @@ class BreweryDetailHeader extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text('90 seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
+          new Text(brewery.followers.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
         ],
       ),
     );
@@ -72,11 +72,11 @@ class BreweryDetailHeader extends StatelessWidget {
                 ),
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-                    backgroundColor: MaterialStateProperty.all<Color>(PRIMARY_BUTTON_DARK),
+                    backgroundColor: MaterialStateProperty.all<Color>(brewery.rgbColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                            side: BorderSide(color: PRIMARY_BUTTON_DARK)
+                            side: BorderSide(color: brewery.rgbColor)
                         )
                     )
                 ),

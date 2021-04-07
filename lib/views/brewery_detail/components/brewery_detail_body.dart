@@ -66,10 +66,10 @@ class BreweryDetailBody extends StatelessWidget {
           padding: const EdgeInsets.only(top: 16.0),
           child: new Row(
             children: <Widget>[
-              _createCircleBadge(Icons.sports_bar, theme.accentColor),
+              _createCircleBadge(Icons.sports_bar, brewery.rgbColor),
 //              _createCircleBadge(Icons.cloud, Colors.white12),
 //              _createCircleBadge(Icons.shop, Colors.white12),
-              Padding( padding: EdgeInsets.only(left:6.0), child: Text("25 cervezas"))
+              Padding( padding: EdgeInsets.only(left:6.0), child: Text(brewery.beersCount.toString() + " cervezas"))
             ],
           ),
         ),

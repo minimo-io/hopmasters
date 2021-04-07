@@ -38,12 +38,12 @@ class Routes {
           );
 
         case BreweryView.routeName:
-          final breweryArg = args['brewery'] as Brewery;
-          final breweryAvatarTag = args['avatar'] as Object;
+
+          final breweryArg = args['breweryId'] as int;
 
           return MaterialPageRoute(
             settings: routeSettings,
-            builder: (_) => BreweryView(brewery: breweryArg, avatarTag: breweryAvatarTag),
+            builder: (_) => BreweryView(breweryId: breweryArg),
           );
 
         /*

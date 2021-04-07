@@ -11,6 +11,7 @@ import 'package:hopmasters/components/beer_cards.dart';
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
 import 'package:hopmasters/views/home/components/specialOffers.dart';
 import 'package:hopmasters/views/home/components/discover_beers_header.dart';
+import 'package:hopmasters/components/search_bar.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -49,8 +50,9 @@ class _HomeViewState extends State<HomeView> {
           ),
           child: Column(
             children: [
+              SearchBar(),
               BreweriesBanner(),
-              SizedBox(height: (10)),
+              SizedBox(height: (20)),
               SpecialOffers(),
               SizedBox(height: (10)),
               DiscoverBeersHeader(),
@@ -62,19 +64,11 @@ class _HomeViewState extends State<HomeView> {
                   icon: Icon(Icons.sports_bar),
                   onPressed: () {
 
-                    Brewery breweryTmp = Brewery(
-                      avatar: 'https://hopmasters.net/wp-content/uploads/2021/03/cerveceria-malafama-logo.png',
-                      email:'nicolas@minimo.io',
-                      location:'Montevideo, UY',
-                      name: 'Malafama',
-                      description: 'Promovemos la cultura cervecera artesanal alrededor del mundo con herramientas e información de calidad que respetan los principios de colaboración que hacen fuerte a la comunidad. ¡Sumate!'
-                    );
 
                     Navigator.pushNamed(
                       context,
                       "/brewery",
-                      arguments: {'brewery': breweryTmp, 'breweryId' : 43, 'avatar': 'beer-1'
-                      },
+                      arguments: { 'breweryId': 89059 },
 
                     );
                   },

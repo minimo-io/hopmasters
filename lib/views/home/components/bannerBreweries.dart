@@ -11,7 +11,7 @@ class BreweriesBanner extends StatelessWidget {
     return Container(
       // height: 90,
       width: double.infinity,
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(horizontal:20),
       padding: EdgeInsets.symmetric(
         horizontal: (20),
         vertical: (15),
