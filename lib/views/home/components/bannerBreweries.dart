@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
 
+
 class BreweriesBanner extends StatelessWidget {
   const BreweriesBanner({
     Key key,
@@ -26,19 +27,28 @@ class BreweriesBanner extends StatelessWidget {
         color: SECONDARY_BUTTON_COLOR,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Text.rich(
-        TextSpan(
-          style: TextStyle(color: Colors.white),
-          children: [
-            TextSpan(text: "Seguí a tus cervecerías favoritas\n"),
-            TextSpan(
-              text: "Ver ranking de cervecerías",
-              style: TextStyle(
-                fontSize: (21),
-                fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            "/breweries",
+          );
+        }, // handle your image tap here
+        child: Text.rich(
+          TextSpan(
+            style: TextStyle(color: Colors.white),
+            children: [
+              TextSpan(text: "Seguí a tus favoritas\n"),
+              TextSpan(
+                text: "Ranking de cervecerías",
+                style: TextStyle(
+                  fontSize: (21),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+
+            ],
+          ),
         ),
       ),
     );
