@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/brewery.dart';
+import 'package:hopmasters/components/async_loader.dart';
 
 import 'package:hopmasters/views/brewery_detail/components/footer/brewery_detail_footer.dart';
 import 'package:hopmasters/views/brewery_detail/components/brewery_detail_body.dart';
@@ -28,9 +29,9 @@ class _BreweryViewState extends State<BreweryView> {
   Brewery _brewery;
   Future _breweryFuture;
   Future<Brewery> _getBrewery()async{
-    final String BreweryUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "pages/"+ widget.breweryId.toString() +"?_embed";
+    final String breweryUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "pages/"+ widget.breweryId.toString() +"?_embed";
 
-    final response = await http.get(BreweryUriQuery,
+    final response = await http.get(breweryUriQuery,
         headers: { 'Accept': 'application/json' });
     if (response.statusCode == 200){
 
@@ -71,7 +72,7 @@ class _BreweryViewState extends State<BreweryView> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
 
         switch (snapshot.connectionState) {
-          case ConnectionState.waiting: return Scaffold(body:Center(child:CircularProgressIndicator()));
+          case ConnectionState.waiting: return AsyncLoader();
           default:
             if (snapshot.hasError)
               return Text('Error: ${snapshot.error}');
