@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const APP_TITLE = "HOPS / UY";
+const APP_TITLE = "HOPS";
 
 // Only put constants shared between files here.
 

@@ -35,17 +35,24 @@ class _TopAppBarState extends State<TopAppBar> {
       iconTheme: IconThemeData(
           color: colorScheme.secondary
       ),
-      /*
-          title: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Container(child: Text("HOPMASTERS", style: TextStyle(color:Colors.white))),
-          ),
-          */
+
       title: Padding(
         padding: const EdgeInsets.fromLTRB(15, 28.0, 0, 8.0),
-        child: Container(child: Text(APP_TITLE, style: GoogleFonts.russoOne(
-            textStyle: TextStyle(color: colorScheme.secondary)
-        ))),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/hops-logo.png',
+              width: 25,
+            ),
+            SizedBox(width: 5,),
+            Container(
+                child: Text(
+                    APP_TITLE,
+                    style: GoogleFonts.russoOne(textStyle: TextStyle(color: colorScheme.secondary))
+                )
+            ),
+          ],
+        ),
       ),
       actions: <Widget>[
         Container(
