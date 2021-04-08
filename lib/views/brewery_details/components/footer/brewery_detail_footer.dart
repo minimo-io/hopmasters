@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/views/brewery_detail/components/footer/articles_showcase.dart';
-import 'package:hopmasters/views/brewery_detail/components/footer/portfolio_showcase.dart';
-import 'package:hopmasters/views/brewery_detail/components/footer/skills_showcase.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/articles_showcase.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/portfolio_showcase.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/skills_showcase.dart';
 import 'package:hopmasters/models/brewery.dart';
 import 'package:hopmasters/theme/style.dart';
 

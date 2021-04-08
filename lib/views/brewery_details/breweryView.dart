@@ -8,9 +8,9 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/brewery.dart';
 import 'package:hopmasters/components/async_loader.dart';
 
-import 'package:hopmasters/views/brewery_detail/components/footer/brewery_detail_footer.dart';
-import 'package:hopmasters/views/brewery_detail/components/brewery_detail_body.dart';
-import 'package:hopmasters/views/brewery_detail/components/header/brewery_detail_header.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/brewery_detail_footer.dart';
+import 'package:hopmasters/views/brewery_details/components/brewery_detail_body.dart';
+import 'package:hopmasters/views/brewery_details/components/header/brewery_detail_header.dart';
 
 
 class BreweryView extends StatefulWidget {
@@ -28,6 +28,7 @@ class _BreweryViewState extends State<BreweryView> {
   //Future<Brewery> _brewery;
   Brewery _brewery;
   Future _breweryFuture;
+
   Future<Brewery> _getBrewery()async{
     final String breweryUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "pages/"+ widget.breweryId.toString() +"?_embed";
 
@@ -88,6 +89,23 @@ class _BreweryViewState extends State<BreweryView> {
                         new BreweryDetailHeader(
                           snapshot.data,
                           avatarTag: "brewery-" + widget.breweryId.toString(),
+                        ),
+                        ClipRRect(
+                          borderRadius: new BorderRadius.circular(30.0),
+                          child: new OutlineButton.icon(
+                            icon: Icon(Icons.sports_bar),
+                            onPressed: () {
+
+
+                              Navigator.pushNamed(
+                                context,
+                                "/beer",
+                                arguments: { 'beerId': 89048 },
+
+                              );
+                            },
+                            label: new Text("Mastra Strong"),
+                          ),
                         ),
                         new Padding(
                           padding: const EdgeInsets.all(24.0),

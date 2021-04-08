@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:hopmasters/views/appView.dart';
 import 'package:hopmasters/views/cart/cartView.dart';
-import 'package:hopmasters/views/brewery_detail/breweryView.dart';
+import 'package:hopmasters/views/brewery_details/breweryView.dart';
+import 'package:hopmasters/views/beer_details/beerView.dart';
 import 'package:hopmasters/views/notFound/not_found_page.dart';
 import 'package:hopmasters/models/brewery.dart';
 /*
@@ -46,6 +47,13 @@ class Routes {
             builder: (_) => BreweryView(breweryId: breweryArg),
           );
 
+        case BeerView.routeName:
+          final beerArg = args['beerId'] as int;
+
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => BeerView(beerId: beerArg),
+          );
         /*
         case CorePage.route:
           final launchId = args['launchId'] as String;

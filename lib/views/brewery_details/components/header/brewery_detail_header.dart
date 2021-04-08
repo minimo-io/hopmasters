@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/views/brewery_detail/components/header/diagonally_cut_colored_image.dart';
+import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
 import 'package:hopmasters/models/brewery.dart';
 import 'package:meta/meta.dart';
 
