@@ -25,8 +25,8 @@ class _BreweryShowcaseState extends State<BreweryShowcase>
     super.initState();
     _tabs = [
       new Tab(text: 'Cervezas'),
+      new Tab(text: 'Brewmasters'),
       new Tab(text: 'Estilos'),
-      new Tab(text: 'Artículos'),
     ];
     _pages = [
       new PortfolioShowcase(),

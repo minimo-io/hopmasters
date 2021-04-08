@@ -7,8 +7,10 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
 import 'package:hopmasters/components/async_loader.dart';
+
+import 'package:hopmasters/views/beer_details/components/beer_header.dart';
+import 'package:hopmasters/views/beer_details/components/beer_body.dart';
 
 
 class BeerView extends StatefulWidget {
@@ -95,24 +97,9 @@ class _BeerViewState extends State<BeerView> {
                         children: <Widget>[
                           Stack(
                             children: <Widget>[
-                              DiagonallyCutColoredImage(
-                                  new Image.asset(
-                                    "assets/images/beer-toast-bg-2.png",
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 335.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  color: Color.fromRGBO(234, 186, 0, 0.6)
-                              ),
-                              new Align(
-                                alignment: FractionalOffset.bottomCenter,
-                                heightFactor: 1.4,
-                                child: new Column(
-                                  children: <Widget>[
-
-                                  ],
-                                ),
-                              ),
+                              BeerHeader(beer: snapshot.data),
+                              BeerBody(),
+                              // BeerFooter()
                               /*
                               new Positioned(
                                 top: 26.0,
