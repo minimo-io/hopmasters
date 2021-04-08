@@ -1,6 +1,6 @@
 # hopmasters
 
-Find & Buy local beers
+Find & Buy local beers! Developed using the Flutter framework.
 
 <center>
     <img src="https://hopmasters.net/wp-content/uploads/2021/03/hopmasters-github.jpg" />
