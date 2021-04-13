@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 class Beer{
   Beer({
+    @required this.id,
     @required this.name,
     @required this.image,
     @required this.abv,
@@ -13,6 +14,7 @@ class Beer{
     @required this.followers
   });
 
+  String id;
   String name;
   String image;
   String abv;

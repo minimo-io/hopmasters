@@ -36,6 +36,7 @@ class _BeerViewState extends State<BeerView> {
 
       var jsonResponse = json.decode(response.body);
       return Beer(
+        id: widget.beerId.toString(),
         image: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
         followers: jsonResponse['acf']['followers'],
         name: jsonResponse['title']['rendered'],
@@ -95,22 +96,9 @@ class _BeerViewState extends State<BeerView> {
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Stack(
-                            children: <Widget>[
-                              BeerHeader(beer: snapshot.data),
-                              BeerBody(),
-                              // BeerFooter()
-                              /*
-                              new Positioned(
-                                top: 26.0,
-                                left: 4.0,
-                                child: new BackButton(color: Colors.white),
-                              ),
-                               */
-                            ],
-                          ),
-                          SizedBox(height: 100,),
-                          Center(child: Text("Beer:" + widget.beerId.toString())),
+                          BeerHeader(beer: snapshot.data),
+                          SizedBox(height: 20,),
+                          BeerBody(beer: snapshot.data),
                           SizedBox(height: 500,),
                         ],
                       ),
