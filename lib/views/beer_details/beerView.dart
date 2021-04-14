@@ -30,7 +30,7 @@ class _BeerViewState extends State<BeerView> {
 
   Future<Beer> _getBeer()async{
     final String beerUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "product/"+ widget.beerId.toString() +"?_embed";
-    print(beerUriQuery);
+    //print(beerUriQuery);
     final response = await http.get(beerUriQuery,
         headers: { 'Accept': 'application/json' });
     if (response.statusCode == 200){
@@ -101,7 +101,7 @@ class _BeerViewState extends State<BeerView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           BeerHeader(beer: snapshot.data),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 10,),
                           BeerBody(beer: snapshot.data),
                           SizedBox(height: 500,),
                         ],
