@@ -8,5 +8,11 @@ class Beer{
   final String name, type, image;
   final num abv, price;
 
-  const Beer({this.name, this.type, this.image, this.abv, this.price});
+  const Beer({
+    this.name,
+    this.type,
+    this.image,
+    this.abv,
+    this.price
+  });
 }

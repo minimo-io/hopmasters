@@ -11,7 +11,10 @@ class Beer{
     @required this.image,
     @required this.abv,
     @required this.description,
-    @required this.followers
+    @required this.followers,
+    @required this.breweryId,
+    @required this.breweryName,
+    @required this.breweryImage
   });
 
   String id;
@@ -21,4 +24,5 @@ class Beer{
   String description;
   String followers;
 
+  String breweryId, breweryName, breweryImage;
 }

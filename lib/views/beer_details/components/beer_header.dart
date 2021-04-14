@@ -13,10 +13,32 @@ class BeerHeader extends StatelessWidget{
     @required Beer this.beer
   });
 
+  Widget _buildBeerBrewery(){
+    return Row(
+      children: [
+        Image.network( beer.breweryImage,
+          height: 250,
+          fit: BoxFit.fill,
+          loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null ?
+                loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                    : null,
+              ),
+            );
+          },
+        ),
+        Text(beer.breweryName)
+      ],
+    );
+  }
+
   Widget _buildBeerAvatar(){
     return new Align(
       alignment: FractionalOffset.bottomCenter,
-      heightFactor: 1.4,
+      heightFactor: 1.2,
       child: new Column(
         children: <Widget>[
           Hero(
@@ -35,13 +57,39 @@ class BeerHeader extends StatelessWidget{
                 );
               },
             ),
-          )
+          ),
+          _buildBeerBrewery()
         ],
       ),
     );
   }
 
   Widget _buildActionButtons(ThemeData theme) {
+
+    Widget _buildButton({Text text, Icon icon}){
+
+      return ClipRRect(
+        borderRadius: new BorderRadius.circular(10.0),
+        child: ElevatedButton.icon(
+            icon: icon,
+            label: text,
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
+                backgroundColor: MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                        side: BorderSide(color: SECONDARY_BUTTON_COLOR)
+                    )
+                )
+            ),
+            onPressed: () => null
+        ),
+      );
+
+
+    }
+
     return new Padding(
       padding: const EdgeInsets.only(
         top: 16.0,
@@ -49,28 +97,16 @@ class BeerHeader extends StatelessWidget{
         right: 16.0,
       ),
       child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        /*mainAxisAlignment: MainAxisAlignment.spaceEvenly,*/
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          ClipRRect(
-            borderRadius: new BorderRadius.circular(10.0),
-            child: ElevatedButton.icon(
-                icon: Icon(Icons.favorite_border_outlined),
-                label: Text(
-                    "SEGUIR",
-                    style: TextStyle(fontSize: 14)
-                ),
-                style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-                    backgroundColor: MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero,
-                            side: BorderSide(color: SECONDARY_BUTTON_COLOR)
-                        )
-                    )
-                ),
-                onPressed: () => null
-            ),
+          Padding(
+            padding: EdgeInsets.only(right: 2),
+            child:_buildButton(text:Text("SEGUIR"),icon: Icon(Icons.favorite_border_outlined))
+          ),
+          Padding(
+            padding: EdgeInsets.only(left:2),
+            child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart))
           )
         ],
       ),
