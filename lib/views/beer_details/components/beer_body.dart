@@ -4,6 +4,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/beer.dart';
 
 import 'package:hopmasters/components/followers_info.dart';
+import 'package:hopmasters/components/load_network_image.dart';
 
 class BeerBody extends StatelessWidget {
 
@@ -16,20 +17,7 @@ class BeerBody extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.network( beer.breweryImage,
-          height: 50,
-          fit: BoxFit.fill,
-          loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null ?
-                loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                    : null,
-              ),
-            );
-          },
-        ),
+        LoadNetworkImage(uri:beer.breweryImage, height:50),
         SizedBox(width: 8,),
         Text(beer.breweryName, style: TextStyle(fontSize: 18),)
       ],

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
-import 'package:hopmasters/models/brewery.dart';
 import 'package:meta/meta.dart';
+
+// import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
+// import 'package:hopmasters/components/load_network_image.dart';
+
+import 'package:hopmasters/models/brewery.dart';
+
+
 
 class BreweryDetailHeader extends StatelessWidget {
   static const BACKGROUND_IMAGE = 'assets/images/beer-toast-bg-2.png';
@@ -34,6 +39,7 @@ class BreweryDetailHeader extends StatelessWidget {
       tag: avatarTag,
       child: new CircleAvatar(
         backgroundImage: new NetworkImage(brewery.avatar),
+        //backgroundImage: LoadNetworkImage(brewery.avatar),
         radius: 50.0,
       ),
     );

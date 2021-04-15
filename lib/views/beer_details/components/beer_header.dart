@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/beer.dart';
 
 import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
+import 'package:hopmasters/components/load_network_image.dart';
 
 class BeerHeader extends StatelessWidget{
   final beer;
@@ -21,20 +21,7 @@ class BeerHeader extends StatelessWidget{
         children: <Widget>[
           Hero(
             tag: "beer-" + beer.name,
-            child: Image.network( beer.image,
-              height: 230,
-              fit: BoxFit.fill,
-              loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null ?
-                    loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                        : null,
-                  ),
-                );
-              },
-            ),
+            child: LoadNetworkImage(uri: beer.image, height: 230,),
           ),
         ],
       ),
