@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 const APP_TITLE = "HOPS";
 
@@ -35,3 +34,4 @@ enum HopsMenuState { home, favourite, store, profile }
 
 const String WP_BASE_API = "https://hopmasters.net";
 const String WP_REST_VERSION_URI = "/wp-json/wp/v2/";
+const String WP_REST_WC_VERSION_URI = "/wp-json/wc/v3/"; // for WooCommerce
