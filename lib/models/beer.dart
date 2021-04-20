@@ -11,6 +11,8 @@ class Beer{
     @required this.image,
     @required this.abv,
     @required this.ibu,
+    @required this.launch,
+    @required this.price,
     @required this.description,
     @required this.followers,
     @required this.breweryId,
@@ -26,6 +28,8 @@ class Beer{
   String image;
   String abv;
   String ibu;
+  String launch;
+  String price;
   String description;
   String followers;
   String type;

@@ -30,6 +30,18 @@ class BeerHeader extends StatelessWidget{
     );
   }
 
+  Widget _buildBeerPrice(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("\$" + this.beer.price, style: TextStyle(color: SECONDARY_TEXT_DARK, fontSize: 22, fontWeight: FontWeight.bold), ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildActionButtons(ThemeData theme) {
 
     Widget _buildButton({Text text, Icon icon}){
@@ -113,7 +125,8 @@ class BeerHeader extends StatelessWidget{
           child: new Column(
             children: <Widget>[
               _buildBeerAvatar(),
-              FollowersInfo(this.beer.followers, textColor: SECONDARY_TEXT_DARK),
+              _buildBeerPrice(),
+              //FollowersInfo(this.beer.followers, textColor: SECONDARY_TEXT_DARK),
               _buildActionButtons(Theme.of(context)),
             ],
           ),
