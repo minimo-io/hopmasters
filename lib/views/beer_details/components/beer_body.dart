@@ -114,7 +114,26 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
         ],
       ),
     );
-
+  Widget elementIBU = Container(
+    height: 30,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text("IBU",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF444444))),
+        Text(beer.ibu,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF212121))),
+      ],
+    ),
+  );
   Widget element2 = Container(
     height: 30,
     child: Row(
@@ -157,6 +176,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
   );
   list.add(element0);
   list.add(element);
+  list.add(elementIBU);
   list.add(element2);
   list.add(element3);
   //});

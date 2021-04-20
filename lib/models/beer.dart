@@ -10,6 +10,7 @@ class Beer{
     @required this.name,
     @required this.image,
     @required this.abv,
+    @required this.ibu,
     @required this.description,
     @required this.followers,
     @required this.breweryId,
@@ -24,6 +25,7 @@ class Beer{
   String name;
   String image;
   String abv;
+  String ibu;
   String description;
   String followers;
   String type;

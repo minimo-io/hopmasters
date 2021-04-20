@@ -45,6 +45,7 @@ class _BeerViewState extends State<BeerView> {
         name: jsonResponse['name'],
         description: jsonResponse['short_description'],
         abv: jsonResponse['acf']['abv'],
+        ibu: jsonResponse['acf']['ibu'],
         type: jsonResponse['categories'][0]['name'],
         size: jsonResponse['acf']['container'],
         breweryId: jsonResponse['acf']['brewery']['ID'].toString(),
