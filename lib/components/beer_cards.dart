@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/components/beer.dart';
 
@@ -24,7 +25,7 @@ class BeerCards extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 5.0, right: 8),
-                      child: Icon(Icons.favorite_border),
+                      child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5)),
                     )),
                 Expanded(
                   child: Image.asset(beer.image),
