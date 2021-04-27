@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/components/expandable_text.dart';
+
 import 'package:hopmasters/models/brewery.dart';
 
 class BreweryDetailBody extends StatelessWidget {
@@ -58,9 +61,7 @@ class BreweryDetailBody extends StatelessWidget {
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: new Text(brewery.description,
-            style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8), height: 1.3),
-          ),
+          child: ExpandableText(brewery.description),
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),

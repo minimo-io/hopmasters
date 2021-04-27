@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/views/brewery_details/components/footer/articles_showcase.dart';
-import 'package:hopmasters/views/brewery_details/components/footer/portfolio_showcase.dart';
-import 'package:hopmasters/views/brewery_details/components/footer/skills_showcase.dart';
+
 import 'package:hopmasters/models/brewery.dart';
 import 'package:hopmasters/theme/style.dart';
+
+import 'package:hopmasters/views/brewery_details/components/footer/articles_showcase.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/brewery_beers.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/skills_showcase.dart';
 
 class BreweryShowcase extends StatefulWidget {
   BreweryShowcase(this.brewery);
@@ -29,7 +31,7 @@ class _BreweryShowcaseState extends State<BreweryShowcase>
       new Tab(text: 'Estilos'),
     ];
     _pages = [
-      new PortfolioShowcase(),
+      new BreweryBeers(brewery: widget.brewery),
       new SkillsShowcase(),
       new ArticlesShowcase(),
     ];

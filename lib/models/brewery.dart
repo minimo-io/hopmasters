@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 class Brewery {
 
   Brewery({
+    @required this.id,
     @required this.avatar,
     @required this.name,
     @required this.location,
@@ -15,6 +16,7 @@ class Brewery {
     @required this.description
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(234, 186, 0, 0.6));
 
+  String id;
   String avatar;
   String name;
   String location;

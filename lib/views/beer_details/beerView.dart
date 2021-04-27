@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+//import 'package:meta/meta.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:hopmasters/helpers.dart';
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/models/beer.dart';
 import 'package:hopmasters/secrets.dart';
 import 'package:hopmasters/theme/style.dart';
-
-import 'dart:convert';
-import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:hopmasters/components/async_loader.dart';
 
@@ -31,7 +32,7 @@ class _BeerViewState extends State<BeerView> {
 
   Future<Beer> _getBeer()async{
     final String beerUriQuery = WP_BASE_API + WP_REST_WC_VERSION_URI + "products/"+ widget.beerId.toString() +"?_embed&consumer_key="+ WC_CONSUMER_KEY +"&consumer_secret="+WC_CONSUMER_SECRET;
-    //print(beerUriQuery);
+    print(beerUriQuery);
     final response = await http.get(beerUriQuery,
         headers: { 'Accept': 'application/json' });
     if (response.statusCode == 200){
@@ -43,7 +44,8 @@ class _BeerViewState extends State<BeerView> {
         image: jsonResponse["images"][0]["src"],
         followers: jsonResponse['acf']['followers'],
         name: jsonResponse['name'],
-        description: jsonResponse['short_description'],
+        //description: jsonResponse['short_description'],
+        description: Helpers.parseHtmlString(jsonResponse['description']),
         abv: jsonResponse['acf']['abv'],
         ibu: jsonResponse['acf']['ibu'],
         launch: jsonResponse['acf']['launch'],
@@ -68,7 +70,6 @@ class _BeerViewState extends State<BeerView> {
     super.initState();
     _beerFuture = _getBeer();
   }
-
 
   @override
   Widget build(BuildContext context) {

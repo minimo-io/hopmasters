@@ -39,6 +39,7 @@ class _BreweryViewState extends State<BreweryView> {
       var jsonResponse = json.decode(response.body);
 
       _brewery = Brewery(
+        id: widget.breweryId.toString(),
         avatar: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
         location: jsonResponse['acf']['location'],
         followers: jsonResponse['acf']['followers'],

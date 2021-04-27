@@ -32,6 +32,7 @@ const dummyBeerImagePath2 = "assets/images/mastra-app.jpg";
 
 enum HopsMenuState { home, favourite, store, profile }
 
-const String WP_BASE_API = "https://hopmasters.net";
+const String WP_BASE_API = "https://hops.uy";
 const String WP_REST_VERSION_URI = "/wp-json/wp/v2/";
 const String WP_REST_WC_VERSION_URI = "/wp-json/wc/v3/"; // for WooCommerce
+const String WP_REST_HOPS_VERSION_URI = "/wp-json/hops/v1/"; // for WooCommerce

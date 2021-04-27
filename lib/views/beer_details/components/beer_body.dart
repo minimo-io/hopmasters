@@ -4,6 +4,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/beer.dart';
 
 // import 'package:hopmasters/components/followers_info.dart';
+import 'package:hopmasters/components/expandable_text.dart';
 import 'package:hopmasters/components/load_network_image.dart';
 
 class BeerBody extends StatelessWidget {
@@ -47,13 +48,19 @@ class BeerBody extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4.0),
             child: _buildBreweryInfo(textTheme),
           ),
+          /*
           new Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: new Text(beer.description,
               style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8), height: 1.3),
             ),
           ),
-          SizedBox(height: 55,),
+          */
+          Padding(
+            padding: const EdgeInsets.only(top:16.0),
+            child: ExpandableText(beer.description),
+          ),
+          SizedBox(height: 25,),
           Text("Detalles",
               textAlign: TextAlign.left,
               style: TextStyle(
