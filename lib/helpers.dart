@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
 
-
-import 'package:hopmasters/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:html/parser.dart';
+
+import 'package:hopmasters/constants.dart';
 
 class Helpers{
   // convert an html like hex color #FFFFFF to Color Widget
@@ -24,25 +24,13 @@ class Helpers{
   }
 
   static Future getBeersFromBreweryID(String breweryID)async{
-    final String beersFromBreweryUriQuery = WP_BASE_API + WP_REST_HOPS_VERSION_URI + "beers/breweryID/"+ breweryID +"/?_embed";
-    print(beersFromBreweryUriQuery);
+    final String beersFromBreweryUriQuery = WP_BASE_API + WP_REST_HOPS_VERSION_URI + "beers/breweryID/"+ breweryID +"?_embed";
+    //print(beersFromBreweryUriQuery);
     final response = await http.get(beersFromBreweryUriQuery,
         headers: { 'Accept': 'application/json' });
     if (response.statusCode == 200){
 
       var jsonResponse = json.decode(response.body);
-      /*
-      _breweryBeers = Brewery(
-        avatar: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
-        location: jsonResponse['acf']['location'],
-        followers: jsonResponse['acf']['followers'],
-        beersCount: jsonResponse['acf']['beers_count'],
-        bgColor: jsonResponse['acf']['bg_color'],
-        name: jsonResponse['title']['rendered'],
-        description: jsonResponse['excerpt']['rendered'],
-      );
-      */
-      //_breweryBeers = jsonResponse;
       return jsonResponse;
 
 
@@ -51,5 +39,6 @@ class Helpers{
       throw Exception('Failed to load beers.');
     }
   }
+
 
 }

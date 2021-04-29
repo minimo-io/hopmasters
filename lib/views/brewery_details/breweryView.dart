@@ -8,7 +8,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/brewery.dart';
 import 'package:hopmasters/components/async_loader.dart';
 
-import 'package:hopmasters/views/brewery_details/components/footer/brewery_detail_footer.dart';
+import 'package:hopmasters/views/brewery_details/components/footer/brewery_showcase.dart';
 import 'package:hopmasters/views/brewery_details/components/brewery_detail_body.dart';
 import 'package:hopmasters/views/brewery_details/components/header/brewery_detail_header.dart';
 

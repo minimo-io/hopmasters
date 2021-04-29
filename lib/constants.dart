@@ -27,8 +27,8 @@ const marginSide = 18.0;
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
-const dummyBeerImagePath = "assets/images/avante-supernauta.jpg";
-const dummyBeerImagePath2 = "assets/images/mastra-app.jpg";
+const dummyBeerImagePath = "https://hops.uy/wp-content/uploads/2021/04/avante-supernauta.jpg";
+const dummyBeerImagePath2 = "https://hops.uy/wp-content/uploads/2021/03/mastra-strong.png";
 
 enum HopsMenuState { home, favourite, store, profile }
 

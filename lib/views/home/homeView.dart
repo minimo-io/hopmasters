@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/models/brewery.dart';
+
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
+
+import 'package:hopmasters/helpers.dart';
+import 'package:hopmasters/models/brewery.dart';
 
 import 'package:hopmasters/components/beer_cards.dart';
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
@@ -22,23 +25,15 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  dynamic _beers = "";
+  Future _breweryBeers;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _loadBeers();
+    _breweryBeers = Helpers.getBeersFromBreweryID("89059");
   }
 
-  Future<void> _loadBeers() async {
-    http.Response response =  await http.get(WP_BASE_API + "/wp-json/wp/v2/posts?_embed", headers: {
-    'Accept': 'application/json'
-    });
-    final responseJson = jsonDecode(response.body);
-    setState(() {
-      _beers = responseJson;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +51,21 @@ class _HomeViewState extends State<HomeView> {
               SpecialOffers(),
               SizedBox(height: (10)),
               DiscoverBeersHeader(),
-              BeerCards(),
+              FutureBuilder(
+                  future: _breweryBeers,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center( child: CircularProgressIndicator() );
+                      default:
+                        if (snapshot.hasError){
+                          return Text('Ups! Error: ${snapshot.error}');
+                        }else{
+                          return BeerCards(beersList: snapshot.data);
+                        }
+                    }
+                  }
+              ),
               SizedBox(height: (30)),
               GestureDetector(
                 onTap: () {
@@ -95,8 +104,6 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               SizedBox(height: (30)),
-              Text(_beers.toString()),
-              SizedBox(height: (3000)),
             ],
           ),
         ),

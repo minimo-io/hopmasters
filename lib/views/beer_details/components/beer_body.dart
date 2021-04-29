@@ -92,7 +92,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF444444))),
-        Text(beer.id.toString(),
+        Text(beer.beerId.toString(),
             textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 14,

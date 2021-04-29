@@ -32,14 +32,14 @@ class _BeerViewState extends State<BeerView> {
 
   Future<Beer> _getBeer()async{
     final String beerUriQuery = WP_BASE_API + WP_REST_WC_VERSION_URI + "products/"+ widget.beerId.toString() +"?_embed&consumer_key="+ WC_CONSUMER_KEY +"&consumer_secret="+WC_CONSUMER_SECRET;
-    print(beerUriQuery);
+    //print(beerUriQuery);
     final response = await http.get(beerUriQuery,
         headers: { 'Accept': 'application/json' });
     if (response.statusCode == 200){
       var jsonResponse = json.decode(response.body);
 
       return Beer(
-        id: widget.beerId.toString(),
+        beerId: widget.beerId.toString(),
         //image: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
         image: jsonResponse["images"][0]["src"],
         followers: jsonResponse['acf']['followers'],
