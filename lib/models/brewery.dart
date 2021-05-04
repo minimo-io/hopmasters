@@ -16,6 +16,19 @@ class Brewery {
     @required this.description
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(234, 186, 0, 0.6));
 
+  factory Brewery.fromJson(Map<String, dynamic> parsedJson){
+    return Brewery(
+      id: parsedJson["id"].toString(),
+      avatar: parsedJson["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"] ?? "",
+      location: parsedJson['acf']['location'],
+      followers: parsedJson['acf']['followers'],
+      beersCount: parsedJson['acf']['beers_count'],
+      bgColor: parsedJson['acf']['bg_color'],
+      name: parsedJson['title']['rendered'],
+      description: parsedJson['excerpt']['rendered'],
+    );
+  }
+
   String id;
   String avatar;
   String name;

@@ -91,23 +91,6 @@ class _BreweryViewState extends State<BreweryView> {
                           snapshot.data,
                           avatarTag: "brewery-" + widget.breweryId.toString(),
                         ),
-                        ClipRRect(
-                          borderRadius: new BorderRadius.circular(30.0),
-                          child: new OutlineButton.icon(
-                            icon: Icon(Icons.sports_bar),
-                            onPressed: () {
-
-
-                              Navigator.pushNamed(
-                                context,
-                                "/beer",
-                                arguments: { 'beerId': 89048 },
-
-                              );
-                            },
-                            label: new Text("Mastra Strong"),
-                          ),
-                        ),
                         new Padding(
                           padding: const EdgeInsets.all(24.0),
                           child: new BreweryDetailBody(snapshot.data),

@@ -11,6 +11,7 @@ import 'package:hopmasters/helpers.dart';
 import 'package:hopmasters/models/brewery.dart';
 
 import 'package:hopmasters/components/beer_cards.dart';
+import 'package:hopmasters/components/breweries_cards.dart';
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
 import 'package:hopmasters/views/home/components/specialOffers.dart';
 import 'package:hopmasters/views/home/components/discover_beers_header.dart';
@@ -31,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _breweryBeers = Helpers.getBeersFromBreweryID("89059");
+    _breweryBeers = Helpers.getBeersFromBreweryID("89107");
   }
 
 
@@ -69,43 +70,8 @@ class _HomeViewState extends State<HomeView> {
               ),
               SizedBox(height: (30)),
               AppTitle(title: Text("Cervecerías")),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    "/brewery",
-                    arguments: { 'breweryId': 89059 },
-
-                  );
-                }, // handle your image tap here
-                child: Hero(
-                  tag: "brewery-89059",
-                  child: Image.network(
-                    'https://i2.wp.com/hopmasters.net/wp-content/uploads/2021/03/cerveceria-malafama-logo.png?resize=150%2C150&ssl=1',
-                    fit: BoxFit.cover, // this is the solution for border
-                    width: 110.0,
-                    height: 110.0,
-                  ),
-                ),
-              ),
-              ClipRRect(
-                borderRadius: new BorderRadius.circular(30.0),
-                child: new OutlineButton.icon(
-                  icon: Icon(Icons.sports_bar),
-                  onPressed: () {
-
-
-                    Navigator.pushNamed(
-                      context,
-                      "/brewery",
-                      arguments: { 'breweryId': 89059 },
-
-                    );
-                  },
-                  label: new Text("Malafama"),
-                ),
-              ),
-              SizedBox(height: (30)),
+              BreweriesCards(),
+              SizedBox(height: (100)),
             ],
           ),
         ),

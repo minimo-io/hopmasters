@@ -33,13 +33,7 @@ class _BreweryBeersState extends State<BreweryBeers> {
       crossAxisSpacing: 8.0,
       mainAxisSpacing: 8.0,
     );
-    /*
-    return GridView(
-      padding: const EdgeInsets.only(top: 16.0),
-      gridDelegate: delegate,
-      children: _buildItems(),
-    );
-     */
+
     return FutureBuilder(
         future: _breweryBeers,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
