@@ -1,33 +1,22 @@
 PODS:
-  - FirebaseFirestore (1.15.0)
   - Flutter (1.0.0)
   - path_provider (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `6.26.0`)
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 EXTERNAL SOURCES:
-  FirebaseFirestore:
-    :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
-    :tag: 6.26.0
   Flutter:
     :path: Flutter
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
 
-CHECKOUT OPTIONS:
-  FirebaseFirestore:
-    :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
-    :tag: 6.26.0
-
 SPEC CHECKSUMS:
-  FirebaseFirestore: 2cf6944bc538e57c94d8332bae501178edb70727
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
 
-PODFILE CHECKSUM: eb8cf9a0aadb25e2aa45fd793ac1a8596f315eb1
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.10.0

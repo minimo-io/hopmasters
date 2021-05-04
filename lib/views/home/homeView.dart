@@ -14,6 +14,7 @@ import 'package:hopmasters/components/beer_cards.dart';
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
 import 'package:hopmasters/views/home/components/specialOffers.dart';
 import 'package:hopmasters/views/home/components/discover_beers_header.dart';
+import 'package:hopmasters/components/app_title.dart';
 import 'package:hopmasters/components/search_bar.dart';
 
 
@@ -67,6 +68,7 @@ class _HomeViewState extends State<HomeView> {
                   }
               ),
               SizedBox(height: (30)),
+              AppTitle(title: Text("Cervecerías")),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
