@@ -51,42 +51,73 @@ class _BreweriesCardsState extends State<BreweriesCards> {
     List<Widget> list = new List<Widget>();
     for(var i = 0; i < breweries.length; i++){
 
-      list.add(Row(
-        children:[
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                "/brewery",
-                arguments: { 'breweryId': int.parse(breweries[i].id) },
+      list.add(GestureDetector(
+        onTap: (){
+          Navigator.pushNamed(
+            context,
+            "/brewery",
+            arguments: { 'breweryId': int.parse(breweries[i].id) },
 
-              );
-            }, // handle your image tap here
-            child: Hero(
-              tag: "brewery-"+breweries[i].id,
-              child: Image.network(
-                breweries[i].avatar,
-                fit: BoxFit.cover, // this is the solution for border
-                width: 80.0,
-                height: 80.0,
+          );
+        },
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Hero(
+                    tag: "brewery-"+breweries[i].id,
+                    child: Image.network(
+                      breweries[i].avatar,
+                      fit: BoxFit.cover, // this is the solution for border
+                      width: 55.0,
+                      height: 55.0,
+                    ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(breweries[i].name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                      Text(breweries[i].followers + " seguidores", style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                    ]
+                  ),
+                ),
+
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    //crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 1.0),
+                        child: new CircleAvatar(
+                          backgroundColor: Colors.black,
+                          child: new Icon(
+                            Icons.sports_bar,
+                            color: Colors.white ,
+                            size: 12.0,
+                          ),
+                          radius: 12.0,
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left:6.0),
+                          child: Text(breweries[i].beersCount + " cervezas", style: TextStyle(fontSize: 12.0))
+                      )
+                    ],
+                  ),
+                )
+
+              ],
               ),
-            ),
           ),
-          ClipRRect(
-            borderRadius: new BorderRadius.circular(30.0),
-            child: new FlatButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  "/brewery",
-                  arguments: { 'breweryId': int.parse(breweries[i].id) },
-
-                );
-              }, child: new Text( breweries[i].name),
-            ),
-          ),
-        ],
-        )
+        ),
+      )
       );
       list.add(SizedBox(height:10));
     }
@@ -116,7 +147,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
 
               return Container(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  padding: EdgeInsets.symmetric(horizontal: 18),
                   child: _buildBreweryCards(breweriesCardsList, context),
                 )
               );
