@@ -46,6 +46,7 @@ class _HomeViewState extends State<HomeView> {
             gradient: PRIMARY_GRADIENT_COLOR,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchBar(),
               BreweriesBanner(),
@@ -69,7 +70,10 @@ class _HomeViewState extends State<HomeView> {
                   }
               ),
               SizedBox(height: (30)),
-              AppTitle(title: Text("Cervecerías")),
+              AppTitle(title: "Cervecerías"),
+              SizedBox(height: (10)),
+              AppTitle(subtitle: "Aquí el listado de cervecerías artesanales de Uruguay. Ordénalas según el criterio que quieras."),
+              SizedBox(height: (15.0)),
               BreweriesCards(),
               SizedBox(height: (100)),
             ],
