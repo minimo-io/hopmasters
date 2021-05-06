@@ -22,8 +22,6 @@ class _BeerCardsState extends State<BeerCards> {
   Widget build(BuildContext context) {
 
     Widget _buildBottomItem(Beer beer) {
-
-
       return GestureDetector(
         onTap: (){
           Navigator.pushNamed(
@@ -88,35 +86,32 @@ class _BeerCardsState extends State<BeerCards> {
       );
     }
 
-    var beersBottom = (widget.beersList as List)
-        .map((data) => new Beer.fromJson(data))
-        .toList();
+    Widget _buildBeerList(){
+      var beersBottom = (widget.beersList as List)
+          .map((data) => new Beer.fromJson(data))
+          .toList();
+
+      List<Widget> beerCardList = new List<Widget>();
+      for(var i = 0; i < beersBottom.length; i++){
+          beerCardList.add( _buildBottomItem(beersBottom[i]) );
+
+      }
+
+      /*return GridView(children: beerCardList);*/
+      return GridView.count(
+        crossAxisCount: 2,
+          children: beerCardList
+      );
+    }
+
+
 
     return Container(
       color: Colors.transparent,
       height: MediaQuery.of(context).size.height * 0.29,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: marginSide),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _buildBottomItem(beersBottom.first),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: _buildBottomItem(beersBottom.last),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: _buildBeerList(),
       ),
     );
 
