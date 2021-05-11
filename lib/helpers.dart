@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:hopmasters/constants.dart';
 
@@ -41,5 +42,15 @@ class Helpers{
     }
   }
 
+
+  static launchURL(String url) async {
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+
+  }
 
 }

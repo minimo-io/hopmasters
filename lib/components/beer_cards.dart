@@ -5,6 +5,9 @@ import 'package:hopmasters/models/beer.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/constants.dart';
 
+import 'package:hopmasters/helpers.dart';
+
+
 class BeerCards extends StatefulWidget {
   List beersList;
 
@@ -86,6 +89,7 @@ class _BeerCardsState extends State<BeerCards> {
       );
     }
 
+
     Widget _buildBeerList(){
       var beersBottom = (widget.beersList as List)
           .map((data) => new Beer.fromJson(data))
@@ -97,16 +101,41 @@ class _BeerCardsState extends State<BeerCards> {
 
       }
 
-      // define size
-      final double itemHeight = 270;
-      final double itemWidth = MediaQuery.of(context).size.width / 2;
+      if ( beersBottom.length > 0){
+        // define size
+        final double itemHeight = 270;
+        final double itemWidth = MediaQuery.of(context).size.width / 2;
 
-      /*return GridView(children: beerCardList);*/
-      return GridView.count(
-        childAspectRatio: (itemWidth / itemHeight),
-        crossAxisCount: 2,
-          children: beerCardList
-      );
+        /*return GridView(children: beerCardList);*/
+        return GridView.count(
+            childAspectRatio: (itemWidth / itemHeight),
+            crossAxisCount: 2,
+            children: beerCardList
+        );
+      }else{
+        return Center(
+
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 5.0),
+                  Text("¿Conoces alguna?"),
+                  SizedBox(height: 5.0),
+                  RaisedButton.icon(
+                    label: Text("Ponte en contacto"),
+                    icon: Icon(Icons.send),
+                    onPressed: () => Helpers.launchURL("https://hops.uy/contacto/"),
+                  )
+                ]
+              ),
+            )
+        );
+      }
+
     }
 
 
