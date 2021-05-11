@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'dart:ui';
 
 class DiagonallyCutColoredImage extends StatelessWidget {
   DiagonallyCutColoredImage(this.image, {@required this.color});
@@ -15,6 +16,7 @@ class DiagonallyCutColoredImage extends StatelessWidget {
         position: DecorationPosition.foreground,
         decoration: new BoxDecoration(color: color),
         child: image,
+
       ),
     );
   }

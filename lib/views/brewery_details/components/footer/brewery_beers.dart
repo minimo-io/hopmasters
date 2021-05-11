@@ -41,6 +41,7 @@ class _BreweryBeersState extends State<BreweryBeers> {
             case ConnectionState.waiting:
               return Center( child: CircularProgressIndicator() );
             default:
+
               if (snapshot.hasError){
                 return Text('Ups! Error: ${snapshot.error}');
               }else{

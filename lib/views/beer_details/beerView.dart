@@ -44,6 +44,7 @@ class _BeerViewState extends State<BeerView> {
         image: jsonResponse["images"][0]["src"],
         followers: jsonResponse['acf']['followers'],
         name: jsonResponse['name'],
+        bgColor: jsonResponse['acf']['bg_color'],
         //description: jsonResponse['short_description'],
         description: Helpers.parseHtmlString(jsonResponse['description']),
         abv: jsonResponse['acf']['abv'],

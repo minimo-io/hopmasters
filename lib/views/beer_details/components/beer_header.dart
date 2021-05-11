@@ -36,7 +36,13 @@ class BeerHeader extends StatelessWidget{
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("\$" + this.beer.price, style: TextStyle(color: SECONDARY_TEXT_DARK, fontSize: 22, fontWeight: FontWeight.bold), ),
+          Text("\$" + this.beer.price,
+            style: TextStyle(
+                color: Colors.white70,
+                fontSize: 22,
+                fontWeight: FontWeight.bold
+            ),
+          ),
         ],
       ),
     );
@@ -51,12 +57,12 @@ class BeerHeader extends StatelessWidget{
               icon: icon,
               label: text,
               style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
-                  backgroundColor: MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(beer.rgbColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
-                          side: BorderSide(color: SECONDARY_BUTTON_COLOR)
+                          side: BorderSide(color: beer.rgbColor)
                       )
                   )
               ),
@@ -103,21 +109,18 @@ class BeerHeader extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
-
 
     return new Stack(
       children: <Widget>[
         DiagonallyCutColoredImage(
             new Image.asset(
-              "assets/images/65.jpg",
+              "assets/images/beer_bg_bw2.png",
               width: MediaQuery.of(context).size.width,
               height: 440,
               fit: BoxFit.cover,
             ),
             //color: colorScheme.background.withOpacity(0.75)
-            color: Color.fromRGBO(199, 199, 199, 0.9)
+            color: beer.rgbColor.withOpacity(0.35)
         ),
         new Align(
           alignment: FractionalOffset.bottomCenter,

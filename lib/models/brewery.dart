@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/helpers.dart';
-import 'dart:convert';
 import 'package:meta/meta.dart';
 
 class Brewery {

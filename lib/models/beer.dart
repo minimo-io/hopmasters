@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/helpers.dart';
 import 'package:meta/meta.dart';
 
 
@@ -16,10 +17,11 @@ class Beer{
     @required this.breweryId,
     @required this.breweryName,
     @required this.breweryImage,
+    @required this.bgColor,
     @required this.type,
     @required this.size,
 
-  });
+  }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(255, 255, 255, 0.6));
 
   factory Beer.fromJson(Map<String, dynamic> parsedJson){
     return Beer(
@@ -31,6 +33,7 @@ class Beer{
       launch: "2012",
       price: parsedJson['price'].toString(),
       description: parsedJson['short_description'].toString(),
+      bgColor: parsedJson['bg_color'],
       followers: "121",
       breweryId: "000",
       breweryName: "Malafama",
@@ -51,6 +54,8 @@ class Beer{
   String followers;
   String type;
   String size;
+  String bgColor; // this is a string representing the ACF Hex color like '#CCCCCC', like its returned from the back-end
+  Color rgbColor;
 
   String breweryId, breweryName, breweryImage;
 }
