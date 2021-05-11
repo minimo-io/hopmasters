@@ -98,7 +98,7 @@ class _BeerViewState extends State<BeerView> {
                           BeerHeader(beer: snapshot.data),
                           SizedBox(height: 10,),
                           BeerBody(beer: snapshot.data),
-                          SizedBox(height: 500,),
+                          SizedBox(height: 50,),
                         ],
                       ),
                     ),

@@ -48,14 +48,6 @@ class BeerBody extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4.0),
             child: _buildBreweryInfo(textTheme),
           ),
-          /*
-          new Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: new Text(beer.description,
-              style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8), height: 1.3),
-            ),
-          ),
-          */
           Padding(
             padding: const EdgeInsets.only(top:16.0),
             child: ExpandableText(beer.description),
@@ -203,7 +195,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
     ),
   );
   list.add(element0);
-  list.add(elementLaunch);
+  if (beer.launch != "") list.add(elementLaunch);
   list.add(element);
   list.add(elementIBU);
   list.add(element2);
