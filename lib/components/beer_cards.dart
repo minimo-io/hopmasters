@@ -46,7 +46,7 @@ class _BeerCardsState extends State<BeerCards> {
                           child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5)),
                         )),
                     Expanded(
-                      child: Image.network(beer.image),
+                      child: Image.network(beer.image, height: 200),
                     ),
                     Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
                     Text(
@@ -97,8 +97,13 @@ class _BeerCardsState extends State<BeerCards> {
 
       }
 
+      // define size
+      final double itemHeight = 270;
+      final double itemWidth = MediaQuery.of(context).size.width / 2;
+
       /*return GridView(children: beerCardList);*/
       return GridView.count(
+        childAspectRatio: (itemWidth / itemHeight),
         crossAxisCount: 2,
           children: beerCardList
       );
