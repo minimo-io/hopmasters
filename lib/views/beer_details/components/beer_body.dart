@@ -14,18 +14,28 @@ class BeerBody extends StatelessWidget {
     @required Beer this.beer
   });
 
-  Widget _buildBreweryInfo(TextTheme textTheme) {
-    return new Row(
-      children: <Widget>[
-        LoadNetworkImage(uri:beer.breweryImage, height:15),
-        new Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: new Text(
-            beer.breweryName,
-            style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8)),
+  Widget _buildBreweryInfo(TextTheme textTheme, BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(
+          context,
+          "/brewery",
+          arguments: { 'breweryId': int.parse(beer.breweryId) },
+
+        );
+      },
+      child: new Row(
+        children: <Widget>[
+          LoadNetworkImage(uri:beer.breweryImage, height:15),
+          new Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: new Text(
+              beer.breweryName,
+              style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8)),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -46,7 +56,7 @@ class BeerBody extends StatelessWidget {
           ),
           new Padding(
             padding: const EdgeInsets.only(top: 4.0),
-            child: _buildBreweryInfo(textTheme),
+            child: _buildBreweryInfo(textTheme, context),
           ),
           Padding(
             padding: const EdgeInsets.only(top:16.0),
