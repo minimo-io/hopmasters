@@ -30,6 +30,16 @@ class AccountView extends StatelessWidget {
                 press: () => {},
               ),
               ProfileMenu(
+                text: "Login Screen",
+                icon: Icon(Icons.login),
+                press: () {
+                  Navigator.pushNamed(
+                    context,
+                    "/login"
+                  );
+                },
+              ),
+              ProfileMenu(
                 text: "Notificaciones",
                 icon: Icon(Icons.notifications),
                 press: () {},
@@ -49,7 +59,7 @@ class AccountView extends StatelessWidget {
                 icon: Icon(Icons.logout),
                 press: () {},
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 150),
             ],
           ),
         ),

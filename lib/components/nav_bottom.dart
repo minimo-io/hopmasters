@@ -77,7 +77,7 @@ class _NavBottomState extends State<NavBottom>{
 
                   Navigator.pushNamed(context, TabsRedirect[menu.currentIndex]);
                   RouteSettings settings = ModalRoute.of(context).settings;
-                  print(settings);
+                  //print(settings);
                   //Navigator.pushReplacementNamed(context, TabsRedirect[menu.currentIndex]);
 
                   // Navigator.restorablePushNamed(context, TabsRedirect[menu.currentIndex]);

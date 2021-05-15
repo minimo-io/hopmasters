@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:hopmasters/views/login/loginView.dart';
 import 'package:hopmasters/views/appView.dart';
 import 'package:hopmasters/views/cart/cartView.dart';
 import 'package:hopmasters/views/brewery_details/breweryView.dart';
 import 'package:hopmasters/views/beer_details/beerView.dart';
 import 'package:hopmasters/views/notFound/not_found_page.dart';
-import 'package:hopmasters/models/brewery.dart';
+
 /*
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/": (BuildContext context) => AppView(),
@@ -28,6 +29,12 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => AppView(),
+          );
+
+        case LoginView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => LoginView(),
           );
 
         case CartView.routeName:
