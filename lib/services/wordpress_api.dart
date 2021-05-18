@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/models/login.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class WordpressAPI{
 
@@ -33,6 +35,24 @@ class WordpressAPI{
     }
 
     return false;
+  }
+
+  static Future getBeersFromBreweryID(String breweryID)async{
+    final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/breweryID/"+ breweryID +"?_embed";
+    //print(beersFromBreweryUriQuery);
+    final response = await http.get(beersFromBreweryUriQuery,
+        headers: { 'Accept': 'application/json' });
+    if (response.statusCode == 200){
+
+      var jsonResponse = json.decode(response.body);
+
+      return jsonResponse;
+
+
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load beers!');
+    }
   }
 
 }

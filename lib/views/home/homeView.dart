@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 
-import 'package:hopmasters/helpers.dart';
-import 'package:hopmasters/models/brewery.dart';
+import 'package:hopmasters/services/wordpress_api.dart';
 
 import 'package:hopmasters/components/beer_cards.dart';
 import 'package:hopmasters/components/breweries_cards.dart';
+import 'package:hopmasters/components/app_title.dart';
+import 'package:hopmasters/components/search_bar.dart';
+
 import 'package:hopmasters/views/home/components/bannerBreweries.dart';
 import 'package:hopmasters/views/home/components/specialOffers.dart';
 import 'package:hopmasters/views/home/components/discover_beers_header.dart';
-import 'package:hopmasters/components/app_title.dart';
-import 'package:hopmasters/components/search_bar.dart';
+
 
 
 class HomeView extends StatefulWidget {
@@ -32,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _breweryBeers = Helpers.getBeersFromBreweryID("89107");
+    _breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
   }
 
 

@@ -454,7 +454,7 @@ class _LoginViewState extends State<LoginView> {
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'samarthagarwal@live.com',
+                      hintText: 'mail@minimo.io',
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                   ),
@@ -471,7 +471,7 @@ class _LoginViewState extends State<LoginView> {
                 child: new Padding(
                   padding: const EdgeInsets.only(left: 40.0),
                   child: new Text(
-                    "PASSWORD",
+                    "CONTRASEÑA",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -522,7 +522,7 @@ class _LoginViewState extends State<LoginView> {
                 child: new Padding(
                   padding: const EdgeInsets.only(left: 40.0),
                   child: new Text(
-                    "CONFIRM PASSWORD",
+                    "CONFIRMA LA CONTRASEÑA",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,

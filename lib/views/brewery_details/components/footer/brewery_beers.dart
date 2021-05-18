@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
+import 'package:hopmasters/services/wordpress_api.dart';
 import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/helpers.dart';
-
 import 'package:hopmasters/components/beer_cards.dart';
 
 class BreweryBeers extends StatefulWidget {
@@ -23,7 +21,7 @@ class _BreweryBeersState extends State<BreweryBeers> {
   @override
   void initState() {
     super.initState();
-    _breweryBeers = Helpers.getBeersFromBreweryID(widget.brewery.id);
+    _breweryBeers = WordpressAPI.getBeersFromBreweryID(widget.brewery.id);
   }
 
   @override
