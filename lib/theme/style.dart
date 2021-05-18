@@ -25,6 +25,8 @@ const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
 
 const Color SECONDARY_TEXT_DARK = Color.fromRGBO(48, 49, 51, 1);
 
+const Color ACTION_BUTTON_PRIMARY_COLOR = Color.fromRGBO(234,240,76, 1); // login eg.
+
 /*
 const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
 const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
