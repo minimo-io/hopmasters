@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hopmasters">
    <application
-        android:label="hopmasters"
+        android:label="Hops"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

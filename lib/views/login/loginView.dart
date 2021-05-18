@@ -612,7 +612,6 @@ class _LoginViewState extends State<LoginView> {
   Widget HomePage() {
     return new Container(
       height: MediaQuery.of(context).size.height,
-      //height: 400,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/bg5.png'),
@@ -646,7 +645,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 250.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 300.0),
             alignment: Alignment.center,
             child: new Row(
               children: <Widget>[
