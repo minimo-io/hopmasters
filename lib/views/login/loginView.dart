@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:hopmasters/services/wordpress_api.dart';
+
 import 'package:hopmasters/theme/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,7 +14,29 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
+  // Future<bool> _loginFuture;
+  bool inApiCallProcess = false;
+
   Widget LoginPage() {
+    TextEditingController loginUsernameController = new TextEditingController();
+    TextEditingController loginPasswordController = new TextEditingController();
+
+    void onLogin(){
+      print("Making api call..");
+      // validate login
+      setState((){
+        this.inApiCallProcess = true;
+      });
+      print(loginUsernameController.text.toString());
+      print(loginPasswordController.text.toString());
+      WordpressAPI.loginCustomer(loginUsernameController.text, loginPasswordController.text).then((response) {
+        setState((){
+          this.inApiCallProcess = false;
+        });
+        print(response);
+      });
+    }
+
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
@@ -82,11 +107,12 @@ class _LoginViewState extends State<LoginView> {
               children: <Widget>[
                 new Expanded(
                   child: TextField(
-                    obscureText: true,
+                    controller: loginUsernameController,
+                    obscureText: false,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'samarthagarwal@live.com',
+                      hintText: 'mail@minimo.io',
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                   ),
@@ -133,6 +159,7 @@ class _LoginViewState extends State<LoginView> {
               children: <Widget>[
                 new Expanded(
                   child: TextField(
+                    controller: loginPasswordController,
                     obscureText: true,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -180,7 +207,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
                     color: Color.fromRGBO(234,240,76, 1),
-                    onPressed: () => {},
+                    onPressed: () => onLogin(),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -742,32 +769,8 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+
   PageController _controller = new PageController(initialPage: 1, viewportFraction: 1.0);
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-
-    return new Scaffold(
-      body: new SingleChildScrollView(
-        child: new Container(
-          decoration: BoxDecoration(
-            gradient: PRIMARY_GRADIENT_COLOR,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 50),
-              BackButton(color: Colors.white),
-              SizedBox(height: 1000, width:500),
-            ],
-          ),
-        ),
-      ),
-    );
-
-  }
-   */
 
   @override
   Widget build(BuildContext context) {
