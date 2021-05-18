@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginView extends StatefulWidget {
   static const String routeName = "/login";
@@ -14,26 +15,37 @@ class _LoginViewState extends State<LoginView> {
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage('assets/images/beer-toast-bg-2.png'),
-          fit: BoxFit.cover,
-        ),
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg5.png'),
+              fit: BoxFit.fill
+          )
       ),
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(120.0),
+            padding: EdgeInsets.only(top: 135.0),
             child: Center(
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
+                child: Image.asset("assets/images/hops-logo.png", height: 70,)
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(top: 15.0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Hops",
+                  style: GoogleFonts.russoOne(
+                      textStyle: TextStyle(
+                        color: colorScheme.secondary,
+                        fontSize: 32.0,
+                      )
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 150,),
           new Row(
             children: <Widget>[
               new Expanded(
@@ -43,7 +55,7 @@ class _LoginViewState extends State<LoginView> {
                     "EMAIL",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                   ),
@@ -58,8 +70,8 @@ class _LoginViewState extends State<LoginView> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
+                    color: Color.fromRGBO(234,240,76, 1),
+                    width: 1,
                     style: BorderStyle.solid),
               ),
             ),
@@ -82,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 24.0,
           ),
           new Row(
@@ -94,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                     "CONTRASEÑA",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                   ),
@@ -109,8 +121,8 @@ class _LoginViewState extends State<LoginView> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
+                    color: Color.fromRGBO(234,240,76, 1),
+                    width: 1,
                     style: BorderStyle.solid),
               ),
             ),
@@ -133,7 +145,7 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 24.0,
           ),
           new Row(
@@ -146,7 +158,7 @@ class _LoginViewState extends State<LoginView> {
                     "¿Olvidaste la contraseña?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                     textAlign: TextAlign.end,
@@ -167,7 +179,7 @@ class _LoginViewState extends State<LoginView> {
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
-                    color: Colors.redAccent,
+                    color: Color.fromRGBO(234,240,76, 1),
                     onPressed: () => {},
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
@@ -182,7 +194,7 @@ class _LoginViewState extends State<LoginView> {
                               "INGRESAR",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -207,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 Text(
-                  "OR CONNECT WITH",
+                  "O CONECTATE CON",
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -255,12 +267,13 @@ class _LoginViewState extends State<LoginView> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
+                                          /*
                                           Icon(
-                                            const IconData(0xea90,
-                                                fontFamily: 'icomoon'),
+                                            Icons.face_outlined,
                                             color: Colors.white,
                                             size: 15.0,
                                           ),
+                                           */
                                           Text(
                                             "FACEBOOK",
                                             textAlign: TextAlign.center,
@@ -309,12 +322,14 @@ class _LoginViewState extends State<LoginView> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
+                                          /*
                                           Icon(
-                                            const IconData(0xea88,
-                                                fontFamily: 'icomoon'),
+                                            Icons.add,
                                             color: Colors.white,
                                             size: 15.0,
                                           ),
+
+                                           */
                                           Text(
                                             "GOOGLE",
                                             textAlign: TextAlign.center,
@@ -346,26 +361,37 @@ class _LoginViewState extends State<LoginView> {
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage('assets/images/beer-toast-bg-2.png'),
-          fit: BoxFit.cover,
-        ),
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg5.png'),
+              fit: BoxFit.fill
+          )
       ),
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(100.0),
+            padding: EdgeInsets.only(top: 135.0),
             child: Center(
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
+                child: Image.asset("assets/images/hops-logo.png", height: 70,)
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(top: 15.0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Hops",
+                  style: GoogleFonts.russoOne(
+                      textStyle: TextStyle(
+                        color: colorScheme.secondary,
+                        fontSize: 32.0,
+                      )
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 150,),
           new Row(
             children: <Widget>[
               new Expanded(
@@ -375,7 +401,7 @@ class _LoginViewState extends State<LoginView> {
                     "EMAIL",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                   ),
@@ -390,8 +416,8 @@ class _LoginViewState extends State<LoginView> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
+                    color: Color.fromRGBO(234,240,76, 1),
+                    width: 1,
                     style: BorderStyle.solid),
               ),
             ),
@@ -414,7 +440,7 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 24.0,
           ),
           new Row(
@@ -426,7 +452,7 @@ class _LoginViewState extends State<LoginView> {
                     "PASSWORD",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                   ),
@@ -441,8 +467,8 @@ class _LoginViewState extends State<LoginView> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
+                    color: Color.fromRGBO(234,240,76, 1),
+                    width: 1,
                     style: BorderStyle.solid),
               ),
             ),
@@ -465,7 +491,7 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 24.0,
           ),
           new Row(
@@ -477,7 +503,7 @@ class _LoginViewState extends State<LoginView> {
                     "CONFIRM PASSWORD",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                   ),
@@ -492,8 +518,8 @@ class _LoginViewState extends State<LoginView> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
+                    color: Color.fromRGBO(234,240,76, 1),
+                    width: 1,
                     style: BorderStyle.solid),
               ),
             ),
@@ -516,7 +542,7 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 24.0,
           ),
           new Row(
@@ -526,15 +552,15 @@ class _LoginViewState extends State<LoginView> {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: new FlatButton(
                   child: new Text(
-                    "Already have an account?",
+                    "¿Ya tienes una cuenta?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: Colors.black87,
                       fontSize: 15.0,
                     ),
                     textAlign: TextAlign.end,
                   ),
-                  onPressed: () => {},
+                  onPressed: () => gotoLogin(),
                 ),
               ),
             ],
@@ -550,7 +576,7 @@ class _LoginViewState extends State<LoginView> {
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
-                    color: Colors.redAccent,
+                    color: Color.fromRGBO(234,240,76, 1),
                     onPressed: () => {},
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
@@ -566,7 +592,7 @@ class _LoginViewState extends State<LoginView> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
 
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -586,58 +612,41 @@ class _LoginViewState extends State<LoginView> {
   Widget HomePage() {
     return new Container(
       height: MediaQuery.of(context).size.height,
+      //height: 400,
       decoration: BoxDecoration(
-        // color: Colors.redAccent,
-        //color: SECONDARY_BUTTON_COLOR,
-        color: Color.fromRGBO(255, 212, 53, 0.8),
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.1), BlendMode.dstATop),
-          image: AssetImage('assets/images/beer-toast-bg-2.png'),
-          fit: BoxFit.cover,
-        ),
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg5.png'),
+              fit: BoxFit.fill
+          )
       ),
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 250.0),
+            padding: EdgeInsets.only(top: 135.0),
             child: Center(
               child: Image.asset("assets/images/hops-logo.png", height: 70,)
-              /*
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.white,
-                size: 40.0,
-              ),
-               */
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 15.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "Hops",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                     fontWeight: FontWeight.bold
+                  style: GoogleFonts.russoOne(
+                      textStyle: TextStyle(
+                        color: colorScheme.secondary,
+                        fontSize: 32.0,
+                      )
                   ),
-                ),
-                Text(
-                  "App",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      ),
                 ),
               ],
             ),
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 150.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 250.0),
             alignment: Alignment.center,
             child: new Row(
               children: <Widget>[
@@ -662,7 +671,7 @@ class _LoginViewState extends State<LoginView> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -684,7 +693,7 @@ class _LoginViewState extends State<LoginView> {
                   child: new FlatButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.white,
+                    color: Color.fromRGBO(234,240,76, 1),
                     onPressed: () => gotoLogin(),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
@@ -700,7 +709,7 @@ class _LoginViewState extends State<LoginView> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
-                                  color: Color.fromRGBO(209, 170, 27, 1),
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
