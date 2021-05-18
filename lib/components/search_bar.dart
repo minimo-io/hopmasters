@@ -25,7 +25,7 @@ class _SearchBarState extends State<SearchBar> {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        /*
+
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.3),
@@ -34,7 +34,7 @@ class _SearchBarState extends State<SearchBar> {
             offset: Offset(8, 6),
           ),
         ],
-        */
+
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
@@ -52,7 +52,7 @@ class _SearchBarState extends State<SearchBar> {
             padding: const EdgeInsets.only(left: 10),
             child: Icon(
               Icons.search,
-              color: Colors.black,
+              color: Colors.grey,
             ),
           ),
           contentPadding: EdgeInsets.only(
