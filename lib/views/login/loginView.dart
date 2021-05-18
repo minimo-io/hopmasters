@@ -15,7 +15,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
 
   // Future<bool> _loginFuture;
-  bool inApiCallProcess = false;
+  bool isLoadingApiCall = false;
 
   Widget LoginPage() {
     TextEditingController loginUsernameController = new TextEditingController();
@@ -25,13 +25,14 @@ class _LoginViewState extends State<LoginView> {
       print("Making api call..");
       // validate login
       setState((){
-        this.inApiCallProcess = true;
+        this.isLoadingApiCall = true;
       });
+      
       print(loginUsernameController.text.toString());
       print(loginPasswordController.text.toString());
       WordpressAPI.loginCustomer(loginUsernameController.text, loginPasswordController.text).then((response) {
         setState((){
-          this.inApiCallProcess = false;
+          this.isLoadingApiCall = false;
         });
         print(response);
       });
