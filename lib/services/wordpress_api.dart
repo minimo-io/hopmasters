@@ -52,12 +52,8 @@ class WordpressAPI{
 
     }on DioError catch (e){
 
-      if (e.response.statusCode == 404){
-        print("Duplicate email ID.");
-        ret = false;
-      }else{
-        ret = false;
-      }
+      print("Duplicate email ID:" + e.response.statusMessage.toString());
+      ret = false;
 
     }
 
