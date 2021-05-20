@@ -1,7 +1,5 @@
-import 'dart:convert';
-
-LoginResponse loginResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
+LoginResponse loginResponseFromJson(Map<String, dynamic> json) =>
+    LoginResponse.fromJson(json);
 
 class LoginResponse{
   bool success;

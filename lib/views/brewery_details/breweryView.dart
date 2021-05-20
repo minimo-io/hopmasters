@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/services/wordpress_api.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -25,42 +26,13 @@ class BreweryView extends StatefulWidget {
 }
 
 class _BreweryViewState extends State<BreweryView> {
-  //Future<Brewery> _brewery;
-  Brewery _brewery;
+
   Future _breweryFuture;
-
-  Future<Brewery> _getBrewery()async{
-    final String breweryUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "pages/"+ widget.breweryId.toString() +"?_embed";
-
-    final response = await http.get(breweryUriQuery,
-        headers: { 'Accept': 'application/json' });
-    if (response.statusCode == 200){
-
-      var jsonResponse = json.decode(response.body);
-
-      _brewery = Brewery(
-        id: widget.breweryId.toString(),
-        avatar: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
-        location: jsonResponse['acf']['location'],
-        followers: jsonResponse['acf']['followers'],
-        beersCount: jsonResponse['acf']['beers_count'],
-        bgColor: jsonResponse['acf']['bg_color'],
-        name: jsonResponse['title']['rendered'],
-        description: jsonResponse['excerpt']['rendered'],
-      );
-      return _brewery;
-
-
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Failed to load ');
-    }
-  }
-
+  
   @override
   void initState() {
     super.initState();
-    _breweryFuture = _getBrewery();
+    _breweryFuture = WordpressAPI.getBrewery(widget.breweryId.toString());
   }
 
   @override

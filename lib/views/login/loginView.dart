@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/components/progress_hud.dart';
+import 'package:hopmasters/utils/progress_hud.dart';
 import 'package:hopmasters/services/wordpress_api.dart';
+
+import 'package:hopmasters/models/customer.dart';
 
 import 'package:hopmasters/theme/style.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,17 +69,19 @@ class _LoginViewState extends State<LoginView> {
         this.isLoadingApiCall = true;
       });
 
-      WordpressAPI.loginCustomer(loginUsernameController.text, loginPasswordController.text).then((response) {
+      WordpressAPI.login(loginUsernameController.text, loginPasswordController.text).then((response) {
         setState((){
           this.isLoadingApiCall = false;
         });
         if (response){
+          // here save token and continue
           Navigator.pushNamed(
             context,
             "/",
           );
         }else{
           print("Ups! Ocurrió un error al intentar logearse.");
+          // here show a popup message
         }
       });
     }
@@ -407,227 +411,281 @@ class _LoginViewState extends State<LoginView> {
     );
   }
   Widget SignupPage() {
-    return new Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: _HeaderDecoration(),
-      child: new Column(
-        children: <Widget>[
-          _TopLogo(),
-          SizedBox(height: 150,),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "EMAIL",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: ACTION_BUTTON_PRIMARY_COLOR,
-                    width: 1,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+    TextEditingController signUpUsernameController = new TextEditingController();
+    TextEditingController signUpPasswordController = new TextEditingController();
+    TextEditingController signUpConfirmPasswordController = new TextEditingController();
+
+    bool onSignUp(){
+      // validate signup
+      setState((){
+        this.isLoadingApiCall = true;
+      });
+
+      var password = signUpPasswordController.text.toString();
+      var passwordConfirmation = signUpConfirmPasswordController.text.toString();
+      print(passwordConfirmation);
+      print(password);
+      if (passwordConfirmation != password) {
+        print("Passwords match");
+        setState((){
+          this.isLoadingApiCall = false;
+        });
+
+      }else {
+        // if all ok then create the customer model and send the request
+        Customer customerModel = new Customer(
+          email: signUpUsernameController.text.toString(),
+          firstName: '',
+          lastName: '',
+          password: password,
+
+        );
+
+        WordpressAPI.signUp(customerModel).then((response) {
+          setState(() {
+            this.isLoadingApiCall = false;
+          });
+          if (response) {
+            print("Registrado correctamente.");
+          } else {
+            print("Ups! Ya existe un registro.");
+
+            // here show a popup message
+          }
+        });
+      }
+
+
+    }
+
+    return ProgressHUD(
+      inAsyncCall: isLoadingApiCall,
+      opacity: 0.5,
+      child: new Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: _HeaderDecoration(),
+        child: new Column(
+          children: <Widget>[
+            _TopLogo(),
+            SizedBox(height: 150,),
+            new Row(
               children: <Widget>[
                 new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'mail@minimo.io',
-                      hintStyle: TextStyle(color: Colors.grey),
+                  child: new Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: new Text(
+                      "EMAIL",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "CONTRASEÑA",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 15.0,
-                    ),
-                  ),
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                      color: ACTION_BUTTON_PRIMARY_COLOR,
+                      width: 1,
+                      style: BorderStyle.solid),
                 ),
               ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: ACTION_BUTTON_PRIMARY_COLOR,
-                    width: 1,
-                    style: BorderStyle.solid),
+              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Expanded(
+                    child: TextField(
+                      controller: signUpUsernameController,
+                      obscureText: false,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'mail@minimo.io',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+            SizedBox(
+              height: 24.0,
+            ),
+            new Row(
               children: <Widget>[
                 new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '*********',
-                      hintStyle: TextStyle(color: Colors.grey),
+                  child: new Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: new Text(
+                      "CONTRASEÑA",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "CONFIRMA LA CONTRASEÑA",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 15.0,
-                    ),
-                  ),
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                      color: ACTION_BUTTON_PRIMARY_COLOR,
+                      width: 1,
+                      style: BorderStyle.solid),
                 ),
               ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: ACTION_BUTTON_PRIMARY_COLOR,
-                    width: 1,
-                    style: BorderStyle.solid),
+              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Expanded(
+                    child: TextField(
+                      controller: signUpPasswordController,
+                      obscureText: true,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '*********',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+            SizedBox(
+              height: 24.0,
+            ),
+            new Row(
               children: <Widget>[
                 new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '*********',
-                      hintStyle: TextStyle(color: Colors.grey),
+                  child: new Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: new Text(
+                      "CONFIRMA LA CONTRASEÑA",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 24.0,
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: new FlatButton(
-                  child: new Text(
-                    "¿Ya tienes una cuenta?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 15.0,
-                    ),
-                    textAlign: TextAlign.end,
-                  ),
-                  onPressed: () => gotoLogin(),
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                      color: ACTION_BUTTON_PRIMARY_COLOR,
+                      width: 1,
+                      style: BorderStyle.solid),
                 ),
               ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
-            alignment: Alignment.center,
-            child: new Row(
+              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Expanded(
+                    child: TextField(
+                      controller: signUpConfirmPasswordController,
+                      obscureText: true,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '*********',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                new Expanded(
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
                   child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: ACTION_BUTTON_PRIMARY_COLOR,
-                    onPressed: () => {},
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
+                    child: new Text(
+                      "¿Ya tienes una cuenta?",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 15.0,
                       ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "REGISTRARSE",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
+                      textAlign: TextAlign.end,
                     ),
-
+                    onPressed: () => gotoLogin(),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
+              alignment: Alignment.center,
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: new FlatButton(
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      color: ACTION_BUTTON_PRIMARY_COLOR,
+                      onPressed: () => onSignUp(),
+                      child: new Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20.0,
+                          horizontal: 20.0,
+                        ),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Expanded(
+                              child: Text(
+                                "REGISTRARSE",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -650,7 +708,7 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: SECONDARY_BUTTON_COLOR,
                     highlightedBorderColor: Colors.white,
-                    onPressed: () => gotoSignup(),
+                    onPressed: () => gotoLogin(),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -661,7 +719,7 @@ class _LoginViewState extends State<LoginView> {
                         children: <Widget>[
                           new Expanded(
                             child: Text(
-                              "REGISTRARSE",
+                              "INGRESAR",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,
@@ -688,7 +746,7 @@ class _LoginViewState extends State<LoginView> {
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: ACTION_BUTTON_PRIMARY_COLOR,
-                    onPressed: () => gotoLogin(),
+                    onPressed: () => gotoSignup(),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -699,7 +757,7 @@ class _LoginViewState extends State<LoginView> {
                         children: <Widget>[
                           new Expanded(
                             child: Text(
-                              "INGRESAR",
+                              "REGISTRARSE",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 16,

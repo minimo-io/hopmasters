@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hopmasters/services/wordpress_api.dart';
 
 import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/constants.dart';
 
 
 class BreweriesCards extends StatefulWidget {
@@ -28,22 +25,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
   @override
   void initState() {
     super.initState();
-    _breweries = this._getBreweries();
-  }
-
-  Future _getBreweries()async{
-    final String breweryUriQuery = WP_BASE_API + WP_REST_VERSION_URI + "pages/?parent=89109&_embed";
-
-    final response = await http.get(breweryUriQuery,
-        headers: { 'Accept': 'application/json' });
-    if (response.statusCode == 200){
-
-      return json.decode(response.body);
-
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Upa! Failed to load breweries.');
-    }
+    _breweries = WordpressAPI.getBreweries();
   }
 
   Widget _buildBreweryCards(List breweries, BuildContext context){

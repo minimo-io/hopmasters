@@ -5,7 +5,7 @@ import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/models/beer.dart';
 
 import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
-import 'package:hopmasters/components/load_network_image.dart';
+import 'package:hopmasters/utils/load_network_image.dart';
 import 'package:hopmasters/components/followers_info.dart';
 
 class BeerHeader extends StatelessWidget{

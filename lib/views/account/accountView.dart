@@ -57,7 +57,11 @@ class AccountView extends StatelessWidget {
               ProfileMenu(
                 text: "Salir",
                 icon: Icon(Icons.logout),
-                press: () {},
+                press: () {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+
+                },
               ),
               SizedBox(height: 150),
             ],

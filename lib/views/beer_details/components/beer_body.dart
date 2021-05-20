@@ -5,7 +5,7 @@ import 'package:hopmasters/models/beer.dart';
 
 // import 'package:hopmasters/components/followers_info.dart';
 import 'package:hopmasters/components/expandable_text.dart';
-import 'package:hopmasters/components/load_network_image.dart';
+import 'package:hopmasters/utils/load_network_image.dart';
 
 class BeerBody extends StatelessWidget {
 
