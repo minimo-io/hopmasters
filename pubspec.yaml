@@ -33,7 +33,6 @@ dependencies:
   google_fonts:
   search_page: ^1.4.0
   # vector_math: ^2.0.8
-  http:
   dio: ^3.0.10
   html: ^0.14.0
 

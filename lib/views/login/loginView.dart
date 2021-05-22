@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hopmasters/utils/progress_hud.dart';
+import 'package:hopmasters/utils/notifications.dart';
 import 'package:hopmasters/services/wordpress_api.dart';
 
 import 'package:hopmasters/models/customer.dart';
@@ -18,7 +19,7 @@ class _LoginViewState extends State<LoginView> {
 
   // Future<bool> _loginFuture;
   bool isLoadingApiCall = false;
-
+  var notificationsClient = new HopsNotifications();
 
   BoxDecoration _HeaderDecoration(){
     return BoxDecoration(
@@ -75,12 +76,15 @@ class _LoginViewState extends State<LoginView> {
         });
         if (response){
           // here save token and continue
+
+          notificationsClient.message(context, "Bienvenid@!");
           Navigator.pushNamed(
             context,
             "/",
           );
         }else{
-          print("Ups! Ocurrió un error al intentar logearse.");
+
+          notificationsClient.message(context, "Ups! Ocurrió un error al intentar logearse.");
           // here show a popup message
         }
       });
@@ -423,10 +427,10 @@ class _LoginViewState extends State<LoginView> {
 
       var password = signUpPasswordController.text.toString();
       var passwordConfirmation = signUpConfirmPasswordController.text.toString();
-      print(passwordConfirmation);
-      print(password);
+
       if (passwordConfirmation != password) {
-        print("Passwords match");
+
+        notificationsClient.message(context, "Las contraseñas no coinciden. Por favor verifícalas. ¡Tu puedes!");
         setState((){
           this.isLoadingApiCall = false;
         });
@@ -446,9 +450,10 @@ class _LoginViewState extends State<LoginView> {
             this.isLoadingApiCall = false;
           });
           if (response) {
-            print("Registrado correctamente.");
+
+            notificationsClient.message(context, "Registrado correctamente");
           } else {
-            print("Ups! Ya existe un registro.");
+            notificationsClient.message(context, "Ups! Ya existe un registro.");
 
             // here show a popup message
           }
