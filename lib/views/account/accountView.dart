@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:hopmasters/constants.dart';
 import 'package:hopmasters/theme/style.dart';
 
@@ -50,9 +52,26 @@ class AccountView extends StatelessWidget {
                 press: () {},
               ),
               ProfileMenu(
-                text: "Ayuda",
+                text: "Acerca de Hops",
                 icon: Icon(Icons.help_center),
-                press: () {},
+                press: () {
+
+                  showAboutDialog(
+                    context: context,
+                    applicationVersion: '2.0.1',
+                    applicationIcon: MyAppIcon(),
+                    applicationLegalese:
+                    'This application has been approved for all audiences.',
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text('This is where I\'d put more information about '
+                            'this app, if there was anything interesting to say.'),
+                      ),
+                    ],
+                  );
+
+                },
               ),
               ProfileMenu(
                 text: "Salir",
@@ -66,6 +85,24 @@ class AccountView extends StatelessWidget {
               SizedBox(height: 150),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyAppIcon extends StatelessWidget {
+  static const double size = 32;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: FlutterLogo(),
         ),
       ),
     );
