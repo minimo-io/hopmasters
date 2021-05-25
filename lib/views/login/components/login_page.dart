@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hopmasters/theme/style.dart';
 import 'package:hopmasters/utils/progress_hud.dart';
 import 'package:hopmasters/utils/notifications.dart';
+import 'package:hopmasters/utils/validator.dart';
 import 'package:hopmasters/services/wordpress_api.dart';
 
 import 'package:hopmasters/views/login/components/top_logo.dart';
@@ -121,8 +122,10 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa el correo electrónico.';
+                            return 'Por favor ingresa un correo electrónico.';
                           }
+                          if (! value.isValidEmail()) return "Ingresa un correo electrónico válido";
+
                           return null;
                         },
                         controller: loginUsernameController,
@@ -182,6 +185,8 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.isEmpty) {
                             return 'Por favor ingresa una contraseña.';
                           }
+                          if (value.length < 5) return "La contraseña debe tener al menos 5 caracteres.";
+
                           return null;
                         },
                         obscureText: true,
