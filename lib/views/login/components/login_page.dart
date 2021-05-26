@@ -77,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
       opacity: 0.5,
       child: Form(
         key: _formLoginKey,
+        autovalidateMode: AutovalidateMode.always,
         child: new Container(
           height: MediaQuery.of(context).size.height,
           decoration: _HeaderDecoration(),
@@ -182,11 +183,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         controller: loginPasswordController,
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa una contraseña.';
+                          if ( ! value.isValidPassword() ){
+                            return "Debe tener al menos 6 caracteres con 1 número.";
                           }
-                          if (value.length < 5) return "La contraseña debe tener al menos 5 caracteres.";
-
                           return null;
                         },
                         obscureText: true,

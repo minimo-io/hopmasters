@@ -47,37 +47,37 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
       var password = signUpPasswordController.text.toString();
       var passwordConfirmation = signUpConfirmPasswordController.text.toString();
 
-      if (passwordConfirmation != password) {
 
-        notificationsClient.message(context, "Las contraseñas no coinciden. Por favor verifícalas.");
-        setState((){
+      // if all ok then create the customer model and send the request
+      Customer customerModel = new Customer(
+        email: signUpUsernameController.text.toString(),
+        firstName: '',
+        lastName: '',
+        password: password,
+
+      );
+
+      WordpressAPI.signUp(customerModel).then((response) {
+        setState(() {
           this.isLoadingApiCall = false;
         });
+        if (response) {
 
-      }else {
-        // if all ok then create the customer model and send the request
-        Customer customerModel = new Customer(
-          email: signUpUsernameController.text.toString(),
-          firstName: '',
-          lastName: '',
-          password: password,
+          notificationsClient.message(context, "Registrado correctamente");
 
-        );
+          // send confirmation link in backend
 
-        WordpressAPI.signUp(customerModel).then((response) {
-          setState(() {
-            this.isLoadingApiCall = false;
-          });
-          if (response) {
+          // login user
 
-            notificationsClient.message(context, "Registrado correctamente");
-          } else {
-            notificationsClient.message(context, "Ups! Ya existe un registro.");
+          // create session & goto login
 
-            // here show a popup message
-          }
-        });
-      }
+        } else {
+          notificationsClient.message(context, "Ups! Ya existe un registro.");
+
+          // here show a popup message
+        }
+      });
+
 
     }
 
@@ -93,6 +93,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
       opacity: 0.5,
       child: Form(
         key: _formSignUpKey,
+        autovalidateMode: AutovalidateMode.always,
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: widget.headerDecoration,
@@ -197,11 +198,9 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                     new Expanded(
                       child: TextFormField(
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa una contraseña.';
+                          if ( ! value.isValidPassword() ){
+                            return "Debe tener al menos 6 caracteres con 1 número.";
                           }
-                          if (value.length < 5) return "La contraseña debe tener al menos 5 caracteres.";
-
                           return null;
                         },
                         controller: signUpPasswordController,
@@ -257,11 +256,13 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                     new Expanded(
                       child: TextFormField(
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa una contraseña.';
+                          if ( ! value.isValidPassword() ){
+                            return "Debe tener al menos 6 caracteres con 1 número.";
                           }
-                          if (value.length < 5) return "La contraseña debe tener al menos 5 caracteres.";
-
+                          var password1 = signUpPasswordController.text.toString();
+                          if (password1 != value){
+                            return "Las contraseñas deben coincidir";
+                          }
                           return null;
                         },
                         controller: signUpConfirmPasswordController,
