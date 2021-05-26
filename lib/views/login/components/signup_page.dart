@@ -29,6 +29,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
   final _formSignUpKey = GlobalKey<FormState>();
 
   bool isLoadingApiCall = false;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
   var notificationsClient = new HopsNotifications();
 
   TextEditingController signUpUsernameController = new TextEditingController();
@@ -37,7 +38,8 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
 
   void _onSignUp(){
 
-    setState((){ this.isLoadingApiCall = true; });
+    setState(() => this.isLoadingApiCall = true );
+    setState(() => this._autovalidate = AutovalidateMode.always );
 
     // validate signup
     if (! _formSignUpKey.currentState.validate()) {
@@ -93,7 +95,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
       opacity: 0.5,
       child: Form(
         key: _formSignUpKey,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: _autovalidate,
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: widget.headerDecoration,
@@ -145,6 +147,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
 
                           return null;
                         },
+                        // autofocus: true,
                         controller: signUpUsernameController,
                         obscureText: false,
                         textAlign: TextAlign.left,
@@ -236,6 +239,22 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                   ),
                 ],
               ),
+              /*
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                    controller: null,
+                    //value: _agree,
+                    onChanged: (bool val) => setState(() {
+                      _agree = val;
+                    }),
+                    validator: (val) => val ? null : "You must agree before proceeding",
+
+                  ),
+                  const Text("I agree to the terms."),
+                ],
+              ),
+              */
               new Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),

@@ -23,21 +23,27 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formLoginKey = GlobalKey<FormState>();
   bool isLoadingApiCall = false;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
+
   var notificationsClient = new HopsNotifications();
 
   TextEditingController loginUsernameController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
 
+  // final FocusNode _loginUsernameFocusNode = FocusNode();
+  // final FocusNode _loginPasswordFocusNode = FocusNode();
+
 
   void _onLogin(BuildContext context){
 
-    setState((){ this.isLoadingApiCall = true; });
+    setState(() => this.isLoadingApiCall = true );
+    setState(() => this._autovalidate = AutovalidateMode.always );
     // validate login
     if (! _formLoginKey.currentState.validate()) {
       setState((){ this.isLoadingApiCall = false; });
       // notificationsClient.message(context, "Ups! Por favor completa correctamente todos los campos del formulario.");
     }else{
-
+      _formLoginKey.currentState.save();
       WordpressAPI.login(loginUsernameController.text, loginPasswordController.text).then((response) {
         setState((){
           this.isLoadingApiCall = false;
@@ -52,21 +58,14 @@ class _LoginPageState extends State<LoginPage> {
           );
         }else{
 
-          notificationsClient.message(context, "Ups! Ocurrió un error al intentar logearse.");
+          notificationsClient.message(context, "Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.");
           // here show a popup message
         }
       });
 
     }
   }
-  BoxDecoration _HeaderDecoration(){
-    return BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/bg5.png'),
-            fit: BoxFit.fill
-        )
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +76,10 @@ class _LoginPageState extends State<LoginPage> {
       opacity: 0.5,
       child: Form(
         key: _formLoginKey,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: _autovalidate,
         child: new Container(
           height: MediaQuery.of(context).size.height,
-          decoration: _HeaderDecoration(),
+          decoration: widget.headerDecoration,
           child: new Column(
             children: <Widget>[
               TopLogo(),
@@ -123,12 +122,17 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
+                            //_loginUsernameFocusNode.requestFocus();
                             return 'Por favor ingresa un correo electrónico.';
                           }
-                          if (! value.isValidEmail()) return "Ingresa un correo electrónico válido";
-
+                          if (! value.isValidEmail()){
+                            //_loginUsernameFocusNode.requestFocus();
+                            return "Ingresa un correo electrónico válido";
+                          }
                           return null;
                         },
+                        // autofocus: true,
+                        //focusNode: _loginUsernameFocusNode,
                         controller: loginUsernameController,
                         obscureText: false,
                         textAlign: TextAlign.left,
@@ -181,13 +185,15 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     new Expanded(
                       child: TextFormField(
-                        controller: loginPasswordController,
                         validator: (value) {
                           if ( ! value.isValidPassword() ){
+                            //_loginPasswordFocusNode.requestFocus();
                             return "Debe tener al menos 6 caracteres con 1 número.";
                           }
                           return null;
                         },
+                        controller: loginPasswordController,
+                        //focusNode: _loginPasswordFocusNode,
                         obscureText: true,
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
