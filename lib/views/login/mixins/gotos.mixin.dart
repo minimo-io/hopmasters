@@ -11,6 +11,14 @@ mixin GotosMixin<T extends StatefulWidget> on State<T>{
   }
   void gotoSignUp(PageController controller){
     controller.animateToPage(
+      1,
+      duration: Duration(milliseconds: 800),
+      curve: Curves.bounceOut,
+    );
+  }
+
+  void gotoConnect(PageController controller){
+    controller.animateToPage(
       2,
       duration: Duration(milliseconds: 800),
       curve: Curves.bounceOut,

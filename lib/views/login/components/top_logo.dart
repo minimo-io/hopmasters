@@ -9,9 +9,9 @@ class TopLogo extends StatelessWidget {
     return Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 135.0),
+            padding: EdgeInsets.only(top: 60.0),
             child: Center(
-                child: Image.asset("assets/images/hops-logo.png", height: 70,)
+                child: Image.asset("assets/images/hops-logo.png", height: 60,)
             ),
           ),
           Container(
@@ -31,6 +31,7 @@ class TopLogo extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height:70.0)
         ]
     );
   }

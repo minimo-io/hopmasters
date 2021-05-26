@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:hopmasters/theme/style.dart';
+import 'package:hopmasters/views/login/components/connect_socials.dart';
+
 import 'package:hopmasters/views/login/components/login_page.dart';
 import 'package:hopmasters/views/login/components/signup_page.dart';
-import 'package:hopmasters/views/login/components/home_page.dart';
-
 
 
 class LoginView extends StatefulWidget {
@@ -17,19 +18,21 @@ class _LoginViewState extends State<LoginView> {
 
 
   BoxDecoration _headerDecoration = BoxDecoration(
+
     image: DecorationImage(
         image: AssetImage('assets/images/bg5.png'),
         fit: BoxFit.fill
-    )
+    ),
+    gradient: PRIMARY_GRADIENT_COLOR,
   );
 
-  PageController _controller = new PageController(initialPage: 1, viewportFraction: 1.0);
+  PageController _controller = new PageController(initialPage: 2, viewportFraction: 1);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-      height: MediaQuery.of(context).size.height,
+      //height: MediaQuery.of(context).size.height,
       child: PageView(
         controller: _controller,
         physics: new AlwaysScrollableScrollPhysics(),
@@ -38,16 +41,16 @@ class _LoginViewState extends State<LoginView> {
             controller: _controller,
             headerDecoration: _headerDecoration ,
           ),
-          HomePage(
+          SignupPage(
             controller: _controller,
             headerDecoration: _headerDecoration ,
           ),
-          SignupPage(
+          ConnectSocialsPage(
             controller: _controller,
             headerDecoration: _headerDecoration ,
           )
         ],
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
       )),
     );
   }
