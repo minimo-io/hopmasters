@@ -10,6 +10,7 @@ import 'package:hopmasters/models/login.dart';
 import 'package:hopmasters/models/customer.dart';
 import 'package:hopmasters/models/beer.dart';
 import 'package:hopmasters/models/brewery.dart';
+import 'package:hopmasters/services/shared_services.dart';
 
 class WordpressAPI{
 
@@ -47,6 +48,11 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         LoginResponse loginResponse = loginResponseFromJson(response.data);
+
+        if (loginResponse.statusCode == 200){
+          SharedServices.setLoginDetails(loginResponse);
+        }
+
         return loginResponse.statusCode == 200 ? true : false;
       }
 

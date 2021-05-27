@@ -66,7 +66,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
           this.isLoadingApiCall = false;
         });
         if (response) {
-
+          _formSignUpKey.currentState.reset(); //reset form
           notificationsClient.message(context, "Registrado correctamente");
 
           // send confirmation link in backend

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hopmasters/constants.dart';
+import 'package:hopmasters/services/shared_services.dart';
 import 'package:hopmasters/theme/style.dart';
 
 import 'components/account_profile_pic.dart';
@@ -31,6 +32,7 @@ class AccountView extends StatelessWidget {
                 icon: Icon(Icons.verified_user),
                 press: () => {},
               ),
+              /*
               ProfileMenu(
                 text: "Login Screen",
                 icon: Icon(Icons.login),
@@ -41,6 +43,8 @@ class AccountView extends StatelessWidget {
                   );
                 },
               ),
+
+               */
               ProfileMenu(
                 text: "Notificaciones",
                 icon: Icon(Icons.notifications),
@@ -77,8 +81,8 @@ class AccountView extends StatelessWidget {
                 text: "Salir",
                 icon: Icon(Icons.logout),
                 press: () {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+                  SharedServices.logout(context);
+                  //Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
 
                 },
               ),

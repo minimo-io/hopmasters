@@ -51,10 +51,11 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
           this.isLoadingApiCall = false;
         });
         if (response){
+          _formLoginKey.currentState.reset();
           // here save token and continue
 
           notificationsClient.message(context, "Bienvenid@!");
-          Navigator.pushNamed(
+          Navigator.pushReplacementNamed(
             context,
             "/",
           );

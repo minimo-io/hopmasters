@@ -30,6 +30,7 @@ dependencies:
   provider: ^4.3.3
   # This was for test purposes onyl.
   english_words: ^3.1.5
+  shared_preferences: ^0.5.12+4
   google_fonts:
   search_page: ^1.4.0
   # vector_math: ^2.0.8
