@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:hopmasters/theme/style.dart';
@@ -126,8 +127,14 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TopLogo(topPadding: 60,),
-                  SizedBox(height: 25,),
+                  SizedBox(height: 0,),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
+                  _createButton(
+                      backgroundColor: Colors.black,
+                      title: "Conectate con tu Apple",
+                      onTap:() => null,
+                      socialIcon: "assets/images/icons/apple.png"
+                  ),
                   _createButton(
                       backgroundColor: Color(0Xff3B5998),
                       title: "Conectate con Facebook",
