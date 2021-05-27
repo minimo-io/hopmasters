@@ -18,11 +18,13 @@ class _LoginViewState extends State<LoginView> {
 
 
   BoxDecoration _headerDecoration = BoxDecoration(
-
+    /*
     image: DecorationImage(
         image: AssetImage('assets/images/bg5.png'),
         fit: BoxFit.fill
     ),
+
+     */
     gradient: PRIMARY_GRADIENT_COLOR,
   );
 

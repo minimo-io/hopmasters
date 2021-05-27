@@ -71,13 +71,7 @@ class _SocialLoginButtonsState extends State<SocialLoginButtons> {
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        /*
-                                              Icon(
-                                                Icons.face_outlined,
-                                                color: Colors.white,
-                                                size: 15.0,
-                                              ),
-                                               */
+                                        Image.asset("assets/images/icons/facebook.png", height: 20,),
                                         Text(
                                           "FACEBOOK",
                                           textAlign: TextAlign.center,
@@ -126,14 +120,7 @@ class _SocialLoginButtonsState extends State<SocialLoginButtons> {
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        /*
-                                              Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                                size: 15.0,
-                                              ),
-
-                                               */
+                                        Image.asset("assets/images/icons/google.png", height: 20,),
                                         Text(
                                           "GOOGLE",
                                           textAlign: TextAlign.center,

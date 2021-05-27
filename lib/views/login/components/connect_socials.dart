@@ -36,12 +36,18 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   // final FocusNode _loginUsernameFocusNode = FocusNode();
   // final FocusNode _loginPasswordFocusNode = FocusNode();
 
-  static const _buttonsPadding = 16.0;
-  static const _buttonsFontSize = 16.0;
+  static const _buttonsPaddingHorizontal = 25.0;
+  static const _buttonsPaddingVertical = 13.0;
+  static const _buttonsFontSize = 18.0;
 
-  Widget _createButton({ Color backgroundColor, String title, Function onTap}){
+  Widget _createButton({
+    Color backgroundColor,
+    String title,
+    Function onTap,
+    String socialIcon
+  }){
     return Padding(
-      padding: const EdgeInsets.all(_buttonsPadding),
+      padding: const EdgeInsets.symmetric(horizontal: _buttonsPaddingHorizontal, vertical: _buttonsPaddingVertical),
       child: new Expanded(
         child: new Container(
           margin: EdgeInsets.only(right: 8.0),
@@ -63,18 +69,16 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                           child: new FlatButton(
                             onPressed: onTap,
                             padding: EdgeInsets.only(
-                              top: 20.0,
-                              bottom: 20.0,
+                              top: 18.0,
+                              bottom: 18.0,
                             ),
                             child: new Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
 
-                                Icon(
-                                  Icons.face_outlined,
-                                  color: Colors.white,
-                                  size: 15.0,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0.0, right:15),
+                                  child: Image.asset(socialIcon, height: 23,),
                                 ),
 
                                 Text(
@@ -121,24 +125,28 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
               child: new Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TopLogo(),
-                  SizedBox(height: 80,),
+                  TopLogo(topPadding: 60,),
+                  SizedBox(height: 25,),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
                   _createButton(
                       backgroundColor: Color(0Xff3B5998),
                       title: "Conectate con Facebook",
-                      onTap:() => null
+                      onTap:() => null,
+                      socialIcon: "assets/images/icons/facebook.png"
                   ),
                   _createButton(
                       backgroundColor: Color.fromRGBO(65, 120, 247, 1),
                       title: "Conectate con Google",
-                      onTap:() => null
+                      onTap:() => null,
+                      socialIcon: "assets/images/icons/google.png"
                   ),
                   _createButton(
                       backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
                       title: "Conectate con tu Email",
-                      onTap:() => super.gotoSignUp(widget.controller)
+                      onTap:() => super.gotoSignUp(widget.controller),
+                      socialIcon: "assets/images/icons/email.png"
                   ),
+
 
                 ],
               ),
