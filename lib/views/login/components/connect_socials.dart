@@ -121,8 +121,8 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   Widget build(BuildContext context) {
     var notificationsClient = new HopsNotifications();
 
-    Future<void> _loginAfterSignUp(String email, String password, String message){
-      WordpressAPI.login(email, password).then((response){
+    Future<void> _loginAfterSignUp(String email, String password, String message, String customAvatar){
+      WordpressAPI.login(email, password, customAvatar: customAvatar).then((response){
         setState((){ this.isLoadingApiCall = false; });
         if (response){
 
@@ -194,21 +194,22 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                               firstName: userName["firstName"],
                               lastName: userName["lastName"],
                               password: pwd,
+                              avatar_url: googleUser.photoUrl
                             );
 
 
                             // create user for backend
                             WordpressAPI.signUp2(userData).then((response){
 
-
-
-
-
-
                               if (response["result"] == false){
                                 if (response["status"] == "ERROR_ALREADYEXISTS"){ // user already exists
                                   // then login with this details right away, same as below on true result
-                                  _loginAfterSignUp(googleUser.email, pwd, "¡Que bueno es verte de vuelta! ¡Bienvenid@!");
+                                  _loginAfterSignUp(
+                                      googleUser.email,
+                                      pwd,
+                                      "¡Que bueno es verte de vuelta! ¡Bienvenid@!",
+                                      googleUser.photoUrl
+                                  );
 
                                 }else{
                                   // some other error
@@ -219,7 +220,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                                 // then login and proceed
                                 //SharedServices.setLoginDetails(loginResponse);
 
-                                _loginAfterSignUp(googleUser.email, pwd, "¡Gracias por registrate! ¡Avanti!");
+                                _loginAfterSignUp(googleUser.email, pwd, "¡Gracias por registrate! ¡Avanti!", googleUser.photoUrl);
                               }
                             });
 

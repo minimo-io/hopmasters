@@ -27,7 +27,10 @@ class WordpressAPI{
   static String _WP_REST_HOPS_URI = "/hops/v1/"; // custom endpoint for Hops
 
 
-  static Future<bool> login(String username, String password) async{
+  static Future<bool> login(
+      String username,
+      String password,
+      { String customAvatar }) async{
     Map<String,String>  requestHeaders = {
       'Content-type': 'application/x-www-form-urlencoded'
     };
@@ -48,7 +51,9 @@ class WordpressAPI{
       );
 
       if (response.statusCode == 200){
-        print(response.data);
+        // if there is a customar avatar to subtitue the one comming from
+        // woocommerce then subtitute it
+        if (customAvatar != null) response.data["data"]["avatarUrl"] = customAvatar;
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){
@@ -60,7 +65,7 @@ class WordpressAPI{
 
     }on DioError catch (e){
 
-      print("Duplicate email ID:" + e.response.statusMessage.toString());
+      print("Duplicate ID:" + e.response.statusMessage.toString());
       ret = false;
 
     }
@@ -99,7 +104,8 @@ class WordpressAPI{
   }
   // instead of the first function this returns a Map with more details
   static Future<Map<String, dynamic>> signUp2(Customer customer)async{
-
+    print("AAAAAAA:");
+    print(customer.toJson());
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
     Map<String,dynamic> ret = new Map();
     ret["result"] = false;

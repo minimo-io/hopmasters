@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
 class BreweryProfilePic extends StatelessWidget {
-  const BreweryProfilePic({
+  String avatarUrl;
+  BreweryProfilePic({
     Key key,
+    String this.avatarUrl
   }) : super(key: key);
+
+   _buildAvatar(){
+
+    if (this.avatarUrl != null){
+      return NetworkImage(this.avatarUrl);
+    }else{
+      return AssetImage("assets/images/profile-test.png");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +25,7 @@ class BreweryProfilePic extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/profile-test.png"),
+            backgroundImage: _buildAvatar(),
           ),
           Positioned(
             right: -16,
@@ -29,7 +40,13 @@ class BreweryProfilePic extends StatelessWidget {
                 ),
                 color: Color(0xFFF5F6F9),
                 onPressed: () {},
-                child: Text("24"),
+                child: Row(
+                  children:[
+                    Icon(Icons.sports_bar, size: 15,),
+                    SizedBox(width: 4),
+                    Text("0", style: TextStyle(fontSize: 14),)
+                  ]
+                ),
               ),
             ),
           )

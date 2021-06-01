@@ -17,6 +17,7 @@ class LoginResponse{
   });
 
   LoginResponse.fromJson( Map<String, dynamic> json){
+
     success = json["success"];
     statusCode = json["statusCode"];
     code = json["code"];
@@ -48,6 +49,7 @@ class Data{
   String firstname;
   String lastname;
   String displayName;
+  String avatarUrl;
 
   Data({
     this.token,
@@ -56,7 +58,8 @@ class Data{
     this.nicename,
     this.firstname,
     this.lastname,
-    this.displayName
+    this.displayName,
+    this.avatarUrl
   });
 
   Data.fromJson( Map<String, dynamic> json ){
@@ -67,7 +70,7 @@ class Data{
     firstname  = json["firstname"];
     lastname  = json["lastname"];
     displayName  = json["displayName"];
-
+    avatarUrl = json["avatarUrl"];
   }
 
   Map<String, dynamic> toJson(){
@@ -79,6 +82,7 @@ class Data{
     data['firstname'] = this.firstname;
     data['lastname'] = this.lastname;
     data['displayName'] = this.displayName;
+    data['avatarUrl'] = this.avatarUrl;
     return data;
   }
 }

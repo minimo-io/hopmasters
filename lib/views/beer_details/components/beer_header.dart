@@ -8,6 +8,8 @@ import 'package:Hops/components/diagonally_cut_colored_image.dart';
 import 'package:Hops/utils/load_network_image.dart';
 import 'package:Hops/components/followers_info.dart';
 
+import 'package:Hops/components/bottom_sheet.dart';
+
 class BeerHeader extends StatelessWidget{
   final beer;
   BeerHeader({
@@ -48,9 +50,9 @@ class BeerHeader extends StatelessWidget{
     );
   }
 
-  Widget _buildActionButtons(ThemeData theme) {
+  Widget _buildActionButtons(ThemeData theme, BuildContext context) {
 
-    Widget _buildButton({Text text, Icon icon}){
+    Widget _buildButton({Text text, Icon icon, Function doOnPressed = null}){
         return ClipRRect(
           borderRadius: new BorderRadius.circular(10.0),
           child: ElevatedButton.icon(
@@ -66,7 +68,7 @@ class BeerHeader extends StatelessWidget{
                       )
                   )
               ),
-              onPressed: () => null
+              onPressed: doOnPressed
           ),
         );
       /*
@@ -96,11 +98,17 @@ class BeerHeader extends StatelessWidget{
         children: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 2),
-              child:_buildButton(text: Text("FAVORITA"), icon:  Icon(Icons.favorite_border_outlined))
+              child:_buildButton(
+                  text: Text("FAVORITA"),
+                  icon:  Icon(Icons.favorite_border_outlined),
+                  doOnPressed: () => null
+              )
           ),
           Padding(
               padding: EdgeInsets.only(left:2),
-              child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart))
+              child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
+                showPersistentBottomSheet(context);
+              })
           )
         ],
       ),
@@ -130,7 +138,7 @@ class BeerHeader extends StatelessWidget{
               _buildBeerAvatar(),
               _buildBeerPrice(),
               //FollowersInfo(this.beer.followers, textColor: SECONDARY_TEXT_DARK),
-              _buildActionButtons(Theme.of(context)),
+              _buildActionButtons(Theme.of(context), context),
             ],
           ),
         ),

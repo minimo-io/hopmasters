@@ -4,14 +4,14 @@ class Customer{
   String firstName;
   String lastName;
   String password;
-  String avatar;
+  String avatar_url;
 
   Customer({
     this.email,
     this.firstName,
     this.lastName,
     this.password,
-    this.avatar
+    this.avatar_url
   });
 
   Map<String, dynamic> toJson(){
@@ -22,7 +22,7 @@ class Customer{
       'last_name': lastName,
       'password': password,
       'username': email,
-      'avatar': avatar
+      'avatar_url': avatar_url
     });
     return map;
   }

@@ -17,7 +17,7 @@ extension PasswordValidator on String{
     if (!RegExp(r'.{6,}').hasMatch(this)) return false;
       //return 'Passwords must have at least 8 characters';
 
-    if (this.length > 15) return false;
+    //if (this.length > 15) return false;
 
     //if (!hasUpper.hasMatch(this)) return false;
       //return 'Passwords must have at least one uppercase character';
