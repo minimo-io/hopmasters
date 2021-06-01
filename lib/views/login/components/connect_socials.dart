@@ -188,7 +188,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
                             var pwdBytes = utf8.encode(googleUser.email + SECRET_SAUCE);
                             String pwd = sha256.convert(pwdBytes).toString();
-                            print(pwd);
+
                             Customer userData = new Customer(
                               email: googleUser.email,
                               firstName: userName["firstName"],

@@ -4,9 +4,14 @@ class Customer{
   String firstName;
   String lastName;
   String password;
+  String avatar;
 
   Customer({
-    this.email, this.firstName, this.lastName, this.password
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.password,
+    this.avatar
   });
 
   Map<String, dynamic> toJson(){
@@ -16,7 +21,8 @@ class Customer{
       'first_name': firstName,
       'last_name': lastName,
       'password': password,
-      'username': email
+      'username': email,
+      'avatar': avatar
     });
     return map;
   }

@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 
 import 'package:Hops/helpers.dart';
 
+import 'package:Hops/secrets.dart';
 import 'package:Hops/models/login.dart';
 import 'package:Hops/models/customer.dart';
 import 'package:Hops/models/beer.dart';
@@ -14,8 +15,8 @@ import 'package:Hops/services/shared_services.dart';
 
 class WordpressAPI{
 
-  static String _apiKey = "ck_ee520942f86cce196bac817417f19fe92aa1a838";
-  static String _apiSecret = "cs_7bd786d6d4a996e4657d14bfb4abdfa30a5597dd";
+  static String _apiKey = WC_CONSUMER_KEY;
+  static String _apiSecret = WC_CONSUMER_SECRET;
 
 
   static String _WP_BASE_API = "https://hops.uy/wp-json";
