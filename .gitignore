@@ -32,12 +32,11 @@ local.properties
 .pub/
 /build/
 
-# Secret keys
-
 
 # Web related
 lib/generated_plugin_registrant.dart
 lib/secrets.dart
+ios/Runner/GoogleService-Info.plist
 
 # Symbolication related
 app.*.symbols
