@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/models/beer.dart';
+import 'package:Hops/models/beer.dart';
 
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/constants.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/constants.dart';
 
-import 'package:hopmasters/helpers.dart';
+import 'package:Hops/helpers.dart';
 
 
 class BeerCards extends StatefulWidget {

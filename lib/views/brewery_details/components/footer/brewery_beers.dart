@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
-import 'package:hopmasters/services/wordpress_api.dart';
-import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/components/beer_cards.dart';
+import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/models/brewery.dart';
+import 'package:Hops/components/beer_cards.dart';
 
 class BreweryBeers extends StatefulWidget {
   Brewery brewery;

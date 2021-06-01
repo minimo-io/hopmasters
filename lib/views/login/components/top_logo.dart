@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
 class TopLogo extends StatelessWidget {
 

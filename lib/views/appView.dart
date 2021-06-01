@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/theme/style.dart';
-// import 'package:hopmasters/components/nav_bottom.dart';
-import 'package:hopmasters/components/search_button.dart';
-import 'package:hopmasters/components/top_app_bar.dart';
+import 'package:Hops/constants.dart';
+import 'package:Hops/theme/style.dart';
+// import 'package:Hops/components/nav_bottom.dart';
+import 'package:Hops/components/search_button.dart';
+import 'package:Hops/components/top_app_bar.dart';
 
-import 'package:hopmasters/models/nav_menu_provider.dart';
+import 'package:Hops/models/nav_menu_provider.dart';
 
-import 'package:hopmasters/views/home/homeView.dart';
-import 'package:hopmasters/views/store/storeView.dart';
-import 'package:hopmasters/views/account/accountView.dart';
-import 'package:hopmasters/views/favorites/favoritesView.dart';
+import 'package:Hops/views/home/homeView.dart';
+import 'package:Hops/views/store/storeView.dart';
+import 'package:Hops/views/account/accountView.dart';
+import 'package:Hops/views/favorites/favoritesView.dart';
 
 
 class AppView extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/views/login/loginView.dart';
-import 'package:hopmasters/views/appView.dart';
-import 'package:hopmasters/views/cart/cartView.dart';
-import 'package:hopmasters/views/brewery_details/breweryView.dart';
-import 'package:hopmasters/views/beer_details/beerView.dart';
-import 'package:hopmasters/views/notFound/not_found_page.dart';
+import 'package:Hops/views/login/loginView.dart';
+import 'package:Hops/views/appView.dart';
+import 'package:Hops/views/cart/cartView.dart';
+import 'package:Hops/views/brewery_details/breweryView.dart';
+import 'package:Hops/views/beer_details/beerView.dart';
+import 'package:Hops/views/notFound/not_found_page.dart';
 
 /*
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{

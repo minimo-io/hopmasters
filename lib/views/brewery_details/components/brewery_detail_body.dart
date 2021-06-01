@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/components/expandable_text.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/components/expandable_text.dart';
 
-import 'package:hopmasters/models/brewery.dart';
+import 'package:Hops/models/brewery.dart';
 
 class BreweryDetailBody extends StatelessWidget {
   BreweryDetailBody(this.brewery);

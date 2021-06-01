@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/services/wordpress_api.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
 import 'dart:async';
-import 'package:hopmasters/models/brewery.dart';
+import 'package:Hops/models/brewery.dart';
 
 
 class BreweriesCards extends StatefulWidget {

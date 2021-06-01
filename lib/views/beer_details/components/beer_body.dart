@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/models/beer.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/models/beer.dart';
 
-// import 'package:hopmasters/components/followers_info.dart';
-import 'package:hopmasters/components/expandable_text.dart';
-import 'package:hopmasters/utils/load_network_image.dart';
+// import 'package:Hops/components/followers_info.dart';
+import 'package:Hops/components/expandable_text.dart';
+import 'package:Hops/utils/load_network_image.dart';
 
 class BeerBody extends StatelessWidget {
 

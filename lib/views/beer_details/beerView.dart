@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/services/wordpress_api.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
-import 'package:hopmasters/components/async_loader.dart';
+import 'package:Hops/components/async_loader.dart';
 
-import 'package:hopmasters/views/beer_details/components/beer_header.dart';
-import 'package:hopmasters/views/beer_details/components/beer_body.dart';
+import 'package:Hops/views/beer_details/components/beer_header.dart';
+import 'package:Hops/views/beer_details/components/beer_body.dart';
 
 
 class BeerView extends StatefulWidget {

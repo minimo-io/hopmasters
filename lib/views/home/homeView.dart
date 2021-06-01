@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
-import 'package:hopmasters/services/wordpress_api.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
-import 'package:hopmasters/components/beer_cards.dart';
-import 'package:hopmasters/components/breweries_cards.dart';
-import 'package:hopmasters/components/app_title.dart';
-import 'package:hopmasters/components/search_bar.dart';
+import 'package:Hops/components/beer_cards.dart';
+import 'package:Hops/components/breweries_cards.dart';
+import 'package:Hops/components/app_title.dart';
+import 'package:Hops/components/search_bar.dart';
 
-import 'package:hopmasters/views/home/components/bannerBreweries.dart';
-import 'package:hopmasters/views/home/components/specialOffers.dart';
-import 'package:hopmasters/views/home/components/discover_beers_header.dart';
+import 'package:Hops/views/home/components/bannerBreweries.dart';
+import 'package:Hops/views/home/components/specialOffers.dart';
+import 'package:Hops/views/home/components/discover_beers_header.dart';
 
 
 

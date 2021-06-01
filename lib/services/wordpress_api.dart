@@ -4,13 +4,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import 'package:hopmasters/helpers.dart';
+import 'package:Hops/helpers.dart';
 
-import 'package:hopmasters/models/login.dart';
-import 'package:hopmasters/models/customer.dart';
-import 'package:hopmasters/models/beer.dart';
-import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/services/shared_services.dart';
+import 'package:Hops/models/login.dart';
+import 'package:Hops/models/customer.dart';
+import 'package:Hops/models/beer.dart';
+import 'package:Hops/models/brewery.dart';
+import 'package:Hops/services/shared_services.dart';
 
 class WordpressAPI{
 
@@ -47,6 +47,7 @@ class WordpressAPI{
       );
 
       if (response.statusCode == 200){
+        print(response.data);
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){
@@ -95,7 +96,41 @@ class WordpressAPI{
     }
     return ret;
   }
+  // instead of the first function this returns a Map with more details
+  static Future<Map<String, dynamic>> signUp2(Customer customer)async{
 
+    var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
+    Map<String,dynamic> ret = new Map();
+    ret["result"] = false;
+    ret["status"] = "ERROR_UNKNOWN";
+
+    try{
+      var response = await Dio().post(
+        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CUSTOMER,
+        data: customer.toJson(),
+        options: new Options(
+            headers: {
+              HttpHeaders.authorizationHeader: 'basic $authToken',
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 201){
+        ret["result"] = true;
+        ret["status"] = "OK_USERCREATED";
+      }
+    } on DioError catch(e) {
+      if (e.response.statusCode == 400){
+        ret["result"] = false;
+        ret["status"] = "ERROR_ALREADYEXISTS";
+      }else{
+        ret["result"] = false;
+        ret["status"] = "ERROR_STATUSCODE_"+e.response.statusCode.toString();
+      }
+    }
+    return ret;
+  }
   static Future getBeersFromBreweryID(String breweryID)async{
     final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/breweryID/"+ breweryID +"?_embed";
 

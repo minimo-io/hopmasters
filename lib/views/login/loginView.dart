@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
-import 'package:hopmasters/views/login/components/connect_socials.dart';
-import 'package:hopmasters/views/login/components/login_page.dart';
-import 'package:hopmasters/views/login/components/signup_page.dart';
+import 'package:Hops/views/login/components/connect_socials.dart';
+import 'package:Hops/views/login/components/login_page.dart';
+import 'package:Hops/views/login/components/signup_page.dart';
 
 
 class LoginView extends StatefulWidget {

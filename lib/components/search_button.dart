@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:search_page/search_page.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
 /// This is a very simple class, used to
 /// demo the `SearchPage` package

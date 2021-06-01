@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/services/shared_services.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/constants.dart';
+import 'package:Hops/services/google_signin.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/theme/style.dart';
 
 import 'components/account_profile_pic.dart';
 import 'components/profile_menu.dart';
@@ -81,8 +82,13 @@ class AccountView extends StatelessWidget {
                 text: "Salir",
                 icon: Icon(Icons.logout),
                 press: () {
+                  String authService = "Google";
                   SharedServices.logout(context);
-                  //Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+
+                  if (authService == "Google"){
+                    Google googleService = new Google();
+                    googleService.logout().then((value) => SharedServices.logout(context));
+                  }
 
                 },
               ),

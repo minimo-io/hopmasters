@@ -1,15 +1,25 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/utils/progress_hud.dart';
-import 'package:hopmasters/utils/notifications.dart';
-import 'package:hopmasters/utils/validator.dart';
-import 'package:hopmasters/services/wordpress_api.dart';
-import 'package:hopmasters/views/login/components/social_login_buttons.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/utils/notifications.dart';
+import '../../../secrets.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
-import 'package:hopmasters/views/login/components/top_logo.dart';
-import 'package:hopmasters/views/login/mixins/gotos.mixin.dart';
+import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/services/google_signin.dart';
+
+import 'package:Hops/views/login/components/top_logo.dart';
+import 'package:Hops/views/login/mixins/gotos.mixin.dart';
+
+import 'package:Hops/models/login.dart';
+import 'package:Hops/utils/notifications.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/models/customer.dart';
+import 'package:Hops/services/wordpress_api.dart';
+
 
 class ConnectSocialsPage extends StatefulWidget {
   BoxDecoration headerDecoration;
@@ -29,7 +39,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   bool isLoadingApiCall = false;
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
-  var notificationsClient = new HopsNotifications();
+  //var notificationsClient = new HopsNotifications();
 
   TextEditingController loginUsernameController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
@@ -109,7 +119,26 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
   @override
   Widget build(BuildContext context) {
+    var notificationsClient = new HopsNotifications();
 
+    Future<void> _loginAfterSignUp(String email, String password, String message){
+      WordpressAPI.login(email, password).then((response){
+        setState((){ this.isLoadingApiCall = false; });
+        if (response){
+
+          notificationsClient.message(context, message);
+          setState(() => this.isLoadingApiCall = false );
+          Navigator.pushReplacementNamed(
+            context,
+            "/",
+          );
+        }else{
+
+          notificationsClient.message(context, "Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.");
+          // here show a popup message
+        }
+      });
+    }
 
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
@@ -144,7 +173,66 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                   _createButton(
                       backgroundColor: Color.fromRGBO(65, 120, 247, 1),
                       title: "Conectate con Google",
-                      onTap:() => null,
+                      onTap:(){
+
+                        Google googleClient = new Google();
+                        googleClient.login(context).then((googleUser){
+
+
+                          if (googleUser != null){
+                            setState(() => this.isLoadingApiCall = true );
+                            // if google ok then wordpress call
+                            // try to sign up user to WooCommerce
+                            Map<String, dynamic> userName = googleClient.generateNameFromDisplayName(googleUser.displayName);
+
+
+                            var pwdBytes = utf8.encode(googleUser.email + SECRET_SAUCE);
+                            String pwd = sha256.convert(pwdBytes).toString();
+                            print(pwd);
+                            Customer userData = new Customer(
+                              email: googleUser.email,
+                              firstName: userName["firstName"],
+                              lastName: userName["lastName"],
+                              password: pwd,
+                            );
+
+
+                            // create user for backend
+                            WordpressAPI.signUp2(userData).then((response){
+
+
+
+
+
+
+                              if (response["result"] == false){
+                                if (response["status"] == "ERROR_ALREADYEXISTS"){ // user already exists
+                                  // then login with this details right away, same as below on true result
+                                  _loginAfterSignUp(googleUser.email, pwd, "¡Que bueno es verte de vuelta! ¡Bienvenid@!");
+
+                                }else{
+                                  // some other error
+                                  setState(() => this.isLoadingApiCall = false );
+                                  notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
+                                }
+                              }else{
+                                // then login and proceed
+                                //SharedServices.setLoginDetails(loginResponse);
+
+                                _loginAfterSignUp(googleUser.email, pwd, "¡Gracias por registrate! ¡Avanti!");
+                              }
+                            });
+
+
+
+                          }else{
+                            notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
+                            setState(() => this.isLoadingApiCall = false );
+                          }
+
+
+                        });
+                      },
                       socialIcon: "assets/images/icons/google.png"
                   ),
                   _createButton(

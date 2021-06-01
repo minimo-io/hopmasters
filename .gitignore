@@ -33,10 +33,11 @@ local.properties
 /build/
 
 # Secret keys
-./lib/secrets.dart
+
 
 # Web related
 lib/generated_plugin_registrant.dart
+lib/secrets.dart
 
 # Symbolication related
 app.*.symbols

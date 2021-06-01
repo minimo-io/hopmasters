@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/services/shared_services.dart';
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/routes.dart';
+import 'package:Hops/constants.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/routes.dart';
 import 'package:provider/provider.dart';
-import 'package:hopmasters/models/nav_menu_provider.dart';
+import 'package:Hops/models/nav_menu_provider.dart';
 
 String _initialRoute = "/login";
 
@@ -15,10 +15,10 @@ void main() async {
   if (_result){
     _initialRoute = "/";
   }
-  runApp(HopmastersApp());
+  runApp(HopsApp());
 }
 
-class HopmastersApp extends StatelessWidget{
+class HopsApp extends StatelessWidget{
   @override
   // The override is not required but nice to specify
   // All classes have a build() so we override it

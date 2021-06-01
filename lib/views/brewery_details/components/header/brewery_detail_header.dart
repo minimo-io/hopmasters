@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-// import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/components/diagonally_cut_colored_image.dart';
-// import 'package:hopmasters/components/load_network_image.dart';
+// import 'package:Hops/theme/style.dart';
+import 'package:Hops/components/diagonally_cut_colored_image.dart';
+// import 'package:Hops/components/load_network_image.dart';
 
-import 'package:hopmasters/models/brewery.dart';
+import 'package:Hops/models/brewery.dart';
 
 
 

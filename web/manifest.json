@@ -1,11 +1,11 @@
 {
-    "name": "hopmasters",
-    "short_name": "hopmasters",
+    "name": "hops",
+    "short_name": "hops",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Find & Buy local beers",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/constants.dart';
+import 'package:Hops/theme/style.dart';
 
 import 'package:provider/provider.dart';
-import 'package:hopmasters/models/nav_menu_provider.dart';
+import 'package:Hops/models/nav_menu_provider.dart';
 
 
 class StoreView extends StatelessWidget {

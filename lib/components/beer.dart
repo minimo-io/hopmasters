@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/constants.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/constants.dart';
 
 
 // The almighty beer class

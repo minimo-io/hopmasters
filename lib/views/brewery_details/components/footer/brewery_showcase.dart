@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/models/brewery.dart';
+import 'package:Hops/theme/style.dart';
 
-import 'package:hopmasters/views/brewery_details/components/footer/articles_showcase.dart';
-import 'package:hopmasters/views/brewery_details/components/footer/brewery_beers.dart';
-import 'package:hopmasters/views/brewery_details/components/footer/skills_showcase.dart';
+import 'package:Hops/views/brewery_details/components/footer/articles_showcase.dart';
+import 'package:Hops/views/brewery_details/components/footer/brewery_beers.dart';
+import 'package:Hops/views/brewery_details/components/footer/skills_showcase.dart';
 
 class BreweryShowcase extends StatefulWidget {
   BreweryShowcase(this.brewery);

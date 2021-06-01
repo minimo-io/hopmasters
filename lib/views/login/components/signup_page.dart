@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:hopmasters/models/customer.dart';
+import 'package:Hops/models/customer.dart';
 
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/utils/progress_hud.dart';
-import 'package:hopmasters/utils/notifications.dart';
-import 'package:hopmasters/utils/validator.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/utils/notifications.dart';
+import 'package:Hops/utils/validator.dart';
 
-import 'package:hopmasters/services/wordpress_api.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
-import 'package:hopmasters/views/login/mixins/gotos.mixin.dart';
-import 'package:hopmasters/views/login/components/top_logo.dart';
+import 'package:Hops/views/login/mixins/gotos.mixin.dart';
+import 'package:Hops/views/login/components/top_logo.dart';
 
-import 'package:hopmasters/views/login/components/social_login_buttons.dart';
+import 'package:Hops/views/login/components/social_login_buttons.dart';
 
 class SignupPage extends StatefulWidget {
   PageController controller;
@@ -76,7 +76,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
           // create session & goto login
 
         } else {
-          notificationsClient.message(context, "Ups! Ya existe un registro.");
+          notificationsClient.message(context, "Ups! Ya existe un registro. Intenta ingresar en vez de registrarte.");
 
           // here show a popup message
         }

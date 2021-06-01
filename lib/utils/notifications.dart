@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/theme/style.dart';
+import 'package:Hops/theme/style.dart';
 
 class HopsNotifications{
 

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hopmasters/services/wordpress_api.dart';
+import 'package:Hops/services/wordpress_api.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:hopmasters/constants.dart';
-import 'package:hopmasters/theme/style.dart';
-import 'package:hopmasters/models/brewery.dart';
-import 'package:hopmasters/components/async_loader.dart';
+import 'package:Hops/constants.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/models/brewery.dart';
+import 'package:Hops/components/async_loader.dart';
 
-import 'package:hopmasters/views/brewery_details/components/footer/brewery_showcase.dart';
-import 'package:hopmasters/views/brewery_details/components/brewery_detail_body.dart';
-import 'package:hopmasters/views/brewery_details/components/header/brewery_detail_header.dart';
+import 'package:Hops/views/brewery_details/components/footer/brewery_showcase.dart';
+import 'package:Hops/views/brewery_details/components/brewery_detail_body.dart';
+import 'package:Hops/views/brewery_details/components/header/brewery_detail_header.dart';
 
 
 class BreweryView extends StatefulWidget {
