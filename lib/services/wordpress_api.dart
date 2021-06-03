@@ -28,7 +28,11 @@ class WordpressAPI{
 
   static const String MESSAGE_ERROR_LOGIN = "¡Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.";
   static const String MESSAGE_ERROR_USER_ALREADY_EXISTS = "¡Ups! Ya existe un registro. Intenta ingresar en vez de registrarte.";
+  static const String MESSAGE_ERROR_LOGIN_UNEXPECTED = "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.";
+
   static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hey! Gracias por registrate. ¡Benvenid@!";
+  static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta! ¡Bienvenid@!";
+
 
   static Future<bool> login(
       String username,
@@ -82,37 +86,6 @@ class WordpressAPI{
 
     return ret;
   }
-  /*
-  static Future<bool> signUp(Customer customer)async{
-    var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
-    bool ret = false;
-
-    try{
-      var response = await Dio().post(
-        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CUSTOMER,
-        data: customer.toJson(),
-        options: new Options(
-          headers: {
-            HttpHeaders.authorizationHeader: 'basic $authToken',
-            HttpHeaders.contentTypeHeader: "application/json"
-          }
-        ),
-      );
-
-      if (response.statusCode == 201){
-        ret = true;
-      }
-    } on DioError catch(e) {
-      if (e.response.statusCode == 404){
-        print("Duplicate email ID.");
-        ret = false;
-      }else{
-        ret = false;
-      }
-    }
-    return ret;
-  }
-   */
 
   // instead of the first function this returns a Map with more details
   static Future<Map<String, dynamic>> signUp(Customer customer)async{

@@ -146,7 +146,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
           );
         }else{
 
-          notificationsClient.message(context, "Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.");
+          notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_LOGIN);
           // here show a popup message
         }
       });
@@ -225,7 +225,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                                   _loginAfterSignUp(
                                       googleUser.email,
                                       pwd,
-                                      "¡Que bueno es verte de vuelta! ¡Bienvenid@!",
+                                      WordpressAPI.MESSAGE_OK_LOGIN_BACK,
                                       googleUser.photoUrl,
                                       connectionType: 'Google'
                                   );
@@ -242,7 +242,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                                 _loginAfterSignUp(
                                     googleUser.email,
                                     pwd,
-                                    "¡Gracias por registrate! ¡Avanti!",
+                                    WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP,
                                     googleUser.photoUrl,
                                     connectionType: 'Google'
                                 );
@@ -252,7 +252,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
 
                           }else{
-                            notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
+                            notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
                             setState(() => this.isLoadingApiCall = false );
                           }
 
