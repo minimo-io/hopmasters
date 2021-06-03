@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/constants.dart';
+import 'package:Hops/services/facebook_signin.dart';
 import 'package:Hops/services/google_signin.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/theme/style.dart';
@@ -108,12 +109,17 @@ class _AccountViewState extends State<AccountView> {
                           press: () {
                             //String authService = "Google";
                             SharedServices.loginDetails().then((prefs){
-                              print(prefs.data.connectionType);
+
                               SharedServices.logout(context);
 
                               if (prefs.data.connectionType == "Google"){
                                 Google googleService = new Google();
                                 googleService.logout().then((value) => SharedServices.logout(context));
+                              }else if(prefs.data.connectionType == "Facebook"){
+                                Facebook facebookService = new Facebook();
+                                facebookService.logout((){
+                                  print("Facebook Logout OK");
+                                });
                               }
 
                             });

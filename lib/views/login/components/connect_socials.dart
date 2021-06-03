@@ -9,6 +9,7 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
 import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/services/facebook_signin.dart';
 import 'package:Hops/services/google_signin.dart';
 
 import 'package:Hops/views/login/components/top_logo.dart';
@@ -178,8 +179,14 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                   _createButton(
                       backgroundColor: Color(0Xff3B5998),
                       title: "Conectate con Facebook",
-                      onTap:() => null,
-                      socialIcon: "assets/images/icons/facebook.png"
+                      socialIcon: "assets/images/icons/facebook.png",
+                      onTap:()async{
+                        Facebook facebookClient = new Facebook();
+                        await facebookClient.login().then((userData){
+                          // signup user if does not exist and login
+                          print(userData);
+                        });
+                      },
                   ),
                   _createButton(
                       backgroundColor: Color.fromRGBO(65, 120, 247, 1),
