@@ -50,6 +50,7 @@ class Data{
   String lastname;
   String displayName;
   String avatarUrl;
+  String connectionType;
 
   Data({
     this.token,
@@ -59,7 +60,8 @@ class Data{
     this.firstname,
     this.lastname,
     this.displayName,
-    this.avatarUrl
+    this.avatarUrl,
+    this.connectionType,
   });
 
   Data.fromJson( Map<String, dynamic> json ){
@@ -71,6 +73,7 @@ class Data{
     lastname  = json["lastname"];
     displayName  = json["displayName"];
     avatarUrl = json["avatarUrl"];
+    connectionType = (json["connectionType"] != null ? json["connectionType"] : null );
   }
 
   Map<String, dynamic> toJson(){
@@ -83,6 +86,7 @@ class Data{
     data['lastname'] = this.lastname;
     data['displayName'] = this.displayName;
     data['avatarUrl'] = this.avatarUrl;
+    data['connectionType'] = this.connectionType;
     return data;
   }
 }

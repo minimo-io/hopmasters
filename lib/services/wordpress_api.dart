@@ -26,11 +26,15 @@ class WordpressAPI{
     static String _WP_REST_WC_CUSTOMER = "customers";
   static String _WP_REST_HOPS_URI = "/hops/v1/"; // custom endpoint for Hops
 
+  static const String MESSAGE_ERROR_LOGIN = "¡Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.";
+  static const String MESSAGE_ERROR_USER_ALREADY_EXISTS = "¡Ups! Ya existe un registro. Intenta ingresar en vez de registrarte.";
+  static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hey! Gracias por registrate. ¡Benvenid@!";
 
   static Future<bool> login(
       String username,
       String password,
-      { String customAvatar }) async{
+      { String customAvatar, String connectionType = "Email" }
+      ) async{
     Map<String,String>  requestHeaders = {
       'Content-type': 'application/x-www-form-urlencoded'
     };
@@ -51,9 +55,15 @@ class WordpressAPI{
       );
 
       if (response.statusCode == 200){
-        // if there is a customar avatar to subtitue the one comming from
-        // woocommerce then subtitute it
-        if (customAvatar != null) response.data["data"]["avatarUrl"] = customAvatar;
+
+        // if response from REST API is correct then add extra fields to response
+        if (response.data["statusCode"] == 200){
+          // if there is a customar avatar to subtitue the one comming from
+          // woocommerce then subtitute it
+          if (customAvatar != null) response.data["data"]["avatarUrl"] = customAvatar;
+          response.data["data"]["connectionType"] = connectionType;
+        }
+
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){
@@ -72,7 +82,7 @@ class WordpressAPI{
 
     return ret;
   }
-
+  /*
   static Future<bool> signUp(Customer customer)async{
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
     bool ret = false;
@@ -102,10 +112,10 @@ class WordpressAPI{
     }
     return ret;
   }
+   */
+
   // instead of the first function this returns a Map with more details
-  static Future<Map<String, dynamic>> signUp2(Customer customer)async{
-    print("AAAAAAA:");
-    print(customer.toJson());
+  static Future<Map<String, dynamic>> signUp(Customer customer)async{
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
     Map<String,dynamic> ret = new Map();
     ret["result"] = false;

@@ -46,7 +46,9 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
       // notificationsClient.message(context, "Ups! Por favor completa correctamente todos los campos del formulario.");
     }else{
       _formLoginKey.currentState.save();
-      WordpressAPI.login(loginUsernameController.text, loginPasswordController.text).then((response) {
+      WordpressAPI.login(
+          loginUsernameController.text,
+          loginPasswordController.text).then((response) {
         setState((){
           this.isLoadingApiCall = false;
         });
@@ -146,6 +148,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                             },
                             // autofocus: true,
                             //focusNode: _loginUsernameFocusNode,
+                            keyboardType: TextInputType.emailAddress,
                             controller: loginUsernameController,
                             obscureText: false,
                             textAlign: TextAlign.left,

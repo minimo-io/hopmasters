@@ -106,13 +106,18 @@ class _AccountViewState extends State<AccountView> {
                           text: "Salir",
                           icon: Icon(Icons.logout),
                           press: () {
-                            String authService = "Google";
-                            SharedServices.logout(context);
+                            //String authService = "Google";
+                            SharedServices.loginDetails().then((prefs){
+                              print(prefs.data.connectionType);
+                              SharedServices.logout(context);
 
-                            if (authService == "Google"){
-                              Google googleService = new Google();
-                              googleService.logout().then((value) => SharedServices.logout(context));
-                            }
+                              if (prefs.data.connectionType == "Google"){
+                                Google googleService = new Google();
+                                googleService.logout().then((value) => SharedServices.logout(context));
+                              }
+
+                            });
+
 
                           },
                         ),

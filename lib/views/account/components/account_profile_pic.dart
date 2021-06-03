@@ -32,7 +32,7 @@ class BreweryProfilePic extends StatelessWidget {
             bottom: 0,
             child: SizedBox(
               height: 40,
-              width: 60,
+              width: 65,
               child: FlatButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),

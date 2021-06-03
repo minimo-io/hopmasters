@@ -62,21 +62,34 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
       );
 
       WordpressAPI.signUp(customerModel).then((response) {
-        setState(() {
-          this.isLoadingApiCall = false;
-        });
-        if (response) {
-          _formSignUpKey.currentState.reset(); //reset form
-          notificationsClient.message(context, "Registrado correctamente");
-
+        if (response["result"] == true) {
           // send confirmation link in backend
 
-          // login user
+          // login user, create session & goto login
+          WordpressAPI.login(
+              signUpUsernameController.text.toString(),
+              password,
+          ).then((response){
+            setState((){ this.isLoadingApiCall = false; });
+            _formSignUpKey.currentState.reset(); //reset form
+            if (response){
 
-          // create session & goto login
+              notificationsClient.message(context, WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP);
 
+              setState(() => this.isLoadingApiCall = false );
+              Navigator.pushReplacementNamed(
+                context,
+                "/",
+              );
+            }else{
+              setState((){ this.isLoadingApiCall = false; });
+              notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_LOGIN);
+              // here show a popup message
+            }
+          });
         } else {
-          notificationsClient.message(context, "Ups! Ya existe un registro. Intenta ingresar en vez de registrarte.");
+          setState((){ this.isLoadingApiCall = false; });
+          notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_USER_ALREADY_EXISTS + " ("+ response["status"] +")");
 
           // here show a popup message
         }
@@ -159,6 +172,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                               return null;
                             },
                             // autofocus: true,
+                            keyboardType: TextInputType.emailAddress,
                             controller: signUpUsernameController,
                             obscureText: false,
                             textAlign: TextAlign.left,

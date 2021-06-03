@@ -121,8 +121,19 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   Widget build(BuildContext context) {
     var notificationsClient = new HopsNotifications();
 
-    Future<void> _loginAfterSignUp(String email, String password, String message, String customAvatar){
-      WordpressAPI.login(email, password, customAvatar: customAvatar).then((response){
+    Future<void> _loginAfterSignUp(
+        String email,
+        String password,
+        String message,
+        String customAvatar,
+        { String connectionType = "Google" }
+        ){
+      WordpressAPI.login(
+          email,
+          password,
+          customAvatar: customAvatar,
+          connectionType: connectionType
+      ).then((response){
         setState((){ this.isLoadingApiCall = false; });
         if (response){
 
@@ -199,7 +210,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
 
                             // create user for backend
-                            WordpressAPI.signUp2(userData).then((response){
+                            WordpressAPI.signUp(userData).then((response){
 
                               if (response["result"] == false){
                                 if (response["status"] == "ERROR_ALREADYEXISTS"){ // user already exists
@@ -208,19 +219,26 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                                       googleUser.email,
                                       pwd,
                                       "¡Que bueno es verte de vuelta! ¡Bienvenid@!",
-                                      googleUser.photoUrl
+                                      googleUser.photoUrl,
+                                      connectionType: 'Google'
                                   );
 
                                 }else{
                                   // some other error
                                   setState(() => this.isLoadingApiCall = false );
-                                  notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
+                                  //notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
                                 }
                               }else{
                                 // then login and proceed
                                 //SharedServices.setLoginDetails(loginResponse);
 
-                                _loginAfterSignUp(googleUser.email, pwd, "¡Gracias por registrate! ¡Avanti!", googleUser.photoUrl);
+                                _loginAfterSignUp(
+                                    googleUser.email,
+                                    pwd,
+                                    "¡Gracias por registrate! ¡Avanti!",
+                                    googleUser.photoUrl,
+                                    connectionType: 'Google'
+                                );
                               }
                             });
 
