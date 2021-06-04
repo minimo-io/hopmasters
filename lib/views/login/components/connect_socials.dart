@@ -19,7 +19,6 @@ import 'package:Hops/models/login.dart';
 import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/models/customer.dart';
-import 'package:Hops/services/wordpress_api.dart';
 
 
 class ConnectSocialsPage extends StatefulWidget {
@@ -152,6 +151,41 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
       });
     }
 
+    Future<Map<String, dynamic>> _trySignUpAndLogin(Customer customer, String connectionType){
+      WordpressAPI.signUp(customer).then((response){
+
+        if (response["result"] == false){
+          if (response["status"] == "ERROR_ALREADYEXISTS"){ // user already exists
+            // then login with this details right away, same as below on true result
+            _loginAfterSignUp(
+                customer.email,
+                customer.password,
+                WordpressAPI.MESSAGE_OK_LOGIN_BACK,
+                customer.avatar_url,
+                connectionType: connectionType // Google, Facebook, Apple, Email
+            );
+
+          }else{
+            // some other error
+            setState(() => this.isLoadingApiCall = false );
+            //notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
+          }
+        }else{
+          // then login and proceed
+          //SharedServices.setLoginDetails(loginResponse);
+
+          _loginAfterSignUp(
+              customer.email,
+              customer.password,
+              WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP,
+              customer.avatar_url,
+              connectionType: connectionType // Google, Facebook, Apple, Email
+          );
+        }
+      });
+    }
+
+
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
       opacity: 0.5,
@@ -181,11 +215,33 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                       title: "Conectate con Facebook",
                       socialIcon: "assets/images/icons/facebook.png",
                       onTap:()async{
+                        setState(() => this.isLoadingApiCall = true );
                         Facebook facebookClient = new Facebook();
-                        await facebookClient.login().then((userData){
-                          // signup user if does not exist and login
-                          print(userData);
-                        });
+                        Map<String, dynamic> userData = await facebookClient.login();
+
+                        if (userData != null){
+
+                          Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName(userData["name"]);
+                          String pwd = WordpressAPI.generatePassword(userData["email"]);
+
+
+                          Customer customer = new Customer(
+                              email: userData["email"],
+                              firstName: userName["firstName"],
+                              lastName: userName["lastName"],
+                              password: pwd,
+                              avatar_url: userData["picture"]["data"]["url"]
+                          );
+
+                          // try to create user if does not exists & login
+                          _trySignUpAndLogin(customer, 'Facebook');
+
+                          //setState(() => this.isLoadingApiCall = false );
+                        }else{
+                          notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
+                          setState(() => this.isLoadingApiCall = false );
+                        }
+
                       },
                   ),
                   _createButton(
@@ -201,13 +257,11 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                             setState(() => this.isLoadingApiCall = true );
                             // if google ok then wordpress call
                             // try to sign up user to WooCommerce
-                            Map<String, dynamic> userName = googleClient.generateNameFromDisplayName(googleUser.displayName);
+                            Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName(googleUser.displayName);
 
+                            String pwd = WordpressAPI.generatePassword(googleUser.email);
 
-                            var pwdBytes = utf8.encode(googleUser.email + SECRET_SAUCE);
-                            String pwd = sha256.convert(pwdBytes).toString();
-
-                            Customer userData = new Customer(
+                            Customer customer = new Customer(
                               email: googleUser.email,
                               firstName: userName["firstName"],
                               lastName: userName["lastName"],
@@ -216,39 +270,8 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                             );
 
 
-                            // create user for backend
-                            WordpressAPI.signUp(userData).then((response){
-
-                              if (response["result"] == false){
-                                if (response["status"] == "ERROR_ALREADYEXISTS"){ // user already exists
-                                  // then login with this details right away, same as below on true result
-                                  _loginAfterSignUp(
-                                      googleUser.email,
-                                      pwd,
-                                      WordpressAPI.MESSAGE_OK_LOGIN_BACK,
-                                      googleUser.photoUrl,
-                                      connectionType: 'Google'
-                                  );
-
-                                }else{
-                                  // some other error
-                                  setState(() => this.isLoadingApiCall = false );
-                                  //notificationsClient.message(context, "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.");
-                                }
-                              }else{
-                                // then login and proceed
-                                //SharedServices.setLoginDetails(loginResponse);
-
-                                _loginAfterSignUp(
-                                    googleUser.email,
-                                    pwd,
-                                    WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP,
-                                    googleUser.photoUrl,
-                                    connectionType: 'Google'
-                                );
-                              }
-                            });
-
+                            // try to create user if does not exists & login
+                            _trySignUpAndLogin(customer, 'Google');
 
 
                           }else{

@@ -3,20 +3,31 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Facebook{
   Future<Map<String, dynamic>> login() async{
+    /*
+    final AccessToken accessToken = await FacebookAuth.instance.accessToken;
+    if (accessToken != null) {
+      // user is logged for Facebook, so create the shared service
+      // and proceed with login
+
+    }
+    */
+
     final LoginResult result = await FacebookAuth.instance.login(
       permissions: ['public_profile', 'email'],
 
-    ); // by default we request the email and the public profile
+    );
+
+    // by default we request the email and the public profile
     if (result.status == LoginStatus.success) {
       // you are logged
-      final AccessToken accessToken = result.accessToken;
-      FacebookAuth.instance.getUserData().then((userData){
-        print(userData);
-        return userData;
-      });
+      //final AccessToken accessToken = result.accessToken;
+      var resultJson = await FacebookAuth.instance.getUserData();
+      return resultJson;
     }{
       return null;
     }
+
+
   }
 
   Future<void> logout(Function fn)async{

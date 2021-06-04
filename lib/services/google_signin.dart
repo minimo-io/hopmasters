@@ -35,19 +35,6 @@ class Google{
 
   Future<void> logout() => this._googleSignIn.disconnect();
 
-  Map<String, dynamic> generateNameFromDisplayName(String displayName){
-    Map<String, dynamic> userName = new Map();
-    userName["firstName"] = displayName;
-    userName["lastName"] = '';
-
-    List displayNameList = displayName.split(" ");
-    // if display name is like "George Costanza"
-    if (displayNameList.length == 2){
-      userName["firstName"] = displayNameList[0];
-      userName["lastName"] = displayNameList[1];
-    }
-    return userName;
-  }
 
 
 

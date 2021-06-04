@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:Hops/helpers.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
@@ -240,7 +241,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                             ),
                             textAlign: TextAlign.end,
                           ),
-                          onPressed: () => {},
+                          onPressed: () => Helpers.launchURL("https://hops.uy/mi-cuenta/lost-password/"),
                         ),
                       ),
                     ],

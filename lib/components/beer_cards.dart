@@ -126,7 +126,7 @@ class _BeerCardsState extends State<BeerCards> {
                   Text("¿Conoces alguna?"),
                   SizedBox(height: 5.0),
                   RaisedButton.icon(
-                    label: Text("Ponte en contacto"),
+                    label: Text("Ponete en contacto"),
                     icon: Icon(Icons.send),
                     onPressed: () => Helpers.launchURL("https://hops.uy/contacto/"),
                   )

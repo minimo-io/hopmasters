@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 
 import 'package:Hops/helpers.dart';
@@ -28,10 +28,10 @@ class WordpressAPI{
 
   static const String MESSAGE_ERROR_LOGIN = "¡Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.";
   static const String MESSAGE_ERROR_USER_ALREADY_EXISTS = "¡Ups! Ya existe un registro. Intenta ingresar en vez de registrarte.";
-  static const String MESSAGE_ERROR_LOGIN_UNEXPECTED = "Ups! Ocurrió un error intentando ingresar con Google. Ponete en contacto.";
+  static const String MESSAGE_ERROR_LOGIN_UNEXPECTED = "Ups! Ocurrió un error intentando ingresar. Ponete en contacto.";
 
-  static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hey! Gracias por registrate. ¡Benvenid@!";
-  static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta! ¡Bienvenid@!";
+  static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hola cervecer@! Gracias por registrate.";
+  static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta!";
 
 
   static Future<bool> login(
@@ -262,6 +262,26 @@ class WordpressAPI{
     }
 
 
+  }
+
+  static Map<String, dynamic> generateNameFromDisplayName(String displayName){
+    Map<String, dynamic> userName = new Map();
+    userName["firstName"] = displayName;
+    userName["lastName"] = '';
+
+    List displayNameList = displayName.split(" ");
+    // if display name is like "George Costanza"
+    if (displayNameList.length == 2){
+      userName["firstName"] = displayNameList[0];
+      userName["lastName"] = displayNameList[1];
+    }
+    return userName;
+  }
+
+  static String generatePassword(String initialValue){
+    var pwdBytes = utf8.encode(initialValue + SECRET_SAUCE);
+    String pwd = sha256.convert(pwdBytes).toString();
+    return pwd;
   }
 
 }
