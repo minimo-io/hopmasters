@@ -24,6 +24,7 @@ class WordpressAPI{
   static String _WP_REST_WP_URI = "/wp/v2/";
   static String _WP_REST_WC_URI = "/wc/v3/"; // for WooCommerce
     static String _WP_REST_WC_CUSTOMER = "customers";
+    static String _WP_REST_WC_CATEGORIES = "products/categories";
   static String _WP_REST_HOPS_URI = "/hops/v1/"; // custom endpoint for Hops
 
   static const String MESSAGE_ERROR_LOGIN = "¡Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.";
@@ -282,6 +283,32 @@ class WordpressAPI{
     var pwdBytes = utf8.encode(initialValue + SECRET_SAUCE);
     String pwd = sha256.convert(pwdBytes).toString();
     return pwd;
+  }
+
+  static Future<List<dynamic>> getPrefsOptions()async {
+    // https://hops.uy/wp-json/wc/v3/products/categories
+
+    print( _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret);
+    try{
+      var response = await Dio().get(
+        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
+        //var jsonResponse = json.decode(response.body);
+        var jsonResponse = response.data;
+        return jsonResponse;
+
+
+      }
+    } on DioError catch(e) {
+      print(e.message);
+    }
   }
 
 }

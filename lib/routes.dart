@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:Hops/views/login/loginView.dart';
+import 'package:Hops/views/preferences_signup/preferencesSignup.dart';
 import 'package:Hops/views/appView.dart';
 import 'package:Hops/views/cart/cartView.dart';
 import 'package:Hops/views/brewery_details/breweryView.dart';
@@ -35,6 +36,12 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => LoginView(),
+          );
+
+        case PreferencesSignUpView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => PreferencesSignUpView(),
           );
 
         case CartView.routeName:

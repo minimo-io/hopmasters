@@ -10,7 +10,6 @@ import 'package:Hops/views/login/components/signup_page.dart';
 class LoginView extends StatefulWidget {
   // login goes without slash at the moment, in order to avoid loading / assets
   static const String routeName = "login";
-
   @override
   _LoginViewState createState() => _LoginViewState();
 }

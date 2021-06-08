@@ -1,12 +1,7 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
-import 'package:Hops/theme/style.dart';
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
-import '../../../secrets.dart';
-import 'package:crypto/crypto.dart';
-import 'dart:convert';
 
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/services/facebook_signin.dart';
@@ -15,9 +10,6 @@ import 'package:Hops/services/google_signin.dart';
 import 'package:Hops/views/login/components/top_logo.dart';
 import 'package:Hops/views/login/mixins/gotos.mixin.dart';
 
-import 'package:Hops/models/login.dart';
-import 'package:Hops/utils/notifications.dart';
-import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/models/customer.dart';
 
 
@@ -126,7 +118,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
         String password,
         String message,
         String customAvatar,
-        { String connectionType = "Google" }
+        { String connectionType = "Google", bool signUpResult }
         ){
       WordpressAPI.login(
           email,
@@ -139,9 +131,11 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
           notificationsClient.message(context, message);
           setState(() => this.isLoadingApiCall = false );
+          String goToRoute = "/";
+          if (signUpResult == true) goToRoute = "preferencesSignup";
           Navigator.pushReplacementNamed(
             context,
-            "/",
+            goToRoute,
           );
         }else{
 
@@ -162,6 +156,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                 customer.password,
                 WordpressAPI.MESSAGE_OK_LOGIN_BACK,
                 customer.avatar_url,
+                signUpResult: response["result"],
                 connectionType: connectionType // Google, Facebook, Apple, Email
             );
 
@@ -179,6 +174,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
               customer.password,
               WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP,
               customer.avatar_url,
+              signUpResult: response["result"],
               connectionType: connectionType // Google, Facebook, Apple, Email
           );
         }
