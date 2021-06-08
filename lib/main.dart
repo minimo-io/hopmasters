@@ -6,7 +6,7 @@ import 'package:Hops/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:Hops/models/nav_menu_provider.dart';
 
-String _initialRoute = "/login";
+String _initialRoute = "login";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -24,6 +24,12 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends State<AppView> {
 
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final List<Widget> pages = const <Widget>[
     HomeView(
       key: PageStorageKey<String>('page1'),

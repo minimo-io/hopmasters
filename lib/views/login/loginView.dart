@@ -8,7 +8,8 @@ import 'package:Hops/views/login/components/signup_page.dart';
 
 
 class LoginView extends StatefulWidget {
-  static const String routeName = "/login";
+  // login goes without slash at the moment, in order to avoid loading / assets
+  static const String routeName = "login";
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -38,28 +39,33 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-      //height: MediaQuery.of(context).size.height,
-      child: PageView(
-        controller: _controller,
-        physics: new AlwaysScrollableScrollPhysics(),
-        children: <Widget>[
-          LoginPage(
-            controller: _controller,
-            headerDecoration: _headerDecoration ,
-          ),
-          SignupPage(
-            controller: _controller,
-            headerDecoration: _headerDecoration ,
-          ),
-          ConnectSocialsPage(
-            controller: _controller,
-            headerDecoration: _headerDecoration ,
-          )
-        ],
-        scrollDirection: Axis.vertical,
-      )),
+    return WillPopScope(
+      onWillPop: () {
+        return new Future(() => false);
+      },
+      child: Scaffold(
+        body: Container(
+        //height: MediaQuery.of(context).size.height,
+        child: PageView(
+          controller: _controller,
+          physics: new AlwaysScrollableScrollPhysics(),
+          children: <Widget>[
+            LoginPage(
+              controller: _controller,
+              headerDecoration: _headerDecoration ,
+            ),
+            SignupPage(
+              controller: _controller,
+              headerDecoration: _headerDecoration ,
+            ),
+            ConnectSocialsPage(
+              controller: _controller,
+              headerDecoration: _headerDecoration ,
+            )
+          ],
+          scrollDirection: Axis.vertical,
+        )),
+      ),
     );
   }
 }

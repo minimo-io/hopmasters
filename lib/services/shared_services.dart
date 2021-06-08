@@ -22,6 +22,6 @@ class SharedServices{
 
   static Future<void> logout(BuildContext context) async{
     await setLoginDetails(null);
-    Navigator.of(context).pushReplacementNamed("/login");
+    Navigator.of(context).pushReplacementNamed("login");
   }
 }
