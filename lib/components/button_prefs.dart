@@ -5,8 +5,8 @@ import 'package:Hops/theme/style.dart';
 class ButtonPrefs extends StatefulWidget {
   Category category;
   bool isSelected;
-  VoidCallback onSelectPref;
-  //ValueChanged<Category> onSelectPref;
+  //VoidCallback onSelectPref;
+  final Function(Category category) onSelectPref;
 
   ButtonPrefs(
       this.category,
@@ -21,14 +21,23 @@ class ButtonPrefs extends StatefulWidget {
 }
 
 class _ButtonPrefsState extends State<ButtonPrefs> {
+  bool _isSelectedNow = false;
+
+
+  @override
+  void initState(){
+    super.initState();
+    _isSelectedNow = widget.isSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
 
     MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8));
-    if (widget.isSelected) backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
+    if (_isSelectedNow) backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
 
     Widget buttonChild = Text( widget.category.name!);
-    if (widget.isSelected){
+    if (_isSelectedNow){
       buttonChild = Wrap(
         spacing: 4.0,
         children: [
@@ -44,7 +53,15 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
     }
     return ElevatedButton(
       onPressed: (){
-        widget.onSelectPref();
+        setState(() {
+          if (_isSelectedNow == true){
+            _isSelectedNow = false;
+          }else{
+            _isSelectedNow = true;
+          }
+
+        });
+        widget.onSelectPref(widget.category);
       },
       child: buttonChild,
       style: ButtonStyle(

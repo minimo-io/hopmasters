@@ -15,6 +15,7 @@ class PrefsTypes extends StatefulWidget {
 
 class _PrefsTypesState extends State<PrefsTypes> {
 
+
   Widget _buildPrefsButtons(){
     List<Widget> list = <Widget>[];
     for (String pref in SINGUP_PREFS.values){
@@ -30,8 +31,10 @@ class _PrefsTypesState extends State<PrefsTypes> {
             parent:0,
             slug: ''
           ),
-          onSelectPref: () => null
-          )
+          onSelectPref: (Category category) {
+            print(category.name! + "... Updated!");
+            //setState(() {});
+          })
       );
     }
     return Center(

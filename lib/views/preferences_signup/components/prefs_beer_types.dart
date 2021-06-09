@@ -42,9 +42,9 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
           ButtonPrefs(
             category,
             isSelected: false,
-            onSelectPref: (){
-              print("Category");
-
+            onSelectPref: (Category category) {
+              print(category.name! + "... Updated!");
+              //setState(() {});
             }
           )
         );
