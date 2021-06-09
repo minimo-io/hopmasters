@@ -13,7 +13,7 @@ import 'package:Hops/components/bottom_sheet.dart';
 class BeerHeader extends StatelessWidget{
   final beer;
   BeerHeader({
-    @required Beer this.beer
+    required Beer? this.beer
   });
 
 
@@ -52,7 +52,7 @@ class BeerHeader extends StatelessWidget{
 
   Widget _buildActionButtons(ThemeData theme, BuildContext context) {
 
-    Widget _buildButton({Text text, Icon icon, Function doOnPressed = null}){
+    Widget _buildButton({required Text text, required Icon icon, Function? doOnPressed = null}){
         return ClipRRect(
           borderRadius: new BorderRadius.circular(10.0),
           child: ElevatedButton.icon(
@@ -60,7 +60,7 @@ class BeerHeader extends StatelessWidget{
               label: text,
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  backgroundColor: MaterialStateProperty.all<Color>(beer.rgbColor),
+                  backgroundColor: MaterialStateProperty.all<Color?>(beer.rgbColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
@@ -68,7 +68,7 @@ class BeerHeader extends StatelessWidget{
                       )
                   )
               ),
-              onPressed: doOnPressed
+              onPressed: doOnPressed as void Function()?
           ),
         );
       /*

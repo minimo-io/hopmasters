@@ -4,7 +4,7 @@ import 'package:Hops/theme/style.dart';
 class ExpandableText extends StatefulWidget {
   ExpandableText(this.text);
 
-  final String text;
+  final String? text;
   bool isExpanded = false;
 
   @override
@@ -24,7 +24,7 @@ class _ExpandableTextState extends State<ExpandableText>
                   ? new BoxConstraints()
                   : new BoxConstraints(maxHeight: 70.0),
               child: new Text(
-                widget.text,
+                widget.text!,
                 softWrap: true,
                 overflow: TextOverflow.fade,
                   style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8), height: 1.3),

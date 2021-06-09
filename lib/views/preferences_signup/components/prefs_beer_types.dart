@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/models/category.dart';
+import 'package:Hops/components/app_title.dart';
+import 'package:Hops/components/button_prefs.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/constants.dart';
 
 class PrefsBeerTypes extends StatefulWidget {
-  List<dynamic> json;
-  PrefsBeerTypes(this.json, {Key key}) : super(key: key);
+  List<dynamic>? json;
+  PrefsBeerTypes(this.json, {Key? key}) : super(key: key);
 
   @override
   _PrefsBeerTypesState createState() => _PrefsBeerTypesState();
 }
 
 class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
-  List<dynamic> _categories;
+  List<dynamic>? _categories;
 
   @override
   void initState() {
@@ -23,32 +27,51 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
   }
 
   Widget _buildBeerTypesButtons(){
-    List<Category> categories = Category.allFromResponse(_categories);
-    List<Widget> list = new List<Widget>();
-    for (var category in categories) {
-      list.add(
-          ElevatedButton(
-            child: Text(category.name),
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                        side: BorderSide(color: Colors.black)
-                    )
-                )
-            ),
-          )
 
-      );
+
+    var nCategories = _categories;
+    List<Widget> list = <Widget>[];
+    if (nCategories != null){
+      List<Category> categories = Category.allFromResponse(nCategories);
+
+      for (var category in categories) {
+
+        if (category.id == 15 || category.id == 163) continue;
+        //var categoryName = category.name!;
+        list.add(
+          ButtonPrefs(
+            category,
+            isSelected: false,
+            onSelectPref: (){
+              print("Category");
+
+            }
+          )
+        );
+      }
     }
-    return new Row(children: list);
+
+    return Center(
+      child: new Wrap(
+          //runSpacing: 5.0,
+          spacing: 5.0,
+          children: list
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
 
-    return Container(child: _buildBeerTypesButtons());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTitle(title: "¿Qué estilos preferís?"),
+        SizedBox(height: 5,),
+        AppTitle(subtitle: "Elige al menos 5 opciones"),
+        SizedBox(height: 30,),
+        Container(child: _buildBeerTypesButtons()),
+      ],
+    );
   }
 }

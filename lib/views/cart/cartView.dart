@@ -3,8 +3,8 @@ import 'components/body.dart';
 
 
 class CartView extends StatefulWidget{
-  final String name;
-  final int count;
+  final String? name;
+  final int? count;
 
   static const String routeName = "/cart";
 

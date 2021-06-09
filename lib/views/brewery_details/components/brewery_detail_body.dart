@@ -7,7 +7,7 @@ import 'package:Hops/models/brewery.dart';
 
 class BreweryDetailBody extends StatelessWidget {
   BreweryDetailBody(this.brewery);
-  final Brewery brewery;
+  final Brewery? brewery;
 
   Widget _buildLocationInfo(TextTheme textTheme) {
     return new Row(
@@ -20,7 +20,7 @@ class BreweryDetailBody extends StatelessWidget {
         new Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: new Text(
-            brewery.location,
+            brewery!.location!,
             style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8)),
           ),
         ),
@@ -52,7 +52,7 @@ class BreweryDetailBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         new Text(
-          brewery.name,
+          brewery!.name!,
           style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         new Padding(
@@ -61,16 +61,16 @@ class BreweryDetailBody extends StatelessWidget {
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: ExpandableText(brewery.description),
+          child: ExpandableText(brewery!.description),
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: new Row(
             children: <Widget>[
-              _createCircleBadge(Icons.sports_bar, brewery.rgbColor),
+              _createCircleBadge(Icons.sports_bar, brewery!.rgbColor),
 //              _createCircleBadge(Icons.cloud, Colors.white12),
 //              _createCircleBadge(Icons.shop, Colors.white12),
-              Padding( padding: EdgeInsets.only(left:6.0), child: Text(brewery.beersCount.toString() + " cervezas"))
+              Padding( padding: EdgeInsets.only(left:6.0), child: Text(brewery!.beersCount.toString() + " cervezas"))
             ],
           ),
         ),

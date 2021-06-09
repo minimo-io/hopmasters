@@ -5,23 +5,23 @@ import 'package:meta/meta.dart';
 
 class Beer{
   Beer({
-    @required this.beerId,
-    @required this.name,
-    @required this.image,
-    @required this.abv,
-    @required this.ibu,
-    @required this.launch,
-    @required this.price,
-    @required this.description,
-    @required this.followers,
-    @required this.breweryId,
-    @required this.breweryName,
-    @required this.breweryImage,
-    @required this.bgColor,
-    @required this.type,
-    @required this.size,
+    required this.beerId,
+    required this.name,
+    required this.image,
+    required this.abv,
+    required this.ibu,
+    required this.launch,
+    required this.price,
+    required this.description,
+    required this.followers,
+    required this.breweryId,
+    required this.breweryName,
+    required this.breweryImage,
+    required this.bgColor,
+    required this.type,
+    required this.size,
 
-  }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(255, 255, 255, 0.6));
+  }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(255, 255, 255, 0.6) as String);
 
   factory Beer.fromJson(Map<String, dynamic> parsedJson){
     return Beer(
@@ -44,18 +44,18 @@ class Beer{
   }
 
   String beerId;
-  String name;
-  String image;
-  String abv;
-  String ibu;
-  String launch;
-  String price;
+  String? name;
+  String? image;
+  String? abv;
+  String? ibu;
+  String? launch;
+  String? price;
   String description;
-  String followers;
-  String type;
-  String size;
-  String bgColor; // this is a string representing the ACF Hex color like '#CCCCCC', like its returned from the back-end
+  String? followers;
+  String? type;
+  String? size;
+  String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC', like its returned from the back-end
   Color rgbColor;
 
-  String breweryId, breweryName, breweryImage;
+  String? breweryId, breweryName, breweryImage;
 }

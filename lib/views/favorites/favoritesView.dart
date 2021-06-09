@@ -10,7 +10,7 @@ import 'package:Hops/models/nav_menu_provider.dart';
 import 'components/favs_tabs.dart';
 
 class FavoritesView extends StatelessWidget {
-  const FavoritesView({Key key}) : super(key: key);
+  const FavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

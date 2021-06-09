@@ -5,8 +5,8 @@ import 'package:Hops/constants.dart';
 
 // The almighty beer class
 class Beer{
-  final String name, type, image;
-  final num abv, price;
+  final String? name, type, image;
+  final num? abv, price;
 
   const Beer({
     this.name,

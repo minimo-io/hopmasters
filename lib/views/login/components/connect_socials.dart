@@ -7,15 +7,15 @@ import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/services/facebook_signin.dart';
 import 'package:Hops/services/google_signin.dart';
 
-import 'package:Hops/views/login/components/top_logo.dart';
+import 'package:Hops/components/top_logo.dart';
 import 'package:Hops/views/login/mixins/gotos.mixin.dart';
 
 import 'package:Hops/models/customer.dart';
 
 
 class ConnectSocialsPage extends StatefulWidget {
-  BoxDecoration headerDecoration;
-  PageController controller;
+  BoxDecoration? headerDecoration;
+  PageController? controller;
 
   ConnectSocialsPage({
     this.headerDecoration,
@@ -44,10 +44,10 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   static const _buttonsFontSize = 18.0;
 
   Widget _createButton({
-    Color backgroundColor,
-    String title,
-    Function onTap,
-    String socialIcon
+    Color? backgroundColor,
+    required String title,
+    Function? onTap,
+    required String socialIcon
   }){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: _buttonsPaddingHorizontal, vertical: _buttonsPaddingVertical),
@@ -63,7 +63,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                     borderRadius: new BorderRadius.circular(30.0),
                   ),
                   color: backgroundColor,
-                  onPressed: onTap,
+                  onPressed: onTap as void Function()?,
                   child: new Container(
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +114,12 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
     var notificationsClient = new HopsNotifications();
 
     Future<void> _loginAfterSignUp(
-        String email,
-        String password,
+        String? email,
+        String? password,
         String message,
-        String customAvatar,
-        { String connectionType = "Google", bool signUpResult }
-        ){
+        String? customAvatar,
+        { String connectionType = "Google", bool? signUpResult }
+        )async {
       WordpressAPI.login(
           email,
           password,
@@ -145,7 +145,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
       });
     }
 
-    Future<Map<String, dynamic>> _trySignUpAndLogin(Customer customer, String connectionType){
+    Future<Map<String, dynamic>>? _trySignUpAndLogin(Customer customer, String connectionType){
       WordpressAPI.signUp(customer).then((response){
 
         if (response["result"] == false){
@@ -213,7 +213,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                       onTap:()async{
                         setState(() => this.isLoadingApiCall = true );
                         Facebook facebookClient = new Facebook();
-                        Map<String, dynamic> userData = await facebookClient.login();
+                        Map<String, dynamic>? userData = await facebookClient.login();
 
                         if (userData != null){
 
@@ -253,7 +253,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                             setState(() => this.isLoadingApiCall = true );
                             // if google ok then wordpress call
                             // try to sign up user to WooCommerce
-                            Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName(googleUser.displayName);
+                            Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName(googleUser.displayName!);
 
                             String pwd = WordpressAPI.generatePassword(googleUser.email);
 
@@ -283,7 +283,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                   _createButton(
                       backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
                       title: "Conectate con tu Email",
-                      onTap:() => super.gotoSignUp(widget.controller),
+                      onTap:() => super.gotoSignUp(widget.controller!),
                       socialIcon: "assets/images/icons/email.png"
                   ),
 

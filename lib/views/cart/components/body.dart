@@ -10,13 +10,13 @@ import 'package:Hops/views/home/components/discover_beers_header.dart';
 
 class Body extends StatelessWidget {
   Body({
-    Key key,
+    Key? key,
     this.count,
     this.name
   }) : super(key: key);
 
-  final int count;
-  final String name;
+  final int? count;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 20,),
-              Center(child: Text('Este es un carrito y tiene ' + count.toString() + ' ' + name)),
+              Center(child: Text('Este es un carrito y tiene ' + count.toString() + ' ' + name!)),
               SizedBox(height: MediaQuery.of(context).size.height,),
             ],
           ),

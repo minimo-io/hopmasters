@@ -8,12 +8,12 @@ import 'package:Hops/utils/validator.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/views/login/components/social_login_buttons.dart';
 
-import 'package:Hops/views/login/components/top_logo.dart';
+import 'package:Hops/components/top_logo.dart';
 import 'package:Hops/views/login/mixins/gotos.mixin.dart';
 
 class LoginPage extends StatefulWidget {
-  BoxDecoration headerDecoration;
-  PageController controller;
+  BoxDecoration? headerDecoration;
+  PageController? controller;
   LoginPage({
     this.headerDecoration,
     this.controller
@@ -42,11 +42,11 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
     setState(() => this.isLoadingApiCall = true );
     setState(() => this._autovalidate = AutovalidateMode.always );
     // validate login
-    if (! _formLoginKey.currentState.validate()) {
+    if (! _formLoginKey.currentState!.validate()) {
       setState((){ this.isLoadingApiCall = false; });
       // notificationsClient.message(context, "Ups! Por favor completa correctamente todos los campos del formulario.");
     }else{
-      _formLoginKey.currentState.save();
+      _formLoginKey.currentState!.save();
       WordpressAPI.login(
           loginUsernameController.text,
           loginPasswordController.text).then((response) {
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
           this.isLoadingApiCall = false;
         });
         if (response){
-          _formLoginKey.currentState.reset();
+          _formLoginKey.currentState!.reset();
           // here save token and continue
 
           notificationsClient.message(context, "Bienvenid@!");
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                   Padding(
                       padding: EdgeInsets.only(top: 8, left:8),
                       child: GestureDetector(
-                          onTap:() => super.gotoSignUp(widget.controller),
+                          onTap:() => super.gotoSignUp(widget.controller!),
                           child: Icon(Icons.arrow_back)
                       )
                   ),
@@ -203,7 +203,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                         new Expanded(
                           child: TextFormField(
                             validator: (value) {
-                              if ( ! value.isValidPassword() ){
+                              if ( ! value!.isValidPassword() ){
                                 //_loginPasswordFocusNode.requestFocus();
                                 return "Debe tener al menos 6 caracteres con 1 número.";
                               }

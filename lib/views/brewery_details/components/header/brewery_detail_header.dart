@@ -14,10 +14,10 @@ class BreweryDetailHeader extends StatelessWidget {
 
   BreweryDetailHeader(
     this.brewery, {
-    @required this.avatarTag,
+    required this.avatarTag,
   });
 
-  final Brewery brewery;
+  final Brewery? brewery;
   final Object avatarTag;
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
@@ -30,7 +30,7 @@ class BreweryDetailHeader extends StatelessWidget {
         height: 335.0,
         fit: BoxFit.cover,
       ),
-      color: brewery.rgbColor.withOpacity(0.3)
+      color: brewery!.rgbColor.withOpacity(0.3)
     );
   }
 
@@ -38,7 +38,7 @@ class BreweryDetailHeader extends StatelessWidget {
     return new Hero(
       tag: avatarTag,
       child: new CircleAvatar(
-        backgroundImage: new NetworkImage(brewery.avatar),
+        backgroundImage: new NetworkImage(brewery!.avatar!),
         //backgroundImage: LoadNetworkImage(brewery.avatar),
         radius: 50.0,
       ),
@@ -52,7 +52,7 @@ class BreweryDetailHeader extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text(brewery.followers.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
+          new Text(brewery!.followers.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
         ],
       ),
     );
@@ -78,11 +78,11 @@ class BreweryDetailHeader extends StatelessWidget {
                 ),
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-                    backgroundColor: MaterialStateProperty.all<Color>(brewery.rgbColor),
+                    backgroundColor: MaterialStateProperty.all<Color>(brewery!.rgbColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                            side: BorderSide(color: brewery.rgbColor)
+                            side: BorderSide(color: brewery!.rgbColor)
                         )
                     )
                 ),

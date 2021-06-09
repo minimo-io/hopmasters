@@ -10,13 +10,13 @@ import 'package:Hops/utils/validator.dart';
 import 'package:Hops/services/wordpress_api.dart';
 
 import 'package:Hops/views/login/mixins/gotos.mixin.dart';
-import 'package:Hops/views/login/components/top_logo.dart';
+import 'package:Hops/components/top_logo.dart';
 
 import 'package:Hops/views/login/components/social_login_buttons.dart';
 
 class SignupPage extends StatefulWidget {
-  PageController controller;
-  BoxDecoration headerDecoration;
+  PageController? controller;
+  BoxDecoration? headerDecoration;
 
   SignupPage({
     this.headerDecoration,
@@ -44,7 +44,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
     setState(() => this._autovalidate = AutovalidateMode.always );
 
     // validate signup
-    if (! _formSignUpKey.currentState.validate()) {
+    if (! _formSignUpKey.currentState!.validate()) {
       setState((){ this.isLoadingApiCall = false; });
     }else{
 
@@ -71,7 +71,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
               password,
           ).then((response){
             setState((){ this.isLoadingApiCall = false; });
-            _formSignUpKey.currentState.reset(); //reset form
+            _formSignUpKey.currentState!.reset(); //reset form
             if (response){
 
               notificationsClient.message(context, WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP);
@@ -122,7 +122,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                   Padding(
                       padding: EdgeInsets.all(8),
                       child: GestureDetector(
-                          onTap:() => super.gotoConnect(widget.controller),
+                          onTap:() => super.gotoConnect(widget.controller!),
                           child: Icon(Icons.arrow_back)
                       )
                   ),
@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                         new Expanded(
                           child: TextFormField(
                             validator: (value) {
-                              if ( ! value.isValidPassword() ){
+                              if ( ! value!.isValidPassword() ){
                                 return "Debe tener al menos 6 caracteres con 1 número.";
                               }
                               return null;
@@ -300,7 +300,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                         new Expanded(
                           child: TextFormField(
                             validator: (value) {
-                              if ( ! value.isValidPassword() ){
+                              if ( ! value!.isValidPassword() ){
                                 return "Debe tener al menos 6 caracteres con 1 número.";
                               }
                               var password1 = signUpPasswordController.text.toString();
@@ -340,7 +340,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
                             ),
                             textAlign: TextAlign.end,
                           ),
-                          onPressed: () => super.gotoLogin(widget.controller),
+                          onPressed: () => super.gotoLogin(widget.controller!),
                         ),
                       ),
                     ],

@@ -7,7 +7,7 @@ import 'package:Hops/models/brewery.dart';
 import 'package:Hops/components/beer_cards.dart';
 
 class BreweryBeers extends StatefulWidget {
-  Brewery brewery;
+  Brewery? brewery;
 
   BreweryBeers({ this.brewery });
 
@@ -16,12 +16,12 @@ class BreweryBeers extends StatefulWidget {
 }
 
 class _BreweryBeersState extends State<BreweryBeers> {
-  Future _breweryBeers;
+  Future? _breweryBeers;
 
   @override
   void initState() {
     super.initState();
-    _breweryBeers = WordpressAPI.getBeersFromBreweryID(widget.brewery.id);
+    _breweryBeers = WordpressAPI.getBeersFromBreweryID(widget.brewery!.id);
   }
 
   @override

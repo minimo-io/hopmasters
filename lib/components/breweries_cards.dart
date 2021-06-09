@@ -7,11 +7,11 @@ import 'package:Hops/models/brewery.dart';
 
 class BreweriesCards extends StatefulWidget {
 
-  List breweriesList;
+  List? breweriesList;
 
   BreweriesCards({
     this.breweriesList,
-    Key key
+    Key? key
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class BreweriesCards extends StatefulWidget {
 
 class _BreweriesCardsState extends State<BreweriesCards> {
 
-  Future _breweries;
+  Future? _breweries;
 
   @override
   void initState() {
@@ -30,7 +30,8 @@ class _BreweriesCardsState extends State<BreweriesCards> {
 
   Widget _buildBreweryCards(List breweries, BuildContext context){
 
-    List<Widget> list = new List<Widget>();
+    //List<Widget> list = new List<Widget>();
+    List<Widget> list = <Widget>[];
     for(var i = 0; i < breweries.length; i++){
 
       list.add(GestureDetector(

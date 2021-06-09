@@ -9,11 +9,11 @@ import 'package:Hops/helpers.dart';
 
 
 class BeerCards extends StatefulWidget {
-  List beersList;
+  List? beersList;
 
    BeerCards({
     this.beersList,
-    Key key
+    Key? key
   }) : super(key: key);
 
   @override
@@ -49,11 +49,11 @@ class _BeerCardsState extends State<BeerCards> {
                           child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5)),
                         )),
                     Expanded(
-                      child: Image.network(beer.image, height: 200),
+                      child: Image.network(beer.image!, height: 200),
                     ),
                     Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
                     Text(
-                      beer.name,
+                      beer.name!,
                       style: TextStyle(fontSize: 12),
                     ),
                     Text(
@@ -95,7 +95,8 @@ class _BeerCardsState extends State<BeerCards> {
           .map((data) => new Beer.fromJson(data))
           .toList();
 
-      List<Widget> beerCardList = new List<Widget>();
+      //List<Widget> beerCardList = new List<Widget>();
+      List<Widget> beerCardList = <Widget>[];
       for(var i = 0; i < beersBottom.length; i++){
           beerCardList.add( _buildBottomItem(beersBottom[i]) );
 

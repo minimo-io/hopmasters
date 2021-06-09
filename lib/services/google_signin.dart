@@ -5,7 +5,7 @@ import 'package:Hops/utils/notifications.dart';
 
 
 class Google{
-  GoogleSignIn _googleSignIn;
+  late GoogleSignIn _googleSignIn;
 
   Google(){
     this._googleSignIn = GoogleSignIn(
@@ -18,12 +18,12 @@ class Google{
     );
   }
 
-  Future<GoogleSignInAccount> login(context) async {
+  Future<GoogleSignInAccount?> login(context) async {
     var notificationsClient = new HopsNotifications();
-    GoogleSignInAccount googleUser = null;
+    GoogleSignInAccount? googleUser = null;
     try {
       final googleUser = await this._googleSignIn.signIn();
-      final googleAuth = await googleUser?.authentication;
+      final googleAuth = (await googleUser?.authentication)!;
 
       return googleUser;
     } catch (error) {

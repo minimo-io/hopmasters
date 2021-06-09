@@ -22,7 +22,7 @@ class Routes {
   /// Methods that generate all routes
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     try {
-      final Map<String, dynamic> args = routeSettings.arguments;
+      final Map<String, dynamic>? args = routeSettings.arguments as Map<String, dynamic>?;
 
       switch (routeSettings.name) {
 
@@ -45,8 +45,8 @@ class Routes {
           );
 
         case CartView.routeName:
-          final nameArg = args['name'] as String;
-          final countArg = args['count'] as int;
+          final nameArg = args!['name'] as String?;
+          final countArg = args['count'] as int?;
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => CartView( name: nameArg, count: countArg ),
@@ -54,7 +54,7 @@ class Routes {
 
         case BreweryView.routeName:
 
-          final breweryArg = args['breweryId'] as int;
+          final breweryArg = args!['breweryId'] as int?;
 
           return MaterialPageRoute(
             settings: routeSettings,
@@ -62,7 +62,7 @@ class Routes {
           );
 
         case BeerView.routeName:
-          final beerArg = args['beerId'] as int;
+          final beerArg = args!['beerId'] as int?;
 
           return MaterialPageRoute(
             settings: routeSettings,

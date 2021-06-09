@@ -10,7 +10,7 @@ import 'package:Hops/views/brewery_details/components/footer/skills_showcase.dar
 class BreweryShowcase extends StatefulWidget {
   BreweryShowcase(this.brewery);
 
-  final Brewery brewery;
+  final Brewery? brewery;
 
   @override
   _BreweryShowcaseState createState() => new _BreweryShowcaseState();
@@ -18,9 +18,9 @@ class BreweryShowcase extends StatefulWidget {
 
 class _BreweryShowcaseState extends State<BreweryShowcase>
     with TickerProviderStateMixin {
-  List<Tab> _tabs;
-  List<Widget> _pages;
-  TabController _controller;
+  late List<Tab> _tabs;
+  late List<Widget> _pages;
+  TabController? _controller;
 
   @override
   void initState() {

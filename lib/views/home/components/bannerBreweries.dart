@@ -4,7 +4,7 @@ import 'package:Hops/theme/style.dart';
 
 class BreweriesBanner extends StatelessWidget {
   const BreweriesBanner({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

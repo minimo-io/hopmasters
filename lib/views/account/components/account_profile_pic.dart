@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class BreweryProfilePic extends StatelessWidget {
-  String avatarUrl;
+  String? avatarUrl;
   BreweryProfilePic({
-    Key key,
-    String this.avatarUrl
+    Key? key,
+    String? this.avatarUrl
   }) : super(key: key);
 
    _buildAvatar(){
 
     if (this.avatarUrl != null){
-      return NetworkImage(this.avatarUrl);
+      return NetworkImage(this.avatarUrl!);
     }else{
       return AssetImage("assets/images/profile-test.png");
     }

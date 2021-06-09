@@ -17,7 +17,7 @@ import 'package:Hops/views/brewery_details/components/header/brewery_detail_head
 class BreweryView extends StatefulWidget {
   static const routeName = "/brewery";
 
-  final Object breweryId;
+  final Object? breweryId;
 
   BreweryView({ this.breweryId });
 
@@ -27,7 +27,7 @@ class BreweryView extends StatefulWidget {
 
 class _BreweryViewState extends State<BreweryView> {
 
-  Future _breweryFuture;
+  Future? _breweryFuture;
   
   @override
   void initState() {

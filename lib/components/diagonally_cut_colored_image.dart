@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 import 'dart:ui';
 
 class DiagonallyCutColoredImage extends StatelessWidget {
-  DiagonallyCutColoredImage(this.image, {@required this.color});
+  DiagonallyCutColoredImage(this.image, {required this.color});
 
   final Image image;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

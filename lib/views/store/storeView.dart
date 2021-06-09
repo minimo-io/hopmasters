@@ -7,7 +7,7 @@ import 'package:Hops/models/nav_menu_provider.dart';
 
 
 class StoreView extends StatelessWidget {
-  const StoreView({Key key}) : super(key: key);
+  const StoreView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

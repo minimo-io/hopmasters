@@ -17,14 +17,14 @@ import 'package:Hops/views/home/components/discover_beers_header.dart';
 
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  Future _breweryBeers;
+  Future? _breweryBeers;
 
   @override
   void initState() {

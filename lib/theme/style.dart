@@ -16,7 +16,7 @@ final ColorScheme colorScheme = ColorScheme.light(
   secondary: Color.fromRGBO(27, 29, 31, 1),
   primaryVariant: Color.fromRGBO(255, 255, 107, 1),
   secondaryVariant: Color.fromRGBO(95, 116, 129, 1),
-  background: Colors.grey[400],
+  background: Colors.grey[400]!,
 );
 
 const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);

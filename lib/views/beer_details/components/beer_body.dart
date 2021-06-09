@@ -11,7 +11,7 @@ class BeerBody extends StatelessWidget {
 
   final beer;
   BeerBody({
-    @required Beer this.beer
+    required Beer? this.beer
   });
 
   Widget _buildBreweryInfo(TextTheme textTheme, BuildContext context) {
@@ -114,7 +114,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF444444))),
-          Text(beer.type,
+          Text(beer.type!,
               textAlign: TextAlign.left,
               style: TextStyle(
                   fontSize: 14,
@@ -134,7 +134,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF444444))),
-        Text(beer.ibu,
+        Text(beer.ibu!,
             textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 14,
@@ -154,7 +154,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF444444))),
-        Text(beer.abv,
+        Text(beer.abv!,
             textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 14,
@@ -175,7 +175,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF444444))),
-        Text(beer.launch,
+        Text(beer.launch!,
             textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 14,
@@ -195,7 +195,7 @@ List<Widget> generateBeerSpecification(BuildContext context, Beer beer) {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF444444))),
-        Text(beer.size,
+        Text(beer.size!,
             textAlign: TextAlign.left,
             style: TextStyle(
                 fontSize: 14,

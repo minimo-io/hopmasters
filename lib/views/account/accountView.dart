@@ -13,15 +13,15 @@ import 'components/profile_menu.dart';
 
 class AccountView extends StatefulWidget {
 
-  final String userID;
-  const AccountView ({ Key key, this.userID }): super(key: key);
+  final String? userID;
+  const AccountView ({ Key? key, this.userID }): super(key: key);
 
   @override
   _AccountViewState createState() => _AccountViewState();
 }
 
 class _AccountViewState extends State<AccountView> {
-  Future<LoginResponse> _userData;
+  Future<LoginResponse?>? _userData;
 
   @override
   void initState() {
@@ -112,10 +112,10 @@ class _AccountViewState extends State<AccountView> {
 
                               SharedServices.logout(context);
 
-                              if (prefs.data.connectionType == "Google"){
+                              if (prefs!.data!.connectionType == "Google"){
                                 Google googleService = new Google();
                                 googleService.logout().then((value) => SharedServices.logout(context));
-                              }else if(prefs.data.connectionType == "Facebook"){
+                              }else if(prefs.data!.connectionType == "Facebook"){
                                 Facebook facebookService = new Facebook();
                                 facebookService.logout((){
                                   print("Facebook Logout OK");

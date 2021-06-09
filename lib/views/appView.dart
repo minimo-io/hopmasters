@@ -16,7 +16,7 @@ import 'package:Hops/views/favorites/favoritesView.dart';
 
 class AppView extends StatefulWidget {
   static const routeName = '/';
-  const AppView({Key key}) : super(key: key);
+  const AppView({Key? key}) : super(key: key);
 
   @override
   _AppViewState createState() => _AppViewState();

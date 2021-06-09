@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Facebook{
-  Future<Map<String, dynamic>> login() async{
+  Future<Map<String, dynamic>?> login() async{
     /*
     final AccessToken accessToken = await FacebookAuth.instance.accessToken;
     if (accessToken != null) {

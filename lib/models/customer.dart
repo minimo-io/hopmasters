@@ -1,10 +1,10 @@
 
 class Customer{
-  String email;
-  String firstName;
-  String lastName;
-  String password;
-  String avatar_url;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? password;
+  String? avatar_url;
 
   Customer({
     this.email,

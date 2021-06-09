@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FollowersInfo extends StatelessWidget {
-  final String followers;
+  final String? followers;
   final Color textColor;
   const FollowersInfo(this.followers, {this.textColor = const Color(0xBBFFFFFF)});
 

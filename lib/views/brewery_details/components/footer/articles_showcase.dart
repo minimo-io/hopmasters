@@ -8,7 +8,7 @@ class ArticlesShowcase extends StatelessWidget {
     return new Center(
       child: new Text(
         'Articles: TODO',
-        style: textTheme.title.copyWith(color: Colors.white),
+        style: textTheme.title!.copyWith(color: Colors.white),
       ),
     );
   }

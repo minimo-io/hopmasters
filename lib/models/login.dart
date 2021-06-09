@@ -2,11 +2,11 @@ LoginResponse loginResponseFromJson(Map<String, dynamic> json) =>
     LoginResponse.fromJson(json);
 
 class LoginResponse{
-  bool success;
-  int statusCode;
-  String code;
-  String message;
-  Data data;
+  bool? success;
+  int? statusCode;
+  String? code;
+  String? message;
+  Data? data;
 
   LoginResponse({
     this.success,
@@ -33,7 +33,7 @@ class LoginResponse{
     data["code"] = this.code;
     data["message"] = this.message;
     if (this.data != null){
-      data["data"] = this.data.toJson();
+      data["data"] = this.data!.toJson();
     }
     return data;
   }
@@ -42,15 +42,15 @@ class LoginResponse{
 }
 
 class Data{
-  String token;
-  int id;
-  String email;
-  String nicename;
-  String firstname;
-  String lastname;
-  String displayName;
-  String avatarUrl;
-  String connectionType;
+  String? token;
+  int? id;
+  String? email;
+  String? nicename;
+  String? firstname;
+  String? lastname;
+  String? displayName;
+  String? avatarUrl;
+  String? connectionType;
 
   Data({
     this.token,

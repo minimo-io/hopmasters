@@ -11,7 +11,7 @@ import 'package:Hops/views/beer_details/components/beer_body.dart';
 
 class BeerView extends StatefulWidget {
   static const routeName = "/beer";
-  final Object beerId;
+  final Object? beerId;
 
   BeerView({ this.beerId });
 
@@ -22,7 +22,7 @@ class BeerView extends StatefulWidget {
 
 class _BeerViewState extends State<BeerView> {
 
-  Future _beerFuture;
+  Future? _beerFuture;
 
   @override
   void initState() {

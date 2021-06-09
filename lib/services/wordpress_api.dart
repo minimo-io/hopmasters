@@ -36,9 +36,9 @@ class WordpressAPI{
 
 
   static Future<bool> login(
-      String username,
-      String password,
-      { String customAvatar, String connectionType = "Email" }
+      String? username,
+      String? password,
+      { String? customAvatar, String connectionType = "Email" }
       ) async{
     Map<String,String>  requestHeaders = {
       'Content-type': 'application/x-www-form-urlencoded'
@@ -80,7 +80,7 @@ class WordpressAPI{
 
     }on DioError catch (e){
 
-      print("Duplicate ID:" + e.response.statusMessage.toString());
+      print("Duplicate ID:" + e.response!.statusMessage.toString());
       ret = false;
 
     }
@@ -112,12 +112,12 @@ class WordpressAPI{
         ret["status"] = "OK_USERCREATED";
       }
     } on DioError catch(e) {
-      if (e.response.statusCode == 400){
+      if (e.response!.statusCode == 400){
         ret["result"] = false;
         ret["status"] = "ERROR_ALREADYEXISTS";
       }else{
         ret["result"] = false;
-        ret["status"] = "ERROR_STATUSCODE_"+e.response.statusCode.toString();
+        ret["status"] = "ERROR_STATUSCODE_"+e.response!.statusCode.toString();
       }
     }
     return ret;
@@ -152,7 +152,7 @@ class WordpressAPI{
   }
 
   // get beer from products
-  static Future<Beer> getBeer(String beerId)async{
+  static Future<Beer?> getBeer(String beerId)async{
     final String beerUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/"+ beerId +"?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
 
     try{
@@ -225,7 +225,7 @@ class WordpressAPI{
 
   }
 
-  static Future<Brewery> getBrewery(String breweryId)async{
+  static Future<Brewery?> getBrewery(String breweryId)async{
     final String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/"+ breweryId +"?_embed";
 
     try{
@@ -285,13 +285,12 @@ class WordpressAPI{
     return pwd;
   }
 
-  static Future<List<dynamic>> getPrefsOptions()async {
+  static Future<List<dynamic>?> getPrefsOptions()async {
     // https://hops.uy/wp-json/wc/v3/products/categories
-
-    print( _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret);
+    print( _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret);
     try{
       var response = await Dio().get(
-        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret,
+        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret,
         options: new Options(
             headers: {
               HttpHeaders.contentTypeHeader: "application/json"
@@ -301,12 +300,13 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         //var jsonResponse = json.decode(response.body);
-        var jsonResponse = response.data;
+        List<dynamic> jsonResponse = response.data;
         return jsonResponse;
 
 
       }
     } on DioError catch(e) {
+      return [];
       print(e.message);
     }
   }

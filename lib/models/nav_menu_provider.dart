@@ -9,7 +9,7 @@ class NavMenuProvider extends ChangeNotifier{
   UnmodifiableListView<String> get items => UnmodifiableListView(_items);
 
 
-  get currentIndex => _currentIndex;
+  int get currentIndex => _currentIndex;
   set currentIndex(int index){
     _currentIndex = index;
     notifyListeners();

@@ -5,7 +5,7 @@ import 'package:Hops/theme/style.dart';
 
 class DiscoverBeersHeader extends StatefulWidget {
 
-  DiscoverBeersHeader({ Key key }) : super(key: key);
+  DiscoverBeersHeader({ Key? key }) : super(key: key);
 
   @override
   _DiscoverBeersHeaderState createState() => _DiscoverBeersHeaderState();

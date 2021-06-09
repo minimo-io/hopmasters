@@ -22,7 +22,7 @@ final List<Person> people = [
 ];
 
 class SearchButton extends StatefulWidget {
-  const SearchButton({ Key key }) : super(key: key);
+  const SearchButton({ Key? key }) : super(key: key);
 
   @override
   _hmSearchButtonState createState() => _hmSearchButtonState();
