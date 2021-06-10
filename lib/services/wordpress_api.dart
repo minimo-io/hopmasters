@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
+import 'dart:collection';
 
 import 'package:Hops/helpers.dart';
 
@@ -11,6 +12,7 @@ import 'package:Hops/models/login.dart';
 import 'package:Hops/models/customer.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/brewery.dart';
+import 'package:Hops/models/category.dart';
 import 'package:Hops/services/shared_services.dart';
 
 class WordpressAPI{
@@ -40,9 +42,7 @@ class WordpressAPI{
       String? password,
       { String? customAvatar, String connectionType = "Email" }
       ) async{
-    Map<String,String>  requestHeaders = {
-      'Content-type': 'application/x-www-form-urlencoded'
-    };
+
     bool ret = false;
 
     try{
@@ -72,8 +72,6 @@ class WordpressAPI{
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){
-          print("Login response en WP API");
-          print(loginResponse);
           SharedServices.setLoginDetails(loginResponse);
         }
 
@@ -311,6 +309,44 @@ class WordpressAPI{
       return [];
       print(e.message);
     }
+  }
+
+  static Future<bool> setPrefsOptions(int userId, UnmodifiableListView<Category> userPreferences)async{
+
+    final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateUser";
+    //print(beersFromBreweryUriQuery);
+    //print(jsonDecode(jsonUserPreferences));
+    String beerTypes = "";
+    for(var i = 0; i< userPreferences.length; i++) {
+      if (beerTypes != "") beerTypes += "|";
+      beerTypes += userPreferences[i].id.toString();
+    }
+    print(beerTypes);
+    try{
+      var response = await Dio().post(
+        beersFromBreweryUriQuery,
+        data: {
+          "updateType": "preferences",
+          "userId" : userId.toString(),
+          "beerTypes": beerTypes
+        },
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
+        var jsonResponse = response.data;
+        return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
+      }
+
+    } on DioError catch(e) {
+      //print('Failed to set user preferences! ' + e.message);
+      throw Exception('Failed to set user preferences!' + e.message);
+    }
+    return true;
   }
 
 }

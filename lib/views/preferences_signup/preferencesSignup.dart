@@ -113,11 +113,26 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                                 String continueText = "Elige 5 preferencias (vas " + prefsCount.toString() + ")";
 
 
-                                                void fnContinue(){
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    "/",
-                                                  );
+                                                void fnContinue()async{
+                                                  try {
+                                                    bool res = await WordpressAPI.setPrefsOptions(65, preferences.items);
+                                                    if (res == true){
+
+                                                        Navigator.pushNamed(
+                                                          context,
+                                                          "/",
+                                                        );
+
+
+                                                    }
+                                                  } on Exception catch (exception) {
+                                                    print(exception);
+                                                  } catch (error) {
+                                                    print(error);
+                                                  }
+
+
+
                                                 };
 
                                                 MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8));

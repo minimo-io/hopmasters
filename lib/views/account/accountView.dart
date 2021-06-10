@@ -82,7 +82,7 @@ class _AccountViewState extends State<AccountView> {
                           press: () {
                             Navigator.pushReplacementNamed(
                               context,
-                              "/preferences",
+                              "preferences",
                             );
                           },
                         ),
