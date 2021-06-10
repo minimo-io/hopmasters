@@ -53,7 +53,7 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
 
     return Center(
       child: new Wrap(
-          //runSpacing: 5.0,
+        alignment: WrapAlignment.start,
           spacing: 5.0,
           children: list
       ),
@@ -70,7 +70,12 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
         SizedBox(height: 5,),
         AppTitle(subtitle: "Elige al menos 5 opciones"),
         SizedBox(height: 30,),
-        Container(child: _buildBeerTypesButtons()),
+        Container(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 400),
+            child: _buildBeerTypesButtons(),
+          ),
+        ),
       ],
     );
   }

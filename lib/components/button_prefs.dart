@@ -42,7 +42,6 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
         spacing: 4.0,
         children: [
           Icon(Icons.check),
-          SizedBox(width: 1,),
           Padding(
             padding: const EdgeInsets.only(top:4),
             child: Text(widget.category.name!),
