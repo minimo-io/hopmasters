@@ -72,6 +72,8 @@ class WordpressAPI{
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){
+          print("Login response en WP API");
+          print(loginResponse);
           SharedServices.setLoginDetails(loginResponse);
         }
 
@@ -287,10 +289,10 @@ class WordpressAPI{
 
   static Future<List<dynamic>?> getPrefsOptions()async {
     // https://hops.uy/wp-json/wc/v3/products/categories
-    print( _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret);
+    //print( _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?page=1&per_page=30&parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret);
     try{
       var response = await Dio().get(
-        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret,
+        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CATEGORIES + "?page=1&per_page=30&parent=0&orderby=count&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret,
         options: new Options(
             headers: {
               HttpHeaders.contentTypeHeader: "application/json"

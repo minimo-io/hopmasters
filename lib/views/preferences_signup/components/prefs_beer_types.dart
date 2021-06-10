@@ -5,6 +5,8 @@ import 'package:Hops/components/button_prefs.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/constants.dart';
 
+import 'package:provider/provider.dart';
+
 class PrefsBeerTypes extends StatefulWidget {
   List<dynamic>? json;
   PrefsBeerTypes(this.json, {Key? key}) : super(key: key);
@@ -39,13 +41,21 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
         if (category.id == 15 || category.id == 163) continue;
         //var categoryName = category.name!;
         list.add(
-          ButtonPrefs(
-            category,
-            isSelected: false,
-            onSelectPref: (Category category) {
-              print(category.name! + "... Updated!");
-              //setState(() {});
-            }
+          Consumer<Preferences>(
+            builder: (context, preferences, child){
+              return ButtonPrefs(
+                  category,
+                  isSelected: false,
+                  onSelectPref: (Category category) {
+                    if(category.isSelected){
+                      preferences.add(category);
+                    }else{
+                      preferences.remove(category);
+                    }
+                    //setState(() {});
+                  }
+              );
+            },
           )
         );
       }

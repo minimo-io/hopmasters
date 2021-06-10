@@ -4,7 +4,12 @@ import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/routes.dart';
 import 'package:provider/provider.dart';
+import 'package:Hops/models/login.dart';
+
+// providers
 import 'package:Hops/models/nav_menu_provider.dart';
+import 'package:Hops/models/category.dart';
+
 
 String _initialRoute = "login";
 
@@ -12,6 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   bool _result = await SharedServices.isLoggedIn();
+
   if (_result){
     _initialRoute = "/";
   }
@@ -25,8 +31,12 @@ class HopsApp extends StatelessWidget{
   Widget build(BuildContext context){
     // this is from the material package.
     // more docs here: https://api.flutter.dev/flutter/material/MaterialApp-class.html
-    return ChangeNotifierProvider(
-      create: (context) => NavMenuProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider( create: (context) => NavMenuProvider(), ),
+        ChangeNotifierProvider( create: (context) => Preferences(), ),
+      ],
+
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: APP_TITLE,

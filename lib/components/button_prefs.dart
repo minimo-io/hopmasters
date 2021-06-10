@@ -60,6 +60,7 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
           }
 
         });
+        widget.category.isSelected = _isSelectedNow;
         widget.onSelectPref(widget.category);
       },
       child: buttonChild,
@@ -69,7 +70,7 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.black.withOpacity(.2))
+                  side: BorderSide(color: Colors.black.withOpacity(.2)),
               )
           )
       ),

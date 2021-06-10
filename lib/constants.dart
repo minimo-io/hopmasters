@@ -1,3 +1,4 @@
+import 'package:Hops/models/category.dart';
 
 const APP_TITLE = "HOPS";
 
@@ -29,11 +30,51 @@ const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
 enum HopsMenuState { home, favourite, store, profile }
 
-const Map<String, String> SINGUP_PREFS = {
-  'newBeers': 'Nuevas cervezas',
-  'news' : 'Notícias',
-  'discounts': 'Descuentos',
-  'events': 'Eventos'
+Map<String, Category> SINGUP_PREFS = {
+  'newBeers': Category(
+      count: 0,
+      description: '',
+      name: "Nuevas cervezas",
+      display: '',
+      id: 666661,
+      image: '',
+      menu_order: 0,
+      parent:0,
+      slug: ''
+  ),
+  'news' : Category(
+      count: 0,
+      description: '',
+      name: "Notícias",
+      display: '',
+      id: 666662,
+      image: '',
+      menu_order: 0,
+      parent:0,
+      slug: ''
+  ),
+  'discounts': Category(
+      count: 0,
+      description: '',
+      name: "Descuentos",
+      display: '',
+      id: 666663,
+      image: '',
+      menu_order: 0,
+      parent:0,
+      slug: ''
+  ),
+  'events': Category(
+      count: 0,
+      description: '',
+      name: "Eventos",
+      display: '',
+      id: 666664,
+      image: '',
+      menu_order: 0,
+      parent:0,
+      slug: ''
+  )
 };
 
 /*

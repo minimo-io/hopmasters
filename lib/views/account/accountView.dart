@@ -26,8 +26,8 @@ class _AccountViewState extends State<AccountView> {
   @override
   void initState() {
   super.initState();
+  //SharedServices.logout(context);
   _userData = SharedServices.loginDetails();
-  //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
   }
 
   @override
@@ -46,7 +46,7 @@ class _AccountViewState extends State<AccountView> {
                   return Center( child: CircularProgressIndicator() );
                 default:
                   if (snapshot.hasError){
-                    return Text('Ups! Error: ${snapshot.error}');
+                    return Text(' Ups! Errors: ${snapshot.error}');
                   }else{
                     return Column(
                       children: [
@@ -79,7 +79,12 @@ class _AccountViewState extends State<AccountView> {
                         ProfileMenu(
                           text: "Configuración",
                           icon: Icon(Icons.settings),
-                          press: () {},
+                          press: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              "/preferences",
+                            );
+                          },
                         ),
                         ProfileMenu(
                           text: "Acerca de Hops",
@@ -107,22 +112,24 @@ class _AccountViewState extends State<AccountView> {
                           text: "Salir",
                           icon: Icon(Icons.logout),
                           press: () {
-                            //String authService = "Google";
-                            SharedServices.loginDetails().then((prefs){
 
-                              SharedServices.logout(context);
 
-                              if (prefs!.data!.connectionType == "Google"){
+                            SharedServices.loginDetails().then((loginPrefs){
+
+
+                              if (loginPrefs!.data!.connectionType == "Google"){
                                 Google googleService = new Google();
                                 googleService.logout().then((value) => SharedServices.logout(context));
-                              }else if(prefs.data!.connectionType == "Facebook"){
+                              }else if(loginPrefs.data!.connectionType == "Facebook"){
                                 Facebook facebookService = new Facebook();
+                                SharedServices.logout(context);
                                 facebookService.logout((){
                                   print("Facebook Logout OK");
                                 });
                               }
 
                             });
+
 
 
                           },

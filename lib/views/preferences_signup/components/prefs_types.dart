@@ -1,5 +1,7 @@
 import 'package:Hops/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:Hops/components/app_title.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/constants.dart';
@@ -18,23 +20,23 @@ class _PrefsTypesState extends State<PrefsTypes> {
 
   Widget _buildPrefsButtons(){
     List<Widget> list = <Widget>[];
-    for (String pref in SINGUP_PREFS.values){
+    for (Category constPref in SINGUP_PREFS.values){
       list.add(
-          ButtonPrefs(Category(
-            count: 0,
-            description: '',
-            name: pref,
-            display: '',
-            id: -1,
-            image: '',
-            menu_order: 0,
-            parent:0,
-            slug: ''
-          ),
-          onSelectPref: (Category category) {
-            print(category.name! + "... Updated!");
-            //setState(() {});
-          })
+          Consumer<Preferences>(
+            builder: (context, preferences, child){
+              return ButtonPrefs(
+              constPref,
+              isSelected: false,
+              onSelectPref: (Category category) {
+                if(category.isSelected){
+                  preferences.add(category);
+                }else{
+                  preferences.remove(category);
+                }
+                //setState(() {});
+              });
+            }
+          )
       );
     }
     return Center(
