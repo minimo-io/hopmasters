@@ -1,3 +1,6 @@
+/// Preferences types related to how the user wants to to be contacted
+/// or what his or hers interests are: new beers, events, etc.
+
 import 'package:Hops/models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,9 +32,9 @@ class _PrefsTypesState extends State<PrefsTypes> {
               isSelected: false,
               onSelectPref: (Pref pref) {
                 if(pref.isSelected){
-                  preferences.add(pref);
+                  preferences.addNews(pref);
                 }else{
-                  preferences.remove(pref);
+                  preferences.removeNews(pref);
                 }
                 //setState(() {});
               });

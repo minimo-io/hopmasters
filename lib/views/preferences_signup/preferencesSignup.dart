@@ -18,8 +18,6 @@ import 'package:Hops/views/preferences_signup/components/prefs_types.dart';
 import 'package:Hops/views/preferences_signup/components/prefs_beer_types.dart';
 
 
-
-
 class PreferencesSignUpView extends StatefulWidget {
   // login goes without slash at the moment, in order to avoid loading / assets
   static const String routeName = "preferences";
@@ -87,16 +85,17 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                 // get user details
                                 LoginResponse? userLogin = await SharedServices.loginDetails();
                                 int? userId = userLogin?.data?.id;
-                                bool res = await WordpressAPI.setPrefsOptions( (userId != null ? userId : 0) , preferences.items);
+
+                                bool res = await WordpressAPI.setPrefsOptions( (userId != null ? userId : 0) , preferences.items, preferences.itemsNews);
                                 if (res == true){
                                   setState(() => this.isLoadingApiCall = false );
                                   setState(() => this.bottomHeight = 70 );
                                   /*
-                                                          Navigator.pushNamed(
-                                                            context,
-                                                            "/",
-                                                          );
-                                                           */
+                                      Navigator.pushNamed(
+                                        context,
+                                        "/",
+                                      );
+                                   */
 
 
                                 }
@@ -213,7 +212,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                               SizedBox(height: 40,),
                                               PrefsTypes(snapshot.data),
                                               SizedBox(height: 20),
-                                              SizedBox(height: 350,),
+                                              SizedBox(height: 100,),
                                             ],
                                           );
                                         }
@@ -223,7 +222,6 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                   }
 
                                 ),
-                                SizedBox(height: 50,),
                               ],
                             ),
                           ),

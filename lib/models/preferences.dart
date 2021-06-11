@@ -7,12 +7,18 @@ import 'package:flutter/foundation.dart';
 class Preferences extends ChangeNotifier {
   /// Internal, private state of the cart.
   final List<Pref> _items = [];
+  final List<Pref> _itemsNews = [];
 
   /// An unmodifiable view of the items in the cart.
   UnmodifiableListView<Pref> get items => UnmodifiableListView(_items);
 
+  UnmodifiableListView<Pref> get itemsNews => UnmodifiableListView(_itemsNews);
+
   /// convert all preferences to json for then sending it to server
   String get toJson => jsonEncode(_items.map((e) => e.toJson()).toList());
+
+  /// convert all preferences to json for then sending it to server
+  String get toJsonNews => jsonEncode(_itemsNews.map((e) => e.toJson()).toList());
 
 
   /// Adds [preference] to the basket. This and [removeAll] are the only ways to modify the
@@ -22,14 +28,32 @@ class Preferences extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addNews(Pref pref) {
+    _itemsNews.add(pref);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
   void remove(Pref pref){
     _items.remove(pref);
     notifyListeners();
   }
 
-  /// Removes all items from the cart.
+  void removeNews(Pref pref){
+    _itemsNews.remove(pref);
+    notifyListeners();
+  }
+
+  /// Removes all items from the beer type items
   void removeAll() {
     _items.clear();
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  /// Removes all items from the news
+  void removeAllNews() {
+    _itemsNews.clear();
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }

@@ -313,7 +313,7 @@ class WordpressAPI{
     }
   }
 
-  static Future<bool> setPrefsOptions(int userId, UnmodifiableListView<Pref> userPreferences)async{
+  static Future<bool> setPrefsOptions(int userId, UnmodifiableListView<Pref> userPreferences, UnmodifiableListView<Pref> userNewsPreferences)async{
 
     final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateUser";
     //print(beersFromBreweryUriQuery);
@@ -323,14 +323,23 @@ class WordpressAPI{
       if (beerTypes != "") beerTypes += "|";
       beerTypes += userPreferences[i].id.toString();
     }
+
+    String newsPrefs = "";
+    for(var i = 0; i< userNewsPreferences.length; i++) {
+      if (newsPrefs != "") newsPrefs += "|";
+      newsPrefs += userNewsPreferences[i].id.toString();
+    }
     print(beerTypes);
+    print(newsPrefs);
+
     try{
       var response = await Dio().post(
         beersFromBreweryUriQuery,
         data: {
           "updateType": "preferences",
           "userId" : userId.toString(),
-          "beerTypes": beerTypes
+          "beerTypesPrefs": beerTypes,
+          "newsPrefs": newsPrefs
         },
         options: new Options(
             headers: {
@@ -341,6 +350,7 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         var jsonResponse = response.data;
+        print(jsonResponse["data"]);
         return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
       }
 
