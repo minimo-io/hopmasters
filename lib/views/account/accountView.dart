@@ -80,9 +80,10 @@ class _AccountViewState extends State<AccountView> {
                           text: "Configuración",
                           icon: Icon(Icons.settings),
                           press: () {
-                            Navigator.pushReplacementNamed(
+                            Navigator.pushNamed(
                               context,
                               "preferences",
+                              arguments: { 'fromMainApp': true },
                             );
                           },
                         ),

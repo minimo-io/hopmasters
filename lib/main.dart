@@ -17,8 +17,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   bool _result = await SharedServices.isLoggedIn();
-
   if (_result){
+    // set initial route
     _initialRoute = "/";
   }
   runApp(HopsApp());
@@ -29,8 +29,7 @@ class HopsApp extends StatelessWidget{
   // The override is not required but nice to specify
   // All classes have a build() so we override it
   Widget build(BuildContext context){
-    // this is from the material package.
-    // more docs here: https://api.flutter.dev/flutter/material/MaterialApp-class.html
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider( create: (context) => NavMenuProvider(), ),

@@ -132,11 +132,19 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
           notificationsClient.message(context, message);
           setState(() => this.isLoadingApiCall = false );
           String goToRoute = "/";
-          if (signUpResult == true) goToRoute = "preferences";
-          Navigator.pushReplacementNamed(
-            context,
-            goToRoute,
-          );
+          if (signUpResult == true){
+            Navigator.pushReplacementNamed(
+              context,
+              "preferences",
+              arguments: { 'fromMainApp': false },
+            );
+          }else{
+            Navigator.pushReplacementNamed(
+              context,
+              "/",
+            );
+          }
+
         }else{
 
           notificationsClient.message(context, WordpressAPI.MESSAGE_ERROR_LOGIN);

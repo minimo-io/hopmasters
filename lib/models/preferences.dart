@@ -11,6 +11,23 @@ class Preferences extends ChangeNotifier {
 
   /// An unmodifiable view of the items in the cart.
   UnmodifiableListView<Pref> get items => UnmodifiableListView(_items);
+  /// Return a string with the ids of the item selection
+  String get itemsIds{
+    String items = "";
+    for(var i = 0; i< this.items.length; i++) {
+      if (items != "") items += "|";
+      items += this.items[i].id.toString();
+    }
+    return items;
+  }
+  String get newsItemsIds{
+    String items = "";
+    for(var i = 0; i< this.itemsNews.length; i++) {
+      if (items != "") items += "|";
+      items += this.itemsNews[i].id.toString();
+    }
+    return items;
+  }
 
   UnmodifiableListView<Pref> get itemsNews => UnmodifiableListView(_itemsNews);
 

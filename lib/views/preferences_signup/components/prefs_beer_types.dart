@@ -43,9 +43,12 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
         list.add(
           Consumer<Preferences>(
             builder: (context, preferences, child){
+              bool isSelected = false;
+              if (preferences.itemsIds.contains(pref.id.toString())) isSelected = true;
+              //if (isSelected == true) print(pref.name);
               return ButtonPrefs(
                   pref,
-                  isSelected: false,
+                  isSelected: isSelected,
                   onSelectPref: (Pref pref) {
                     if(pref.isSelected){
                       preferences.add(pref);
@@ -81,6 +84,7 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
         AppTitle(subtitle: "Elige al menos 5 opciones"),
         SizedBox(height: 30,),
         Container(
+          padding: EdgeInsets.only(left:20, right:20),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 400),
             child: _buildBeerTypesButtons(),

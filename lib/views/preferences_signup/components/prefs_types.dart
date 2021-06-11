@@ -27,9 +27,12 @@ class _PrefsTypesState extends State<PrefsTypes> {
       list.add(
           Consumer<Preferences>(
             builder: (context, preferences, child){
+              bool isSelected = false;
+              if (preferences.newsItemsIds.contains(constPref.id.toString())) isSelected = true;
+
               return ButtonPrefs(
               constPref,
-              isSelected: false,
+              isSelected: isSelected,
               onSelectPref: (Pref pref) {
                 if(pref.isSelected){
                   preferences.addNews(pref);

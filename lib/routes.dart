@@ -39,9 +39,10 @@ class Routes {
           );
 
         case PreferencesSignUpView.routeName:
+          final fromMain = args?['fromMainApp'] as bool;
           return MaterialPageRoute(
             settings: routeSettings,
-            builder: (_) => PreferencesSignUpView(),
+            builder: (_) => PreferencesSignUpView( fromMainApp: fromMain, ),
           );
 
         case CartView.routeName:

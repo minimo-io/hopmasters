@@ -37,6 +37,7 @@ class WordpressAPI{
   static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta!";
 
   static const String MESSAGE_ERROR_UPDATING_PREFS = "¡Ups! Ocurrió un error actualizando las preferencias. Ponete en contacto.";
+  static const String MESSAGE_OK_UPDATING_PREFS = "¡Copiado! A descubrir cervezas.";
 
 
   static Future<bool> login(
@@ -329,10 +330,13 @@ class WordpressAPI{
       if (newsPrefs != "") newsPrefs += "|";
       newsPrefs += userNewsPreferences[i].id.toString();
     }
+    /*
     print(beerTypes);
     print(newsPrefs);
-
+    print(userId);
+     */
     try{
+
       var response = await Dio().post(
         beersFromBreweryUriQuery,
         data: {
@@ -350,7 +354,6 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         var jsonResponse = response.data;
-        print(jsonResponse["data"]);
         return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
       }
 

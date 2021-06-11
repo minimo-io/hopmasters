@@ -21,6 +21,9 @@ import 'package:Hops/views/preferences_signup/components/prefs_beer_types.dart';
 class PreferencesSignUpView extends StatefulWidget {
   // login goes without slash at the moment, in order to avoid loading / assets
   static const String routeName = "preferences";
+  bool fromMainApp;
+
+  PreferencesSignUpView({ this.fromMainApp = false });
 
   @override
   _PreferencesSignUpViewState createState() => _PreferencesSignUpViewState();
@@ -61,6 +64,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
               else {
                 return WillPopScope(
                   onWillPop: () {
+                    if (widget.fromMainApp) return new Future(() => true);
                     return new Future(() => false);
                   },
                   child: new Scaffold(
@@ -73,7 +77,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                       ),
                       child: Consumer<Preferences>(
                           builder: (context, preferences, child){
-                            int prefsCount = preferences.items.length;
+                            int prefsCount = preferences.items.length + preferences.itemsNews.length;
                             String continueText = "Elige 5 preferencias (vas " + prefsCount.toString() + ")";
 
 
@@ -90,13 +94,20 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                 if (res == true){
                                   setState(() => this.isLoadingApiCall = false );
                                   setState(() => this.bottomHeight = 70 );
-                                  /*
-                                      Navigator.pushNamed(
-                                        context,
-                                        "/",
-                                      );
-                                   */
+                                  // save Shared Service for each preference
 
+                                  await SharedServices.savePreferences("beer_types", preferences.items);
+                                  await SharedServices.savePreferences("news_types", preferences.itemsNews);
+
+                                  notificationClient.message(context, WordpressAPI.MESSAGE_OK_UPDATING_PREFS);
+                                  if (widget.fromMainApp){
+                                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                                  }else{
+                                    Navigator.pushNamed(
+                                      context,
+                                      "/",
+                                    );
+                                  }
 
                                 }
                               } on Exception catch (exception) {
@@ -119,7 +130,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                             if (prefsCount >= 5){
                               backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
                               continueText = "Continuar";
-
+                              if(widget.fromMainApp) continueText = "Guardar";
                             }
 
                             return Container(
@@ -172,6 +183,30 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                             child: new Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
+                                if (widget.fromMainApp) Container(
+                                  height:null,
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 8, left:8),
+                                        child: GestureDetector(
+                                            onTap:(){
+                                              if (widget.fromMainApp){
+                                                Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                                              }else{
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  "/",
+                                                );
+                                              }
+
+
+                                            },
+                                            child: Icon(Icons.arrow_back)
+                                        )
+                                    ),
+                                  ),
+                                ),
                                 FutureBuilder(
                                   future: _userData,
                                   builder: (BuildContext context, AsyncSnapshot userData) {

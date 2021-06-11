@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/theme/style.dart';
-// import 'package:Hops/components/nav_bottom.dart';
+
+import 'package:Hops/models/preferences.dart';
+
 import 'package:Hops/components/search_button.dart';
 import 'package:Hops/components/top_app_bar.dart';
 
-import 'package:Hops/models/nav_menu_provider.dart';
+import 'package:Hops/services/shared_services.dart';
 
 import 'package:Hops/views/home/homeView.dart';
 import 'package:Hops/views/store/storeView.dart';
@@ -28,6 +30,12 @@ class _AppViewState extends State<AppView> {
   @override
   void initState() {
     super.initState();
+
+    // get preferences (beers, news, etc) and set them in provider for app use
+      // beer_types
+    SharedServices.populateProvider(context, "beer_types");
+      // news_types
+    SharedServices.populateProvider(context, "news_types");
   }
 
   final List<Widget> pages = const <Widget>[
