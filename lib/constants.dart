@@ -1,4 +1,4 @@
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 
 const APP_TITLE = "HOPS";
 
@@ -30,8 +30,8 @@ const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
 enum HopsMenuState { home, favourite, store, profile }
 
-Map<String, Category> SINGUP_PREFS = {
-  'newBeers': Category(
+Map<String, Pref> SINGUP_PREFS = {
+  'newBeers': Pref(
       count: 0,
       description: '',
       name: "Nuevas cervezas",
@@ -42,7 +42,7 @@ Map<String, Category> SINGUP_PREFS = {
       parent:0,
       slug: ''
   ),
-  'news' : Category(
+  'news' : Pref(
       count: 0,
       description: '',
       name: "Notícias",
@@ -53,7 +53,7 @@ Map<String, Category> SINGUP_PREFS = {
       parent:0,
       slug: ''
   ),
-  'discounts': Category(
+  'discounts': Pref(
       count: 0,
       description: '',
       name: "Descuentos",
@@ -64,7 +64,7 @@ Map<String, Category> SINGUP_PREFS = {
       parent:0,
       slug: ''
   ),
-  'events': Category(
+  'events': Pref(
       count: 0,
       description: '',
       name: "Eventos",

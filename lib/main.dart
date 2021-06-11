@@ -8,7 +8,7 @@ import 'package:Hops/models/login.dart';
 
 // providers
 import 'package:Hops/models/nav_menu_provider.dart';
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 
 
 String _initialRoute = "login";

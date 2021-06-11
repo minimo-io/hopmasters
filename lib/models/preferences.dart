@@ -6,23 +6,23 @@ import 'package:flutter/foundation.dart';
 
 class Preferences extends ChangeNotifier {
   /// Internal, private state of the cart.
-  final List<Category> _items = [];
+  final List<Pref> _items = [];
 
   /// An unmodifiable view of the items in the cart.
-  UnmodifiableListView<Category> get items => UnmodifiableListView(_items);
+  UnmodifiableListView<Pref> get items => UnmodifiableListView(_items);
 
   /// convert all preferences to json for then sending it to server
   String get toJson => jsonEncode(_items.map((e) => e.toJson()).toList());
 
 
   /// Adds [preference] to the basket. This and [removeAll] are the only ways to modify the
-  void add(Category pref) {
+  void add(Pref pref) {
     _items.add(pref);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
 
-  void remove(Category pref){
+  void remove(Pref pref){
     _items.remove(pref);
     notifyListeners();
   }
@@ -36,7 +36,7 @@ class Preferences extends ChangeNotifier {
 
 }
 
-class Category {
+class Pref {
   int? id;
   String? name;
   String? slug;
@@ -49,7 +49,7 @@ class Category {
   bool isSelected = false;
 
 
-  Category({
+  Pref({
     required this.id,
     required this.name,
     required this.slug,
@@ -61,8 +61,8 @@ class Category {
     required this.count,
   });
 
-  factory Category.fromJson(Map<String, dynamic> parsedJson){
-    return Category(
+  factory Pref.fromJson(Map<String, dynamic> parsedJson){
+    return Pref(
       id: parsedJson["id"],
       name: parsedJson["name"],
       slug: parsedJson["slug"],
@@ -92,14 +92,14 @@ class Category {
     return map;
   }
 
-  static List<Category> allFromResponse(List<dynamic> response) {
+  static List<Pref> allFromResponse(List<dynamic> response) {
     //var decodedJson = response.cast<String, dynamic>();
 
     return response
         .cast<Map<String, dynamic>>()
-        .map((obj) => Category.fromJson(obj))
+        .map((obj) => Pref.fromJson(obj))
         .toList()
-        .cast<Category>();
+        .cast<Pref>();
   }
 
 

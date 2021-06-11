@@ -12,7 +12,7 @@ import 'package:Hops/models/login.dart';
 import 'package:Hops/models/customer.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/brewery.dart';
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 import 'package:Hops/services/shared_services.dart';
 
 class WordpressAPI{
@@ -35,6 +35,8 @@ class WordpressAPI{
 
   static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hola cervecer@! Gracias por registrate.";
   static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta!";
+
+  static const String MESSAGE_ERROR_UPDATING_PREFS = "¡Ups! Ocurrió un error actualizando las preferencias. Ponete en contacto.";
 
 
   static Future<bool> login(
@@ -311,7 +313,7 @@ class WordpressAPI{
     }
   }
 
-  static Future<bool> setPrefsOptions(int userId, UnmodifiableListView<Category> userPreferences)async{
+  static Future<bool> setPrefsOptions(int userId, UnmodifiableListView<Pref> userPreferences)async{
 
     final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateUser";
     //print(beersFromBreweryUriQuery);

@@ -1,4 +1,4 @@
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,18 +20,18 @@ class _PrefsTypesState extends State<PrefsTypes> {
 
   Widget _buildPrefsButtons(){
     List<Widget> list = <Widget>[];
-    for (Category constPref in SINGUP_PREFS.values){
+    for (Pref constPref in SINGUP_PREFS.values){
       list.add(
           Consumer<Preferences>(
             builder: (context, preferences, child){
               return ButtonPrefs(
               constPref,
               isSelected: false,
-              onSelectPref: (Category category) {
-                if(category.isSelected){
-                  preferences.add(category);
+              onSelectPref: (Pref pref) {
+                if(pref.isSelected){
+                  preferences.add(pref);
                 }else{
-                  preferences.remove(category);
+                  preferences.remove(pref);
                 }
                 //setState(() {});
               });

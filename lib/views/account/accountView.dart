@@ -116,13 +116,13 @@ class _AccountViewState extends State<AccountView> {
 
                             SharedServices.loginDetails().then((loginPrefs){
 
-
+                              SharedServices.logout(context);
                               if (loginPrefs!.data!.connectionType == "Google"){
                                 Google googleService = new Google();
                                 googleService.logout().then((value) => SharedServices.logout(context));
                               }else if(loginPrefs.data!.connectionType == "Facebook"){
                                 Facebook facebookService = new Facebook();
-                                SharedServices.logout(context);
+
                                 facebookService.logout((){
                                   print("Facebook Logout OK");
                                 });

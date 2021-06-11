@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 import 'package:Hops/theme/style.dart';
 
 class ButtonPrefs extends StatefulWidget {
-  Category category;
+  Pref pref;
   bool isSelected;
   //VoidCallback onSelectPref;
-  final Function(Category category) onSelectPref;
+  final Function(Pref pref) onSelectPref;
 
   ButtonPrefs(
-      this.category,
+      this.pref,
       {
         Key? key,
         this.isSelected = false,
@@ -36,7 +36,7 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
     MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8));
     if (_isSelectedNow) backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
 
-    Widget buttonChild = Text( widget.category.name!);
+    Widget buttonChild = Text( widget.pref.name!);
     if (_isSelectedNow){
       buttonChild = Wrap(
         spacing: 4.0,
@@ -44,7 +44,7 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
           Icon(Icons.check),
           Padding(
             padding: const EdgeInsets.only(top:4),
-            child: Text(widget.category.name!),
+            child: Text(widget.pref.name!),
           )
         ]
 
@@ -60,8 +60,8 @@ class _ButtonPrefsState extends State<ButtonPrefs> {
           }
 
         });
-        widget.category.isSelected = _isSelectedNow;
-        widget.onSelectPref(widget.category);
+        widget.pref.isSelected = _isSelectedNow;
+        widget.onSelectPref(widget.pref);
       },
       child: buttonChild,
       style: ButtonStyle(

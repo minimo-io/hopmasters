@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Hops/models/category.dart';
+import 'package:Hops/models/preferences.dart';
 import 'package:Hops/components/app_title.dart';
 import 'package:Hops/components/button_prefs.dart';
 import 'package:Hops/theme/style.dart';
@@ -23,7 +23,7 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
     super.initState();
 
     _categories = widget.json;
-    //List<Category> categories = Category.allFromResponse(widget.json);
+    //List<Pref> categories = Pref.allFromResponse(widget.json);
     //print(categories);
     //_beerTypeOptions = _buildBeerTypeOptions();
   }
@@ -34,23 +34,23 @@ class _PrefsBeerTypesState extends State<PrefsBeerTypes> {
     var nCategories = _categories;
     List<Widget> list = <Widget>[];
     if (nCategories != null){
-      List<Category> categories = Category.allFromResponse(nCategories);
+      List<Pref> categories = Pref.allFromResponse(nCategories);
 
-      for (var category in categories) {
+      for (var pref in categories) {
 
-        if (category.id == 15 || category.id == 163) continue;
+        if (pref.id == 15 || pref.id == 163) continue;
         //var categoryName = category.name!;
         list.add(
           Consumer<Preferences>(
             builder: (context, preferences, child){
               return ButtonPrefs(
-                  category,
+                  pref,
                   isSelected: false,
-                  onSelectPref: (Category category) {
-                    if(category.isSelected){
-                      preferences.add(category);
+                  onSelectPref: (Pref pref) {
+                    if(pref.isSelected){
+                      preferences.add(pref);
                     }else{
-                      preferences.remove(category);
+                      preferences.remove(pref);
                     }
                     //setState(() {});
                   }
