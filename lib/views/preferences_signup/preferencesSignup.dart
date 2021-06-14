@@ -213,7 +213,8 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                     String? finalName = "¡Hola";
                                     if (userData.data.data.displayName != null){
                                       Map<String, dynamic> mapFinalName = WordpressAPI.generateNameFromDisplayName(userData.data.data.displayName);
-                                      finalName += " " + mapFinalName["firstName"];
+                                      // check if has an arroba then no real name
+                                      if (! mapFinalName["firstName"].contains("@")) finalName += " " + mapFinalName["firstName"];
                                     }
 
                                     finalName += "!";
