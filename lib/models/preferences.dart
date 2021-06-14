@@ -52,12 +52,15 @@ class Preferences extends ChangeNotifier {
   }
 
   void remove(Pref pref){
-    _items.remove(pref);
+    //print(_items);
+    //_items.remove(pref);
+    _items.removeWhere((element) => element.id == pref.id);
     notifyListeners();
   }
 
   void removeNews(Pref pref){
-    _itemsNews.remove(pref);
+    //_itemsNews.remove(pref);
+    _itemsNews.removeWhere((element) => element.id == pref.id);
     notifyListeners();
   }
 

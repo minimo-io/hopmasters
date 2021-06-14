@@ -334,7 +334,7 @@ class WordpressAPI{
     print(beerTypes);
     print(newsPrefs);
     print(userId);
-     */
+    */
     try{
 
       var response = await Dio().post(
