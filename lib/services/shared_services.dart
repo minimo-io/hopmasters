@@ -74,8 +74,6 @@ class SharedServices{
     }
     if (preferenceType == "news_types"){
       var newsPrefs = await SharedServices.getPreferences("news_types");
-      print("NRes prefs");
-      print(newsPrefs);
       if (newsPrefs != null){
         newsPrefs.forEach((element) {
           preferences.addNews(Pref.fromJson(element));

@@ -77,9 +77,16 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
               notificationsClient.message(context, WordpressAPI.MESSAGE_THANKS_FOR_SIGNUP);
 
               setState(() => this.isLoadingApiCall = false );
+              /*
               Navigator.pushReplacementNamed(
                 context,
                 "/",
+              );
+               */
+              Navigator.pushReplacementNamed(
+                context,
+                "preferences",
+                arguments: { 'fromMainApp': false },
               );
             }else{
               setState((){ this.isLoadingApiCall = false; });

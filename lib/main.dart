@@ -17,10 +17,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   bool _result = await SharedServices.isLoggedIn();
+
+  var _beerTypes = await SharedServices.getPreferences("beer_types");
+  var _newsTypes = await SharedServices.getPreferences("news_types");
+  int countPrefs = _beerTypes!.length + _newsTypes!.length;
+  print("COUNT PREFS:");
+  print(countPrefs);
+
+
   if (_result){
     // set initial route
     _initialRoute = "/";
   }
+
   runApp(HopsApp());
 }
 
