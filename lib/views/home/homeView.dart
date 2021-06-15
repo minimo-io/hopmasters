@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
-                        return Center( child: CircularProgressIndicator() );
+                        return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR) );
                       default:
                         if (snapshot.hasError){
                           return Text('Ups! Error: ${snapshot.error}');

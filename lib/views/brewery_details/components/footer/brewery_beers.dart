@@ -1,3 +1,4 @@
+import 'package:Hops/theme/style.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -37,7 +38,7 @@ class _BreweryBeersState extends State<BreweryBeers> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Center( child: CircularProgressIndicator() );
+              return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR) );
             default:
 
               if (snapshot.hasError){

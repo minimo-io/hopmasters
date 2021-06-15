@@ -1,3 +1,4 @@
+import 'package:Hops/theme/style.dart';
 import 'package:flutter/material.dart';
 
 class ProgressHUD extends StatelessWidget {
@@ -30,6 +31,7 @@ class ProgressHUD extends StatelessWidget {
           ),
           new Center(
             child: new CircularProgressIndicator(
+              color: PROGRESS_INDICATOR_COLOR,
               valueColor: valueColor,
             ),
           ),

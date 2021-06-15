@@ -42,9 +42,13 @@ class _AppViewState extends State<AppView> {
     HomeView(
       key: PageStorageKey<String>('page1'),
     ),
+    /*
     FavoritesView(
       key: PageStorageKey<String>('page2'),
     ),
+
+     */
+    FavoritesView( key: PageStorageKey<String>('page2') ),
     StoreView(
       key: PageStorageKey<String>('page3'),
     ),

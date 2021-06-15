@@ -27,21 +27,8 @@ const Color SECONDARY_TEXT_DARK = Color.fromRGBO(48, 49, 51, 1);
 
 const Color ACTION_BUTTON_PRIMARY_COLOR = Color.fromRGBO(234,240,76, 1); // login eg.
 
-/*
-const Color PRIMARY_BUTTON_COLOR = Color.fromRGBO(255, 212, 53, 0.8);
-const Color SECONDARY_BUTTON_COLOR = Color.fromRGBO(0, 223, 106, 1);
-*/
+const Color PROGRESS_INDICATOR_COLOR = Colors.black54; // login eg.
 
-
-
-/* OLD YELLOWY COLORS
-var GRADIENT_COLORS = [
-  Color.fromRGBO(216, 170, 0, 0.6),
-  Color.fromRGBO(234, 186, 0, 0.6),
-  Color.fromRGBO(250, 205, 0, 0.6),
-  Color.fromRGBO(255, 212, 53, 0.6),
-];
-*/
 
 const PRIMARY_GRADIENT_COLOR = LinearGradient(
   begin: Alignment.topLeft,

@@ -43,7 +43,7 @@ class _AccountViewState extends State<AccountView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                  return Center( child: CircularProgressIndicator() );
+                  return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR) );
                 default:
                   if (snapshot.hasError){
                     return Text(' Ups! Errors: ${snapshot.error}');

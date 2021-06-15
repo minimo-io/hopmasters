@@ -1,3 +1,4 @@
+import 'package:Hops/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
@@ -252,7 +253,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          if (_isLoadingApiCall == true) CircularProgressIndicator()
+          if (_isLoadingApiCall == true) CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)
           else (_isBreweryIncluded ? _unfollowButton() : _followButton() )
         ],
       ),
@@ -294,7 +295,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
                     case ConnectionState.waiting:
                       return Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
                       );
                     default:
                       if (snapshot.hasError) {

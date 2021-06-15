@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/theme/style.dart';
 
 import 'dart:async';
 import 'package:Hops/models/brewery.dart';
@@ -7,10 +8,12 @@ import 'package:Hops/models/brewery.dart';
 
 class BreweriesCards extends StatefulWidget {
 
-  List? breweriesList;
+  String? breweriesList; // possible favorite breweries to call
+  String? loadingText;
 
   BreweriesCards({
     this.breweriesList,
+    this.loadingText,
     Key? key
   }) : super(key: key);
 
@@ -25,7 +28,12 @@ class _BreweriesCardsState extends State<BreweriesCards> {
   @override
   void initState() {
     super.initState();
-    _breweries = WordpressAPI.getBreweries();
+
+    if (widget.breweriesList != null){
+      _breweries = WordpressAPI.getBreweries(userBreweries: widget.breweriesList!);
+    }else{
+      _breweries = WordpressAPI.getBreweries();
+    }
   }
 
   Widget _buildBreweryCards(List breweries, BuildContext context){
@@ -115,7 +123,13 @@ class _BreweriesCardsState extends State<BreweriesCards> {
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return Center( child: CircularProgressIndicator() );
+            return Center( child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
+                if (widget.loadingText != null) Padding(padding:EdgeInsets.only(top:10), child: Text(widget.loadingText!))
+              ],
+            ) );
           default:
             if (snapshot.hasError){
               return Text('Ups! Error: ${snapshot.error}');

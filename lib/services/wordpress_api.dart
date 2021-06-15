@@ -42,7 +42,7 @@ class WordpressAPI{
   static const String MESSAGE_OK_FOLLOWING_BREWERY = "¡Buena elección! Te mantendremos al tanto de las novedades.";
   static const String MESSAGE_ERROR_FOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
-  static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Ok, es verdad, menos es mas ¡Suerte!";
+  static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Es verdad, menos es mas ¡Suerte!";
   static const String MESSAGE_ERROR_UNFOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
   static Future<bool> login(
@@ -209,9 +209,10 @@ class WordpressAPI{
   }
 
   // get list of breweries
-  static Future getBreweries()async{
-    final String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
-
+  static Future getBreweries( { String userBreweries = "" } )async{
+    String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
+    if (userBreweries != "") breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
+    // print(breweryUriQuery);
     try{
       var response = await Dio().get(
         breweryUriQuery,

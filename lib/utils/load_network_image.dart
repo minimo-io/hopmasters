@@ -1,3 +1,4 @@
+import 'package:Hops/theme/style.dart';
 import 'package:flutter/material.dart';
 
 class LoadNetworkImage extends StatelessWidget {
@@ -14,6 +15,7 @@ class LoadNetworkImage extends StatelessWidget {
         if (loadingProgress == null) return child;
         return Center(
           child: CircularProgressIndicator(
+            color: PROGRESS_INDICATOR_COLOR,
             value: loadingProgress.expectedTotalBytes != null ?
             loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                 : null,
