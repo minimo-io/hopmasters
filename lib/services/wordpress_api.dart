@@ -209,10 +209,10 @@ class WordpressAPI{
   }
 
   // get list of breweries
-  static Future getBreweries( { String userBreweries = "" } )async{
+  static Future getBreweries( { String? userBreweries = null } )async{
     String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
-    if (userBreweries != "") breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
-    // print(breweryUriQuery);
+    if (userBreweries != null) breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
+
     try{
       var response = await Dio().get(
         breweryUriQuery,

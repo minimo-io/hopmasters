@@ -45,11 +45,24 @@ class _FavoriteBreweriesState extends State<FavoriteBreweries> {
                   return Text('Error: ${snapshot.error}');
                 }else{
 
+                  if (snapshot.data[0]["result"] == ""){
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Todavía no tenés cervecerías favoritas.", style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(height: 15,),
+                        Text("Encontralas y seguilas para conocer"),
+                        Text("sus lanzamientos y descuentos."),
+                        Text("¡Y ganá puntos de prestigio!")
+                      ],
+                    );
+                  }else{
+                    return BreweriesCards(
+                        loadingText: "Ya casi...",
+                        breweriesList: snapshot.data[0]["result"]
+                    );
+                  }
 
-                  return BreweriesCards(
-                    loadingText: "Ya casi...",
-                    breweriesList: snapshot.data[0]["result"]
-                  );
 
 
                 }
