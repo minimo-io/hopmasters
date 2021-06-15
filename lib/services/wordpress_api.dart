@@ -39,6 +39,11 @@ class WordpressAPI{
   static const String MESSAGE_ERROR_UPDATING_PREFS = "¡Ups! Ocurrió un error actualizando las preferencias. Ponete en contacto.";
   static const String MESSAGE_OK_UPDATING_PREFS = "¡Copiado! A descubrir cervezas.";
 
+  static const String MESSAGE_OK_FOLLOWING_BREWERY = "¡Buena elección! Te mantendremos al tanto de las novedades.";
+  static const String MESSAGE_ERROR_FOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
+
+  static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Ok, es verdad, menos es mas ¡Suerte!";
+  static const String MESSAGE_ERROR_UNFOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
   static Future<bool> login(
       String? username,
@@ -363,5 +368,75 @@ class WordpressAPI{
     }
     return true;
   }
+
+  /// Add or remove beer (favorite) from user breweries prefs
+  static Future<bool> editBreweryPref(
+  int userId,
+  int breweryId,
+  { String addOrRemove = "add" }
+  )async{
+
+    final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateUser";
+    //print(beersFromBreweryUriQuery);
+    if (addOrRemove != "add" && addOrRemove != "remove") return false;
+
+    Map<String, dynamic> dataMap = {
+      "updateType": "breweriesPreferences",
+      "userId" : userId.toString(),
+      "breweryId": breweryId.toString(),
+      "addOrRemove": addOrRemove
+    };
+
+    try{
+
+      var response = await Dio().post(
+        beersFromBreweryUriQuery,
+        data: dataMap,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+      );
+      if (response.statusCode == 200){
+        var jsonResponse = response.data;
+        return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
+      }
+
+    } on DioError catch(e) {
+      //print('Failed to set user preferences! ' + e.message);
+      throw Exception('Failed to set brewery preferences!' + e.message);
+    }
+    return true;
+  }
+
+  /// Get user preferences from custom fields
+  static Future<Map<String, dynamic>?> getUserPrefs( int? userId, {String indexType = "breweries_preferences" } )async {
+    //print(_WP_BASE_API + _WP_REST_HOPS_URI + "getUser/userID/" + userId.toString() + "/" + indexType + "/");
+    try{
+      var response = await Dio().get(
+        _WP_BASE_API + _WP_REST_HOPS_URI + "getUser/userID/" + userId.toString() + "/" + indexType + "/",
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
+
+        Map<String, dynamic> jsonResponse = response.data;
+
+        //print(jsonResponse);
+        return jsonResponse;
+
+
+      }
+    } on DioError catch(e) {
+      return jsonDecode("{}");
+      print(e.message);
+    }
+  }
+
 
 }

@@ -1,12 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:Hops/services/wordpress_api.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:Hops/models/login.dart';
+import 'package:Hops/models/brewery.dart';
+
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
 import 'package:Hops/constants.dart';
 import 'package:Hops/theme/style.dart';
-import 'package:Hops/models/brewery.dart';
 import 'package:Hops/components/async_loader.dart';
 
 import 'package:Hops/views/brewery_details/components/footer/brewery_showcase.dart';
@@ -27,12 +30,10 @@ class BreweryView extends StatefulWidget {
 
 class _BreweryViewState extends State<BreweryView> {
 
-  Future? _breweryFuture;
-  
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    _breweryFuture = WordpressAPI.getBrewery(widget.breweryId.toString());
+
   }
 
   @override
@@ -42,8 +43,11 @@ class _BreweryViewState extends State<BreweryView> {
     );
 
     return FutureBuilder(
-      future: _breweryFuture,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      future: Future.wait([
+        WordpressAPI.getBrewery(widget.breweryId.toString()),
+        SharedServices.loginDetails()
+      ]),
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting: return AsyncLoader();
@@ -51,8 +55,8 @@ class _BreweryViewState extends State<BreweryView> {
             if (snapshot.hasError)
               return Text('Error: ${snapshot.error}');
             else
-              // return Text('Result: ${snapshot.data}');
-              return new Scaffold(
+
+              return Scaffold(
                 body: new SingleChildScrollView(
                   child: new Container(
                     decoration: linearGradient,
@@ -60,20 +64,25 @@ class _BreweryViewState extends State<BreweryView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new BreweryDetailHeader(
-                          snapshot.data,
-                          avatarTag: "brewery-" + widget.breweryId.toString(),
+                            snapshot.data?[0],
+                            avatarTag: "brewery-" +
+                                widget.breweryId.toString(),
+                            userData: snapshot.data?[1]
                         ),
                         new Padding(
                           padding: const EdgeInsets.all(24.0),
-                          child: new BreweryDetailBody(snapshot.data),
+                          child: new BreweryDetailBody(
+                              snapshot.data?[0]),
                         ),
-                        new BreweryShowcase(snapshot.data),
+                        new BreweryShowcase(snapshot.data?[0]),
                       ],
                     ),
                   ),
                 ),
               );
+
         }
+
 
 
       }

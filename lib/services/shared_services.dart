@@ -23,6 +23,7 @@ class SharedServices{
         : null;
   }
 
+
   static Future<void> setLoginDetails(LoginResponse? loginResponseModel)async{
     final Sharedprefs = await SharedPreferences.getInstance();
 

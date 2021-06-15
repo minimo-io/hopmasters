@@ -1,10 +1,12 @@
-import 'package:Hops/models/login.dart';
-import 'package:Hops/utils/progress_hud.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Hops/utils/notifications.dart';
 
+import 'package:Hops/models/login.dart';
 import 'package:Hops/models/preferences.dart';
+
+import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/utils/notifications.dart';
 
 import 'package:Hops/theme/style.dart';
 
@@ -43,6 +45,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
     _prefsFuture = WordpressAPI.getPrefsOptions();
     _userData = SharedServices.loginDetails();
     bottomHeight = 70;
+
 
   }
 
