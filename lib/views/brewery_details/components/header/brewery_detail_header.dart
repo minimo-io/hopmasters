@@ -38,6 +38,8 @@ class BreweryDetailHeader extends StatefulWidget {
 class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTickerProviderStateMixin{
   bool _isLoadingApiCall = false;
   bool _isBreweryIncluded = false;
+  int _breweryFollowersCount = -1;
+
 
   late AnimationController _animationController;
   late Future<Map<String,dynamic>?> _userBreweriesPreferences;
@@ -50,7 +52,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
         widget.userData?.data?.id,
         indexType: "breweries_preferences"
     );
-
+    this._breweryFollowersCount = int.parse(widget.brewery!.followers!);
     // after layour is built then set the state that will define
     // which button to show: follow or unfollow.
     defineBreweries(BuildContext context)async{
@@ -58,14 +60,15 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
       _userBreweriesPreferences.then((breweries_prefs){
 
 
-      String breweriesFollowed = breweries_prefs!["result"];
-      String breweryId = (widget.brewery?.id != null ? widget.brewery!.id : '' );
-      bool isBreweryIncluded = breweriesFollowed.contains(breweryId);
+        String breweriesFollowed = breweries_prefs!["result"];
+        String breweryId = (widget.brewery?.id != null ? widget.brewery!.id : '' );
+        bool isBreweryIncluded = breweriesFollowed.contains(breweryId);
 
 
-      setState(() {
-        this._isBreweryIncluded = isBreweryIncluded;
-      });
+        setState(() {
+          this._isBreweryIncluded = isBreweryIncluded;
+        });
+
 
 
 
@@ -109,7 +112,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text(widget.brewery!.followers.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
+          new Text(_breweryFollowersCount.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
         ],
       ),
     );
@@ -156,7 +159,12 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
 
               if (favRest == true){
                 setState(() => this._isLoadingApiCall = false );
+                setState(() => this._breweryFollowersCount++  );
                 setState(() { this._isBreweryIncluded = true; });
+
+                setState(() {
+
+                });
                 // save Shared Service for each preference
 
                 notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
@@ -218,6 +226,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
 
               if (favRest == true){
                 setState(() => this._isLoadingApiCall = false );
+                setState(() => this._breweryFollowersCount--  );
                 setState(() { this._isBreweryIncluded = false; });
                 // save Shared Service for each preference
 
@@ -259,19 +268,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
       ),
     );
   }
-/*
-  Future<void> defineIsSelected(dynamic data)async{
 
-    String breweriesFollowed = data["result"];
-    String breweryId = (widget.brewery?.id != null ? widget.brewery!.id : '' );
-    bool isBreweryIncluded = breweriesFollowed.contains(breweryId);
-    setState(() {
-      this._isBreweryIncluded = isBreweryIncluded;
-    });
-
-
-  }
-       */
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
