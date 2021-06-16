@@ -37,6 +37,13 @@ class _DiscoverBeersHeaderState extends State<DiscoverBeersHeader> {
                     color: colorScheme.secondary,
                   ),
                 ),
+                GestureDetector(
+                  onTap: () => print("Mooooar!"),
+                  child: Text(
+                    "Mas filtros",
+                    style: TextStyle(color: Color(0xFFBBBBBB)),
+                  ),
+                ),
               ],
             ),
             const SizedBox(

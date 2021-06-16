@@ -69,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(height: (30)),
               AppTitle(title: "Cervecerías"),
               SizedBox(height: (10)),
-              AppTitle(subtitle: "Aquí el listado de cervecerías artesanales de Uruguay. Ordenadas por cantidad de seguidores. Recuerda que puedes cambiar este filtro."),
+              AppTitle(subtitle: "Aquí el listado de cervecerías artesanales de Uruguay."),
               SizedBox(height: (15.0)),
               BreweriesCards(),
               SizedBox(height: (100)),

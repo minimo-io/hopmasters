@@ -188,8 +188,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
           padding: EdgeInsets.only(right: 2),
           child:_buildButton(
               isGrey: true,
-              text: Text("REMOVER"),
-              icon:  Icon(Icons.favorite),
+              text: Text("ABANDONAR"),
+              icon:  Icon(Icons.close),
               doOnPressed: ()async{
                 HopsNotifications notificationClient =  new HopsNotifications();
                 try {

@@ -77,7 +77,7 @@ class _AccountViewState extends State<AccountView> {
                           press: () {},
                         ),
                         ProfileMenu(
-                          text: "Configuración",
+                          text: "Preferencias",
                           icon: Icon(Icons.settings),
                           press: () {
                             Navigator.pushNamed(

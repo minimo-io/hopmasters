@@ -16,7 +16,7 @@ class SpecialOffers extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: (20)),
           child: SectionTitle(
             title: "Especiales para vos",
-            press: () {},
+            press: () { print("Especiales para vos"); },
           ),
         ),
         SizedBox(height: (20)),

@@ -74,6 +74,17 @@ Map<String, Pref> SINGUP_PREFS = {
       menu_order: 0,
       parent:0,
       slug: ''
+  ),
+  'friends': Pref(
+      count: 0,
+      description: '',
+      name: "Hacer amig@s",
+      display: '',
+      id: 666665,
+      image: '',
+      menu_order: 0,
+      parent:0,
+      slug: ''
   )
 };
 
