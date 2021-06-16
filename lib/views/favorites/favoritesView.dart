@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/views/favorites/components/favoriteBreweries.dart';
+import 'package:Hops/views/favorites/components/favoriteBeers.dart';
 
 class FavoritesView extends StatefulWidget {
   const FavoritesView({Key? key}) : super(key: key);
@@ -84,7 +85,11 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
                                 padding: const EdgeInsets.only(top: 15.0),
                                 child: FavoriteBreweries(loginResponse: snapshot.data[0],),
                               ),
-                              Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: FavoriteBeers(loginResponse: snapshot.data[0],),
+                              ),
+                              //Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
                             ],),
                         );
                       }

@@ -4,15 +4,20 @@ import 'package:Hops/models/beer.dart';
 
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/constants.dart';
-
 import 'package:Hops/helpers.dart';
+
+import 'package:Hops/services/wordpress_api.dart';
 
 
 class BeerCards extends StatefulWidget {
   List? beersList;
+  String? loadingText;
+  String? userBeersList; // possible favorite beers to call
 
-   BeerCards({
+  BeerCards({
     this.beersList,
+    this.loadingText,
+    this.userBeersList,
     Key? key
   }) : super(key: key);
 
@@ -21,6 +26,24 @@ class BeerCards extends StatefulWidget {
 }
 
 class _BeerCardsState extends State<BeerCards> {
+
+  Future? _beers;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.beersList != null){
+        // in this case we already have the beer list, just build a future wait 0
+      _beers =  Future.delayed(const Duration(seconds: 1), () => widget.beersList);
+    }else{
+      // else make the query
+      _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!);
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -90,8 +113,8 @@ class _BeerCardsState extends State<BeerCards> {
     }
 
 
-    Widget _buildBeerList(){
-      var beersBottom = (widget.beersList as List)
+    Widget _buildBeerList(List<dynamic> beersList){
+      var beersBottom = (beersList as List)
           .map((data) => new Beer.fromJson(data))
           .toList();
 
@@ -146,7 +169,28 @@ class _BeerCardsState extends State<BeerCards> {
       height: MediaQuery.of(context).size.height * 0.29,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: marginSide),
-        child: _buildBeerList(),
+        child: FutureBuilder(
+          future: _beers,
+          builder: (BuildContext context, AsyncSnapshot snapshot){
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
+
+                    if (widget.loadingText != null) Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(widget.loadingText!))
+
+
+                  ],
+                ));
+              default:
+                return _buildBeerList(snapshot.data);
+            }
+          }
+        ),
       ),
     );
 

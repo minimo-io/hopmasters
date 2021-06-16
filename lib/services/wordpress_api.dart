@@ -207,6 +207,33 @@ class WordpressAPI{
 
 
   }
+  // get list of beers
+  static Future getBeers( { String? userBeers = null } )async{
+
+    String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+    if (userBeers != null) beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
+    print(beersUriQuery);
+
+    try{
+      var response = await Dio().get(
+        beersUriQuery,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+      if (response.statusCode == 200){
+
+        return response.data;
+      }
+    } on DioError catch(e) {
+      print('Failed to load breweries list!');
+      throw Exception('Failed to load breweries list!');
+    }
+
+
+  }
 
   // get list of breweries
   static Future getBreweries( { String? userBreweries = null } )async{
