@@ -411,6 +411,47 @@ class WordpressAPI{
     return true;
   }
 
+  /// Add or remove beer (favorite) from user beers prefs, acf: beers_favorites_preference
+  static Future<bool> editBeerPref(
+      int userId,
+      int beerId,
+      { String addOrRemove = "add" }
+      )async{
+
+    final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateUser";
+    //print(beersFromBreweryUriQuery);
+    if (addOrRemove != "add" && addOrRemove != "remove") return false;
+
+    Map<String, dynamic> dataMap = {
+      "updateType": "beersFavoritesPreference",
+      "userId" : userId.toString(),
+      "beerId": beerId.toString(),
+      "addOrRemove": addOrRemove
+    };
+
+    try{
+
+      var response = await Dio().post(
+        beersFromBreweryUriQuery,
+        data: dataMap,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+      );
+      if (response.statusCode == 200){
+        var jsonResponse = response.data;
+        return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
+      }
+
+    } on DioError catch(e) {
+      //print('Failed to set user preferences! ' + e.message);
+      throw Exception('Failed to set brewery preferences!' + e.message);
+    }
+    return true;
+  }
+
   /// Get user preferences from custom fields
   static Future<Map<String, dynamic>?> getUserPrefs( int? userId, {String indexType = "breweries_preferences" } )async {
     //print(_WP_BASE_API + _WP_REST_HOPS_URI + "getUser/userID/" + userId.toString() + "/" + indexType + "/");

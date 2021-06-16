@@ -8,6 +8,7 @@ import 'package:Hops/components/async_loader.dart';
 import 'package:Hops/views/beer_details/components/beer_header.dart';
 import 'package:Hops/views/beer_details/components/beer_body.dart';
 
+import 'package:Hops/services/shared_services.dart';
 
 class BeerView extends StatefulWidget {
   static const routeName = "/beer";
@@ -27,7 +28,6 @@ class _BeerViewState extends State<BeerView> {
   @override
   void initState() {
     super.initState();
-    _beerFuture = WordpressAPI.getBeer(widget.beerId.toString());
   }
 
   @override
@@ -37,9 +37,11 @@ class _BeerViewState extends State<BeerView> {
     );
 
     return FutureBuilder(
-        future: _beerFuture,
+        future: Future.wait([
+          WordpressAPI.getBeer(widget.beerId.toString()),
+          SharedServices.loginDetails()
+        ]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-
           switch (snapshot.connectionState) {
             case ConnectionState.waiting: return AsyncLoader();
             default:
@@ -53,9 +55,12 @@ class _BeerViewState extends State<BeerView> {
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          BeerHeader(beer: snapshot.data),
+                          BeerHeader(
+                            beer: snapshot.data[0],
+                            userData: snapshot.data[1],
+                          ),
                           SizedBox(height: 10,),
-                          BeerBody(beer: snapshot.data),
+                          BeerBody(beer: snapshot.data[0]),
                           SizedBox(height: 50,),
                         ],
                       ),
