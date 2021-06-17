@@ -50,24 +50,36 @@ class Beer{
       if (parsedJson['categories'].asMap().containsKey(1)) {
         type = parsedJson['categories'][1]["name"].toString();
       }
-
     }
+
+    String? breweryId, breweryName, breweryImage;
+    String? container;
+    if (parsedJson.containsKey("acf")){
+      breweryId = parsedJson['acf']['brewery']['ID'].toString();
+      breweryName = parsedJson['acf']['brewery']['post_title'];
+      breweryImage = parsedJson['acf']['brewery_image'];
+
+      container = parsedJson['acf']['container'];
+    }
+
+
+
     return Beer(
       beerId: parsedJson['id'].toString(),
       name: parsedJson['name'].toString(),
       image: beerImage,
-      abv: abv,
+      abv: abv + "%",
       ibu: ibu,
       launch: launch,
       price: parsedJson['price'].toString(),
       description: parsedJson['short_description'].toString(),
       bgColor: bgColor,
       followers: followers,
-      breweryId: "000",
-      breweryName: "Malafama",
-      breweryImage: "https://hops.uy/wp-content/uploads/2021/03/cerveceria-malafama-logo.png",
+      breweryId: breweryId,
+      breweryName: breweryName,
+      breweryImage: breweryImage,
       type: type,
-      size: "500mL"
+      size: container
     );
   }
 

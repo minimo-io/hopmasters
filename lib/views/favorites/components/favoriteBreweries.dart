@@ -19,7 +19,7 @@ class FavoriteBreweries extends StatefulWidget {
   _FavoriteBreweriesState createState() => _FavoriteBreweriesState();
 }
 
-class _FavoriteBreweriesState extends State<FavoriteBreweries> {
+class _FavoriteBreweriesState extends State<FavoriteBreweries> with AutomaticKeepAliveClientMixin {
 
   //LoginResponse? userLogin;
 
@@ -28,6 +28,10 @@ class _FavoriteBreweriesState extends State<FavoriteBreweries> {
     super.initState();
 
   }
+
+  @override
+  bool get wantKeepAlive => true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class _FavoriteBreweriesState extends State<FavoriteBreweries> {
         builder: (BuildContext context, AsyncSnapshot snapshot){
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return AsyncLoader(text: "Cargando tus favoritas...",);
+                return AsyncLoader(text: "Cargando tus cervecerías favoritas...",);
               default:
                 if (snapshot.hasError){
                   return Text('Error: ${snapshot.error}');

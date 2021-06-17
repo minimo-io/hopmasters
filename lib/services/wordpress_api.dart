@@ -162,7 +162,6 @@ class WordpressAPI{
   // get beer from products
   static Future<Beer?> getBeer(String beerId)async{
     final String beerUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/"+ beerId +"?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
-
     try{
       var response = await Dio().get(
         beerUriQuery,
@@ -175,29 +174,7 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         var jsonResponse = response.data;
-
-        return Beer(
-          beerId: beerId,
-          //image: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
-          image: jsonResponse["images"][0]["src"],
-          followers: jsonResponse['acf']['followers'],
-          name: jsonResponse['name'],
-          bgColor: jsonResponse['acf']['bg_color'],
-          //description: jsonResponse['short_description'],
-          description: Helpers.parseHtmlString(jsonResponse['description']),
-          abv: jsonResponse['acf']['abv'],
-          ibu: jsonResponse['acf']['ibu'],
-          launch: jsonResponse['acf']['launch'],
-          price: jsonResponse['price'],
-          type: jsonResponse['categories'][0]['name'],
-          size: jsonResponse['acf']['container'],
-          breweryId: jsonResponse['acf']['brewery']['ID'].toString(),
-          breweryName: jsonResponse['acf']['brewery']['post_title'],
-          breweryImage: jsonResponse['acf']['brewery_image'],
-
-        );
-
-
+        return Beer.fromJson(jsonResponse);
       }
 
     } on DioError catch(e) {
@@ -212,7 +189,7 @@ class WordpressAPI{
 
     String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
     if (userBeers != null) beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
-    print(beersUriQuery);
+    //print(beersUriQuery);
 
     try{
       var response = await Dio().get(

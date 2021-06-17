@@ -1,3 +1,4 @@
+import 'package:Hops/models/login.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/services/shared_services.dart';
@@ -16,8 +17,8 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
   bool? fixedScroll;
 
   final List<Widget> _tabs = [
-    Tab(icon: Icon(Icons.storefront_rounded), text: "Cervecerías"),
-    Tab(icon: Icon(Icons.sports_bar_rounded), text: "Cervezas"),
+    Tab(key: UniqueKey(), icon: Icon(Icons.storefront_rounded), text: "Cervecerías"),
+    Tab(key: UniqueKey(), icon: Icon(Icons.sports_bar_rounded), text: "Cervezas"),
   ];
 
   _scrollListener() {
@@ -31,16 +32,18 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
-    _tabController = TabController(length: _tabs.length, vsync: this);
-  }
+    _tabController = TabController(length: _tabs.length, vsync: this, initialIndex: 0);
 
+
+  }
+/*
   @override
   void dispose() {
-    _tabController.dispose();
-    _scrollController.dispose();
-    super.dispose();
+    //_tabController.dispose();
+    //_scrollController.dispose();
+    //super.dispose();
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +57,20 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
             return [
               SliverToBoxAdapter(
                 child: TabBar(
+                  key: UniqueKey(),
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorColor: Colors.black.withOpacity(0.3),
                   controller: _tabController,
                   //isScrollable: true,
                   tabs: _tabs,
+                  /*
+                  onTap: (int index){
+                    print("Index tapped: " + index.toString());
+                    setState(() {
+                      //this.tabIndex = index;
+                    });
+                  },
+                  */
                 ),
               ),
             ];
@@ -79,15 +91,16 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
                         return Container(
                           height:MediaQuery.of(context).size.height,
                           child: TabBarView(
+                            key: UniqueKey(),
                             controller: _tabController,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15.0),
-                                child: FavoriteBreweries(loginResponse: snapshot.data[0],),
+                                child: FavoriteBreweries(key: UniqueKey(), loginResponse: snapshot.data[0],),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 15.0),
-                                child: FavoriteBeers(loginResponse: snapshot.data[0],),
+                                child: FavoriteBeers(key: UniqueKey(), loginResponse: snapshot.data[0],),
                               ),
                               //Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
                             ],),
@@ -102,4 +115,5 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
     );
   }
 }
+
 

@@ -25,7 +25,7 @@ class BeerCards extends StatefulWidget {
   _BeerCardsState createState() => _BeerCardsState();
 }
 
-class _BeerCardsState extends State<BeerCards> {
+class _BeerCardsState extends State<BeerCards>{
 
   Future? _beers;
 
@@ -42,6 +42,7 @@ class _BeerCardsState extends State<BeerCards> {
     }
 
   }
+
 
 
   @override

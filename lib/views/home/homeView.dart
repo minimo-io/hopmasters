@@ -61,7 +61,9 @@ class _HomeViewState extends State<HomeView> {
                         if (snapshot.hasError){
                           return Text('Ups! Error: ${snapshot.error}');
                         }else{
-                          return BeerCards(beersList: snapshot.data);
+                          return BeerCards(
+                            beersList: snapshot.data,
+                          );
                         }
                     }
                   }
