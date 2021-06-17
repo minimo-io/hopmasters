@@ -110,7 +110,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
         ),
       )
       );
-      list.add(SizedBox(height:10));
+      list.add(SizedBox(height:1));
     }
     return new Column(children: list);
   }

@@ -131,12 +131,18 @@ class _BeerCardsState extends State<BeerCards>{
         final double itemHeight = 270;
         final double itemWidth = MediaQuery.of(context).size.width / 2;
 
-        /*return GridView(children: beerCardList);*/
+
         return GridView.count(
+            scrollDirection: Axis.vertical,
             childAspectRatio: (itemWidth / itemHeight),
+
             crossAxisCount: 2,
-            children: beerCardList
+            children: beerCardList,
+
         );
+
+
+        //return Expanded(child: Column(children: beerCardList));
       }else{
         return Center(
 
@@ -167,7 +173,8 @@ class _BeerCardsState extends State<BeerCards>{
 
     return Container(
       color: Colors.transparent,
-      height: MediaQuery.of(context).size.height * 0.29,
+      //height: MediaQuery.of(context).size.height * 0.60,
+      height: 270 * 2,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: marginSide),
         child: FutureBuilder(

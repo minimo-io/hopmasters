@@ -49,7 +49,15 @@ class _HomeViewState extends State<HomeView> {
               BreweriesBanner(),
               SizedBox(height: (20)),
               SpecialOffers(),
-              SizedBox(height: (10)),
+              SizedBox(height: (30)),
+
+              AppTitle(title: "Top 5 cervecerías"),
+              SizedBox(height: (5)),
+              AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
+              SizedBox(height: (15.0)),
+              BreweriesCards(),
+              SizedBox(height: (30)),
+
               DiscoverBeersHeader(),
               FutureBuilder(
                   future: _breweryBeers,
@@ -68,12 +76,7 @@ class _HomeViewState extends State<HomeView> {
                     }
                   }
               ),
-              SizedBox(height: (30)),
-              AppTitle(title: "Cervecerías"),
-              SizedBox(height: (10)),
-              AppTitle(subtitle: "Aquí el listado de cervecerías artesanales de Uruguay."),
-              SizedBox(height: (15.0)),
-              BreweriesCards(),
+
               SizedBox(height: (100)),
             ],
           ),
