@@ -109,6 +109,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               icon: icon,
               label: text,
               style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
                   foregroundColor: MaterialStateProperty.all<Color>((isGrey ? Colors.white70 : Colors.white)),
                   backgroundColor: (
                       isGrey
@@ -117,7 +118,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           side: (isGrey ? BorderSide(style: BorderStyle.none) : BorderSide(color: widget.beer.rgbColor))
                       )
                   )

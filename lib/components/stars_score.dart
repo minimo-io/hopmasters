@@ -33,7 +33,7 @@ class _StarsScoreState extends State<StarsScore> {
         Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: Text(
-            '378 votos',
+            '378 opiniones',
             style: TextStyle(color: Colors.black54, fontSize: 14.0),
           ),
         )

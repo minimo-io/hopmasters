@@ -10,7 +10,9 @@ import 'package:Hops/services/wordpress_api.dart';
 
 import 'package:Hops/constants.dart';
 import 'package:Hops/theme/style.dart';
+
 import 'package:Hops/components/async_loader.dart';
+import 'package:Hops/components/opinion_floating_action.dart';
 
 import 'package:Hops/views/brewery_details/components/footer/brewery_showcase.dart';
 import 'package:Hops/views/brewery_details/components/brewery_detail_body.dart';
@@ -57,6 +59,13 @@ class _BreweryViewState extends State<BreweryView> {
             else
 
               return Scaffold(
+                floatingActionButton: OpinionFloatingAction(
+                    bgColor: snapshot.data![0].rgbColor.withOpacity(0.95),
+                    textColor: Colors.white,
+                    onTap: (){
+                      print("POOOOOK");
+                    }
+                ),
                 body: new SingleChildScrollView(
                   child: new Container(
                     decoration: linearGradient,

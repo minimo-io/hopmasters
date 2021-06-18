@@ -133,11 +133,12 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
               style: TextStyle(fontSize: 14)
           ),
           style: ButtonStyle(
+              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
               backgroundColor: MaterialStateProperty.all<Color>(widget.brewery!.rgbColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       side: BorderSide(color: widget.brewery!.rgbColor)
                   )
               )
@@ -157,11 +158,12 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
               style: TextStyle(fontSize: 14)
           ),
           style: ButtonStyle(
+              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
               backgroundColor: MaterialStateProperty.all<Color>(Colors.white24.withOpacity(.5)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       side: BorderSide(style: BorderStyle.none)
                   )
               )

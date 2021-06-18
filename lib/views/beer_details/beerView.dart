@@ -7,6 +7,7 @@ import 'package:Hops/components/async_loader.dart';
 
 import 'package:Hops/views/beer_details/components/beer_header.dart';
 import 'package:Hops/views/beer_details/components/beer_body.dart';
+import 'package:Hops/components/opinion_floating_action.dart';
 
 import 'package:Hops/services/shared_services.dart';
 
@@ -49,6 +50,13 @@ class _BeerViewState extends State<BeerView> {
                 return Text('Error: ${snapshot.error}');
               else
                 return new Scaffold(
+                  floatingActionButton: OpinionFloatingAction(
+                    bgColor: snapshot.data[0].rgbColor.withOpacity(0.95),
+                    textColor: Colors.white,
+                    onTap: (){
+                      print("POOOOOK");
+                    }
+                  ),
                   body: new SingleChildScrollView(
                     child: new Container(
                       decoration: linearGradient,
