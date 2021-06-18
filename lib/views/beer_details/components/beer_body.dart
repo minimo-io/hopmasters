@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/models/beer.dart';
 
-// import 'package:Hops/components/followers_info.dart';
+import 'package:Hops/components/stars_score.dart';
 import 'package:Hops/components/expandable_text.dart';
 import 'package:Hops/utils/load_network_image.dart';
 
@@ -50,14 +50,30 @@ class BeerBody extends StatelessWidget {
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Text(
-            beer.name,
-            style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                new Text(
+                  beer.name,
+                  style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: _buildBreweryInfo(textTheme, context),
+                ),
+              ],),
+
+              StarsScore()
+
+
+            ],
           ),
-          new Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: _buildBreweryInfo(textTheme, context),
-          ),
+
           Padding(
             padding: const EdgeInsets.only(top:16.0),
             child: ExpandableText(beer.description),
