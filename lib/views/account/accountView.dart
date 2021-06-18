@@ -54,7 +54,7 @@ class _AccountViewState extends State<AccountView> {
                         BreweryProfilePic(avatarUrl: snapshot.data.data.avatarUrl),
                         SizedBox(height: 20),
                         ProfileMenu(
-                          text: "Mi cuenta",
+                          text: "Mi perfil",
                           icon: Icon(Icons.verified_user),
                           press: () => {},
                         ),

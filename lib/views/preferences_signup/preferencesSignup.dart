@@ -223,7 +223,7 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                     finalName += "!";
 
                                     return TopLogo(
-                                    topPadding: 50,
+                                    topPadding: (widget.fromMainApp ? 20 : 50),
                                     bottomPadding: 0,
                                     showSlogan: false,
                                     title: finalName,
@@ -247,9 +247,10 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                                             crossAxisAlignment: CrossAxisAlignment
                                                 .start,
                                             children: <Widget>[
-                                              PrefsBeerTypes(snapshot.data),
-                                              SizedBox(height: 40,),
                                               PrefsTypes(snapshot.data),
+
+                                              SizedBox(height: 40,),
+                                              PrefsBeerTypes(snapshot.data),
                                               SizedBox(height: 20),
                                               SizedBox(height: 100,),
                                             ],

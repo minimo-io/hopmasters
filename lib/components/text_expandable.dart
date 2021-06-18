@@ -33,6 +33,7 @@ class _TextExpandableState extends State<TextExpandable> {
       isExpanded ? isExpanded = false : isExpanded = true;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
