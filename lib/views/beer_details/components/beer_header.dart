@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/utils/notifications.dart';
@@ -13,6 +13,8 @@ import 'package:Hops/utils/load_network_image.dart';
 import 'package:Hops/components/followers_info.dart';
 
 import 'package:Hops/components/bottom_sheet.dart';
+import 'package:Hops/components/counter_selector.dart';
+
 
 
 
@@ -123,66 +125,11 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               onPressed: doOnPressed as void Function()?
           ),
         );
-      /*
-        return ClipRRect(
-          borderRadius: new BorderRadius.circular(10.0),
-          child: Container(
-            color: SECONDARY_BUTTON_COLOR,
-            child: new IconButton(
-              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                iconSize: 20,
-                icon: icon,
-                onPressed: null),
-          ),
-        );
-      */
+
     }
-    Widget _followButton(){
-      return Padding(
-          padding: EdgeInsets.only(right: 2),
-          child:_buildButton(
-              text: Text("FAVORITA"),
-              icon:  Icon(Icons.favorite_border_outlined),
-              doOnPressed: ()async{
-                HopsNotifications notificationClient =  new HopsNotifications();
-                try {
-                  // get user details
 
 
-                  int? userId = widget.userData?.data?.id;
-                  int beerId = int.parse(widget.beer!.beerId);
-                  setState(() => this._isLoadingApiCall = true );
-                  // api call
-                  bool favRest = await WordpressAPI.editBeerPref(
-                      (userId != null ? userId : 0),
-                      beerId,
-                      addOrRemove: "add"
-                  );
 
-                  if (favRest == true){
-                    setState(() => this._isLoadingApiCall = false );
-                    //setState(() => this._breweryFollowersCount++  );
-                    setState(() { this._isBeerIncluded = true; });
-
-                    notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
-
-                  }
-                } on Exception catch (exception) {
-                  setState(() => this._isLoadingApiCall = false );
-
-                  notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
-                  print(exception);
-                } catch (error) {
-                  setState(() => this._isLoadingApiCall = false );
-
-                  notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
-                  print(error);
-                }
-
-              }
-          )
-      );
-    }
     Widget _unfollowButton(){
       return Padding(
           padding: EdgeInsets.only(right: 2),
@@ -190,86 +137,156 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               isGrey: true,
               text: Text("ABANDONAR"),
               icon:  Icon(Icons.close),
-              doOnPressed: ()async{
-                HopsNotifications notificationClient =  new HopsNotifications();
-                try {
-                  // get user details
-
-
-                  int? userId = widget.userData?.data?.id;
-                  int beerId = int.parse(widget.beer!.beerId);
-                  setState(() => this._isLoadingApiCall = true );
-                  // api call
-                  bool favRest = await WordpressAPI.editBeerPref(
-                      (userId != null ? userId : 0),
-                      beerId,
-                      addOrRemove: "remove"
-                  );
-
-                  if (favRest == true){
-                    setState(() => this._isLoadingApiCall = false );
-                    //setState(() => this._breweryFollowersCount++  );
-                    setState(() { this._isBeerIncluded = false; });
-
-                    notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
-
-                  }
-                } on Exception catch (exception) {
-                  setState(() => this._isLoadingApiCall = false );
-
-                  notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
-                  print(exception);
-                } catch (error) {
-                  setState(() => this._isLoadingApiCall = false );
-
-                  notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
-                  print(error);
-                }
-
-              }
+              doOnPressed: _unfollowAction
           )
       );
     }
+    Widget _followButton(){
+      return Padding(
+          padding: EdgeInsets.only(right: 2),
+          child:_buildButton(
+              text: Text("FAVORITA"),
+              icon:  Icon(Icons.favorite_border_outlined),
+              doOnPressed: _followAction
+          )
+      );
+    }
+
+
     return new Padding(
       padding: const EdgeInsets.only(
         top: 16.0,
         left: 16.0,
         right: 16.0,
       ),
-      child: FutureBuilder(
+      child: Row(
+        /*mainAxisAlignment: MainAxisAlignment.spaceEvenly,*/
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          // (_isBeerIncluded ? _unfollowButton() : _followButton() ),
+          CounterSelector(color: widget.beer.rgbColor),
+          Padding(
+              padding: EdgeInsets.only(left:2),
+              child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
+                showPersistentBottomSheet(context);
+              })
+          )
+        ],
+      )
+    );
+  }
+
+  void _followAction()async{
+    HopsNotifications notificationClient =  new HopsNotifications();
+    try {
+      // get user details
+
+
+      int? userId = widget.userData?.data?.id;
+      int beerId = int.parse(widget.beer!.beerId);
+      setState(() => this._isLoadingApiCall = true );
+      // api call
+      bool favRest = await WordpressAPI.editBeerPref(
+          (userId != null ? userId : 0),
+          beerId,
+          addOrRemove: "add"
+      );
+
+      if (favRest == true){
+        setState(() => this._isLoadingApiCall = false );
+        //setState(() => this._breweryFollowersCount++  );
+        setState(() { this._isBeerIncluded = true; });
+
+        notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
+
+      }
+    } on Exception catch (exception) {
+      setState(() => this._isLoadingApiCall = false );
+
+      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(exception);
+    } catch (error) {
+      setState(() => this._isLoadingApiCall = false );
+
+      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(error);
+    }
+  }
+  void _unfollowAction()async{
+    HopsNotifications notificationClient =  new HopsNotifications();
+    try {
+      // get user details
+
+
+      int? userId = widget.userData?.data?.id;
+      int beerId = int.parse(widget.beer!.beerId);
+      setState(() => this._isLoadingApiCall = true );
+      // api call
+      bool favRest = await WordpressAPI.editBeerPref(
+          (userId != null ? userId : 0),
+          beerId,
+          addOrRemove: "remove"
+      );
+
+      if (favRest == true){
+        setState(() => this._isLoadingApiCall = false );
+        //setState(() => this._breweryFollowersCount++  );
+        setState(() { this._isBeerIncluded = false; });
+
+        notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
+
+      }
+    } on Exception catch (exception) {
+      setState(() => this._isLoadingApiCall = false );
+
+      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(exception);
+    } catch (error) {
+      setState(() => this._isLoadingApiCall = false );
+
+      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(error);
+    }
+  }
+
+  Widget _followIconButton(){
+    return InkWell(
+        onTap: _followAction,
+        child: Icon(Icons.favorite_border, color: Colors.white,)
+    );
+  }
+
+  Widget _unfollowIconButton(){
+    return InkWell(
+        onTap: _unfollowAction,
+        child: Icon(Icons.favorite, color: Colors.white,)
+    );
+  }
+
+  Widget _buildFavoriteButton(){
+
+    return FutureBuilder(
         future: _userBeersPreferences,
         builder: (BuildContext context, AsyncSnapshot snapshot){
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
-              );
+              return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,);
             default:
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
 
-                return Row(
-                  /*mainAxisAlignment: MainAxisAlignment.spaceEvenly,*/
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    (_isBeerIncluded ? _unfollowButton() : _followButton() ),
-                    Padding(
-                        padding: EdgeInsets.only(left:2),
-                        child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
-                          showPersistentBottomSheet(context);
-                        })
-                    )
-                  ],
-                );
-
+                if (_isLoadingApiCall == true){
+                  return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,);
+                }
+                return (_isBeerIncluded ? _unfollowIconButton() : _followIconButton() );
               }
 
           }
         }
-      ),
     );
+
+
   }
 
   @override
@@ -295,7 +312,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               _buildBeerAvatar(),
               _buildBeerPrice(),
               //FollowersInfo(this.beer.followers, textColor: SECONDARY_TEXT_DARK),
-              if (_isLoadingApiCall == true) Padding(padding:EdgeInsets.only(top:16), child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)) else _buildActionButtons(Theme.of(context), context),
+              //if (_isLoadingApiCall == true) Padding(padding:EdgeInsets.only(top:16), child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)) else _buildActionButtons(Theme.of(context), context),
+              _buildActionButtons(Theme.of(context), context),
             ],
           ),
         ),
@@ -304,6 +322,25 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
           top: 26.0,
           left: 4.0,
           child: new BackButton(color: Colors.white),
+        ),
+
+
+         new Positioned(
+            top: 38.0,
+            right: 60.0,
+            child: _buildFavoriteButton(),
+          ),
+
+
+        new Positioned(
+          top: 38.0,
+          right: 20.0,
+          child: InkWell(
+            onTap: (){
+              Share.share('Mirá este cerveza, te puede interesar https://hops.uy/?p=' + widget.beer.beerId ,);
+            },
+            child: Icon(Icons.share, color: Colors.white,)
+          ),
         ),
 
 
