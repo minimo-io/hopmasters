@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:Hops/helpers.dart';
 
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/models/beer.dart';
+import 'package:Hops/utils/load_network_image.dart';
 
 import 'package:Hops/components/stars_score.dart';
-import 'package:Hops/components/expandable_text.dart';
-import 'package:Hops/utils/load_network_image.dart';
+import 'package:Hops/components/text_expandable.dart';
 
 class BeerBody extends StatelessWidget {
 
   final beer;
+
   BeerBody({
     required Beer? this.beer
   });
+
+  bool isExpanded = false;
 
   Widget _buildBreweryInfo(TextTheme textTheme, BuildContext context) {
     return GestureDetector(
@@ -20,17 +24,17 @@ class BeerBody extends StatelessWidget {
         Navigator.pushNamed(
           context,
           "/brewery",
-          arguments: { 'breweryId': int.parse(beer.breweryId) },
+          arguments: { 'breweryId': int.parse(this.beer.breweryId) },
 
         );
       },
       child: new Row(
         children: <Widget>[
-          LoadNetworkImage(uri:beer.breweryImage, height:15),
+          LoadNetworkImage(uri:this.beer.breweryImage, height:15),
           new Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: new Text(
-              beer.breweryName,
+              this.beer.breweryName,
               style: TextStyle(color: SECONDARY_TEXT_DARK.withOpacity(0.8)),
             ),
           ),
@@ -38,6 +42,7 @@ class BeerBody extends StatelessWidget {
       ),
     );
   }
+
 
 
   @override
@@ -59,7 +64,7 @@ class BeerBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 new Text(
-                  beer.name,
+                  this.beer.name,
                   style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 new Padding(
@@ -76,9 +81,11 @@ class BeerBody extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(top:16.0),
-            child: ExpandableText(beer.description),
+            child: TextExpandable(
+                this.beer.description
+            ),
           ),
-          SizedBox(height: 25,),
+          SizedBox(height: 30,),
           Text("Detalles",
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -87,7 +94,7 @@ class BeerBody extends StatelessWidget {
                   color: Color(0xFF565656))),
           SizedBox( height: 15 ),
           Column(
-            children: generateBeerSpecification(context, beer),
+            children: generateBeerSpecification(context, this.beer),
           )
         ]
       ),

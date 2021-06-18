@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:Hops/models/brewery.dart';
 import 'package:Hops/theme/style.dart';
-import 'package:Hops/components/expandable_text.dart';
+import 'package:Hops/components/text_expandable.dart';
 import 'package:Hops/components/stars_score.dart';
 
 
@@ -78,7 +78,10 @@ class BreweryDetailBody extends StatelessWidget {
 
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: ExpandableText(brewery!.description),
+          // child: ExpandableText(brewery!.description),
+          child: TextExpandable(
+            brewery!.description!,
+          )
         ),
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
