@@ -1,3 +1,4 @@
+import 'package:Hops/models/login.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/services/wordpress_api.dart';
 
@@ -10,6 +11,8 @@ import 'package:Hops/views/beer_details/components/beer_body.dart';
 import 'package:Hops/components/opinion_floating_action.dart';
 
 import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/helpers.dart';
+import 'package:Hops/models/beer.dart';
 
 class BeerView extends StatefulWidget {
   static const routeName = "/beer";
@@ -21,15 +24,41 @@ class BeerView extends StatefulWidget {
   @override
   _BeerViewState createState() => _BeerViewState();
 }
+class MyFloatingActionButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        showBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              color: Colors.red,
+            ));
+      },
+    );
+  }
+}
+class _BeerViewState extends State<BeerView> with AutomaticKeepAliveClientMixin<BeerView> {
 
-class _BeerViewState extends State<BeerView> {
+  Future<Beer?>? _beerFuture;
+  LoginResponse? _userData;
+  bool _activeButton = false;
 
-  Future? _beerFuture;
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
+    //_beerFuture = WordpressAPI.getBeer(widget.beerId.toString());
+    _beerFuture = getBeer();
   }
+
+  Future<Beer?> getBeer() async {
+    _userData =  await SharedServices.loginDetails();
+    return await WordpressAPI.getBeer(widget.beerId.toString());
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,43 +67,50 @@ class _BeerViewState extends State<BeerView> {
     );
 
     return FutureBuilder(
-        future: Future.wait([
-          WordpressAPI.getBeer(widget.beerId.toString()),
-          SharedServices.loginDetails()
-        ]),
+        future: _beerFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+
           switch (snapshot.connectionState) {
             case ConnectionState.waiting: return AsyncLoader();
             default:
               if (snapshot.hasError)
                 return Text('Error: ${snapshot.error}');
               else
+
                 return new Scaffold(
-                  floatingActionButton: OpinionFloatingAction(
-                    bgColor: snapshot.data[0].rgbColor.withOpacity(0.95),
-                    textColor: Colors.white,
-                    onTap: (){
-                      print("POOOOOK");
-                    }
+                floatingActionButton: OpinionFloatingAction(
+                  _activeButton ?  "PUBLICAR" : "OPINAR",
+                  bgColor: snapshot.data.rgbColor.withOpacity(0.95),
+                  textColor: Colors.white,
+                  child: Container(
+                    child: Text("Formulario")
                   ),
-                  body: new SingleChildScrollView(
-                    child: new Container(
-                      decoration: linearGradient,
-                      child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          BeerHeader(
-                            beer: snapshot.data[0],
-                            userData: snapshot.data[1],
-                          ),
-                          SizedBox(height: 10,),
-                          BeerBody(beer: snapshot.data[0]),
-                          SizedBox(height: 50,),
-                        ],
-                      ),
+                  title: "OPINAR",
+                  onTap: (){
+                      print("OOOK");
+                      setState(() {
+                        _activeButton = true;
+                      });
+                  },
+                ),
+                body: new SingleChildScrollView(
+                  child: new Container(
+                    decoration: linearGradient,
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        BeerHeader(
+                          beer: snapshot.data,
+                          userData: _userData,
+                        ),
+                        SizedBox(height: 10,),
+                        BeerBody(beer: snapshot.data),
+                        SizedBox(height: 50,),
+                      ],
                     ),
                   ),
-                );
+                ),
+              );;
           }
 
 

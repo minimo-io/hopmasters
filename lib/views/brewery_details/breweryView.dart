@@ -60,6 +60,7 @@ class _BreweryViewState extends State<BreweryView> {
 
               return Scaffold(
                 floatingActionButton: OpinionFloatingAction(
+                    "Opinar",
                     bgColor: snapshot.data![0].rgbColor.withOpacity(0.95),
                     textColor: Colors.white,
                     onTap: (){

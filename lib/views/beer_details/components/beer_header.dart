@@ -15,7 +15,7 @@ import 'package:Hops/components/followers_info.dart';
 import 'package:Hops/components/bottom_sheet.dart';
 import 'package:Hops/components/counter_selector.dart';
 
-
+import 'package:Hops/helpers.dart';
 
 
 class BeerHeader extends StatefulWidget{
@@ -169,7 +169,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
           Padding(
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
-                showPersistentBottomSheet(context);
+                Helpers.showPersistentBottomSheet(context);
               })
           )
         ],
