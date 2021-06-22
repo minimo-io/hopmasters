@@ -38,6 +38,7 @@ class _BreweryViewState extends State<BreweryView> {
 
   }
 
+
   @override
   Widget build(BuildContext context) {
     var linearGradient = const BoxDecoration(
@@ -61,6 +62,7 @@ class _BreweryViewState extends State<BreweryView> {
               return Scaffold(
                 floatingActionButton: OpinionFloatingAction(
                     "Opinar",
+                    "Publicar",
                     bgColor: snapshot.data![0].rgbColor.withOpacity(0.95),
                     textColor: Colors.white,
                     onTap: (){

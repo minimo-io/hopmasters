@@ -39,6 +39,7 @@ dependencies:
   google_sign_in: ^5.0.4
   flutter_facebook_auth: ^3.4.1
   share_plus: ^2.1.4
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

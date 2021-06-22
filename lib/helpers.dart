@@ -35,49 +35,5 @@ class Helpers{
     return size * MediaQuery.of(context).size.height / baseHeight;
   }
 
-  static void showPersistentBottomSheet(BuildContext context, { Widget? child, String? title }) {
-    /*
-    setState(() {
-      // Disable the show bottom sheet button.
-      _showBottomSheetCallback = null;
-    });
-  */
-    Scaffold.of(context)
-        .showBottomSheet<void>(
-          (context) {
-        return Container(
-          height: 430,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Container(
-                height: 70,
-                child: Center(
-                  child: (title != null) ? Text(
-                    title,
-                    textAlign: TextAlign.center,
-                  ) : Container(),
-                ),
-              ),
-              const Divider(thickness: 1),
-              (child != null ? child : Container()),
-            ],
-          ),
-        );
-      },
-      elevation: 25,
-    )
-        .closed
-        .whenComplete(() {
-      /*
-          if (mounted) {
-            setState(() {
-              // Re-enable the bottom sheet button.
-              _showBottomSheetCallback = _showPersistentBottomSheet;
-            });
-          }
-          */
-    });
-  }
 
 }

@@ -11,8 +11,9 @@ import 'package:Hops/views/beer_details/components/beer_body.dart';
 import 'package:Hops/components/opinion_floating_action.dart';
 
 import 'package:Hops/services/shared_services.dart';
-import 'package:Hops/helpers.dart';
 import 'package:Hops/models/beer.dart';
+
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BeerView extends StatefulWidget {
   static const routeName = "/beer";
@@ -79,19 +80,63 @@ class _BeerViewState extends State<BeerView> with AutomaticKeepAliveClientMixin<
 
                 return new Scaffold(
                 floatingActionButton: OpinionFloatingAction(
-                  _activeButton ?  "PUBLICAR" : "OPINAR",
+                  "PUBLICAR",
+                  "OPINAR",
+                  isActive: _activeButton,
                   bgColor: snapshot.data.rgbColor.withOpacity(0.95),
                   textColor: Colors.white,
-                  child: Container(
-                    child: Text("Formulario")
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10,),
+                      Text("Una clasificación del 1 al 5", style: TextStyle(fontSize: 18)),
+                      SizedBox(height: 10,),
+                      RatingBar.builder(
+                        initialRating: 0,
+                        glow:false,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: false,
+                        unratedColor: Colors.amber.withAlpha(80),
+                        itemCount: 5,
+                        itemSize: 40.0,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          setState(() {
+                            //_rating = rating;
+                          });
+                        },
+                        updateOnDrag: true,
+                      ),
+                    ],
                   ),
                   title: "OPINAR",
                   onTap: (){
-                      print("OOOK");
+
                       setState(() {
-                        _activeButton = true;
+                        if (_activeButton == true ){
+                          //_activeButton = false;
+
+
+                        }else{
+                          _activeButton = true;
+                        }
                       });
+
                   },
+                  onClose: (){
+                    setState(() {
+                      if (_activeButton == true ){
+                        _activeButton = false;
+                      }else{
+                        _activeButton = true;
+                      }
+                    });
+                  }
                 ),
                 body: new SingleChildScrollView(
                   child: new Container(

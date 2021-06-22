@@ -169,7 +169,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
           Padding(
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
-                Helpers.showPersistentBottomSheet(context);
+                //Helpers.showPersistentBottomSheet(context);
               })
           )
         ],
