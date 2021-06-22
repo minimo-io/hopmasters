@@ -17,7 +17,7 @@ class AsyncLoader extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                    child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)
+                    child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
                 ),
                 if (this.text != null) Padding(
                   padding: const EdgeInsets.only(top: 10.0),

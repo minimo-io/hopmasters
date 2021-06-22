@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:Hops/helpers.dart';
 
 class OpinionFloatingAction extends StatefulWidget {
@@ -11,6 +12,7 @@ class OpinionFloatingAction extends StatefulWidget {
   Widget? child;
   String? title;
   bool isActive;
+  double? height;
 
   OpinionFloatingAction(
     this.textInactive,
@@ -22,6 +24,7 @@ class OpinionFloatingAction extends StatefulWidget {
     this.onClose,
     this.child,
     this.title,
+    this.height,
     this.isActive = false,
     Key? key,
   }) : super(key: key);
@@ -40,25 +43,28 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction> {
           Scaffold.of(context)
               .showBottomSheet<void>(
                 (context) {
-              return Container(
-                height: 430,
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 20, top: 5),
-                      height: 50,
-                      child: (widget.title != null) ? Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          widget.title!,
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                        ),
-                      ) : Container(),
-                    ),
-                    const Divider(thickness: 1),
-                    (widget.child != null ? widget.child! : Container()),
-                  ],
+              return BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  height: (widget.height != null ? widget.height : 430),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 20, top: 20),
+                        height: 50,
+                        child: (widget.title != null) ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.title!,
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                          ),
+                        ) : Container(),
+                      ),
+                      const Divider(thickness: 1),
+                      (widget.child != null ? widget.child! : Container()),
+                    ],
+                  ),
                 ),
               );
             },

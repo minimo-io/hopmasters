@@ -70,6 +70,7 @@ class _BeerViewState extends State<BeerView> with AutomaticKeepAliveClientMixin<
     return FutureBuilder(
         future: _beerFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          final _formKey = GlobalKey<FormState>();
 
           switch (snapshot.connectionState) {
             case ConnectionState.waiting: return AsyncLoader();
@@ -82,37 +83,76 @@ class _BeerViewState extends State<BeerView> with AutomaticKeepAliveClientMixin<
                 floatingActionButton: OpinionFloatingAction(
                   "PUBLICAR",
                   "OPINAR",
+                  //height: 430,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   isActive: _activeButton,
                   bgColor: snapshot.data.rgbColor.withOpacity(0.95),
                   textColor: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10,),
-                      Text("Una clasificación del 1 al 5", style: TextStyle(fontSize: 18)),
-                      SizedBox(height: 10,),
-                      RatingBar.builder(
-                        initialRating: 0,
-                        glow:false,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: false,
-                        unratedColor: Colors.amber.withAlpha(80),
-                        itemCount: 5,
-                        itemSize: 40.0,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 0,),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text("Contanos qué te pareció esta cerveza y qué puntaje le dejarías.", style: TextStyle(fontSize: 15)),
                         ),
-                        onRatingUpdate: (rating) {
-                          setState(() {
-                            //_rating = rating;
-                          });
-                        },
-                        updateOnDrag: true,
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: RatingBar.builder(
+                            initialRating: 3,
+                            glow:true,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            unratedColor: Colors.amber.withAlpha(85),
+                            itemCount: 5,
+                            itemSize: 40.0,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              setState(() {
+                                //_rating = rating;
+                              });
+                            },
+                            updateOnDrag: true,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        //Text("Un comentario", style: TextStyle(fontSize: 18)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textAlignVertical: TextAlignVertical.top,
+
+                            maxLines: 5,
+                            minLines: 1,
+
+                            //style: TextStyle( fontSize: 13 ),
+
+                            decoration: new InputDecoration(
+                              labelStyle: TextStyle( color: colorScheme.primary, fontSize: 12, fontWeight: FontWeight.w300 ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: colorScheme.primary, width: 2),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: colorScheme.primary, width: 1),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderSide: new BorderSide(color: colorScheme.primary)),
+                              hintText: 'Contanos...',
+                              labelText: '¿Qué te pareció esta cerveza?',
+                              helperText: 'Intenta ser amable como te gustan que sean contigo 😊',
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   title: "OPINAR",
                   onTap: (){

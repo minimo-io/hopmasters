@@ -32,6 +32,8 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - path_provider (0.0.1):
     - Flutter
+  - share_plus (0.0.1):
+    - Flutter
   - shared_preferences (0.0.1):
     - Flutter
   - url_launcher (0.0.1):
@@ -42,6 +44,7 @@ DEPENDENCIES:
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -63,6 +66,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_sign_in/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   url_launcher:
@@ -79,6 +84,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
