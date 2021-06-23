@@ -16,19 +16,19 @@ class OpinionFloatingAction extends StatefulWidget {
   double? height;
 
   OpinionFloatingAction(
-    this.textInactive,
-    this.textActive,
-    {
-    this.textColor,
-    this.bgColor,
-    this.onTap,
-    this.onClose,
-    this.child,
-    this.title,
-    this.height,
-    this.isActive = false,
-    Key? key,
-  }) : super(key: key);
+      this.textInactive,
+      this.textActive,
+      {
+        this.textColor,
+        this.bgColor,
+        this.onTap,
+        this.onClose,
+        this.child,
+        this.title,
+        this.height,
+        this.isActive = false,
+        Key? key,
+      }) : super(key: key);
 
   @override
   _OpinionFloatingActionState createState() => _OpinionFloatingActionState();
@@ -37,7 +37,7 @@ class OpinionFloatingAction extends StatefulWidget {
 class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
   bool isLoading = false;
-  bool isActive = false;
+  late bool isActive;
 
   @override
   void initState(){
@@ -69,12 +69,12 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                             height: 50,
                             child: (widget.title != null)
                                 ? Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          widget.title!,
-                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                                        ),
-                                      )
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  widget.title!,
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                              ),
+                            )
                                 : Container(),
                           ),
                           const Divider(thickness: 1),
@@ -88,8 +88,8 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
               )
                   .closed
                   .whenComplete(() {
-                    setState(() { this.isLoading = false; });
-                    if (widget.onClose !=null) widget.onClose!();
+                setState(() { this.isLoading = false; });
+                if (widget.onClose !=null) widget.onClose!();
                 /*
               if (mounted) {
                 setState(() {
@@ -127,15 +127,16 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
           },
           shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
           label: Text(
-              (this.isActive
-                  ? widget.textInactive
-                  : (this.isLoading == false ? widget.textActive : '')
-              ),
-              style: TextStyle(color:widget.textColor, ),
+            (widget.isActive
+                ? (this.isLoading == false ? widget.textInactive : '')
+                :  widget.textActive
+            ),
+            style: TextStyle(color:widget.textColor, fontSize:12),
 
           ),
           icon: (this.isLoading == false ? Icon(
             Icons.edit,
+            size:18,
             color: widget.textColor,
           ) : Padding(
             padding: const EdgeInsets.only(left:8.0),
@@ -143,15 +144,15 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
           ) ) ,
           backgroundColor: widget.bgColor,
         ),
-      // Close floating button
-      (widget.isActive && this.isLoading == false ?
+        // Close floating button
+        (widget.isActive && this.isLoading == false ?
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: FloatingActionButton.extended(
               shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
               onPressed: () => (this.isLoading ? null : Navigator.pop(context)),
               backgroundColor: widget.bgColor,
-              label: Text("X", style: TextStyle(color: Colors.white))
+              label: Text("X", style: TextStyle(color: Colors.white, fontSize: 12))
           ),
         ) : SizedBox(height: 0.01,)),
       ],
