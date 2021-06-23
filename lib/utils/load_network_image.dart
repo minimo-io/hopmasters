@@ -16,6 +16,7 @@ class LoadNetworkImage extends StatelessWidget {
         return Center(
           child: CircularProgressIndicator(
             color: PROGRESS_INDICATOR_COLOR,
+            strokeWidth: 1.0,
             value: loadingProgress.expectedTotalBytes != null ?
             loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                 : null,

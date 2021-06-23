@@ -126,7 +126,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
             return Center( child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
+                CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
                 if (widget.loadingText != null) Padding(padding:EdgeInsets.only(top:10), child: Text(widget.loadingText!))
               ],
             ) );
