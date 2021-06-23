@@ -202,14 +202,15 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
 
               if (this.isLoading == false){
-                print("Procesando formulario");
+
                 setState(() { this.isLoading = true; });
                 setState(() { this.formValidatedOnce = true; });
 
                 if (_formKey.currentState!.validate()) {
                   // print("Rating");
                   // print(_rating);
-                  FocusScope.of(context).requestFocus(new FocusNode()); // close keyboard
+                  //FocusScope.of(context).requestFocus(new FocusNode()); // close keyboard
+                  FocusManager.instance.primaryFocus?.unfocus();
                   _formKey.currentState!.save();
 
                   int userId = (widget.userData!.data!.id != null ? widget.userData!.data!.id! : 0);
@@ -237,13 +238,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
                   });
 
-                  /*
-                  Future.delayed(const Duration(seconds: 2), () => 1).then((value){
-                    Navigator.pop(context);
 
-
-                  });
-                  */
                 }else{
 
                   setState(() { this.isLoading = false; });
@@ -256,7 +251,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
               }else{
                 // a form submit is being processed, do nothing damn it!
-                print("Hold it damn it!");
+                //print("Hold it damn it!");
               }
 
 
@@ -266,6 +261,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
             if (widget.onTap !=null) widget.onTap!();
           },
+
           shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
           label: Text(
             (widget.isActive
@@ -283,8 +279,9 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
             padding: const EdgeInsets.only(left:8.0),
             child: SizedBox(height: 10, width: 10, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 1.0,)),
           ) ) ,
-          backgroundColor: widget.bgColor,
+          backgroundColor: (this.isLoading == false ? widget.bgColor : Colors.grey),
         ),
+
         // Close floating button
         (widget.isActive && this.isLoading == false ?
         Padding(
