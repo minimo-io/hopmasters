@@ -1,4 +1,4 @@
-import 'package:Hops/models/login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:Hops/services/wordpress_api.dart';
 
@@ -12,10 +12,9 @@ import 'package:Hops/components/opinion_floating_action.dart';
 
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/models/beer.dart';
+import 'package:Hops/models/login.dart';
 
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import 'package:Hops/utils/notifications.dart';
 
 class BeerView extends StatefulWidget {
   static const routeName = "/beer";
@@ -68,7 +67,6 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
     var linearGradient = const BoxDecoration(
       gradient: PRIMARY_GRADIENT_COLOR,
     );
-    final _formKey = GlobalKey<FormState>();
 
     return FutureBuilder(
         future: _beerFuture,
@@ -92,104 +90,9 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
                   isActive: _activeButton,
                   bgColor: snapshot.data.rgbColor.withOpacity(0.95),
                   textColor: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 0,),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text("Contanos qué te pareció esta cerveza y qué puntaje le dejarías.", style: TextStyle(fontSize: 15)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: RatingBar.builder(
-                          initialRating: 3,
-                          glow:true,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: false,
-                          unratedColor: Colors.amber.withAlpha(85),
-                          itemCount: 5,
-                          itemSize: 35.0,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (rating) {
-                            setState(() {
-                              //_rating = rating;
-                            });
-                          },
-                          updateOnDrag: true,
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      //Text("Un comentario", style: TextStyle(fontSize: 18)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Ingresa alguna opinión";
-                            }
-                            return null;
-                          },
-
-                          keyboardType: TextInputType.multiline,
-                          textAlignVertical: TextAlignVertical.top,
-                          style: TextStyle(fontSize: 12.5),
-
-                          maxLines: 3,
-                          minLines: 1,
-
-                          //style: TextStyle( fontSize: 13 ),
-
-                          decoration: new InputDecoration(
-                            labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: colorScheme.secondary, width: 2),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: colorScheme.secondary, width: 1),
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: new BorderSide(color: colorScheme.secondary)),
-                            hintText: 'Contanos...',
-                            labelText: '¿Qué te pareció esta cerveza?',
-                            helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-/*
-                  onFormSubmit: (){
-                    print("FORM KEY 2");
-                    print(_formKey);
-                    print(_formKey.currentState);
-
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Processing Data')));
-
-                      Future.delayed(const Duration(seconds: 2), () => null).then((value){
-                        Navigator.pop(context);
-                        HopsNotifications notificationClient =  new HopsNotifications();
-                        notificationClient.message(context, "¡Comentario publicado!");
-
-                      });
-                    }
-
-
-
-
-
-                  },
-
- */
+                  child: null,
+                  userData: _userData,
+                  postId: int.parse(snapshot.data.beerId),
                   onTap: (){
 
                       setState(() {

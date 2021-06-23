@@ -45,6 +45,10 @@ class WordpressAPI{
   static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Es verdad, menos es mas ¡Suerte!";
   static const String MESSAGE_ERROR_UNFOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
+  static const String MESSAGE_OK_ADDCOMMENT = "¡Comentario publicado!";
+  static const String MESSAGE_ERROR_ADDCOMMENT = "¡Ocurrió un error: ";
+
+
   static Future<bool> login(
       String? username,
       String? password,
@@ -484,5 +488,71 @@ class WordpressAPI{
     }
   }
 
+
+  /// Add or remove beer (favorite) from user beers prefs, acf: beers_favorites_preference
+  static Future<Map<String, dynamic>> addEditComment(
+      int userId,
+      int postId,
+      String? userComment,
+      {
+        // String beerOrBrewery = "beer",
+        int? commentId = 0,
+        double? rating = 0
+      }
+      )async{
+
+    final String uriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "updateComment";
+    //print(uriQuery);
+
+    Map<String, dynamic> dataMap = {
+      "commentId": commentId.toString(),
+      "userId" : userId.toString(),
+      "postId" : postId.toString(),
+      "rating" : rating.toString(),
+      // "beerOrBrewery": beerOrBrewery,
+      "userComment": (userComment != null ? userComment : '' )
+    };
+
+
+    try{
+
+      var response = await Dio().post(
+        uriQuery,
+        data: dataMap,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+      );
+      if (response.statusCode == 200){
+        var jsonResponse = response.data;
+        return {
+          "result": (jsonResponse["result"] != null ? jsonResponse["result"]  : false),
+          "data" : (jsonResponse["data"]["comment_id"] != null ? jsonResponse["data"]["comment_id"] : ""),
+        };
+        //return ;
+      }
+
+    } on DioError catch(e) {
+
+      if (e.response!.data.runtimeType != String){
+        return {
+          "result": false,
+          "data": e.response!.data["code"].toString()
+        };
+      }else{
+        return {
+          "result": false,
+          "data": "comment_already_exists"
+        };
+      }
+
+    }
+    return {
+      "result": false,
+      "data": ""
+    };
+  }
 
 }

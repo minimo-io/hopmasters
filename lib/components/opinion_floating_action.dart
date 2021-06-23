@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:Hops/services/wordpress_api.dart';
 import 'dart:ui';
 import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/theme/style.dart';
+
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'package:Hops/utils/notifications.dart';
+import 'package:Hops/models/login.dart';
 
 class OpinionFloatingAction extends StatefulWidget {
   String textInactive;
@@ -14,6 +20,9 @@ class OpinionFloatingAction extends StatefulWidget {
   String? title;
   bool isActive;
   double? height;
+  LoginResponse? userData;
+  int postId;
+
 
   OpinionFloatingAction(
       this.textInactive,
@@ -26,6 +35,8 @@ class OpinionFloatingAction extends StatefulWidget {
         this.child,
         this.title,
         this.height,
+        this.userData,
+        this.postId = 0,
         this.isActive = false,
         Key? key,
       }) : super(key: key);
@@ -38,6 +49,10 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
   bool isLoading = false;
   late bool isActive;
+  final _formKey = GlobalKey<FormState>();
+  late double _rating = 3.0;
+  bool formValidatedOnce = false;
+  String? _opinionFormField = "";
 
   @override
   void initState(){
@@ -78,7 +93,91 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                                 : Container(),
                           ),
                           const Divider(thickness: 1),
-                          (widget.child != null ? widget.child! : Container()),
+
+                          // old child
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 0,),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text("Contanos qué te pareció esta cerveza y qué puntaje le dejarías.", style: TextStyle(fontSize: 15)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: RatingBar.builder(
+                                    initialRating: _rating,
+                                    glow:true,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: false,
+                                    unratedColor: Colors.amber.withAlpha(85),
+                                    itemCount: 5,
+                                    itemSize: 35.0,
+                                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      setState(() {
+                                        _rating = rating;
+                                      });
+                                    },
+                                    updateOnDrag: true,
+                                  ),
+                                ),
+                                SizedBox(height: 0,),
+                                //Text("Un comentario", style: TextStyle(fontSize: 18)),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Ingresa un comentario.";
+                                      }
+                                      if (!RegExp(r'.{10,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 10 letras o números).';
+                                      return null;
+                                    },
+                                    autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                    onSaved: (String? value) {
+                                      // This optional block of code can be used to run
+                                      // code when the user saves the form.
+                                      setState(() { _opinionFormField = value; });
+                                    },
+
+                                    keyboardType: TextInputType.multiline,
+                                    textAlignVertical: TextAlignVertical.top,
+                                    style: TextStyle(fontSize: 12.5),
+
+                                    maxLines: 3,
+                                    minLines: 1,
+
+                                    //style: TextStyle( fontSize: 13 ),
+
+                                    decoration: new InputDecoration(
+                                      labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: colorScheme.secondary)),
+                                      hintText: 'Contanos...',
+                                      labelText: '¿Qué te pareció esta cerveza?',
+                                      helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+
                         ],
                       ),
                     ),
@@ -105,12 +204,54 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
               if (this.isLoading == false){
                 print("Procesando formulario");
                 setState(() { this.isLoading = true; });
-                Future.delayed(const Duration(seconds: 2), () => null).then((value){
-                  Navigator.pop(context);
-                  HopsNotifications notificationClient =  new HopsNotifications();
-                  notificationClient.message(context, "¡Comentario publicado!");
+                setState(() { this.formValidatedOnce = true; });
 
-                });
+                if (_formKey.currentState!.validate()) {
+                  // print("Rating");
+                  // print(_rating);
+                  FocusScope.of(context).requestFocus(new FocusNode()); // close keyboard
+                  _formKey.currentState!.save();
+
+                  int userId = (widget.userData!.data!.id != null ? widget.userData!.data!.id! : 0);
+
+                  WordpressAPI.addEditComment(
+                      userId,
+                      widget.postId,
+                      _opinionFormField,
+                      rating: _rating,
+
+                  ).then((result){
+                    HopsNotifications notificationClient =  new HopsNotifications();
+                    setState(() { this.isLoading = false; });
+                    setState(() { this.formValidatedOnce = false; });
+                    if (result["result"] == true){
+
+                      Navigator.pop(context);
+                      notificationClient.message(context, WordpressAPI.MESSAGE_OK_ADDCOMMENT);
+
+                    }else{
+                      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_ADDCOMMENT + " / " + result["data"]);
+
+                    }
+
+
+                  });
+
+                  /*
+                  Future.delayed(const Duration(seconds: 2), () => 1).then((value){
+                    Navigator.pop(context);
+
+
+                  });
+                  */
+                }else{
+
+                  setState(() { this.isLoading = false; });
+
+
+                }
+
+
 
 
               }else{
