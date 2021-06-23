@@ -130,24 +130,24 @@ class _BeerViewState extends State<BeerView> with AutomaticKeepAliveClientMixin<
                             keyboardType: TextInputType.multiline,
                             textAlignVertical: TextAlignVertical.top,
 
-                            maxLines: 5,
+                            maxLines: 4,
                             minLines: 1,
 
                             //style: TextStyle( fontSize: 13 ),
 
                             decoration: new InputDecoration(
-                              labelStyle: TextStyle( color: colorScheme.primary, fontSize: 12, fontWeight: FontWeight.w300 ),
+                              labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: colorScheme.primary, width: 2),
+                                borderSide: BorderSide(color: colorScheme.secondary, width: 2),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: colorScheme.primary, width: 1),
+                                borderSide: BorderSide(color: colorScheme.secondary, width: 1),
                               ),
                               border: OutlineInputBorder(
-                                  borderSide: new BorderSide(color: colorScheme.primary)),
+                                  borderSide: new BorderSide(color: colorScheme.secondary)),
                               hintText: 'Contanos...',
                               labelText: '¿Qué te pareció esta cerveza?',
-                              helperText: 'Intenta ser amable como te gustan que sean contigo 😊',
+                              helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
                             ),
                           ),
                         )

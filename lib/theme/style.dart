@@ -12,8 +12,8 @@ final ColorScheme colorScheme = ColorScheme.light(
 */
 
 final ColorScheme colorScheme = ColorScheme.light(
-  //primary: Color.fromRGBO(255, 255, 255, 1),
-  primary: Color.fromRGBO(27, 27, 27, 1),
+  primary: Color.fromRGBO(255, 255, 255, 1),
+  //primary: Color.fromRGBO(27, 27, 27, 1),
   secondary: Color.fromRGBO(27, 29, 31, 1),
   primaryVariant: Color.fromRGBO(255, 255, 107, 1),
   secondaryVariant: Color.fromRGBO(95, 116, 129, 1),
