@@ -136,7 +136,7 @@ class WordpressAPI{
   }
   static Future getBeersFromBreweryID(String breweryID)async{
     final String beersFromBreweryUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/breweryID/"+ breweryID +"?_embed";
-
+    //print(beersFromBreweryUriQuery);
     try{
       var response = await Dio().get(
         beersFromBreweryUriQuery,
@@ -166,7 +166,7 @@ class WordpressAPI{
   // get beer from products
   static Future<Beer?> getBeer(String beerId)async{
     final String beerUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/"+ beerId +"?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
-
+    // print(beerUriQuery);
     try{
       var response = await Dio().get(
         beerUriQuery,

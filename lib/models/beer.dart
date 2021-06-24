@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/helpers.dart';
-import 'package:meta/meta.dart';
+import 'package:Hops/models/comment.dart';
+
 
 
 class Beer{
@@ -20,6 +21,7 @@ class Beer{
     required this.bgColor,
     required this.type,
     required this.size,
+    this.comment
 
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? "#ffffff");
 
@@ -63,6 +65,9 @@ class Beer{
     }
 
 
+    if (parsedJson.containsKey("user_comment")){
+      // parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"]) : null;
+    }
 
     return Beer(
       beerId: parsedJson['id'].toString(),
@@ -79,7 +84,8 @@ class Beer{
       breweryName: breweryName,
       breweryImage: breweryImage,
       type: type,
-      size: container
+      size: container,
+      comment:parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"]) : null
     );
   }
 
@@ -96,6 +102,7 @@ class Beer{
   String? size;
   String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC', like its returned from the back-end
   Color rgbColor;
+  Comment? comment;
 
   String? breweryId, breweryName, breweryImage;
 }
