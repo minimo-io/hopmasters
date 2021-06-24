@@ -58,7 +58,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
 
   Future<Beer?> getBeer() async {
     _userData =  await SharedServices.loginDetails();
-    return await WordpressAPI.getBeer(widget.beerId.toString());
+    return await WordpressAPI.getBeer(widget.beerId.toString(), userId: _userData!.data!.id.toString());
   }
 
 
@@ -92,6 +92,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
                   textColor: Colors.white,
                   child: null,
                   userData: _userData,
+                  comment: snapshot.data.comment,
                   postId: int.parse(snapshot.data.beerId),
                   onTap: (){
 

@@ -8,6 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/models/login.dart';
+import 'package:Hops/models/comment.dart';
 
 class OpinionFloatingAction extends StatefulWidget {
   String textInactive;
@@ -22,7 +23,7 @@ class OpinionFloatingAction extends StatefulWidget {
   double? height;
   LoginResponse? userData;
   int postId;
-
+  Comment? comment;
 
   OpinionFloatingAction(
       this.textInactive,
@@ -37,6 +38,7 @@ class OpinionFloatingAction extends StatefulWidget {
         this.height,
         this.userData,
         this.postId = 0,
+        this.comment,
         this.isActive = false,
         Key? key,
       }) : super(key: key);
@@ -57,6 +59,8 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
   @override
   void initState(){
     this.isActive = widget.isActive;
+    _rating = (widget.comment != null && widget.comment!.rating != null ? double.parse(widget.comment!.rating!) : 3.0);
+
   }
 
   @override
@@ -134,6 +138,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                                   child: TextFormField(
+                                    initialValue: (widget.comment != null ? widget.comment!.comment_content  : null),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Ingresa un comentario.";
@@ -216,22 +221,30 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                   int userId = (widget.userData!.data!.id != null ? widget.userData!.data!.id! : 0);
 
                   WordpressAPI.addEditComment(
-                      userId,
-                      widget.postId,
-                      _opinionFormField,
-                      rating: _rating,
+                    userId,
+                    widget.postId,
+                    _opinionFormField,
+                    rating: _rating,
+                    commentId: (widget.comment != null ? widget.comment!.comment_ID  : null)
 
                   ).then((result){
                     HopsNotifications notificationClient =  new HopsNotifications();
                     setState(() { this.isLoading = false; });
                     setState(() { this.formValidatedOnce = false; });
                     if (result["result"] == true){
+                      // update parent & this widgets comment in memory using this data
+                      print(result["data"]);
 
                       Navigator.pop(context);
-                      notificationClient.message(context, WordpressAPI.MESSAGE_OK_ADDCOMMENT);
+                      if (widget.comment != null){
+                        notificationClient.message(context, WordpressAPI.MESSAGE_OK_EDITCOMMENT);
+                      }else{
+                        notificationClient.message(context, WordpressAPI.MESSAGE_OK_ADDCOMMENT);
+                      }
+
 
                     }else{
-                      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_ADDCOMMENT + " / " + result["data"]);
+                      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_ADDEDITCOMMENT + " / " + result["data"]);
 
                     }
 
@@ -265,8 +278,12 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
           shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
           label: Text(
             (widget.isActive
-                ? (this.isLoading == false ? widget.textInactive : '')
-                :  widget.textActive
+                ? (
+                    this.isLoading == false
+                      ? (widget.comment != null ? "MODIFICAR" : widget.textInactive)
+                      : ''
+                  )
+                :  (widget.comment != null ? "MODIFICAR OPINIÓN" : widget.textActive)
             ),
             style: TextStyle(color:widget.textColor, fontSize:12),
 
@@ -280,7 +297,11 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
             child: SizedBox(height: 10, width: 10, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 1.0,)),
           ) ) ,
           backgroundColor: (this.isLoading == false ? widget.bgColor : Colors.grey),
-        ),
+        )
+        ,
+
+        // ADD / PUBLISH BUTTON
+
 
         // Close floating button
         (widget.isActive && this.isLoading == false ?

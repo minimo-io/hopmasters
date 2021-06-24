@@ -85,7 +85,7 @@ class Beer{
       breweryImage: breweryImage,
       type: type,
       size: container,
-      comment:parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"]) : null
+      comment:parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"][0]) : null // passing only the first one (as user can edit)
     );
   }
 

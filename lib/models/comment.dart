@@ -16,7 +16,8 @@ class Comment{
   String? comment_type;
   String? comment_parent;
   String? user_id;
-  
+  String? rating;
+
   Comment({
     this.comment_ID,
     this.comment_post_ID,
@@ -33,6 +34,7 @@ class Comment{
     this.comment_type,
     this.comment_parent,
     this.user_id,
+    this.rating
   });
 
   Comment.fromJson( Map<String, dynamic> json){
@@ -52,6 +54,7 @@ class Comment{
     comment_type = json["comment_type"];
     comment_parent = json["comment_parent"];
     user_id = json["user_id"];
+    rating = json["comment_rating"];
 
   }
   

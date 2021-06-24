@@ -45,8 +45,11 @@ class WordpressAPI{
   static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Es verdad, menos es mas ¡Suerte!";
   static const String MESSAGE_ERROR_UNFOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
-  static const String MESSAGE_OK_ADDCOMMENT = "¡Comentario publicado!";
-  static const String MESSAGE_ERROR_ADDCOMMENT = "¡Ocurrió un error: ";
+  static const String MESSAGE_OK_ADDCOMMENT = "¡Opinión publicada!";
+  static const String MESSAGE_ERROR_ADDEDITCOMMENT = "¡Ocurrió un error: ";
+
+  static const String MESSAGE_OK_EDITCOMMENT = "Cambiar de opinión es de sabios. ¡Opinión modificada!";
+
 
 
   static Future<bool> login(
@@ -164,9 +167,12 @@ class WordpressAPI{
   }
 
   // get beer from products
-  static Future<Beer?> getBeer(String beerId)async{
-    final String beerUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/"+ beerId +"?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
-    // print(beerUriQuery);
+  static Future<Beer?> getBeer(String beerId, { String? userId = "0" })async{
+    String beerUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/"+ beerId +"?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+    // add user to get comments if any
+    if (userId != null && userId != "0") beerUriQuery = beerUriQuery + "&userId=" + userId;
+
+    //print(beerUriQuery);
     try{
       var response = await Dio().get(
         beerUriQuery,
@@ -179,6 +185,7 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
         var jsonResponse = response.data;
+
         return Beer.fromJson(jsonResponse);
       }
 
@@ -497,7 +504,7 @@ class WordpressAPI{
       String? userComment,
       {
         // String beerOrBrewery = "beer",
-        int? commentId = 0,
+        String? commentId = "1",
         double? rating = 0
       }
       )async{
@@ -506,14 +513,13 @@ class WordpressAPI{
     //print(uriQuery);
 
     Map<String, dynamic> dataMap = {
-      "commentId": commentId.toString(),
+      "commentId": (commentId != null ? commentId : "0" ),
       "userId" : userId.toString(),
       "postId" : postId.toString(),
       "rating" : rating.toString(),
       // "beerOrBrewery": beerOrBrewery,
       "userComment": (userComment != null ? userComment : '' )
     };
-
 
     try{
 
@@ -530,7 +536,7 @@ class WordpressAPI{
         var jsonResponse = response.data;
         return {
           "result": (jsonResponse["result"] != null ? jsonResponse["result"]  : false),
-          "data" : (jsonResponse["data"]["comment_id"] != null ? jsonResponse["data"]["comment_id"] : ""),
+          "data" : (jsonResponse["data"]["comment"] != null ? jsonResponse["data"]["comment"] : ""),
         };
         //return ;
       }
