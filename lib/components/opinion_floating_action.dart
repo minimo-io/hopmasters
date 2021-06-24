@@ -55,11 +55,13 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
   late double _rating = 3.0;
   bool formValidatedOnce = false;
   String? _opinionFormField = "";
+  Comment? _comment;
 
   @override
   void initState(){
     this.isActive = widget.isActive;
-    _rating = (widget.comment != null && widget.comment!.rating != null ? double.parse(widget.comment!.rating!) : 3.0);
+    _comment = widget.comment;
+    _rating = (_comment != null && _comment!.rating != null ? double.parse(_comment!.rating!) : 3.0);
 
   }
 
@@ -138,7 +140,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                                   child: TextFormField(
-                                    initialValue: (widget.comment != null ? widget.comment!.comment_content  : null),
+                                    initialValue: (_comment != null ? _comment!.comment_content  : null),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Ingresa un comentario.";
@@ -225,22 +227,23 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                     widget.postId,
                     _opinionFormField,
                     rating: _rating,
-                    commentId: (widget.comment != null ? widget.comment!.comment_ID  : null)
+                    commentId: (_comment != null ? _comment!.comment_ID  : null)
 
                   ).then((result){
                     HopsNotifications notificationClient =  new HopsNotifications();
                     setState(() { this.isLoading = false; });
                     setState(() { this.formValidatedOnce = false; });
                     if (result["result"] == true){
-                      // update parent & this widgets comment in memory using this data
-                      print(result["data"]);
 
                       Navigator.pop(context);
-                      if (widget.comment != null){
+                      if (_comment != null){
                         notificationClient.message(context, WordpressAPI.MESSAGE_OK_EDITCOMMENT);
                       }else{
                         notificationClient.message(context, WordpressAPI.MESSAGE_OK_ADDCOMMENT);
                       }
+
+                      // update parent & this widgets comment in memory using this data
+                      _comment = Comment.fromJson(result["data"]);
 
 
                     }else{
@@ -280,10 +283,10 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
             (widget.isActive
                 ? (
                     this.isLoading == false
-                      ? (widget.comment != null ? "MODIFICAR" : widget.textInactive)
+                      ? (_comment != null ? "MODIFICAR" : widget.textInactive)
                       : ''
                   )
-                :  (widget.comment != null ? "MODIFICAR OPINIÓN" : widget.textActive)
+                :  (_comment != null ? "MODIFICAR OPINIÓN" : widget.textActive)
             ),
             style: TextStyle(color:widget.textColor, fontSize:12),
 
