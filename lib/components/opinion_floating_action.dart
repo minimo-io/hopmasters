@@ -146,6 +146,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                                         return "Ingresa un comentario.";
                                       }
                                       if (!RegExp(r'.{10,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 10 letras o números).';
+                                      if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
                                       return null;
                                     },
                                     autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
@@ -162,6 +163,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
 
                                     maxLines: 3,
                                     minLines: 1,
+
 
                                     //style: TextStyle( fontSize: 13 ),
 

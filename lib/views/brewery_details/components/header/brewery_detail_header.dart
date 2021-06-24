@@ -293,14 +293,14 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
         builder: (BuildContext context, AsyncSnapshot snapshot){
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,);
+              return SizedBox(height:22, width: 22,child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,));
             default:
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
 
                 if (_isLoadingApiCall == true){
-                  return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,);
+                  return SizedBox(height:22, width: 22,child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,));
                 }
                 return (_isBreweryIncluded ? _unfollowIconButton() : _followIconButton() );
               }
