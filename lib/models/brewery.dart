@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/helpers.dart';
-import 'package:meta/meta.dart';
+import 'package:Hops/models/comment.dart';
 
 class Brewery {
 
@@ -12,7 +12,8 @@ class Brewery {
     required this.followers,
     required this.beersCount,
     required this.bgColor,
-    required this.description
+    required this.description,
+    this.comment,
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(234, 186, 0, 0.6) as String);
 
   factory Brewery.fromJson(Map<String, dynamic> parsedJson){
@@ -25,6 +26,7 @@ class Brewery {
       bgColor: parsedJson['acf']['bg_color'],
       name: parsedJson['title']['rendered'],
       description: parsedJson['excerpt']['rendered'],
+      comment: parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"][0]) : null // passing only the first one (as user can edit)
     );
   }
 
@@ -37,7 +39,7 @@ class Brewery {
   String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC'
   String? description;
   Color rgbColor; // this is a Color object
-
+  Comment? comment;
   /*
   static List<Brewery> allFromResponse(String response) {
     var decodedJson = json.decode(response).cast<String, dynamic>();

@@ -68,6 +68,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       heightFactor: 1.2,
       child: new Column(
         children: <Widget>[
+          SizedBox(height: 5,),
           Hero(
             tag: "beer-" + widget.beer.name,
             child: LoadNetworkImage(uri: widget.beer.image, height: 230,),
@@ -156,7 +157,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
     return new Padding(
       padding: const EdgeInsets.only(
-        top: 10.0,
+        top: 1.0,
         left: 16.0,
         right: 16.0,
       ),

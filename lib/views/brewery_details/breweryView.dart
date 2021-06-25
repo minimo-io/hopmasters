@@ -31,13 +31,21 @@ class BreweryView extends StatefulWidget {
 }
 
 class _BreweryViewState extends State<BreweryView> {
+  Future<Brewery?>? _breweryFuture;
+  bool _activeButton = false;
+  LoginResponse? _userData;
 
   @override
   void initState(){
     super.initState();
-
+    _breweryFuture = getBrewery();
   }
 
+  Future<Brewery?> getBrewery() async {
+    _userData =  await SharedServices.loginDetails();
+    //return await WordpressAPI.getBrewery(widget.breweryId.toString(), userId: _userData!.data!.id.toString());
+    return await WordpressAPI.getBrewery(widget.breweryId.toString(), userId: _userData!.data!.id.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +54,8 @@ class _BreweryViewState extends State<BreweryView> {
     );
 
     return FutureBuilder(
-      future: Future.wait([
-        WordpressAPI.getBrewery(widget.breweryId.toString()),
-        SharedServices.loginDetails()
-      ]),
-      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      future: _breweryFuture,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting: return AsyncLoader();
@@ -61,12 +66,39 @@ class _BreweryViewState extends State<BreweryView> {
 
               return Scaffold(
                 floatingActionButton: OpinionFloatingAction(
-                    "Opinar",
-                    "Publicar",
-                    bgColor: snapshot.data![0].rgbColor.withOpacity(0.95),
+                    "PUBLICAR",
+                    "OPINAR",
+                    title: "OPINAR",
+                    commentText: "Contanos qué te parece esta cervecería y qué puntaje le dejarías.",
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    isActive: _activeButton,
+                    child: null,
+                    userData: _userData,
+                    comment: snapshot.data.comment,
+                    bgColor: snapshot.data.rgbColor.withOpacity(0.95),
                     textColor: Colors.white,
+                    postId: int.parse(snapshot.data.id),
                     onTap: (){
-                      print("POOOOOK");
+
+                      setState(() {
+                        if (_activeButton == true ){
+                          //_activeButton = false;
+
+
+                        }else{
+                          _activeButton = true;
+                        }
+                      });
+
+                    },
+                    onClose: (){
+                      setState(() {
+                        if (_activeButton == true ){
+                          _activeButton = false;
+                        }else{
+                          _activeButton = true;
+                        }
+                      });
                     }
                 ),
                 body: new SingleChildScrollView(
@@ -76,17 +108,16 @@ class _BreweryViewState extends State<BreweryView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new BreweryDetailHeader(
-                            snapshot.data?[0],
+                            snapshot.data,
                             avatarTag: "brewery-" +
                                 widget.breweryId.toString(),
-                            userData: snapshot.data?[1]
+                            userData: _userData
                         ),
                         new Padding(
                           padding: const EdgeInsets.all(24.0),
-                          child: new BreweryDetailBody(
-                              snapshot.data?[0]),
+                          child: new BreweryDetailBody(snapshot.data),
                         ),
-                        new BreweryShowcase(snapshot.data?[0]),
+                        new BreweryShowcase(snapshot.data),
                       ],
                     ),
                   ),

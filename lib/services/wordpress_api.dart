@@ -42,7 +42,7 @@ class WordpressAPI{
   static const String MESSAGE_OK_FOLLOWING_BREWERY = "¡Buena elección! Te mantendremos al tanto de las novedades.";
   static const String MESSAGE_ERROR_FOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
-  static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Es verdad, menos es mas ¡Suerte!";
+  static const String MESSAGE_OK_UNFOLLOWING_BREWERY = "Es verdad, menos es mas.";
   static const String MESSAGE_ERROR_UNFOLLOWING_BREWERY = "¡Ups! Ocurrió un error. Ponete en contacto.";
 
   static const String MESSAGE_OK_ADDCOMMENT = "¡Opinión publicada!";
@@ -250,8 +250,10 @@ class WordpressAPI{
 
   }
 
-  static Future<Brewery?> getBrewery(String breweryId)async{
-    final String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/"+ breweryId +"?_embed";
+  static Future<Brewery?> getBrewery(String breweryId, { String? userId = "0" })async{
+    String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/"+ breweryId +"?_embed";
+    if (userId != null && userId != "0") breweryUriQuery = breweryUriQuery + "&userId=" + userId;
+    //print(breweryUriQuery);
 
     try{
       var response = await Dio().get(
@@ -266,18 +268,7 @@ class WordpressAPI{
       if (response.statusCode == 200){
 
         var jsonResponse = response.data;
-
-        Brewery brewery = Brewery(
-          id: breweryId,
-          avatar: jsonResponse["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"],
-          location: jsonResponse['acf']['location'],
-          followers: jsonResponse['acf']['followers'],
-          beersCount: jsonResponse['acf']['beers_count'],
-          bgColor: jsonResponse['acf']['bg_color'],
-          name: jsonResponse['title']['rendered'],
-          description: jsonResponse['excerpt']['rendered'],
-        );
-
+        Brewery brewery = Brewery.fromJson(jsonResponse);
         return brewery;
 
 
