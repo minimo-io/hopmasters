@@ -43,7 +43,7 @@ class _CounterSelectorState extends State<CounterSelector> {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         width: Helpers.screenAwareSize(100.0, context),
-        height: Helpers.screenAwareSize(31.5, context),
+        height: Helpers.screenAwareSize(37.0, context),
         decoration: BoxDecoration(
             //color: widget.color?.withOpacity(0.8),
             color: Color.fromRGBO(222, 222, 222, 1),

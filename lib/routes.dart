@@ -6,6 +6,7 @@ import 'package:Hops/views/appView.dart';
 import 'package:Hops/views/cart/cartView.dart';
 import 'package:Hops/views/brewery_details/breweryView.dart';
 import 'package:Hops/views/beer_details/beerView.dart';
+import 'package:Hops/views/comments/commentsView.dart';
 import 'package:Hops/views/notFound/not_found_page.dart';
 
 /*
@@ -61,6 +62,15 @@ class Routes {
             settings: routeSettings,
             builder: (_) => BreweryView(breweryId: breweryArg),
           );
+
+        case CommentsView.routeName:
+          final postId = args!['postId'] as int?;
+
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => CommentsView(postId: (postId != null ? postId : 0 ),),
+          );
+
 
         case BeerView.routeName:
           final beerArg = args!['beerId'] as int?;

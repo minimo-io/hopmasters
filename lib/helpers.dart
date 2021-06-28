@@ -32,7 +32,8 @@ class Helpers{
 
   static double screenAwareSize(double size, BuildContext context) {
     double baseHeight = 640.0;
-    return size * MediaQuery.of(context).size.height / baseHeight;
+    //return size * MediaQuery.of(context).size.height / baseHeight;
+    return size;
   }
 
 

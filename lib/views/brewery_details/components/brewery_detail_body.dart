@@ -71,7 +71,16 @@ class BreweryDetailBody extends StatelessWidget {
                 ),
               ],),
 
-            StarsScore()
+            InkWell(
+                onTap: (){
+                  Navigator.pushNamed(
+                    context,
+                    "/comments",
+                    arguments: {'postId': int.parse(this.brewery!.id) },
+                  );
+                },
+                child: StarsScore()
+            )
 
           ],
         ),

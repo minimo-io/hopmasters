@@ -73,7 +73,16 @@ class BeerBody extends StatelessWidget {
                 ),
               ],),
 
-              StarsScore()
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(
+                    context,
+                    "/comments",
+                    arguments: {'postId': int.parse(this.beer.beerId) },
+                  );
+                },
+                child: StarsScore()
+              )
 
 
             ],

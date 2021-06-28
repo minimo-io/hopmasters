@@ -166,7 +166,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // (_isBeerIncluded ? _unfollowButton() : _followButton() ),
-          CounterSelector(color: widget.beer.rgbColor),
+          (widget.beer.stockStatus == "instock" ? CounterSelector(color: widget.beer.rgbColor) : Container() ) ,
           Padding(
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
