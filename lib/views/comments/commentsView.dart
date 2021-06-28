@@ -10,10 +10,12 @@ class CommentsView extends StatefulWidget {
   static const String routeName = "/comments";
 
   int postId;
+  String? postTitle;
 
   CommentsView({
     Key? key,
-    this.postId = 0
+    this.postId = 0,
+    this.postTitle
   }) : super(key: key);
 
   @override
@@ -123,7 +125,7 @@ class _CommentsViewState extends State<CommentsView> {
         ),
       ),
       appBar: AppBar(
-          title: Text("Opiniones")
+          title: Text("Opiniones" + ( widget.postTitle != null ? " sobre " + widget.postTitle! : "" ))
       ),
     );
   }

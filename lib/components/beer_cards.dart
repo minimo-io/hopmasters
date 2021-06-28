@@ -78,7 +78,7 @@ class _BeerCardsState extends State<BeerCards>{
                     Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
                     Text(
                       beer.name!,
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 15),
                     ),
                     Text(
                       "\$${beer.price}",

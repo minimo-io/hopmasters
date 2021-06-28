@@ -76,7 +76,7 @@ class BreweryDetailBody extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     "/comments",
-                    arguments: {'postId': int.parse(this.brewery!.id) },
+                    arguments: {'postId': int.parse(this.brewery!.id), 'postTitle': this.brewery!.name },
                   );
                 },
                 child: StarsScore()

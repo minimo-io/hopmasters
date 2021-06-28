@@ -65,10 +65,14 @@ class Routes {
 
         case CommentsView.routeName:
           final postId = args!['postId'] as int?;
+          final postTitle = args['postTitle'] as String?;
 
           return MaterialPageRoute(
             settings: routeSettings,
-            builder: (_) => CommentsView(postId: (postId != null ? postId : 0 ),),
+            builder: (_) => CommentsView(
+              postId: (postId != null ? postId : 0),
+              postTitle: postTitle,
+            ),
           );
 
 
