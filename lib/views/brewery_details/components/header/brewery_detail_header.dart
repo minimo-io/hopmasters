@@ -99,10 +99,21 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
   Widget _buildAvatar() {
     return new Hero(
       tag: widget.avatarTag,
-      child: new CircleAvatar(
-        backgroundImage: new NetworkImage(widget.brewery!.avatar!),
-        //backgroundImage: LoadNetworkImage(brewery.avatar),
-        radius: 50.0,
+      child: Stack(
+        children: [
+          new CircleAvatar(
+            backgroundImage: new NetworkImage(widget.brewery!.avatar!),
+            //backgroundImage: LoadNetworkImage(brewery.avatar),
+            radius: 50.0,
+          ),
+          Positioned(
+            top:5,
+            right:1,
+            width: 20,
+            height: 20,
+            child: Image.asset("assets/images/flags/uy.png"),
+          ),
+        ]
       ),
     );
   }
