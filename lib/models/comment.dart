@@ -58,7 +58,7 @@ class Comment{
     comment_type = (json["comment_type"] != null ? json["comment_type"] : json["type"] );
     comment_parent = (json["comment_parent"] != null ? json["comment_parent"] : json["parent"].toString() );
     user_id = (json["user_id"] != null ? json["user_id"] : json["author"].toString() );
-    rating = (json["comment_rating"] != null ? json["comment_rating"] : json["acf"]["score"] );
+    rating = (json["comment_rating"] != null ? json["comment_rating"] : (json["acf"] != null ? json["acf"]["score"] : "0") );
   }
 
 

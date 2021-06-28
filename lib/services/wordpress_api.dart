@@ -557,11 +557,11 @@ class WordpressAPI{
 
   /// Get comments from postId
   static Future<List<dynamic>?> getComments( int? postId )async {
-    // print( _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_COMMENTS + "/?post=" + postId.toString(),);
+    //print( _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_COMMENTS + "/?post=" + postId.toString(),);
 
     try{
       var response = await Dio().get(
-        _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_COMMENTS + "/?post=" + postId.toString(),
+        _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_COMMENTS + "/?post=" + postId.toString() + "&order=desc&orderby=date_gmt",
         options: new Options(
             headers: {
               HttpHeaders.contentTypeHeader: "application/json"
