@@ -40,24 +40,32 @@ class MyFloatingActionButton extends StatelessWidget {
     );
   }
 }
-class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixin<BeerView>*/ {
+class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin  {
 
   Future<Beer?>? _beerFuture;
   LoginResponse? _userData;
   bool _activeButton = false;
   Map<String, dynamic> _scores = new Map();
-/*
-  @override
-  bool get wantKeepAlive => true;
-  */
+
   @override
   void initState() {
     super.initState();
-    //_beerFuture = WordpressAPI.getBeer(widget.beerId.toString());
     _beerFuture = getBeer();
 
     _scores["opinionCount"] = 0;
     _scores["opinionScore"] = 0.0;
+
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+      _beerFuture!.then((beerData){
+        refreshScore(
+            int.parse(beerData!.scoreCount!),
+            double.parse(beerData.scoreAvg!)
+        );
+      });
+
+
+    });
+
   }
 
   Future<Beer?> getBeer() async {
@@ -84,8 +92,6 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
     return FutureBuilder(
         future: _beerFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-
 
           switch (snapshot.connectionState) {
             case ConnectionState.waiting: return AsyncLoader();

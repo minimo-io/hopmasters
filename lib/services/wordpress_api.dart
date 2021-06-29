@@ -173,7 +173,7 @@ class WordpressAPI{
     // add user to get comments if any
     if (userId != null && userId != "0") beerUriQuery = beerUriQuery + "&userId=" + userId;
 
-
+    //print(beerUriQuery);
 
     try{
       var response = await Dio().get(

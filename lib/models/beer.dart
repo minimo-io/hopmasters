@@ -22,6 +22,8 @@ class Beer{
     required this.type,
     required this.size,
     required this.stockStatus,
+    required this.scoreAvg,
+    required this.scoreCount,
     this.comment
 
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? "#ffffff");
@@ -75,6 +77,11 @@ class Beer{
       // parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"]) : null;
     }
 
+    String? scoreAvg, scoreCount;
+    if (parsedJson.containsKey("scores")){
+      scoreAvg = parsedJson["scores"]["opinionScore"].toString();
+      scoreCount = parsedJson["scores"]["opinionCount"].toString();
+    }
     return Beer(
       beerId: parsedJson['id'].toString(),
       name: parsedJson['name'].toString(),
@@ -92,7 +99,9 @@ class Beer{
       type: type,
       size: container,
       stockStatus: stockStatus,
-      comment:parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"][0]) : null // passing only the first one (as user can edit)
+      scoreAvg: scoreAvg,
+      scoreCount: scoreCount,
+      comment: parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"][0]) : null // passing only the first one (as user can edit)
     );
   }
 
@@ -110,6 +119,8 @@ class Beer{
   String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC', like its returned from the back-end
   Color rgbColor;
   Comment? comment;
+  String? scoreAvg;
+  String? scoreCount;
   String stockStatus;
   String? breweryId, breweryName, breweryImage;
 }
