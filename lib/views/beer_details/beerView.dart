@@ -63,7 +63,6 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
         );
       });
 
-
     });
 
   }

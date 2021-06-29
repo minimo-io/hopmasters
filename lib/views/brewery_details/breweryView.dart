@@ -34,11 +34,35 @@ class _BreweryViewState extends State<BreweryView> {
   Future<Brewery?>? _breweryFuture;
   bool _activeButton = false;
   LoginResponse? _userData;
+  Map<String, dynamic> _scores = new Map();
+
 
   @override
   void initState(){
     super.initState();
     _breweryFuture = getBrewery();
+
+    _scores["opinionCount"] = 0;
+    _scores["opinionScore"] = 0.0;
+
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+      _breweryFuture!.then((breweryData){
+        refreshScore(
+            int.parse(breweryData!.scoreCount!),
+            double.parse(breweryData.scoreAvg!)
+        );
+      });
+
+    });
+  }
+
+  refreshScore(int opinionCount, double opinionScore) {
+    setState(() {
+
+      _scores["opinionCount"] = opinionCount;
+      _scores["opinionScore"] = opinionScore;
+
+    });
   }
 
   Future<Brewery?> getBrewery() async {
@@ -111,11 +135,14 @@ class _BreweryViewState extends State<BreweryView> {
                             snapshot.data,
                             avatarTag: "brewery-" +
                                 widget.breweryId.toString(),
-                            userData: _userData
+                            userData: _userData,
                         ),
                         new Padding(
                           padding: const EdgeInsets.all(24.0),
-                          child: new BreweryDetailBody(snapshot.data),
+                          child: new BreweryDetailBody(
+                              snapshot.data,
+                              scores: _scores
+                          ),
                         ),
                         new BreweryShowcase(snapshot.data),
                       ],

@@ -19,17 +19,7 @@ class StarsScore extends StatefulWidget {
 }
 
 class _StarsScoreState extends State<StarsScore> {
-  /*
-  int _opinionCount = 0;
-  double _opinionScore = 0.0;
 
-  @override
-  void initState(){
-    _opinionCount = widget.opinionCount;
-    _opinionScore = widget.opinionScore;
-
-  }
-  */
   @override
   Widget build(BuildContext context) {
 

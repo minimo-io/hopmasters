@@ -173,7 +173,7 @@ class WordpressAPI{
     // add user to get comments if any
     if (userId != null && userId != "0") beerUriQuery = beerUriQuery + "&userId=" + userId;
 
-    //print(beerUriQuery);
+    // print(beerUriQuery);
 
     try{
       var response = await Dio().get(
@@ -255,7 +255,7 @@ class WordpressAPI{
   static Future<Brewery?> getBrewery(String breweryId, { String? userId = "0" })async{
     String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/"+ breweryId +"?_embed";
     if (userId != null && userId != "0") breweryUriQuery = breweryUriQuery + "&userId=" + userId;
-    //print(breweryUriQuery);
+    // print(breweryUriQuery);
 
     try{
       var response = await Dio().get(

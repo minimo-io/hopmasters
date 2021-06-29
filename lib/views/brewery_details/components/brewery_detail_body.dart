@@ -7,8 +7,14 @@ import 'package:Hops/components/stars_score.dart';
 
 
 class BreweryDetailBody extends StatelessWidget {
-  BreweryDetailBody(this.brewery);
+
+  BreweryDetailBody(
+    this.brewery,
+    { this.scores }
+  );
+
   final Brewery? brewery;
+  Map<String, dynamic>? scores;
 
   Widget _buildLocationInfo(TextTheme textTheme) {
     return new Row(
@@ -80,8 +86,8 @@ class BreweryDetailBody extends StatelessWidget {
                   );
                 },
                 child: StarsScore(
-                    opinionCount: 0,
-                    opinionScore: 0
+                  opinionCount: this.scores!["opinionCount"],
+                  opinionScore: this.scores!["opinionScore"],
                 )
             )
 
