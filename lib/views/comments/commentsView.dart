@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/theme/style.dart';
 
+import 'package:Hops/components/stars_score.dart';
 
 import 'package:Hops/models/comment.dart';
 import 'package:Hops/helpers.dart';
@@ -62,6 +63,11 @@ class _CommentsViewState extends State<CommentsView> {
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           textAlign: TextAlign.left
+                      ),
+                      StarsScore(
+                        opinionCount: 0,
+                        opinionScore: double.parse(comment.rating!),
+                        onlyStars: true
                       )
                     ]
                 ),

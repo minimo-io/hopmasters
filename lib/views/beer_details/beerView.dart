@@ -45,6 +45,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
   Future<Beer?>? _beerFuture;
   LoginResponse? _userData;
   bool _activeButton = false;
+  Map<String, dynamic> _scores = new Map();
 /*
   @override
   bool get wantKeepAlive => true;
@@ -54,13 +55,25 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
     super.initState();
     //_beerFuture = WordpressAPI.getBeer(widget.beerId.toString());
     _beerFuture = getBeer();
+
+    _scores["opinionCount"] = 0;
+    _scores["opinionScore"] = 0.0;
   }
 
   Future<Beer?> getBeer() async {
     _userData =  await SharedServices.loginDetails();
+
     return await WordpressAPI.getBeer(widget.beerId.toString(), userId: _userData!.data!.id.toString());
   }
 
+  refreshScore(int opinionCount, double opinionScore) {
+    setState(() {
+
+      _scores["opinionCount"] = opinionCount;
+      _scores["opinionScore"] = opinionScore;
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +84,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
     return FutureBuilder(
         future: _beerFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+
 
 
           switch (snapshot.connectionState) {
@@ -94,6 +108,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
                   userData: _userData,
                   comment: snapshot.data.comment,
                   postId: int.parse(snapshot.data.beerId),
+                  updateParentScore: refreshScore,
                   onTap: (){
 
                       setState(() {
@@ -128,7 +143,7 @@ class _BeerViewState extends State<BeerView> /*with AutomaticKeepAliveClientMixi
                           userData: _userData,
                         ),
                         SizedBox(height: 10,),
-                        BeerBody(beer: snapshot.data),
+                        BeerBody(beer: snapshot.data, scores: _scores),
                         SizedBox(height: 50,),
                       ],
                     ),

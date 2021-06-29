@@ -17,6 +17,7 @@ class OpinionFloatingAction extends StatefulWidget {
   Color? textColor = Colors.white;
   Null Function()? onTap;
   Null Function()? onClose;
+  dynamic Function(int a, double b)? updateParentScore;
   Widget? child;
   String? title;
   bool isActive;
@@ -34,6 +35,7 @@ class OpinionFloatingAction extends StatefulWidget {
         this.bgColor,
         this.onTap,
         this.onClose,
+        this.updateParentScore,
         this.child,
         this.title,
         this.height,
@@ -238,7 +240,16 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                     setState(() { this.isLoading = false; });
                     setState(() { this.formValidatedOnce = false; });
                     if (result["result"] == true){
+                      // update parent score state
+                      double opinionScore = 0.0;
+                      if (result["opinionScore"] is int){
+                        opinionScore = result["opinionScore"].toDouble();
+                      }else{
+                        opinionScore = result["opinionScore"];
+                      }
 
+                      if ( widget.updateParentScore != null) widget.updateParentScore!(result["opinionCount"], opinionScore);
+                      // close opinion box
                       Navigator.pop(context);
                       if (_comment != null){
                         notificationClient.message(context, WordpressAPI.MESSAGE_OK_EDITCOMMENT);

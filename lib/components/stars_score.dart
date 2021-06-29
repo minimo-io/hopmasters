@@ -5,11 +5,12 @@ import 'package:Hops/theme/style.dart';
 class StarsScore extends StatefulWidget {
   int opinionCount = 0;
   double opinionScore = 0.0;
-
+  bool onlyStars;
   StarsScore(
       {
         required this.opinionCount,
         required this.opinionScore,
+        this.onlyStars = false,
         Key? key
   }) : super(key: key);
 
@@ -32,7 +33,6 @@ class _StarsScoreState extends State<StarsScore> {
   @override
   Widget build(BuildContext context) {
 
-    print("OPINION COUNT : " + widget.opinionCount.toString() );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -51,13 +51,14 @@ class _StarsScoreState extends State<StarsScore> {
             ),
           ],
         ),
-        Padding(
+        if (widget.onlyStars == false) Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: Text(
             widget.opinionCount.toString() + " " + (widget.opinionCount == 1 ? "opinión" : "opiniones" ) ,
             style: TextStyle(color: Colors.black54, fontSize: 14.0),
           ),
         )
+
       ],
     );
   }

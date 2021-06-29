@@ -11,9 +11,11 @@ import 'package:Hops/components/text_expandable.dart';
 class BeerBody extends StatelessWidget {
 
   final beer;
+  Map<String, dynamic>? scores;
 
   BeerBody({
-    required Beer? this.beer
+    required Beer? this.beer,
+    this.scores,
   });
 
   bool isExpanded = false;
@@ -84,8 +86,8 @@ class BeerBody extends StatelessWidget {
                   );
                 },
                 child: StarsScore(
-                  opinionCount: 0,
-                  opinionScore: 0
+                  opinionCount: this.scores!["opinionCount"],
+                  opinionScore: this.scores!["opinionScore"],
                 )
               )
 
