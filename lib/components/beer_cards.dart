@@ -66,12 +66,19 @@ class _BeerCardsState extends State<BeerCards>{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    /*
                     Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 5.0, right: 8),
-                          child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5)),
-                        )),
+                          child: InkWell(
+                              onTap: (){
+                                print("FFFFF");
+                              },
+                              child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5))
+                            ),
+                    )),
+                    */
                     Expanded(
                       child: Image.network(beer.image!, height: 200),
                     ),

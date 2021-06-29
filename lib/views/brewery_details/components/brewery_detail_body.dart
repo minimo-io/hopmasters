@@ -79,7 +79,10 @@ class BreweryDetailBody extends StatelessWidget {
                     arguments: {'postId': int.parse(this.brewery!.id), 'postTitle': this.brewery!.name },
                   );
                 },
-                child: StarsScore()
+                child: StarsScore(
+                    opinionCount: 0,
+                    opinionScore: 0
+                )
             )
 
           ],

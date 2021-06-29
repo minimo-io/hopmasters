@@ -50,6 +50,8 @@ class BeerBody extends StatelessWidget {
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
 
+
+
     return new Padding(
       padding: const EdgeInsets.all(25.0),
       child: new Column(
@@ -81,7 +83,10 @@ class BeerBody extends StatelessWidget {
                     arguments: {'postId': int.parse(this.beer.beerId), 'postTitle': this.beer.name },
                   );
                 },
-                child: StarsScore()
+                child: StarsScore(
+                  opinionCount: 0,
+                  opinionScore: 0
+                )
               )
 
 
