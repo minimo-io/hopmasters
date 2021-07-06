@@ -59,7 +59,7 @@ class _CommentsViewState extends State<CommentsView> {
                       SizedBox(height: 3,),
                       Text(
                           Helpers.parseHtmlString(comment.comment_content!),
-                          style: TextStyle(fontSize: 13, color: Colors.black87),
+                          style: TextStyle(fontSize: 13, color: Colors.black87, height: 1.2),
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           textAlign: TextAlign.left
@@ -89,6 +89,7 @@ class _CommentsViewState extends State<CommentsView> {
             decoration: BoxDecoration(
               gradient: PRIMARY_GRADIENT_COLOR,
             ),
+            constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height, minWidth: double.infinity, maxHeight: double.infinity),
             child: FutureBuilder(
                   future: _futureComments,
                   builder: (BuildContext context, AsyncSnapshot snapshot){
@@ -120,7 +121,10 @@ class _CommentsViewState extends State<CommentsView> {
                             commentsCardList.add( _buildCommentBox( comment ));
 
                           }
-                          return Column(children: commentsCardList,);
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8.0, left:8, right:8 ),
+                            child: Column(children: commentsCardList,),
+                          );
                         }
                     }
                   }
