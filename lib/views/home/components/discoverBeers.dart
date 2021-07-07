@@ -162,7 +162,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
             },
             child: Row(
               children: [
-                Icon(Icons.grid_view_sharp, color: Colors.black,),
+                Icon(Icons.grid_view_sharp, color: Colors.black, size: 17,),
+                SizedBox(width: 4,),
                 Text("Grilla", style: TextStyle( color: Colors.black ),)
               ],
             ),
@@ -176,7 +177,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
             },
             child: Row(
               children: [
-                Icon(Icons.view_list_outlined, color: BUTTONS_TEXT_DARK,),
+                Icon(Icons.view_list_outlined, color: BUTTONS_TEXT_DARK, size: 21,),
+                SizedBox(width: 4,),
                 Text("Lista", style: TextStyle( color: BUTTONS_TEXT_DARK ),)
               ],
             ),
@@ -197,6 +199,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         SizedBox(height: 10,),
 
         _discoverBeersHeader(),
@@ -204,7 +207,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
 
         _disconverBeersCategories(),
 
-        SizedBox(height: 30,),
+        SizedBox(height: 15,),
 
 
         FutureBuilder(
@@ -220,6 +223,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                     return Column(
                       children: [
                         _buildListGridView(),
+                        SizedBox(height: 10,),
                         BeerCards( beersList: snapshot.data, ),
                       ],
                     );
