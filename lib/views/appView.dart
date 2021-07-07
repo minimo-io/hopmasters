@@ -42,19 +42,9 @@ class _AppViewState extends State<AppView> {
     HomeView(
       key: PageStorageKey<String>('page1'),
     ),
-    /*
-    FavoritesView(
-      key: PageStorageKey<String>('page2'),
-    ),
-
-     */
     FavoritesView( key: PageStorageKey<String>('page2') ),
-    StoreView(
-      key: PageStorageKey<String>('page3'),
-    ),
-    AccountView(
-      key: PageStorageKey<String>('page4'),
-    )
+    // StoreView( key: PageStorageKey<String>('page3'), ),
+    AccountView( key: PageStorageKey<String>('page3'),)
   ];
 
   int currentTab = 0;
@@ -69,10 +59,13 @@ class _AppViewState extends State<AppView> {
       icon: const Icon(Icons.favorite),
       label: "Favoritas",
     ),
+    /*
     BottomNavigationBarItem(
       icon: const Icon(Icons.shopping_cart),
       label: "Tienda",
     ),
+
+     */
     BottomNavigationBarItem(
       icon: const Icon(Icons.account_circle),
       label: "Cuenta",

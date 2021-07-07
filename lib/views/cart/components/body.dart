@@ -5,7 +5,6 @@ import 'package:Hops/theme/style.dart';
 import 'package:Hops/components/beer_cards.dart';
 import 'package:Hops/views/home/components/bannerBreweries.dart';
 import 'package:Hops/views/home/components/specialOffers.dart';
-import 'package:Hops/views/home/components/discover_beers_header.dart';
 
 
 class Body extends StatelessWidget {

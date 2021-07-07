@@ -12,8 +12,7 @@ import 'package:Hops/components/search_bar.dart';
 
 import 'package:Hops/views/home/components/bannerBreweries.dart';
 import 'package:Hops/views/home/components/specialOffers.dart';
-import 'package:Hops/views/home/components/discover_beers_header.dart';
-
+import 'package:Hops/views/home/components/discoverBeers.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -29,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
+    //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
   }
 
 
@@ -46,36 +45,22 @@ class _HomeViewState extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchBar(),
-              BreweriesBanner(),
+              //BreweriesBanner(),
               SizedBox(height: (20)),
               SpecialOffers(),
               SizedBox(height: (30)),
+
+
+              //SizedBox(height: (30)),
+
+              DiscoverBeers(),
+
 
               AppTitle(title: "Top 5 cervecerías"),
               SizedBox(height: (5)),
               AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
               SizedBox(height: (15.0)),
               BreweriesCards(),
-              SizedBox(height: (30)),
-
-              DiscoverBeersHeader(),
-              FutureBuilder(
-                  future: _breweryBeers,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,) );
-                      default:
-                        if (snapshot.hasError){
-                          return Text('Ups! Error: ${snapshot.error}');
-                        }else{
-                          return BeerCards(
-                            beersList: snapshot.data,
-                          );
-                        }
-                    }
-                  }
-              ),
 
               SizedBox(height: (100)),
             ],

@@ -95,15 +95,11 @@ class _CommentsViewState extends State<CommentsView> {
                   builder: (BuildContext context, AsyncSnapshot snapshot){
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
-                        return Container(
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
-                              ],
-                            )
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
+                          ],
                         );
                       default:
                         if (snapshot.hasError) {

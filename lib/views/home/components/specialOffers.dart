@@ -15,7 +15,7 @@ class SpecialOffers extends StatelessWidget {
           padding:
           EdgeInsets.symmetric(horizontal: (20)),
           child: SectionTitle(
-            title: "Especiales para vos",
+            title: "Ofertas especiales para vos",
             press: () { print("Especiales para vos"); },
           ),
         ),

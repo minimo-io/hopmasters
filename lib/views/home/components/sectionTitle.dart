@@ -27,13 +27,16 @@ class SectionTitle extends StatelessWidget {
             ),
           ),
         ),
+        /*
         GestureDetector(
           onTap: press,
           child: Text(
             "Ver mas",
-            style: TextStyle(color: Color(0xFFBBBBBB)),
+            style: TextStyle(color: BUTTONS_TEXT_DARK),
           ),
         ),
+
+         */
       ],
     );
   }
