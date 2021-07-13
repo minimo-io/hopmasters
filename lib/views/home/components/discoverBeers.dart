@@ -14,7 +14,7 @@ class DiscoverBeers extends StatefulWidget {
 }
 
 class _DiscoverBeersState extends State<DiscoverBeers> {
-  Future? _breweryBeers;
+  Future? _beers;
 
 
   Widget _discoverBeersHeader(){
@@ -91,10 +91,47 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildCategoryButton(text: "Recientes", icon: Icons.schedule, color: Colors.white, isSelected: true),
-            _buildCategoryButton(text: "Tendencia", icon: Icons.local_fire_department, color: Colors.red),
-            _buildCategoryButton(text: "Mas votadas", icon: Icons.star, color: Colors.amberAccent),
-            _buildCategoryButton(text: "Premium", icon: Icons.verified, color: Color.fromRGBO(25, 119, 227, 1))
+            _buildCategoryButton(
+                text: "Recientes",
+                icon: Icons.schedule,
+                color: Colors.white,
+                isSelected: true,
+                onPressedAction: (){
+                  setState(() {
+                    _beers = WordpressAPI.getBeers(type: "recent");
+                  });
+                }
+            ),
+            _buildCategoryButton(
+                text: "Tendencia",
+                icon: Icons.local_fire_department,
+                color: Colors.red,
+                onPressedAction: (){
+                  setState(() {
+                    _beers = WordpressAPI.getBeers(type: "trends");
+                  });
+                }
+            ),
+            _buildCategoryButton(
+                text: "Mas votadas",
+                icon: Icons.star,
+                color: Colors.amberAccent,
+                onPressedAction: (){
+                  setState(() {
+                    _beers = WordpressAPI.getBeers(type: "most_voted");
+                  });
+                }
+            ),
+            _buildCategoryButton(
+                text: "Premium",
+                icon: Icons.verified,
+                color: Color.fromRGBO(25, 119, 227, 1),
+                onPressedAction: (){
+                  setState(() {
+                    _beers = WordpressAPI.getBeers(type: "premium");
+                  });
+                }
+            )
           ],
         )
     );
@@ -109,7 +146,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
     IconData? icon,
     Color color = Colors.black87,
     Color backgroundColor = Colors.black,
-    bool isSelected = false
+    bool isSelected = false,
+    VoidCallback? onPressedAction
   }){
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,9 +156,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: ElevatedButton(
 
-            onPressed: (){
-              print("Category pressed");
-            },
+            onPressed: onPressedAction,
             child: Icon(icon, color: color, size: 25,),
             style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
@@ -191,7 +227,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
   @override
   void initState() {
     super.initState();
-    _breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
+    //_beers = WordpressAPI.getBeersFromBreweryID("89107");
+    _beers = WordpressAPI.getBeers(type: "recent");
   }
 
 
@@ -211,7 +248,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
 
 
         FutureBuilder(
-            future: _breweryBeers,
+            future: _beers,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:

@@ -58,63 +58,67 @@ class _BeerCardsState extends State<BeerCards>{
 
           );
         },
-        child: Card(
-          elevation: 4,
-          child: Stack(
-            children: [
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    /*
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 5.0, right: 8),
-                          child: InkWell(
-                              onTap: (){
-                                print("FFFFF");
-                              },
-                              child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5))
-                            ),
-                    )),
-                    */
-                    Expanded(
-                      child: Image.network(beer.image!, height: 200),
-                    ),
-                    Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
-                    Text(
-                      beer.name!,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      "\$${beer.price}",
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                  ],
+        child: SizedBox(
+          height: 250,
+          width: (MediaQuery.of(context).size.width - 36 ) / 2,
+          child: Card(
+            elevation: 4,
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      /*
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 5.0, right: 8),
+                            child: InkWell(
+                                onTap: (){
+                                  print("FFFFF");
+                                },
+                                child: Icon(Icons.favorite_border, color: colorScheme.secondaryVariant.withOpacity(0.5))
+                              ),
+                      )),
+                      */
+                      Expanded(
+                        child: Image.network(beer.image!, height: 200),
+                      ),
+                      Container(child: Padding(padding: EdgeInsets.only(top:10.0)),),
+                      Text(
+                        beer.name!,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        "\$${beer.price}",
+                        style: TextStyle(fontSize: 11),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              RotatedBox(
-                quarterTurns: 3,
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 4),
-                    child: Text(
-                      'NUEVO',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 4),
+                      child: Text(
+                        'NUEVO',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
+                    color: Colors.pinkAccent.withOpacity(0.5),
                   ),
-                  color: Colors.pinkAccent.withOpacity(0.5),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
@@ -129,7 +133,20 @@ class _BeerCardsState extends State<BeerCards>{
       //List<Widget> beerCardList = new List<Widget>();
       List<Widget> beerCardList = <Widget>[];
       for(var i = 0; i < beersBottom.length; i++){
-          beerCardList.add( _buildBottomItem(beersBottom[i]) );
+
+          int nextKey = i + 1;
+          if (beersBottom.asMap().containsKey(nextKey)){
+            beerCardList.add( Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buildBottomItem(beersBottom[i]),
+                _buildBottomItem(beersBottom[nextKey])
+              ],
+            ) );
+            i++;
+          }else{
+            beerCardList.add( _buildBottomItem(beersBottom[i]) );
+          }
 
       }
 
@@ -138,8 +155,9 @@ class _BeerCardsState extends State<BeerCards>{
         final double itemHeight = 270;
         final double itemWidth = MediaQuery.of(context).size.width / 2;
 
-
+        /*
         return GridView.count(
+            shrinkWrap: true,
             scrollDirection: Axis.vertical,
             childAspectRatio: (itemWidth / itemHeight),
 
@@ -147,9 +165,14 @@ class _BeerCardsState extends State<BeerCards>{
             children: beerCardList,
 
         );
+        */
 
 
-        //return Expanded(child: Column(children: beerCardList));
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+            children: beerCardList
+        );
+
       }else{
         return Center(
 
@@ -181,7 +204,8 @@ class _BeerCardsState extends State<BeerCards>{
     return Container(
       color: Colors.transparent,
       //height: MediaQuery.of(context).size.height * 0.60,
-      height: 270 * 2,
+      //height: 270 * 2,
+      //constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height, minWidth: double.infinity, maxHeight: double.infinity),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: marginSide),
         child: FutureBuilder(
@@ -202,7 +226,7 @@ class _BeerCardsState extends State<BeerCards>{
                   ],
                 ));
               default:
-                return _buildBeerList(snapshot.data);
+                return Container(child: _buildBeerList(snapshot.data));
             }
           }
         ),

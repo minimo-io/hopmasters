@@ -199,11 +199,22 @@ class WordpressAPI{
 
   }
   // get list of beers
-  static Future getBeers( { String? userBeers = null } )async{
-
+  static Future getBeers( { String? userBeers = null, String type = 'user_beers' } )async{
     String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
-    if (userBeers != null) beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
-    //print(beersUriQuery);
+    if (userBeers != null && type == "user_beers") beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
+    // get recent
+    if (type == "recent") beersUriQuery += "&order=desc&order_by=date&status=publish";
+    // trend
+    if (type == "trends") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/trending?_embed";
+    // most_voted
+    if (type == "most_voted") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/mostVoted?_embed";
+    // premium or sponsored beers
+    if (type == "premium") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/premium?_embed";
+
+
+
+
+    print(beersUriQuery);
 
     try{
       var response = await Dio().get(
