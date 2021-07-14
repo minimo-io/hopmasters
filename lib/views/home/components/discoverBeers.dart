@@ -92,7 +92,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildCategoryButton(
-                text: "Recientes",
+                text: "Novedades",
                 icon: Icons.schedule,
                 color: Colors.white,
                 isSelected: true,
@@ -103,22 +103,22 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                 }
             ),
             _buildCategoryButton(
-                text: "Tendencia",
-                icon: Icons.local_fire_department,
-                color: Colors.red,
-                onPressedAction: (){
-                  setState(() {
-                    _beers = WordpressAPI.getBeers(type: "trends");
-                  });
-                }
-            ),
-            _buildCategoryButton(
                 text: "Mas votadas",
                 icon: Icons.star,
                 color: Colors.amberAccent,
                 onPressedAction: (){
                   setState(() {
                     _beers = WordpressAPI.getBeers(type: "most_voted");
+                  });
+                }
+            ),
+            _buildCategoryButton(
+                text: "Tendencia",
+                icon: Icons.local_fire_department,
+                color: Colors.red,
+                onPressedAction: (){
+                  setState(() {
+                    _beers = WordpressAPI.getBeers(type: "trends");
                   });
                 }
             ),
