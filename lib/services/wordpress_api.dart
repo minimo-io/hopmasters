@@ -173,7 +173,7 @@ class WordpressAPI{
     // add user to get comments if any
     if (userId != null && userId != "0") beerUriQuery = beerUriQuery + "&userId=" + userId;
 
-    // print(beerUriQuery);
+    //print(beerUriQuery);
 
     try{
       var response = await Dio().get(
@@ -186,8 +186,12 @@ class WordpressAPI{
       );
 
       if (response.statusCode == 200){
-        var jsonResponse = response.data;
 
+        // send query to increase the beer views_count
+        WordpressAPI.increaseViewCount(int.parse(beerId), type: 'beer');
+
+        // return response
+        var jsonResponse = response.data;
         return Beer.fromJson(jsonResponse);
       }
 
@@ -198,6 +202,38 @@ class WordpressAPI{
 
 
   }
+
+  // get list of beers
+  static Future increaseViewCount( int postId, { String? type = "beer" } )async{
+    final String queryUri = _WP_BASE_API + _WP_REST_HOPS_URI + "increaseViewsCount";
+
+    // print(queryUri);
+
+    try{
+      var response = await Dio().post(
+        queryUri,
+        data: {
+          "postType": type,
+          "postId" : postId.toString(),
+        },
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+      );
+      if (response.statusCode == 200){
+
+        return response.data;
+      }
+    } on DioError catch(e) {
+      print('Failed to load breweries list!');
+      throw Exception('Failed to load breweries list!');
+    }
+
+
+  }
+
   // get list of beers
   static Future getBeers( { String? userBeers = null, String type = 'user_beers' } )async{
     String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
@@ -214,7 +250,6 @@ class WordpressAPI{
 
 
 
-    print(beersUriQuery);
 
     try{
       var response = await Dio().get(
@@ -280,6 +315,10 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
 
+        // send query to increase the brewery views_count
+        WordpressAPI.increaseViewCount(int.parse(breweryId), type: 'brewery');
+
+        // return stuff
         var jsonResponse = response.data;
         Brewery brewery = Brewery.fromJson(jsonResponse);
         return brewery;
