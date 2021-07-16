@@ -7,17 +7,20 @@ import 'package:Hops/constants.dart';
 import 'package:Hops/helpers.dart';
 
 import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/components/stars_score.dart';
 
 
 class BeerCards extends StatefulWidget {
   List? beersList;
   String? loadingText;
   String? userBeersList; // possible favorite beers to call
+  String viewType;
 
   BeerCards({
     this.beersList,
     this.loadingText,
     this.userBeersList,
+    this.viewType = "list",
     Key? key
   }) : super(key: key);
 
@@ -34,7 +37,7 @@ class _BeerCardsState extends State<BeerCards>{
     super.initState();
 
     if (widget.beersList != null){
-        // in this case we already have the beer list, just build a future wait 0
+      // in this case we already have the beer list, just build a future wait 0
       _beers =  Future.delayed(const Duration(seconds: 1), () => widget.beersList);
     }else{
       // else make the query
@@ -48,13 +51,13 @@ class _BeerCardsState extends State<BeerCards>{
   @override
   Widget build(BuildContext context) {
 
-    Widget _buildBottomItem(Beer beer) {
+    Widget _buildBeerGridItem(Beer beer) {
       return GestureDetector(
         onTap: (){
           Navigator.pushNamed(
-          context,
-          "/beer",
-          arguments: { 'beerId': int.parse(beer.beerId) },
+            context,
+            "/beer",
+            arguments: { 'beerId': int.parse(beer.beerId) },
 
           );
         },
@@ -123,9 +126,89 @@ class _BeerCardsState extends State<BeerCards>{
         ),
       );
     }
+    Widget _buildBeerListItem(Beer beer){
 
+      return GestureDetector(
+        onTap: (){
+          Navigator.pushNamed(
+            context,
+            "/beer",
+            arguments: { 'beerId': int.parse(beer.beerId) },
 
-    Widget _buildBeerList(List<dynamic> beersList){
+          );
+        },
+        child: Card(
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Hero(
+                  tag: "beer-"+beer.beerId,
+                  child: Image.network(
+                    beer.image!,
+                    fit: BoxFit.cover, // this is the solution for border
+                    //width: 55.0,
+                    height: 70.0,
+                  ),
+                ),
+
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(beer.name!, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                          Text(beer.type.toString() ,
+                              overflow: TextOverflow.visible,
+                              style: TextStyle(fontSize: 14, color: Colors.black54), textAlign: TextAlign.left
+                          ),
+                          SizedBox(height: 10,),
+
+                          Text( "ABV: " + beer.abv.toString() + ". IBU: " + beer.ibu.toString()  ,
+                              overflow: TextOverflow.visible,
+                              style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        //crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          StarsScore(
+                            opinionCount: int.parse(beer.scoreCount!),
+                            opinionScore: double.parse(beer.scoreAvg!),
+                            onlyStars: false,
+                            starSize: 20.0,
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right:10.0),
+                        child: Text(beer.followers.toString() + " seguidor" + (int.parse(beer.followers!) != 1 ? "es" : ""), style: TextStyle(fontSize: 14, color: Colors.black54), textAlign: TextAlign.left),
+                      ),
+
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget _buildBeerGrid(List<dynamic> beersList){
       var beersBottom = (beersList as List)
           .map((data) => new Beer.fromJson(data))
           .toList();
@@ -134,19 +217,19 @@ class _BeerCardsState extends State<BeerCards>{
       List<Widget> beerCardList = <Widget>[];
       for(var i = 0; i < beersBottom.length; i++){
 
-          int nextKey = i + 1;
-          if (beersBottom.asMap().containsKey(nextKey)){
-            beerCardList.add( Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _buildBottomItem(beersBottom[i]),
-                _buildBottomItem(beersBottom[nextKey])
-              ],
-            ) );
-            i++;
-          }else{
-            beerCardList.add( _buildBottomItem(beersBottom[i]) );
-          }
+        int nextKey = i + 1;
+        if (beersBottom.asMap().containsKey(nextKey)){
+          beerCardList.add( Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildBeerGridItem(beersBottom[i]),
+              _buildBeerGridItem(beersBottom[nextKey])
+            ],
+          ) );
+          i++;
+        }else{
+          beerCardList.add( _buildBeerGridItem(beersBottom[i]) );
+        }
 
       }
 
@@ -169,7 +252,7 @@ class _BeerCardsState extends State<BeerCards>{
 
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: beerCardList
         );
 
@@ -180,18 +263,66 @@ class _BeerCardsState extends State<BeerCards>{
               padding: EdgeInsets.all(8.0),
 
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5.0),
-                  Text("¿Conoces alguna?"),
-                  SizedBox(height: 5.0),
-                  RaisedButton.icon(
-                    label: Text("Ponete en contacto"),
-                    icon: Icon(Icons.send),
-                    onPressed: () => Helpers.launchURL("https://hops.uy/contacto/"),
-                  )
-                ]
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 5.0),
+                    Text("¿Conoces alguna?"),
+                    SizedBox(height: 5.0),
+                    RaisedButton.icon(
+                      label: Text("Ponete en contacto"),
+                      icon: Icon(Icons.send),
+                      onPressed: () => Helpers.launchURL("https://hops.uy/contacto/"),
+                    )
+                  ]
+              ),
+            )
+        );
+      }
+
+    }
+
+    Widget _buildBeerList(List<dynamic> beersList){
+      var beersBottom = (beersList as List)
+          .map((data) => new Beer.fromJson(data))
+          .toList();
+
+      //List<Widget> beerCardList = new List<Widget>();
+      List<Widget> beerCardList = <Widget>[];
+      for(var i = 0; i < beersBottom.length; i++){
+
+
+        beerCardList.add( _buildBeerListItem(beersBottom[i]) );
+
+
+      }
+
+      if ( beersBottom.length > 0){
+
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: beerCardList
+        );
+
+      }else{
+        return Center(
+
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 5.0),
+                    Text("¿Conoces alguna?"),
+                    SizedBox(height: 5.0),
+                    RaisedButton.icon(
+                      label: Text("Ponete en contacto"),
+                      icon: Icon(Icons.send),
+                      onPressed: () => Helpers.launchURL("https://hops.uy/contacto/"),
+                    )
+                  ]
               ),
             )
         );
@@ -209,26 +340,28 @@ class _BeerCardsState extends State<BeerCards>{
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: marginSide),
         child: FutureBuilder(
-          future: _beers,
-          builder: (BuildContext context, AsyncSnapshot snapshot){
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
+            future: _beers,
+            builder: (BuildContext context, AsyncSnapshot snapshot){
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Center(child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
 
-                    if (widget.loadingText != null) Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(widget.loadingText!))
+                      if (widget.loadingText != null) Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(widget.loadingText!))
 
 
-                  ],
-                ));
-              default:
-                return Container(child: _buildBeerList(snapshot.data));
+                    ],
+                  ));
+                default:
+                  return Container(
+                      child: (widget.viewType == "grid" ? _buildBeerGrid(snapshot.data) : _buildBeerList(snapshot.data))
+                  );
+              }
             }
-          }
         ),
       ),
     );
