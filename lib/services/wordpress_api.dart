@@ -273,9 +273,10 @@ class WordpressAPI{
   }
 
   // get list of breweries
-  static Future getBreweries( { String? userBreweries = null } )async{
+  static Future getBreweries( { String? userBreweries = null, String? orderType = null } )async{
     String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
     if (userBreweries != null) breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
+    if (orderType != null && orderType == "followers") breweryUriQuery += "&orderType=followers";
 
     try{
       var response = await Dio().get(

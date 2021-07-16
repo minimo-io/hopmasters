@@ -32,7 +32,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
     if (widget.breweriesList != null){
       _breweries = WordpressAPI.getBreweries(userBreweries: widget.breweriesList!);
     }else{
-      _breweries = WordpressAPI.getBreweries();
+      _breweries = WordpressAPI.getBreweries( orderType: 'followers' );
     }
   }
 

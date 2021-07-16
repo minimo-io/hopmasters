@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
 
               SizedBox(height: (30)),
 
-              AppTitle(title: "Top 5 cervecerías"),
+              AppTitle(title: "Top 10 cervecerías"),
               SizedBox(height: (5)),
               AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
               SizedBox(height: (15.0)),
