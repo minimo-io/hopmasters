@@ -160,12 +160,38 @@ class _BeerCardsState extends State<BeerCards>{
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(beer.name!, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                          Text(beer.name!, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0), textAlign: TextAlign.left),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(
+                                context,
+                                "/brewery",
+                                arguments: { 'breweryId': int.parse(beer.breweryId!) },
+
+                              );
+                            },
+                            child: new Row(
+                              children: <Widget>[
+                                Image.network( beer.breweryImage! ,
+                                  height: 15,
+                                  fit: BoxFit.fill,
+                                ),
+                                new Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: new Text(
+                                    beer.breweryName!,
+                                    style: TextStyle(fontSize:14 ,color: SECONDARY_TEXT_DARK.withOpacity(1)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 5,),
                           Text(beer.type.toString() ,
                               overflow: TextOverflow.visible,
-                              style: TextStyle(fontSize: 14, color: Colors.black54), textAlign: TextAlign.left
+                              style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left
                           ),
-                          SizedBox(height: 10,),
+
 
                           Text( "ABV: " + beer.abv.toString() + ". IBU: " + beer.ibu.toString()  ,
                               overflow: TextOverflow.visible,
@@ -189,9 +215,11 @@ class _BeerCardsState extends State<BeerCards>{
                             opinionScore: double.parse(beer.scoreAvg!),
                             onlyStars: false,
                             starSize: 20.0,
+                            textTopPadding: 5.0,
                           )
                         ],
                       ),
+
                       Padding(
                         padding: const EdgeInsets.only(right:10.0),
                         child: Text(beer.followers.toString() + " seguidor" + (int.parse(beer.followers!) != 1 ? "es" : ""), style: TextStyle(fontSize: 14, color: Colors.black54), textAlign: TextAlign.left),

@@ -8,6 +8,8 @@ class StarsScore extends StatefulWidget {
   bool onlyStars;
   double starSize;
   double textSize;
+  double textTopPadding;
+
   StarsScore(
       {
         required this.opinionCount,
@@ -15,6 +17,7 @@ class StarsScore extends StatefulWidget {
         this.onlyStars = false,
         this.starSize = 25.0,
         this.textSize = 14.0,
+        this.textTopPadding = 0,
         Key? key
   }) : super(key: key);
 
@@ -46,7 +49,7 @@ class _StarsScoreState extends State<StarsScore> {
           ],
         ),
         if (widget.onlyStars == false) Padding(
-          padding: const EdgeInsets.only(right:10.0),
+          padding: EdgeInsets.only(right:10.0, top: widget.textTopPadding),
           child: Text(
             widget.opinionCount.toString() + " " + (widget.opinionCount == 1 ? "opinión" : "opiniones" ) ,
             style: TextStyle(color: Colors.black54, fontSize: widget.textSize),

@@ -192,6 +192,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          /*
           OutlinedButton(
             onPressed: () {
               print('Received click');
@@ -219,6 +220,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
               ],
             ),
           ),
+
+           */
         ],
       ),
     );

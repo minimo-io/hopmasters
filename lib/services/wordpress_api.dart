@@ -249,7 +249,7 @@ class WordpressAPI{
     if (type == "premium") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/premium?_embed";
 
 
-    // print(beersUriQuery);
+    print(beersUriQuery);
 
 
 
