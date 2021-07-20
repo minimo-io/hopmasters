@@ -18,6 +18,7 @@ class Beer{
     required this.breweryId,
     required this.breweryName,
     required this.breweryImage,
+    required this.breweryWhatsapp,
     required this.bgColor,
     required this.type,
     required this.size,
@@ -96,6 +97,7 @@ class Beer{
       breweryId: breweryId,
       breweryName: breweryName,
       breweryImage: breweryImage,
+      breweryWhatsapp: parsedJson['brewery_whatsapp'].toString(),
       type: type,
       size: container,
       stockStatus: stockStatus,
@@ -122,5 +124,5 @@ class Beer{
   String? scoreAvg;
   String? scoreCount;
   String stockStatus;
-  String? breweryId, breweryName, breweryImage;
+  String? breweryId, breweryName, breweryImage, breweryWhatsapp;
 }

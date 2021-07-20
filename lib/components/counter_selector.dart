@@ -13,7 +13,7 @@ class CounterSelector extends StatefulWidget {
 }
 
 class _CounterSelectorState extends State<CounterSelector> {
-  int _counter = 0;
+  int _counter = 1;
 
   void _increase() {
     setState(() {

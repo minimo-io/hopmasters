@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -154,6 +155,79 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       );
     }
 
+    Widget _buildShopCard({ String name = "", String address = "", String logo = ""  }){
+      return GestureDetector(
+        onTap: (){
+          /*
+          Navigator.pushNamed(
+            context,
+            "/brewery",
+            arguments: { 'breweryId': int.parse(breweries[i].id) },
+
+          );
+
+           */
+        },
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Hero(
+                  tag: "shop-1",
+                  child: Image.asset(
+                    logo,
+                    fit: BoxFit.cover, // this is the solution for border
+                    width: 55.0,
+                    height: 55.0,
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                        Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                      ]
+                  ),
+                ),
+
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    //crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 1.0),
+                        child: new CircleAvatar(
+                          backgroundColor: Color.fromRGBO(25, 119, 227, 1),
+                          child: new Icon(
+                            Icons.gpp_good,
+                            color: Colors.white ,
+                            size: 12.0,
+                          ),
+                          radius: 12.0,
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left:6.0),
+                          child: Text("verificado", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.0))
+                      )
+                    ],
+                  ),
+                )
+
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
 
     return new Padding(
       padding: const EdgeInsets.only(
@@ -171,6 +245,149 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
                 //Helpers.showPersistentBottomSheet(context);
+                Scaffold.of(context)
+                    .showBottomSheet<void>(
+                      (context) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        // height: (widget.height != null ? widget.height : 430),
+                        height: (430),
+                        color: Colors.white,
+                        child: ListView(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 20, top: 20),
+                              height: 50,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    "COMPRAR",
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                                ),
+                              )
+                            ),
+                            SizedBox(height: 30,),
+                            /*
+                            Divider(
+                              thickness: 1,
+                            ),
+                            */
+                            // direct buy
+
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: ElevatedButton(
+                                onPressed: (widget.beer.stockStatus == "instock" ? () {
+                                  print('Received click');
+                                } : null),
+
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.bolt, size: 35, color: Colors.amber),
+                                            SizedBox(width: 8,),
+                                            // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                            Text( "Compra inmediata · \$" + widget.beer.price.toString() +" + Envío", style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                          ]
+                                      ),
+
+
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 7,),
+
+                            // whatsapp
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  print('Received click');
+                                },
+
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Row(
+                                    //mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                        SizedBox(width: 8,),
+                                        // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                        Text( "Whatsapp de " + widget.beer.breweryName, style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                      ]
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              padding: EdgeInsets.only(right: 20.0, left:20, top: 20.0, bottom: 10),
+                              child: Text(
+                                "Al comprar directo colaboras con \$1 para la Federación de Cerveceros Artesanales.",
+                                style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal, color: Colors.black38),
+                              ),
+                            ),
+
+                            //SizedBox(height: 5,),
+
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                              child: Divider(),
+                            ),
+
+                            SizedBox(height: 5,),
+
+                            Container(
+                                padding: EdgeInsets.only(left: 20, top: 0),
+                                //height: 50,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                      "LOCALES y BARES",
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                                  ),
+                                )
+                            ),
+
+                            SizedBox(height: 5,),
+
+
+                            Container(
+                                width: MediaQuery.of(context).size.width * 0.90,
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: _buildShopCard(name: "Nino Bar", address: "Bartolome Mitre 1316.", logo: "assets/images/nino-bar-logo.png")
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width * 0.90,
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: _buildShopCard(name: "Pepe Botella", address: "José Enrique Rodó 2052.", logo: "assets/images/pepebotella-logo.png")
+                            ),
+
+                            SizedBox(height: 5)
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  elevation: 25,
+                )
+                    .closed
+                    .whenComplete(() {
+
+                });
+
               })
           )
         ],

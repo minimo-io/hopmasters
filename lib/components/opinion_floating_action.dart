@@ -102,7 +102,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                             )
                                 : Container(),
                           ),
-                          const Divider(thickness: 1),
+                          //const Divider(thickness: 1),
 
                           // old child
                           Form(
