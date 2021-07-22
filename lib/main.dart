@@ -9,6 +9,7 @@ import 'package:Hops/models/login.dart';
 // providers
 import 'package:Hops/models/nav_menu_provider.dart';
 import 'package:Hops/models/preferences.dart';
+import 'package:Hops/models/cart.dart';
 
 
 String _initialRoute = "login";
@@ -42,6 +43,7 @@ class HopsApp extends StatelessWidget{
       providers: [
         ChangeNotifierProvider( create: (context) => NavMenuProvider(), ),
         ChangeNotifierProvider( create: (context) => Preferences(), ),
+        ChangeNotifierProvider( create: (context) => Cart(), ),
       ],
 
       child: MaterialApp(

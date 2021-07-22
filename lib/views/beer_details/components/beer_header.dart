@@ -2,12 +2,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
+
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/utils/notifications.dart';
 
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/models/login.dart';
 import 'package:Hops/models/beer.dart';
+import 'package:Hops/models/cart.dart';
 
 import 'package:Hops/components/diagonally_cut_colored_image.dart';
 import 'package:Hops/utils/load_network_image.dart';
@@ -17,6 +21,8 @@ import 'package:Hops/components/bottom_sheet.dart';
 import 'package:Hops/components/counter_selector.dart';
 
 import 'package:Hops/helpers.dart';
+
+import 'package:provider/provider.dart';
 
 
 class BeerHeader extends StatefulWidget{
@@ -228,6 +234,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       );
     }
 
+    HopsNotifications notificationClient =  new HopsNotifications();
 
     return new Padding(
       padding: const EdgeInsets.only(
@@ -278,31 +285,50 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                             Container(
                               width: MediaQuery.of(context).size.width * 0.95,
                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: ElevatedButton(
-                                onPressed: (widget.beer.stockStatus == "instock" ? () {
-                                  print('Received click');
-                                } : null),
+                              child: Consumer<Cart>(
+                                builder: (context, cart, child){
 
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Icon(Icons.bolt, size: 35, color: Colors.amber),
-                                            SizedBox(width: 8,),
-                                            // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                            Text( "Compra inmediata · \$" + widget.beer.price.toString() +" + Envío", style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                          ]
+                                  return ElevatedButton(
+                                    onPressed: (widget.beer.stockStatus == "instock" ? () {
+                                      print('Received click');
+
+                                      // add this beer to cart
+                                      cart.add(CartItem(
+                                        itemId: 1,
+                                        itemName: "Test item",
+                                        itemCount: 1,
+                                        itemImage: "",
+                                        itemPrice: 241.5
+                                      ));
+
+                                      notificationClient.message(context, "Birra agregada al carrito. ¿Quieres finalizar la compra?");
+                                      Navigator.pop(context);
+
+                                    } : null),
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            //mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Icon(Icons.bolt, size: 35, color: Colors.amber),
+                                                SizedBox(width: 8,),
+                                                // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                Text( "Compra inmediata · \$" + widget.beer.price.toString() +" + Envío", style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                              ]
+                                          ),
+
+
+
+                                        ],
                                       ),
+                                    ),
+                                  );
 
+                                })
 
-
-                                    ],
-                                  ),
-                                ),
-                              ),
                             ),
                             SizedBox(height: 7,),
 
@@ -312,7 +338,14 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  print('Received click');
+
+                                  
+                                  void _launchURL(String _url) async => await canLaunch(_url)
+                                      ? await launch(_url) : notificationClient.message(context, "¡Parece que no tienes whatsapp instalado!");
+
+
+                                  _launchURL("whatsapp://send?phone="+widget.beer.breweryWhatsapp+"&text=");
+
                                 },
 
                                 child: Padding(

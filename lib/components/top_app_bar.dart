@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'package:Hops/models/cart.dart';
 
 class TopAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -55,21 +58,49 @@ class _TopAppBarState extends State<TopAppBar> {
         ),
       ),
       actions: <Widget>[
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
-          child: IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            tooltip: 'Carrito',
-            onPressed: () {
+        Stack(
+          children: [
+            Container(
+                padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
+                child: IconButton(
+                icon: const Icon(Icons.shopping_cart),
+                tooltip: 'Carrito',
+                onPressed: () {
 
-              Navigator.pushNamed(
-                context,
-                "/cart",
-                arguments: {'name': "Maracuyipas", "count": 125},
-              );
-              //topBeers();
-            },
-          ),
+                  Navigator.pushNamed(
+                  context,
+                  "/cart",
+                  arguments: {'name': "Maracuyipas", "count": 125},
+                  );
+
+                },
+              ),
+            ),
+            Consumer<Cart>(builder: (context, cart, child){
+              return (cart.items.length > 0 ? Positioned(
+                right:0,
+                top:20,
+                child: Container(
+                    height: 18,
+                    width:18,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 1.5, color: Colors.white)
+                    ),
+                    child: Center(child: Text(cart.items.length.toString(), style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
+                ),
+              ) : Container());
+            }),
+
+
+
+    //Consumer<Cart>(
+     //   builder: (context, cart, child){
+
+
+
+          ],
         ),
         Stack(
             children: [
