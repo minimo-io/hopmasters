@@ -235,7 +235,7 @@ class WordpressAPI{
   }
 
   // get list of beers
-  static Future getBeers( { String? userBeers = null, String type = 'user_beers', String? userId = "0" } )async{
+  static Future getBeers( { String? userBeers = null, String type = 'user_beers', String? userId = "0", int? page = 1 } )async{
     String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
     if (userId != null && userId != "0") beersUriQuery = beersUriQuery + "&userId=" + userId;
     if (userBeers != null && type == "user_beers") beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
@@ -248,6 +248,8 @@ class WordpressAPI{
     // premium or sponsored beers
     if (type == "premium") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/premium?_embed";
 
+    // add page
+    beersUriQuery = beersUriQuery + "&page=" + page.toString();
 
     print(beersUriQuery);
 

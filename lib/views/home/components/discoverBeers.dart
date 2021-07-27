@@ -15,6 +15,7 @@ class DiscoverBeers extends StatefulWidget {
 
 class _DiscoverBeersState extends State<DiscoverBeers> {
   Future? _beers;
+  String _disoverBeersType = "recent";
 
 
   Widget _discoverBeersHeader(){
@@ -98,6 +99,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                 isSelected: true,
                 onPressedAction: (){
                   setState(() {
+                    _disoverBeersType = "recent";
                     _beers = WordpressAPI.getBeers(type: "recent");
                   });
                 }
@@ -108,6 +110,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                 color: Colors.amberAccent,
                 onPressedAction: (){
                   setState(() {
+                    _disoverBeersType = "most_voted";
                     _beers = WordpressAPI.getBeers(type: "most_voted");
                   });
                 }
@@ -118,6 +121,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                 color: Colors.red,
                 onPressedAction: (){
                   setState(() {
+                    _disoverBeersType = "trends";
                     _beers = WordpressAPI.getBeers(type: "trends");
                   });
                 }
@@ -128,6 +132,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                 color: Color.fromRGBO(25, 119, 227, 1),
                 onPressedAction: (){
                   setState(() {
+                    _disoverBeersType = "premium";
                     _beers = WordpressAPI.getBeers(type: "premium");
                   });
                 }
@@ -231,7 +236,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
   void initState() {
     super.initState();
     //_beers = WordpressAPI.getBeersFromBreweryID("89107");
-    _beers = WordpressAPI.getBeers(type: "recent");
+    _beers = WordpressAPI.getBeers(type: _disoverBeersType);
   }
 
 
@@ -264,7 +269,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                       children: [
                         _buildListGridView(),
                         SizedBox(height: 10,),
-                        BeerCards( beersList: snapshot.data, ),
+                        BeerCards( beersList: snapshot.data, discoverBeersType: _disoverBeersType,),
+
                       ],
                     );
                   }

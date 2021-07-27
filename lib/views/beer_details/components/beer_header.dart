@@ -388,7 +388,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                      "LOCALES y BARES",
+                                      "TIENDAS y BARES",
                                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                                   ),
                                 )

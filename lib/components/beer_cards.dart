@@ -1,3 +1,4 @@
+import 'package:Hops/utils/progress_hud.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/models/beer.dart';
@@ -15,12 +16,14 @@ class BeerCards extends StatefulWidget {
   String? loadingText;
   String? userBeersList; // possible favorite beers to call
   String viewType;
+  String discoverBeersType;
 
   BeerCards({
     this.beersList,
     this.loadingText,
     this.userBeersList,
     this.viewType = "list",
+    this.discoverBeersType = "recent",
     Key? key
   }) : super(key: key);
 
@@ -28,9 +31,13 @@ class BeerCards extends StatefulWidget {
   _BeerCardsState createState() => _BeerCardsState();
 }
 
-class _BeerCardsState extends State<BeerCards>{
+class _BeerCardsState extends State<BeerCards> {
 
   Future? _beers;
+  static int _page = 1;
+  List<Widget> _moreBeersCardList = <Widget>[];
+  bool _isLoadingApiCall = false;
+
 
   @override
   void initState() {
@@ -38,14 +45,30 @@ class _BeerCardsState extends State<BeerCards>{
 
     if (widget.beersList != null){
       // in this case we already have the beer list, just build a future wait 0
+      _page = 1;
       _beers =  Future.delayed(const Duration(seconds: 1), () => widget.beersList);
     }else{
       // else make the query
-      _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!);
+      _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!, type: widget.discoverBeersType);
     }
+    /*
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+
+
+    });
+    */
 
   }
 
+
+
+  /*
+  @override
+  void dispose() {
+    _sc.dispose();
+    super.dispose();
+  }
+   */
 
 
   @override
@@ -241,8 +264,8 @@ class _BeerCardsState extends State<BeerCards>{
           .map((data) => new Beer.fromJson(data))
           .toList();
 
-      //List<Widget> beerCardList = new List<Widget>();
-      List<Widget> beerCardList = <Widget>[];
+      List<Widget> beerCardList = [];
+
       for(var i = 0; i < beersBottom.length; i++){
 
         int nextKey = i + 1;
@@ -310,7 +333,8 @@ class _BeerCardsState extends State<BeerCards>{
 
     }
 
-    Widget _buildBeerList(List<dynamic> beersList){
+    Widget _buildBeerList
+        (List<dynamic> beersList){
       var beersBottom = (beersList as List)
           .map((data) => new Beer.fromJson(data))
           .toList();
@@ -358,7 +382,39 @@ class _BeerCardsState extends State<BeerCards>{
 
     }
 
+    Widget _buildLoadMoreButton(){
+      return OutlinedButton(
+        onPressed: () {
 
+          setState(() {
+            _page++;
+            _isLoadingApiCall = true;
+          });
+
+          WordpressAPI.getBeers(page: _page, type: widget.discoverBeersType).then((beersList){
+            setState(() => _isLoadingApiCall = false);
+            var beersBottom = (beersList as List)
+                .map((data) => new Beer.fromJson(data))
+                .toList();
+            setState(() {
+
+                for (var beerItem in beersBottom) {
+                  _moreBeersCardList.add(_buildBeerListItem(beerItem));
+                }
+
+            });
+          });
+
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add, color: Colors.black54,),
+            SizedBox(width: 5,),
+            Text("CARGAR MAS", style: TextStyle(color: Colors.black54))
+          ],)
+      );
+    }
 
     return Container(
       color: Colors.transparent,
@@ -385,8 +441,24 @@ class _BeerCardsState extends State<BeerCards>{
                     ],
                   ));
                 default:
-                  return Container(
-                      child: (widget.viewType == "grid" ? _buildBeerGrid(snapshot.data) : _buildBeerList(snapshot.data))
+                  // print("LEN: " + snapshot.data.length.toString());
+                  return Column(
+                    children: [
+                      Container(
+                          child: (
+                              widget.viewType == "grid"
+                              ? _buildBeerGrid(snapshot.data)
+                              : _buildBeerList(snapshot.data)
+                          )
+                      ),
+                      if (widget.userBeersList == null && snapshot.data.length >= 10) Column(children: _moreBeersCardList,),
+                      if (widget.userBeersList == null && snapshot.data.length >= 10) (_isLoadingApiCall
+                          ? Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: CircularProgressIndicator(strokeWidth: 1.0, color: PROGRESS_INDICATOR_COLOR),
+                          )
+                          : _buildLoadMoreButton() )
+                    ],
                   );
               }
             }
