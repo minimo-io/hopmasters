@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:ui';
 import 'dart:async';
 import 'package:Hops/theme/style.dart';
 
@@ -57,7 +57,55 @@ class _HomeViewState extends State<HomeView> {
 
               SizedBox(height: (30)),
 
-              AppTitle(title: "Cervecerías"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppTitle(title: "Cervecerías"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: InkWell(
+                      onTap: () {
+
+                        Scaffold.of(context)
+                            .showBottomSheet<void>(
+                              (context) {
+                            return BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:  430,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          elevation: 25,
+                        )
+                            .closed
+                            .whenComplete(() {
+
+                        });
+
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.map, color: Colors.black26,),
+                          Text(
+                            "Mapa",
+                            style: TextStyle(color: BUTTONS_TEXT_DARK),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
               SizedBox(height: (5)),
               AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
               SizedBox(height: (15.0)),

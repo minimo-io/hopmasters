@@ -277,10 +277,14 @@ class WordpressAPI{
   }
 
   // get list of breweries
-  static Future getBreweries( { String? userBreweries = null, String? orderType = null } )async{
+  static Future getBreweries( { String? userBreweries = null, String? orderType = null, int? page = 1 } )async{
     String breweryUriQuery = _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
     if (userBreweries != null) breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
     if (orderType != null && orderType == "followers") breweryUriQuery += "&orderType=followers";
+
+    // add pagination
+    breweryUriQuery = breweryUriQuery + "&page=" + page.toString();
+    print(breweryUriQuery);
 
     try{
       var response = await Dio().get(
