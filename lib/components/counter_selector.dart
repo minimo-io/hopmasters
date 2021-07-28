@@ -4,10 +4,14 @@ import 'package:Hops/helpers.dart';
 class CounterSelector extends StatefulWidget {
   Color? color = Color(0xFF525663);
   dynamic Function(int itemCount)? notifyParent;
+  int? counterInitCount;
+  EdgeInsetsGeometry? counterPadding;
 
   CounterSelector({
     this.color,
     @required this.notifyParent,
+    this.counterInitCount = 1,
+    this.counterPadding,
     Key? key
   }) : super(key: key);
 
@@ -17,6 +21,13 @@ class CounterSelector extends StatefulWidget {
 
 class _CounterSelectorState extends State<CounterSelector> {
   int _counter = 1;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _counter = widget.counterInitCount!;
+  }
 
   void _increase() {
     setState(() {
@@ -45,7 +56,7 @@ class _CounterSelectorState extends State<CounterSelector> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: (widget.counterPadding != null ? widget.counterPadding! : EdgeInsets.all(12.0) ),
       child: Container(
         width: Helpers.screenAwareSize(100.0, context),
         height: Helpers.screenAwareSize(37.0, context),

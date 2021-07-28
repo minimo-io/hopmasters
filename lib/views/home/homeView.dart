@@ -95,6 +95,7 @@ class _HomeViewState extends State<HomeView> {
                       child: Row(
                         children: [
                           Icon(Icons.map, color: Colors.black26,),
+                          SizedBox(width: 5,),
                           Text(
                             "Mapa",
                             style: TextStyle(color: BUTTONS_TEXT_DARK),
