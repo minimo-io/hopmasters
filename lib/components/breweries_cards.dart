@@ -26,6 +26,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
   Future? _breweries;
   static int _page = 1;
   bool _isLoadingApiCall = false;
+  bool _hideLoadMoreButton = false;
   List<Widget> _moreBreweriesCardList = <Widget>[];
 
   @override
@@ -137,7 +138,8 @@ class _BreweriesCardsState extends State<BreweriesCards> {
                 .map((data) => new Brewery.fromJson(data))
                 .toList();
             setState(() {
-
+              // print("BEERS LEN: " + beersBottom.length.toString());
+              if (beersBottom.length < 10) setState(()=> _hideLoadMoreButton = true );
               for (var beerItem in beersBottom) {
                 _moreBreweriesCardList.add(_buildBreweryCardItem(beerItem));
               }
@@ -197,12 +199,17 @@ class _BreweriesCardsState extends State<BreweriesCards> {
                     child: Column(children: _moreBreweriesCardList,),
                   ),
 
-                  if (widget.breweriesList == null && snapshot.data.length >= 10) (_isLoadingApiCall
+                  if (widget.breweriesList == null && snapshot.data.length >= 10) (
+                      _isLoadingApiCall
                       ? Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: CircularProgressIndicator(strokeWidth: 1.0, color: PROGRESS_INDICATOR_COLOR),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 18),
+                          child: (_hideLoadMoreButton == true ? Container() : _buildLoadMoreButton() )
+                        )
                   )
-                      : Padding(padding: EdgeInsets.symmetric(horizontal: 18), child: _buildLoadMoreButton()) )
                 ],
               );
             }

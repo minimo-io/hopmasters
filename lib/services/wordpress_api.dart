@@ -300,6 +300,7 @@ class WordpressAPI{
         return response.data;
       }
     } on DioError catch(e) {
+      print(e);
       print('Failed to load breweries list!');
       throw Exception('Failed to load breweries list!');
     }
