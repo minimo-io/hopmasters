@@ -3,8 +3,11 @@ import 'package:Hops/helpers.dart';
 
 class CounterSelector extends StatefulWidget {
   Color? color = Color(0xFF525663);
+  dynamic Function(int itemCount)? notifyParent;
+
   CounterSelector({
     this.color,
+    @required this.notifyParent,
     Key? key
   }) : super(key: key);
 
@@ -19,12 +22,14 @@ class _CounterSelectorState extends State<CounterSelector> {
     setState(() {
       _counter++;
     });
+    if (widget.notifyParent != null) widget.notifyParent!(_counter);
   }
 
   void _decrease() {
     setState(() {
       if (_counter > 0) _counter--;
     });
+    if (widget.notifyParent != null) widget.notifyParent!(_counter);
   }
 
   _divider() {

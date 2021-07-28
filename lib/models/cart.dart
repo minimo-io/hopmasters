@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:Hops/models/beer.dart';
 
 class Cart extends ChangeNotifier{
 
@@ -23,7 +24,7 @@ class Cart extends ChangeNotifier{
   void remove(CartItem item){
     //print(_items);
     //_items.remove(pref);
-    _items.removeWhere((element) => element.itemId == item.itemId);
+    _items.removeWhere((element) => element.beer!.beerId == item.beer!.beerId);
     notifyListeners();
   }
 
@@ -40,46 +41,27 @@ class Cart extends ChangeNotifier{
 
 class CartItem{
 
-  int itemId, itemCount;
-  String itemName, itemImage;
-  double itemPrice;
+  int itemCount;
+  Beer? beer;
 
-  String breweryImage;
-  String breweryName;
 
   CartItem({
-    this.itemId = 0,
-    this.itemName = "",
-    this.itemPrice = 0.0,
     this.itemCount = 1,
-    this.itemImage = "",
-    this.breweryImage = "",
-    this.breweryName = ""
+    this.beer
   });
 
   factory CartItem.fromJson(Map<String, dynamic> parsedJson){
     return CartItem(
-        itemId: parsedJson["itemId"],
-        itemName: parsedJson["itemName"],
-        itemPrice: parsedJson["itemPrice"],
         itemCount: parsedJson["itemCount"],
-        itemImage: parsedJson["itemImage"],
-        breweryImage: parsedJson["breweryImage"],
-        breweryName: parsedJson["breweryName"],
-
+        beer: parsedJson["beer"]
     );
   }
 
   Map<String, dynamic> toJson(){
     Map<String, dynamic> map = {};
     map.addAll({
-      'itemId': itemId,
-      'itemName': itemName,
-      'itemPrice': itemPrice,
       'itemCount': itemCount,
-      'itemImage': itemImage,
-      'breweryImage': breweryImage,
-      'breweryName': breweryName,
+      'beer': beer,
     });
     return map;
   }

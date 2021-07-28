@@ -45,6 +45,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
   late Future<Map<String,dynamic>?> _userBeersPreferences;
   bool _isBeerIncluded = false;
   bool _isLoadingApiCall = false;
+  int _itemsCount = 1;
 
   @override
   void initState(){
@@ -247,7 +248,16 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // (_isBeerIncluded ? _unfollowButton() : _followButton() ),
-          (widget.beer.stockStatus == "instock" ? CounterSelector(color: widget.beer.rgbColor) : Container() ) ,
+          (
+              widget.beer.stockStatus == "instock"
+              ? CounterSelector(
+                  color: widget.beer.rgbColor,
+                  notifyParent: (int items){
+                    setState( () => _itemsCount = items );
+                  }
+                )
+              : Container()
+          ) ,
           Padding(
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
@@ -290,15 +300,11 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                                   return ElevatedButton(
                                     onPressed: (widget.beer.stockStatus == "instock" ? () {
-                                      print('Received click');
 
                                       // add this beer to cart
                                       cart.add(CartItem(
-                                        itemId: 1,
-                                        itemName: "Test item",
-                                        itemCount: 1,
-                                        itemImage: "",
-                                        itemPrice: 241.5
+                                        beer: widget.beer,
+                                        itemCount: _itemsCount,
                                       ));
 
                                       notificationClient.message(context, "Birra agregada al carrito. ¿Quieres finalizar la compra?");
