@@ -237,6 +237,10 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
     HopsNotifications notificationClient =  new HopsNotifications();
 
+    double getItemsFinalPrice(int itemsCount, double price){
+      return itemsCount * price;
+    }
+
     return new Padding(
       padding: const EdgeInsets.only(
         top: 1.0,
@@ -305,6 +309,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                       cart.add(CartItem(
                                         beer: widget.beer,
                                         itemCount: _itemsCount,
+                                        itemPrice: double.parse(_itemsCount.toString()) * double.parse(widget.beer.price)
                                       ));
 
                                       notificationClient.message(context, "Birra agregada al carrito. ¿Quieres finalizar la compra?");
@@ -322,7 +327,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                                 Icon(Icons.bolt, size: 35, color: Colors.amber),
                                                 SizedBox(width: 8,),
                                                 // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                                Text( "Compra inmediata · \$" + widget.beer.price.toString() +" + Envío", style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                                Text( "Compra inmediata · \$" + ( getItemsFinalPrice(_itemsCount, double.parse(widget.beer.price), ).round().toString()  ) , style: TextStyle(fontSize: 20, color: Colors.black54),)
                                               ]
                                           ),
 

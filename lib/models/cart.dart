@@ -19,6 +19,22 @@ class Cart extends ChangeNotifier{
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
+  
+  void modifyAmount(CartItem item, String type ){
+    //_items.where((element) => element.beer!.beerId == item.beer!.beerId);
+    for (var i = 0; i<_items.length; i++){
+      if (item.beer!.beerId == _items[i].beer!.beerId){
+        // print("INCREASE AMOUNT OF: " + _items[i].beer!.name.toString());
+        if (type == "increase") _items[i].itemCount++;
+        if (type == "decrease") _items[i].itemCount--;
+        _items[i].itemPrice = _items[i].itemCount * double.parse(_items[i].beer!.price!);
+        if (_items[i].itemPrice < 0) _items[i].itemPrice = 0;
+        notifyListeners();
+        break;
+      }
+
+    }
+  }
 
 
   void remove(CartItem item){
@@ -42,17 +58,20 @@ class Cart extends ChangeNotifier{
 class CartItem{
 
   int itemCount;
+  double itemPrice;
   Beer? beer;
 
 
   CartItem({
     this.itemCount = 1,
+    this.itemPrice = 0.0,
     this.beer
   });
 
   factory CartItem.fromJson(Map<String, dynamic> parsedJson){
     return CartItem(
         itemCount: parsedJson["itemCount"],
+        itemPrice: parsedJson["itemPrice"],
         beer: parsedJson["beer"]
     );
   }
@@ -61,6 +80,7 @@ class CartItem{
     Map<String, dynamic> map = {};
     map.addAll({
       'itemCount': itemCount,
+      'itemPrice': itemPrice,
       'beer': beer,
     });
     return map;

@@ -26,7 +26,7 @@ class _CartViewState extends State<CartView> {
     int finalPrice = int.parse(cartItem.beer!.price!) * cartItem.itemCount;
     return "\$" + finalPrice.toString();
   }
-  Widget _buildCartItem(CartItem cartItem){
+  Widget _buildCartItem(CartItem cartItem, Cart cart){
     return GestureDetector(
       onTap: (){
         Navigator.pushNamed(
@@ -108,6 +108,13 @@ class _CartViewState extends State<CartView> {
                             color: cartItem.beer!.rgbColor,
                             notifyParent: (int items){
                               // setState( () => _itemsCount = items );
+                              if(cartItem.itemCount<items){
+                                cart.modifyAmount(cartItem, "increase");
+                              }else{
+                                cart.modifyAmount(cartItem, "decrease");
+                              }
+
+
                             }
                         ),
                       ]
@@ -126,7 +133,7 @@ class _CartViewState extends State<CartView> {
                       //crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                            _buildPriceText(cartItem),
+                            "\$" + cartItem.itemPrice.round().toString(),
                             style: TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.black,
@@ -180,10 +187,10 @@ class _CartViewState extends State<CartView> {
               child: Consumer<Cart>(
                   builder: (context, cart, child){
 
-                    print("Cart items: " + cart.items.length.toString());
+                    //print("Cart items: " + cart.items.length.toString());
                     List<Widget> cartItemsList = [];
                     for(var i = 0; i < cart.items.length; i++){
-                      cartItemsList.add( _buildCartItem(cart.items[i]));
+                      cartItemsList.add( _buildCartItem(cart.items[i], cart));
                     }
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
