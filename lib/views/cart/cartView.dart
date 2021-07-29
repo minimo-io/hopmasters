@@ -174,10 +174,62 @@ class _CartViewState extends State<CartView> {
     );
   }
 
+  Widget _buildCheckoutButton(){
+    // MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8));
+    MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
+    return AnimatedContainer(
+      duration: new Duration(milliseconds: 500),
+      height: 80,
+      padding: EdgeInsets.only( bottom: 5 ),
+      decoration: BoxDecoration( gradient: PRIMARY_GRADIENT_COLOR,),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 23),
+        child: SizedBox(
+          width: double.infinity,
+          child: Consumer<Cart>(
+            builder: (context, cart, child){
+              return (cart.items.length > 0 ? ElevatedButton(
+
+                onPressed: () => null,
+                child: Text(
+                    "Finalizar compra " + "(\$" + cart.finalPrice().round().toString() + ")",
+                    style: TextStyle(
+                        fontSize: 20
+                    )
+                ),
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
+                    foregroundColor: MaterialStateProperty
+                        .all<Color>(
+                        Colors.black.withOpacity(
+                            .6)),
+                    backgroundColor: backgroundColor,
+                    shape: MaterialStateProperty
+                        .all<
+                        RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius
+                                .circular(18.0),
+                            side: BorderSide(
+                                color: Colors.black
+                                    .withOpacity(
+                                    .2))
+                        )
+                    )
+                ),
+              ) : Container() );
+            }
+          )
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context){
+
     return Scaffold(
+      bottomNavigationBar: _buildCheckoutButton(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -192,7 +244,8 @@ class _CartViewState extends State<CartView> {
                     for(var i = 0; i < cart.items.length; i++){
                       cartItemsList.add( _buildCartItem(cart.items[i], cart));
                     }
-
+                    //cartItemsList.add(SizedBox(height: 90,));
+                    // print(cartItemsList.length.toString());
                     return Container(
                       padding: const EdgeInsets.all(8.0),
                       // padding: EdgeInsets.only(top: 50),
@@ -200,7 +253,10 @@ class _CartViewState extends State<CartView> {
                       child: SingleChildScrollView(
                         child: (
                             cartItemsList.length > 0
-                                ? Column( children: cartItemsList,)
+                                ? Padding(
+                                  padding: const EdgeInsets.only(bottom: 90.0),
+                                  child: Column( children: cartItemsList,),
+                                )
                                 : Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
                                   child: Column(
@@ -257,7 +313,7 @@ class _CartViewState extends State<CartView> {
                                         )
                                     )
                                 ),
-                              )
+                              ),
 
                               ],
                             ),

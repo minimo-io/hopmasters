@@ -36,6 +36,16 @@ class Cart extends ChangeNotifier{
     }
   }
 
+  double finalPrice(){
+    double finalPrice = 0.0;
+    for (var i = 0; i<_items.length; i++){
+
+      // if (item.beer!.beerId == _items[i].beer!.beerId){
+      finalPrice += _items[i].itemPrice;
+
+    }
+    return finalPrice;
+  }
 
   void remove(CartItem item){
     //print(_items);
