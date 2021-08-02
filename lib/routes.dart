@@ -7,6 +7,7 @@ import 'package:Hops/views/cart/cartView.dart';
 import 'package:Hops/views/brewery_details/breweryView.dart';
 import 'package:Hops/views/beer_details/beerView.dart';
 import 'package:Hops/views/comments/commentsView.dart';
+import 'package:Hops/views/checkout/checkoutView.dart';
 import 'package:Hops/views/notFound/not_found_page.dart';
 
 /*
@@ -52,6 +53,12 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => CartView( name: nameArg, count: countArg ),
+          );
+
+        case CheckoutView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => CheckoutView(),
           );
 
         case BreweryView.routeName:

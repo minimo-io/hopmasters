@@ -190,7 +190,14 @@ class _CartViewState extends State<CartView> {
             builder: (context, cart, child){
               return (cart.items.length > 0 ? ElevatedButton(
 
-                onPressed: () => null,
+                onPressed: (){
+                  Navigator.pushNamed(
+                    context,
+                    "/checkout",
+                    // arguments: { 'breweryId': int.parse(breweries[i].id) },
+
+                  );
+                },
                 child: Text(
                     "Finalizar compra " + "(\$" + cart.finalPrice().round().toString() + ")",
                     style: TextStyle(
