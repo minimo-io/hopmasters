@@ -20,6 +20,40 @@ class CheckoutView extends StatefulWidget{
 
 class _CheckoutViewState extends State<CheckoutView> {
 
+  Widget _buildDeliveryMethodBox({String image = "", String name = "" , bool isSelected = false} ){
+    return SizedBox(
+        width: (MediaQuery.of(context).size.width / 3 ) - 10,
+        height: 120,
+        child: Card(
+          color: (isSelected ? Colors.black.withOpacity(.2) : Colors.white),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            side: BorderSide(
+              color: Colors.black.withOpacity(.6),
+              width: (isSelected ? 0.0 : 0.0),
+            ),
+          ),
+
+          elevation: 100,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(image, height: 50, width: 50,),
+                    SizedBox(height: 3,),
+                    Text(name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+                    //SizedBox(height: 10,),
+                    //Text("Eduardo Acevedo 1376, apartamento 901"),
+                    //Text("Montevideo, Uruguay")
+                  ],
+                ),
+
+            ),
+          ),
+        );
+  }
 
   @override
   Widget build(BuildContext context){
@@ -116,11 +150,11 @@ class _CheckoutViewState extends State<CheckoutView> {
 
                                           children: [
                                             Positioned(
-                                                top: -19,
+                                                top: -13,
                                                 right: -5,
                                                 child: TextButton(
                                                     onPressed: () => print("pepe"),
-                                                    child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
+                                                    child: Text("Cambiar", style: TextStyle(color: Colors.black38))
                                                 )
                                             ),
                                             Column(
@@ -141,6 +175,91 @@ class _CheckoutViewState extends State<CheckoutView> {
                               SizedBox(height: 20,),
                               AppGlobalTitle(title: "Envío", type: "title"),
                               SizedBox(height: 10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _buildDeliveryMethodBox(name: "Hops", image: "assets/images/hops-logo.png", isSelected: true),
+                                  _buildDeliveryMethodBox(name: "BirraVa", image: "assets/images/birrava-logo.png"),
+                                  _buildDeliveryMethodBox(name: "SabremosTomar", image: "assets/images/sabremostomar-logo.png"),
+
+                                ],
+                              ),
+
+                              SizedBox(height: 30,),
+
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 17.0),
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Orden",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF444444))),
+                                    Text("\$" + cart.finalPrice().round() .toString(),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF212121))),
+                                  ],
+                                ),
+                              ),
+
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 17.0),
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Envío",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF444444))),
+                                    Text("\$" + "50",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFF212121))),
+                                  ],
+                                ),
+                              ),
+                              /*
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 17.0),
+                                height: 30,
+                                child: Divider(color: Colors.black.withOpacity(.6), thickness: 1.0,),
+                              ),
+                              */
+                              SizedBox(height: 5,),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 17.0),
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("TOTAL",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF444444))),
+                                    Text("\$" + (cart.finalPrice() + 50).round().toString(),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF212121))),
+                                  ],
+                                ),
+                              ),
+
                             ],
                           ),
                         )
