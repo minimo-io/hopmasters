@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:collection';
 
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Hops/models/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Hops/models/preferences.dart';
+import 'package:Hops/models/order_data.dart';
 
 class SharedServices{
 
@@ -23,6 +25,25 @@ class SharedServices{
         : null;
   }
 
+  static Future<OrderData?> lastShippingDetails()async{
+    final Sharedprefs = await SharedPreferences.getInstance();
+/*
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.remove('last_shipping_details');
+    return null;
+    var order = (jsonDecode(Sharedprefs.getString("last_shipping_details")!));
+*/
+
+    return Sharedprefs.getString("last_shipping_details") != '{}' && Sharedprefs.getString("last_shipping_details") != null
+        //? OrderData.fromJson(jsonDecode(Sharedprefs.getString("last_shipping_details")!))
+        ? OrderData.fromJson(jsonDecode(Sharedprefs.getString("last_shipping_details")!))
+        : null;
+  }
+  static Future<void> setLastShippingDetails(OrderData? lastOrderData)async{
+    final Sharedprefs = await SharedPreferences.getInstance();
+    Sharedprefs.setString("last_shipping_details", lastOrderData != null ? jsonEncode(lastOrderData.toJson()) : "{}" );
+
+  }
 
   static Future<void> setLoginDetails(LoginResponse? loginResponseModel)async{
     final Sharedprefs = await SharedPreferences.getInstance();

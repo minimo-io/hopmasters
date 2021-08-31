@@ -1,16 +1,19 @@
-import 'package:Hops/services/wordpress_api.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:Hops/theme/style.dart';
 import 'package:provider/provider.dart';
 import 'package:Hops/models/cart.dart';
 import 'package:Hops/models/beer.dart';
+import 'package:Hops/models/order_data.dart';
 
 import 'package:Hops/components/app_global_title.dart';
 
 import 'package:Hops/components/stars_score.dart';
 import 'package:Hops/components/counter_selector.dart';
 import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/services/shared_services.dart';
 
 class CheckoutView extends StatefulWidget{
 
@@ -25,10 +28,12 @@ class _CheckoutViewState extends State<CheckoutView> {
   double deliveryCost = 100.0;
   double bottomHeight = 70;
   bool isLoadingApiCall = false;
+  late Future<OrderData?> _lastOrderData;
 
   @override
   void initState() {
     super.initState();
+    _lastOrderData = SharedServices.lastShippingDetails();
 
   }
 
@@ -97,14 +102,41 @@ class _CheckoutViewState extends State<CheckoutView> {
                         bottomHeight = 0;
                         isLoadingApiCall = true;
                       });
-                      WordpressAPI.createOrder().then((value) {
-                        print(value);
-                        setState(() {
-                          bottomHeight = 70;
-                          isLoadingApiCall = false;
+
+                      // get last shipping details from stored shared services
+                      OrderData newOrder = new OrderData(
+                        firstName: "Nicolas",
+                        lastName: "Erramuspe",
+                        telephone: "+598.96.666.902",
+                        email: "nicolas@minimo.io",
+                        paymentType: "cod", // cash on delivery
+                        address1: "Eduardo Acevedo 1376",
+                        address2: "apto 901",
+                        city: "Montevideo",
+                        state: "Montevideo",
+                        country: "UY",
+                        postCode: "11200",
+                        beersList: [],
+                        shippingMethodId: "flat_rate",
+                        shippingRate: deliveryCost
+
+                      );
+                      SharedServices.lastShippingDetails().then((lastOrderData){
+                        SharedServices.setLastShippingDetails(newOrder).then((value){
+
+                           WordpressAPI.createOrder().then((value) {
+
+                            setState(() {
+                              bottomHeight = 70;
+                              isLoadingApiCall = false;
+                            });
+                          });
+
                         });
 
                       });
+
+
 
                     },
                     child: Text(
@@ -138,6 +170,60 @@ class _CheckoutViewState extends State<CheckoutView> {
                 }
             )
         ),
+      ),
+    );
+  }
+  Widget _buildOrderDetailsBox(OrderData lastOrder){
+
+    return Stack(
+      children: [
+        Positioned(
+            top: -19,
+            right: -5,
+            child: TextButton(
+                onPressed: () => print("pepe"),
+                child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
+            )
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(lastOrder.firstName! + " " + lastOrder.lastName!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+            SizedBox(height: 10,),
+            Text( (lastOrder.address1 != null ? lastOrder.address1 : "")! + ", " + (lastOrder.address2 != null ? lastOrder.address2 : "")!),
+            Text(lastOrder.city!  + ", " + lastOrder.country!),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Icon(Icons.phone, size: 15,),
+                SizedBox(width: 3,),
+                Text(lastOrder.telephone!),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+
+
+  }
+
+  Widget _buildAddOrderDetailsButton(){
+    return ElevatedButton(
+      onPressed: (){
+        print("OOOK");
+        //Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      },
+      child: Text("Agregar datos de envío"),
+      style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.black.withOpacity(.2)),
+              )
+          )
       ),
     );
   }
@@ -180,41 +266,38 @@ class _CheckoutViewState extends State<CheckoutView> {
                                     height: 140,
                                     child: Card(
                                       elevation: 100,
+                                      //color: Colors.transparent,
                                       child: Padding(
                                         padding: const EdgeInsets.all(20.0),
-                                        child: Stack(
-
-                                          children: [
-                                            Positioned(
-                                                top: -19,
-                                                right: -5,
-                                                child: TextButton(
-                                                    onPressed: () => print("pepe"),
-                                                    child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
-                                                )
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("Nicolás Erramuspe", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-                                                SizedBox(height: 10,),
-                                                Text("Eduardo Acevedo 1376, apartamento 901"),
-                                                Text("Montevideo, Uruguay"),
-                                                SizedBox(height: 10,),
-                                                Row(
-                                                  children: [
-                                                    Icon(Icons.phone, size: 15,),
-                                                    SizedBox(width: 3,),
-                                                    Text("096.666.902"),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                        child: FutureBuilder(
+                                            future: _lastOrderData,
+                                            builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                              switch (snapshot.connectionState) {
+                                                case ConnectionState
+                                                    .waiting:
+                                                  return SizedBox(
+                                                      height: 22,
+                                                      width: 22,
+                                                      child: CircularProgressIndicator(
+                                                        color: PROGRESS_INDICATOR_COLOR,
+                                                        strokeWidth: 1,));
+                                                default:
+                                                  if (snapshot.hasError) {
+                                                    return Text(
+                                                        'Error: ${snapshot
+                                                            .error}');
+                                                  } else {
+                                                    return  snapshot.data != null
+                                                          ? _buildOrderDetailsBox(snapshot.data)
+                                                          : _buildAddOrderDetailsButton();
 
 
 
-                                          ],
-                                        ),
+
+                                                  }
+                                              }
+                                            }
+                                        )
                                       ),
                                     )
                                   ),
