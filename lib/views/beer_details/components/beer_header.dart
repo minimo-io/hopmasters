@@ -312,7 +312,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                         itemPrice: double.parse(_itemsCount.toString()) * double.parse(widget.beer.price)
                                       ));
 
-                                      notificationClient.message(context, "Birra agregada al carrito. ¿Quieres finalizar la compra?");
+                                      notificationClient.message(context, "Birra agregada al carrito.");
                                       Navigator.pop(context);
 
                                     } : null),

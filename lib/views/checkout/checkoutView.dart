@@ -12,6 +12,7 @@ import 'package:Hops/components/app_global_title.dart';
 import 'package:Hops/components/stars_score.dart';
 import 'package:Hops/components/counter_selector.dart';
 import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/services/shared_services.dart';
 
@@ -105,6 +106,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
                       // get last shipping details from stored shared services
                       OrderData newOrder = new OrderData(
+                        customerId: "92",
                         firstName: "Nicolas",
                         lastName: "Erramuspe",
                         telephone: "+598.96.666.902",
@@ -116,20 +118,31 @@ class _CheckoutViewState extends State<CheckoutView> {
                         state: "Montevideo",
                         country: "UY",
                         postCode: "11200",
-                        beersList: [],
+                        beersList: cart.getShippingList(),
                         shippingMethodId: "flat_rate",
-                        shippingRate: deliveryCost
+                        shippingRate: deliveryCost.toString()
 
                       );
                       SharedServices.lastShippingDetails().then((lastOrderData){
                         SharedServices.setLastShippingDetails(newOrder).then((value){
 
-                           WordpressAPI.createOrder().then((value) {
+                           WordpressAPI.createOrder(newOrder).then((result) {
+                             var notificationClient = new HopsNotifications();
+                             setState(() {
+                               bottomHeight = 70;
+                               isLoadingApiCall = false;
+                             });
+                            if (true == result){
+                              // redirect to the order list view
+                              cart.removeAll();
+                              Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                              notificationClient.message(context, WordpressAPI.MESSAGE_OK_CREATEORDER);
 
-                            setState(() {
-                              bottomHeight = 70;
-                              isLoadingApiCall = false;
-                            });
+                            }else{
+
+                              notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_CREATEORDER);
+                            }
+
                           });
 
                         });

@@ -62,6 +62,20 @@ class Cart extends ChangeNotifier{
     notifyListeners();
   }
 
+  List getShippingList(){
+    List shippingList = [];
+    for (var i = 0; i<_items.length; i++){
+      shippingList.add(
+        {
+        "product_id" : _items[i].beer!.beerId,
+        "quantity" :  _items[i].itemCount,
+        }
+      );
+
+    }
+    return shippingList;
+  }
+
 }
 
 

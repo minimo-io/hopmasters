@@ -1,6 +1,7 @@
 
 
 class OrderData{
+  String? customerId;
   String? firstName;
   String? lastName;
   String? telephone;
@@ -14,10 +15,11 @@ class OrderData{
   String? postCode = "0";
   List? beersList;
   String? shippingMethodId = "flat_rate";
-  double? shippingRate;
+  String? shippingRate;
 
 
   OrderData({
+    this.customerId,
     this.firstName,
     this.lastName,
     this.telephone,
@@ -38,8 +40,9 @@ class OrderData{
   //OrderData.toJson(){
     Map<String, dynamic> map = {};
     map.addAll({
+      "customer_id" : customerId,
       "payment_method": paymentType,
-      "payment_method_title": "-",
+      "payment_method_title": "Contra reembolso",
       "set_paid": false,
       "billing": {
         "first_name": firstName,
@@ -63,23 +66,13 @@ class OrderData{
         "postcode": postCode,
         "country": country
       },
-      "line_items": [
-        {
-          "product_id": 93,
-          "quantity": 2
-        },
-        {
-          "product_id": 22,
-          "variation_id": 23,
-          "quantity": 1
-        }
-      ],
+      "line_items": beersList,
 
       "shipping_lines": [
         {
           "method_id": shippingMethodId,
-          "method_title": "-",
-          "total": shippingRate
+          "method_title": "Costo de envío",
+          "total": shippingRate.toString()
         }
       ]
     });
@@ -88,7 +81,7 @@ class OrderData{
 
   OrderData.fromJson( Map<String, dynamic> json){
 
-
+    customerId = json["customer_id"];
     firstName = json["billing"]["first_name"];
     lastName = json["billing"]["last_name"];
     telephone = json["billing"]["phone"];

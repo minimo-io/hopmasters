@@ -13,6 +13,7 @@ import 'package:Hops/models/customer.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/brewery.dart';
 import 'package:Hops/models/preferences.dart';
+import 'package:Hops/models/order_data.dart';
 import 'package:Hops/services/shared_services.dart';
 
 class WordpressAPI{
@@ -52,6 +53,9 @@ class WordpressAPI{
   static const String MESSAGE_ERROR_ADDEDITCOMMENT = "¡Ocurrió un error: ";
 
   static const String MESSAGE_OK_EDITCOMMENT = "Cambiar de opinión es de sabios. ¡Opinión modificada!";
+
+  static const String MESSAGE_ERROR_CREATEORDER = "Ocurrió un error al intentar crear la orden. Por favor ponete en contacto.";
+  static const String MESSAGE_OK_CREATEORDER = "¡Yeah! Pedido creado. Nos pondremos en contacto";
 
 
 
@@ -649,58 +653,15 @@ class WordpressAPI{
 
 
   static Future<bool> createOrder(
-      //BillingData billingData,
+      OrderData newOrder
       )async{
 
     final String orderQueryUri = _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_ORDERS;
 
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
 
-    Map<String, dynamic> dataMap = {
-      "payment_method": "bacs",
-      "payment_method_title": "Direct Bank Transfer",
-      "set_paid": false,
-      "billing": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "address_1": "969 Market",
-        "address_2": "",
-        "city": "San Francisco",
-        "state": "CA",
-        "postcode": "94103",
-        "country": "US",
-        "email": "john.doe@example.com",
-        "phone": "(555) 555-5555"
-      },
-      "shipping": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "address_1": "969 Market",
-        "address_2": "",
-        "city": "San Francisco",
-        "state": "CA",
-        "postcode": "94103",
-        "country": "US"
-      },
-      "line_items": [
-        {
-          "product_id": 93,
-          "quantity": 2
-        },
-        {
-          "product_id": 22,
-          "variation_id": 23,
-          "quantity": 1
-        }
-      ],
-      "shipping_lines": [
-        {
-          "method_id": "flat_rate",
-          "method_title": "Flat Rate",
-          "total": "10.00"
-        }
-      ]
-    };
+    Map<String, dynamic> dataMap = newOrder.toJson();
+    print(dataMap);
 
     try{
 
@@ -731,6 +692,7 @@ class WordpressAPI{
 
     } on DioError catch(e) {
       //print('Failed to set user preferences! ' + e.message);
+      print(e.response!.data.toString());
       throw Exception('Failed to create order!' + e.message);
     }
     return true;
