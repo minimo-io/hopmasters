@@ -188,55 +188,74 @@ class _CheckoutViewState extends State<CheckoutView> {
   }
   Widget _buildOrderDetailsBox(OrderData lastOrder){
 
-    return Stack(
-      children: [
-        Positioned(
-            top: -19,
-            right: -5,
-            child: TextButton(
-                onPressed: () => print("pepe"),
-                child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
-            )
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return SizedBox(
+      width: double.infinity,
+      height: 140,
+      child: Card(
+          elevation: 100,
+          //color: Colors.transparent,
+          child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Stack(
           children: [
-            Text(lastOrder.firstName! + " " + lastOrder.lastName!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-            SizedBox(height: 10,),
-            Text( (lastOrder.address1 != null ? lastOrder.address1 : "")! + ", " + (lastOrder.address2 != null ? lastOrder.address2 : "")!),
-            Text(lastOrder.city!  + ", " + lastOrder.country!),
-            SizedBox(height: 10,),
-            Row(
-              children: [
-                Icon(Icons.phone, size: 15,),
-                SizedBox(width: 3,),
-                Text(lastOrder.telephone!),
-              ],
+            Positioned(
+                top: -19,
+                right: -5,
+                child: TextButton(
+                    onPressed: () => print("pepe"),
+                    child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
+                )
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(lastOrder.firstName! + " " + lastOrder.lastName!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                SizedBox(height: 10,),
+                Text( (lastOrder.address1 != null ? lastOrder.address1 : "")! + ", " + (lastOrder.address2 != null ? lastOrder.address2 : "")!),
+                Text(lastOrder.city!  + ", " + lastOrder.country!),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Icon(Icons.phone, size: 15,),
+                    SizedBox(width: 3,),
+                    Text(lastOrder.telephone!),
+                  ],
+                ),
+              ],
+            )
           ],
         )
-      ],
+        )
+      ),
     );
 
 
   }
 
   Widget _buildAddOrderDetailsButton(){
-    return ElevatedButton(
-      onPressed: (){
-        print("OOOK");
-        //Navigator.of(context).popUntil(ModalRoute.withName('/'));
-      },
-      child: Text("Agregar datos de envío"),
-      style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.black.withOpacity(.2)),
+    return SizedBox(
+      height: 100,
+      width: double.infinity,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        child: ElevatedButton(
+          onPressed: (){
+            print("OOOK");
+            //Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          },
+          child: Text("Agregar datos de envío", style: TextStyle( fontSize: 17 ),),
+
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Colors.black.withOpacity(.2)),
+                  )
               )
-          )
+          ),
+        ),
       ),
     );
   }
@@ -274,15 +293,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 SizedBox(height: 10,),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 140,
-                                    child: Card(
-                                      elevation: 100,
-                                      //color: Colors.transparent,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: FutureBuilder(
+                                  child: FutureBuilder(
                                             future: _lastOrderData,
                                             builder: (BuildContext context, AsyncSnapshot snapshot) {
                                               switch (snapshot.connectionState) {
@@ -311,9 +322,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                               }
                                             }
                                         )
-                                      ),
-                                    )
-                                  ),
+
                                 ),
                                 SizedBox(height: 20,),
 
