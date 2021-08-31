@@ -179,7 +179,7 @@ class _CartViewState extends State<CartView> {
     MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(SECONDARY_BUTTON_COLOR.withOpacity(.65));
     return AnimatedContainer(
       duration: new Duration(milliseconds: 500),
-      height: 80,
+      height: 70,
       padding: EdgeInsets.only( bottom: 5 ),
       decoration: BoxDecoration( gradient: PRIMARY_GRADIENT_COLOR,),
       child: Container(
@@ -199,9 +199,10 @@ class _CartViewState extends State<CartView> {
                   );
                 },
                 child: Text(
-                    "Finalizar compra " + "(\$" + cart.finalPrice().round().toString() + ")",
+                    "Finalizar compra " + "(\$" + cart.finalPrice().round().toString() + ") + Envío",
+                    //"Finalizar compra",
                     style: TextStyle(
-                        fontSize: 20
+                        fontSize: 19
                     )
                 ),
                 style: ButtonStyle(

@@ -28,6 +28,8 @@ class WordpressAPI{
   static String _WP_REST_WC_URI = "/wc/v3/"; // for WooCommerce
     static String _WP_REST_WC_CUSTOMER = "customers";
     static String _WP_REST_WC_CATEGORIES = "products/categories";
+    static String _WP_REST_WC_ORDERS = "orders";
+
   static String _WP_REST_HOPS_URI = "/hops/v1/"; // custom endpoint for Hops
 
   static const String MESSAGE_ERROR_LOGIN = "¡Ups! Login incorrecto. Vuelve a intentarlo o ponete en contacto con atención al cliente.";
@@ -643,6 +645,95 @@ class WordpressAPI{
       return jsonDecode("{}");
       print(e.message);
     }
+  }
+
+
+  static Future<bool> createOrder(
+      //BillingData billingData,
+      )async{
+
+    final String orderQueryUri = _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_ORDERS;
+
+    var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
+
+    Map<String, dynamic> dataMap = {
+      "payment_method": "bacs",
+      "payment_method_title": "Direct Bank Transfer",
+      "set_paid": false,
+      "billing": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "address_1": "969 Market",
+        "address_2": "",
+        "city": "San Francisco",
+        "state": "CA",
+        "postcode": "94103",
+        "country": "US",
+        "email": "john.doe@example.com",
+        "phone": "(555) 555-5555"
+      },
+      "shipping": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "address_1": "969 Market",
+        "address_2": "",
+        "city": "San Francisco",
+        "state": "CA",
+        "postcode": "94103",
+        "country": "US"
+      },
+      "line_items": [
+        {
+          "product_id": 93,
+          "quantity": 2
+        },
+        {
+          "product_id": 22,
+          "variation_id": 23,
+          "quantity": 1
+        }
+      ],
+      "shipping_lines": [
+        {
+          "method_id": "flat_rate",
+          "method_title": "Flat Rate",
+          "total": "10.00"
+        }
+      ]
+    };
+
+    try{
+
+      var response = await Dio().post(
+        orderQueryUri,
+        data: dataMap,
+
+        options: new Options(
+            headers: {
+              HttpHeaders.authorizationHeader: 'basic $authToken',
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+
+
+        /*
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+            }
+        ),
+        */
+      );
+      if (response.statusCode == 200){
+        var jsonResponse = response.data;
+        return (jsonResponse["result"] != null ? jsonResponse["result"]  : false);
+      }
+
+    } on DioError catch(e) {
+      //print('Failed to set user preferences! ' + e.message);
+      throw Exception('Failed to create order!' + e.message);
+    }
+    return true;
   }
 
 }
