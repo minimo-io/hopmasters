@@ -27,7 +27,7 @@ class CheckoutView extends StatefulWidget{
 class _CheckoutViewState extends State<CheckoutView> {
 
   double deliveryCost = 100.0;
-  double bottomHeight = 70;
+  double bottomHeight = 0;
   bool isLoadingApiCall = false;
   late Future<OrderData?> _lastOrderData;
 
@@ -35,6 +35,24 @@ class _CheckoutViewState extends State<CheckoutView> {
   void initState() {
     super.initState();
     _lastOrderData = SharedServices.lastShippingDetails();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+
+      _lastOrderData.then((value){
+        if (value != null){
+          setState(() {
+            bottomHeight = 70;
+          });
+
+        }else{
+          setState(() {
+            bottomHeight = 0;
+          });
+
+        }
+      });
+
+    });
 
   }
 
@@ -202,7 +220,19 @@ class _CheckoutViewState extends State<CheckoutView> {
                 top: -19,
                 right: -5,
                 child: TextButton(
-                    onPressed: () => print("pepe"),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        "shippingDetails",
+                        // arguments: { 'beerId': int.parse(beer.beerId) },
+
+                      ).then((_) => setState(() {
+
+                        _lastOrderData = SharedServices.lastShippingDetails();
+                        bottomHeight = 70;
+
+                      }));
+                    },
                     child: Text("Cambiar", style: TextStyle(color: Colors.redAccent))
                 )
             ),
@@ -240,13 +270,17 @@ class _CheckoutViewState extends State<CheckoutView> {
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: ElevatedButton(
           onPressed: (){
-            print("OOOK");
             Navigator.pushNamed(
               context,
               "shippingDetails",
               // arguments: { 'beerId': int.parse(beer.beerId) },
 
-            );
+            ).then((_) => setState(() {
+
+              _lastOrderData = SharedServices.lastShippingDetails();
+              bottomHeight = 70;
+
+            }));
           },
           child: Text("Agregar datos de envío", style: TextStyle( fontSize: 17 ),),
 
@@ -363,7 +397,9 @@ class _CheckoutViewState extends State<CheckoutView> {
                                                   top: -13,
                                                   right: -5,
                                                   child: TextButton(
-                                                      onPressed: () => print("pepe"),
+                                                      onPressed: (){
+
+                                                      },
                                                       child: Text("Cambiar", style: TextStyle(color: Colors.black38))
                                                   )
                                               ),

@@ -7,13 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/models/order_data.dart';
 
-/// View for adding the frist shipping details for the order
+/// View for adding the first shipping details for the order
 /// this will be later saved as local data and maybe in the database
 /// although this is already done via WooCommerce API
 
 class ShippingDetails extends StatefulWidget {
   static const String routeName = "shippingDetails";
-  const ShippingDetails({Key? key}) : super(key: key);
+  final Function()? notifyParent;
+
+  const ShippingDetails({Key? key, @required this.notifyParent }) : super(key: key);
 
   @override
   _ShippingDetailsState createState() => _ShippingDetailsState();
@@ -27,11 +29,27 @@ class _ShippingDetailsState extends State<ShippingDetails> {
   final _formKey = GlobalKey<FormState>();
   String _dropdownValue = 'Montevideo';
   static const double _horizontalPadding = 30.0;
+  bool formValidatedOnce = false;
+
+  // form field
+  String? _frmFullName = "";
+  String? _frmTelephone = "";
+  String? _frmAddress1 = "";
+  String? _frmAddress2 = "";
+
 
   @override
   void initState() {
     super.initState();
     _lastOrderData = SharedServices.lastShippingDetails();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+
+      _lastOrderData.then((value){
+        _dropdownValue = value!.city!;
+      });
+
+    });
 
   }
 
@@ -57,7 +75,47 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                 });
 
                 if (_formKey.currentState!.validate()) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  _formKey.currentState!.save();
 
+                  List<String> fullname = _frmFullName!.split(" ");
+
+
+                  // get last shipping details from stored shared services
+                  OrderData newOrder = new OrderData(
+                      customerId: "0",
+                      firstName: fullname[0],
+                      lastName: fullname[1],
+                      telephone: _frmTelephone,
+                      email: "",
+                      paymentType: "cod", // cash on delivery
+                      address1: _frmAddress1,
+                      address2: _frmAddress2,
+                      city: _dropdownValue,
+                      state: "",
+                      country: "UY",
+                      postCode: "",
+                      beersList: [],
+                      shippingMethodId: "flat_rate",
+                      shippingRate: "0.0"
+
+                  );
+
+                  SharedServices.setLastShippingDetails(newOrder).then((value) {
+                    var notificationClient = new HopsNotifications();
+                    notificationClient.message(context, "Datos guardados ¡Gracias!");
+                    // llamar al callback del parent
+                    Navigator.of(context).pop();
+
+                  });
+
+                }else{
+
+                  setState(() {
+                    bottomHeight = 70;
+                    isLoadingApiCall = false;
+                    formValidatedOnce = true;
+                  });
 
                 }
 
@@ -120,252 +178,291 @@ class _ShippingDetailsState extends State<ShippingDetails> {
             decoration: BoxDecoration(
                 gradient: PRIMARY_GRADIENT_COLOR
             ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: _horizontalPadding,),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
-                    child: Text("NOMBRE COMPLETO", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  ),
+            child: FutureBuilder(
+              future: _lastOrderData,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
 
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 20),
-                    child: TextFormField(
-                      // initialValue: (_comment != null ? _comment!.comment_content  : null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Ingresa tu nombre completo.";
-                        }
-                        if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
-                        if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
-                        return null;
-                      },
-                      // autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return SizedBox(
+                        height: 22,
+                        width: 22,
+                        child: CircularProgressIndicator(
+                          color: PROGRESS_INDICATOR_COLOR,
+                          strokeWidth: 1,));
+                  default:
+                    if (snapshot.hasError) {
+                      return Text(
+                          'Error: ${snapshot
+                              .error}');
+                    } else {
+                      return Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: _horizontalPadding,),
 
-                      onSaved: (String? value) {
-                        // This optional block of code can be used to run
-                        // code when the user saves the form.
-                        // setState(() { _opinionFormField = value; });
-                      },
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
+                              child: Text("Te lo pediremos solo una vez y lo podrás cambiar en cada pedido."),
+                            ),
 
-                      keyboardType: TextInputType.name,
-                      textAlignVertical: TextAlignVertical.top,
-                      style: TextStyle(fontSize: 12.5),
+                            SizedBox(height: _horizontalPadding,),
 
-                      //style: TextStyle( fontSize: 13 ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
+                              child: Text("NOMBRE COMPLETO", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            ),
 
-                      decoration: new InputDecoration(
-                        labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 20),
+                              child: TextFormField(
+                                initialValue: (snapshot.data != null ? snapshot.data.firstName + " " + snapshot.data.lastName  : null),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Ingresa tu nombre completo.";
+                                  }
+                                  if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
+                                  List<String> twoValues = value.split(" ");
+                                  if (twoValues.length < 2) return "Ingresa tu nombre y apellido separados de un espacio.";
+                                  if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
+                                  return null;
+                                },
+                                autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                onSaved: (String? value) {
+                                  // This optional block of code can be used to run
+                                  // code when the user saves the form.
+                                  setState(() { _frmFullName = value; });
+                                },
+
+                                keyboardType: TextInputType.name,
+                                textAlignVertical: TextAlignVertical.top,
+                                style: TextStyle(fontSize: 12.5),
+
+                                //style: TextStyle( fontSize: 13 ),
+
+                                decoration: new InputDecoration(
+                                  labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: colorScheme.secondary)),
+                                  hintText: 'Ejemplo: Neilo Young.',
+                                  //labelText: '¿Qué te pareció esta cerveza?',
+                                  //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                ),
+                              ),
+                            ),
+
+
+                            SizedBox(height: 10),
+
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
+                              child: Text("TELÉFONO", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 20),
+                              child: TextFormField(
+                                initialValue: (snapshot.data != null ? snapshot.data.telephone  : null),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Ingresa tu teléfono.";
+                                  }
+                                  if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
+                                  if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
+                                  return null;
+                                },
+                                autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                onSaved: (String? value) {
+                                  // This optional block of code can be used to run
+                                  // code when the user saves the form.
+                                  setState(() { _frmTelephone = value; });
+                                },
+
+                                keyboardType: TextInputType.phone,
+                                textAlignVertical: TextAlignVertical.top,
+                                style: TextStyle(fontSize: 12.5),
+
+                                //style: TextStyle( fontSize: 13 ),
+
+                                decoration: new InputDecoration(
+                                  labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: colorScheme.secondary)),
+                                  hintText: 'Mantengámonos en contacto...',
+                                  //labelText: '¿Qué te pareció esta cerveza?',
+                                  //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                ),
+                              ),
+                            ),
+
+
+
+
+                            SizedBox(height: 20,),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
+                              child: Text("UBICACIÓN", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            ),
+
+
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 10),
+                              child: DropdownButton<String>(
+                                value: _dropdownValue,
+                                hint:Text("Selecciona una ubicación"),
+                                // icon: const Icon(Icons.arrow_downward),
+                                iconSize: 25,
+                                elevation: 8,
+                                style:TextStyle(color:Colors.black87, fontSize: 18),
+                                icon: Icon(Icons.arrow_drop_down_circle),
+                                iconDisabledColor: Colors.red,
+                                iconEnabledColor: Colors.black87,
+                                isExpanded: true,
+                                dropdownColor: Colors.white,
+                                /*
+                          style: const TextStyle(
+                              color: Colors.deepPurple
+                          ),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+
+                           */
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _dropdownValue = newValue!;
+                                  });
+                                },
+                                items: <String>['Montevideo', 'Rocha', 'Paysandú']
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 8),
+                              child: TextFormField(
+                                initialValue: (snapshot.data != null ? snapshot.data.address1  : null),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Ingresa tu dirección 1.";
+                                  }
+                                  if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
+                                  if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
+                                  return null;
+                                },
+                                autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                onSaved: (String? value) {
+                                  // This optional block of code can be used to run
+                                  // code when the user saves the form.
+                                  setState(() { _frmAddress1 = value; });
+                                },
+
+                                keyboardType: TextInputType.name,
+                                textAlignVertical: TextAlignVertical.top,
+                                style: TextStyle(fontSize: 12.5),
+
+                                //style: TextStyle( fontSize: 13 ),
+
+                                decoration: new InputDecoration(
+                                  labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: colorScheme.secondary)),
+                                  hintText: 'Dirección. Ejemplo: 18 de Julio 1451',
+                                  //labelText: '¿Qué te pareció esta cerveza?',
+                                  //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 10),
+                              child: TextFormField(
+                                initialValue: (snapshot.data != null ? snapshot.data.address2  : null),
+                                validator: (value) {
+                                  /*
+                              if (value == null || value.isEmpty) {
+                                return "Ingresa tu complemento de dirección.";
+                              }
+                              if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
+                              if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
+                              */
+                                  return null;
+                                },
+                                // autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                onSaved: (String? value) {
+                                  // This optional block of code can be used to run
+                                  // code when the user saves the form.
+                                  setState(() { _frmAddress2 = value; });
+                                },
+
+                                keyboardType: TextInputType.name,
+                                textAlignVertical: TextAlignVertical.top,
+                                style: TextStyle(fontSize: 12.5),
+
+                                //style: TextStyle( fontSize: 13 ),
+
+                                decoration: new InputDecoration(
+                                  labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: colorScheme.secondary)),
+                                  hintText: 'Complemento. Ejemplo: Apartamento 425',
+                                  //labelText: '¿Qué te pareció esta cerveza?',
+                                  //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height:200)
+
+                          ],
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 1),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: colorScheme.secondary)),
-                        hintText: 'Ejemplo: Neilo Young.',
-                        //labelText: '¿Qué te pareció esta cerveza?',
-                        //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
-                      ),
-                    ),
-                  ),
+                      );
+
+                    }
+                }
 
 
-                  SizedBox(height: 15),
-
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
-                    child: Text("TELÉFONO", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  ),
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 20),
-                    child: TextFormField(
-                      // initialValue: (_comment != null ? _comment!.comment_content  : null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Ingresa tu teléfono.";
-                        }
-                        if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
-                        if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
-                        return null;
-                      },
-                      // autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
-
-                      onSaved: (String? value) {
-                        // This optional block of code can be used to run
-                        // code when the user saves the form.
-                        // setState(() { _opinionFormField = value; });
-                      },
-
-                      keyboardType: TextInputType.phone,
-                      textAlignVertical: TextAlignVertical.top,
-                      style: TextStyle(fontSize: 12.5),
-
-                      //style: TextStyle( fontSize: 13 ),
-
-                      decoration: new InputDecoration(
-                        labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 2),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 1),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: colorScheme.secondary)),
-                        hintText: 'Mantengámonos en contacto...',
-                        //labelText: '¿Qué te pareció esta cerveza?',
-                        //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 20,),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: _horizontalPadding),
-                    child: Text("UBICACIÓN", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  ),
-
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 10),
-                    child: DropdownButton<String>(
-                      value: _dropdownValue,
-                      hint:Text("Selecciona una ubicación"),
-                      // icon: const Icon(Icons.arrow_downward),
-                      iconSize: 25,
-                      elevation: 8,
-                      style:TextStyle(color:Colors.black87, fontSize: 18),
-                      icon: Icon(Icons.arrow_drop_down_circle),
-                      iconDisabledColor: Colors.red,
-                      iconEnabledColor: Colors.black87,
-                      isExpanded: true,
-                      dropdownColor: Colors.white,
-                      /*
-                      style: const TextStyle(
-                          color: Colors.deepPurple
-                      ),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.deepPurpleAccent,
-                      ),
-
-                       */
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['Montevideo', 'Rocha', 'Paysandú']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      })
-                          .toList(),
-                    ),
-                  ),
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 8),
-                    child: TextFormField(
-                      // initialValue: (_comment != null ? _comment!.comment_content  : null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Ingresa tu dirección 1.";
-                        }
-                        if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
-                        if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
-                        return null;
-                      },
-                      // autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
-
-                      onSaved: (String? value) {
-                        // This optional block of code can be used to run
-                        // code when the user saves the form.
-                        // setState(() { _opinionFormField = value; });
-                      },
-
-                      keyboardType: TextInputType.name,
-                      textAlignVertical: TextAlignVertical.top,
-                      style: TextStyle(fontSize: 12.5),
-
-                      //style: TextStyle( fontSize: 13 ),
-
-                      decoration: new InputDecoration(
-                        labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 2),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 1),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: colorScheme.secondary)),
-                        hintText: 'Dirección. Ejemplo: 18 de Julio 1451',
-                        //labelText: '¿Qué te pareció esta cerveza?',
-                        //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 10),
-                    child: TextFormField(
-                      // initialValue: (_comment != null ? _comment!.comment_content  : null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Ingresa tu complemento de dirección.";
-                        }
-                        if (!RegExp(r'.{5,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
-                        if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
-                        return null;
-                      },
-                      // autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
-
-                      onSaved: (String? value) {
-                        // This optional block of code can be used to run
-                        // code when the user saves the form.
-                        // setState(() { _opinionFormField = value; });
-                      },
-
-                      keyboardType: TextInputType.name,
-                      textAlignVertical: TextAlignVertical.top,
-                      style: TextStyle(fontSize: 12.5),
-
-                      //style: TextStyle( fontSize: 13 ),
-
-                      decoration: new InputDecoration(
-                        labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 2),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: colorScheme.secondary, width: 1),
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: colorScheme.secondary)),
-                        hintText: 'Complemento. Ejemplo: Apartamento 425',
-                        //labelText: '¿Qué te pareció esta cerveza?',
-                        //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height:200)
-
-                ],
-              ),
-            ),
+              }
+            )
           ),
         ),
       ),
