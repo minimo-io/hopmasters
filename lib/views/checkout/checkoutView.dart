@@ -241,7 +241,12 @@ class _CheckoutViewState extends State<CheckoutView> {
         child: ElevatedButton(
           onPressed: (){
             print("OOOK");
-            //Navigator.of(context).popUntil(ModalRoute.withName('/'));
+            Navigator.pushNamed(
+              context,
+              "shippingDetails",
+              // arguments: { 'beerId': int.parse(beer.beerId) },
+
+            );
           },
           child: Text("Agregar datos de envío", style: TextStyle( fontSize: 17 ),),
 

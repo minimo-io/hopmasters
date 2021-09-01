@@ -27,12 +27,13 @@ class SharedServices{
 
   static Future<OrderData?> lastShippingDetails()async{
     final Sharedprefs = await SharedPreferences.getInstance();
-
+/*
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove('last_shipping_details');
     return null;
     var order = (jsonDecode(Sharedprefs.getString("last_shipping_details")!));
 
+ */
 
     return Sharedprefs.getString("last_shipping_details") != '{}' && Sharedprefs.getString("last_shipping_details") != null
         //? OrderData.fromJson(jsonDecode(Sharedprefs.getString("last_shipping_details")!))
