@@ -92,7 +92,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                       address1: _frmAddress1,
                       address2: _frmAddress2,
                       city: _dropdownValue,
-                      state: "",
+                      state: _dropdownValue,
                       country: "UY",
                       postCode: "",
                       beersList: [],

@@ -92,7 +92,7 @@ class OrderData{
     city = json["billing"]["city"];
     state = json["billing"]["state"];
     country = json["billing"]["country"];
-    postCode = json["billing"]["postCode"];
+    postCode = json["billing"]["postcode"];
     beersList = json["beersList"]; //beerList = json["data"].length > 0 ? new Data.fromJson(json["data"]) : null;
     shippingMethodId = json["shipping_lines"][0]["method_id"];
     shippingRate = json["shipping_lines"][0]["total"];

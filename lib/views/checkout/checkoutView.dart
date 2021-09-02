@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:Hops/models/cart.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/order_data.dart';
+import 'package:Hops/models/login.dart';
 
 import 'package:Hops/components/app_global_title.dart';
 
@@ -107,7 +108,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                 builder: (context, cart, child){
                   return (cart.items.length > 0 ? ElevatedButton(
 
-                    onPressed: (){
+                    onPressed: ()async{
                       /*
                       Navigator.pushNamed(
                         context,
@@ -122,25 +123,35 @@ class _CheckoutViewState extends State<CheckoutView> {
                         isLoadingApiCall = true;
                       });
 
+                      LoginResponse? loginData = await SharedServices.loginDetails();
+                      OrderData? orderData = await SharedServices.lastShippingDetails();
+
+
+
+
                       // get last shipping details from stored shared services
                       OrderData newOrder = new OrderData(
-                        customerId: "92",
-                        firstName: "Nicolas",
-                        lastName: "Erramuspe",
-                        telephone: "+598.96.666.902",
-                        email: "nicolas@minimo.io",
+                        customerId: loginData!.data!.id.toString(), // we use the login data
+                        firstName: orderData!.firstName,
+                        lastName: orderData.lastName,
+                        telephone: orderData.telephone,
+                        email: loginData.data!.email, // we use the login data
                         paymentType: "cod", // cash on delivery
-                        address1: "Eduardo Acevedo 1376",
-                        address2: "apto 901",
-                        city: "Montevideo",
-                        state: "Montevideo",
-                        country: "UY",
-                        postCode: "11200",
+                        address1: orderData.address1,
+                        address2: orderData.address2,
+                        city: orderData.city,
+                        state: orderData.state,
+                        country: orderData.country,
+                        postCode: orderData.postCode,
                         beersList: cart.getShippingList(),
                         shippingMethodId: "flat_rate",
                         shippingRate: deliveryCost.toString()
 
                       );
+
+
+
+
                       SharedServices.lastShippingDetails().then((lastOrderData){
                         SharedServices.setLastShippingDetails(newOrder).then((value){
 
