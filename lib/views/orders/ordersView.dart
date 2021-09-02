@@ -30,8 +30,29 @@ class _OrdersViewState extends State<OrdersView> {
   Widget _buildSingleOrderBox(Map<String, dynamic> order){
 
     String finalStatus = order["status"];
-    if (order["status"] == "pending") finalStatus = "Pendiente";
-    if (order["status"] == "completed") finalStatus = "Completado";
+    late IconData finalIcon;
+    late Color finalColor;
+    if (order["status"] == "pending"){
+      finalStatus = "Procesando";
+      finalIcon = Icons.hourglass_top;
+      finalColor = Colors.redAccent.withOpacity(0.8);
+    }
+    if (order["status"] == "completed"){
+      finalStatus = "Completado";
+      finalIcon = Icons.check_circle;
+      finalColor = Colors.green.withOpacity(0.8);
+    }
+    if (order["status"] == "processing"){
+      finalStatus = "En camino";
+      finalIcon = Icons.delivery_dining;
+      finalColor = Colors.blue.withOpacity(0.8);
+    }
+    if (order["status"] == "cancelled"){
+      finalStatus = "Cancelado";
+      finalIcon = Icons.cancel;
+      finalColor = Colors.black.withOpacity(0.8);
+    }
+
 
     return Card(
       child: Padding(
@@ -112,10 +133,10 @@ class _OrdersViewState extends State<OrdersView> {
                       top: -5,
                       right: 5,
                       child: Chip(
-                        backgroundColor: (order["status"] == "pending" ? Colors.redAccent : Colors.green).withOpacity(0.8),
+                        backgroundColor: finalColor,
                         avatar: CircleAvatar(
                             backgroundColor: Colors.white,
-                            child: Icon(Icons.sports_bar, color: Colors.black,)
+                            child: Icon(finalIcon, color: finalColor,)
                         ),
                         label: Text(
                           finalStatus,

@@ -316,7 +316,8 @@ class _BeerCardsState extends State<BeerCards> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8,),
+                    Text("Ninguna cerveza todavía", style: TextStyle(fontWeight: FontWeight.bold)),
                     SizedBox(height: 5.0),
                     Text("¿Conoces alguna?"),
                     SizedBox(height: 5.0),
@@ -365,7 +366,8 @@ class _BeerCardsState extends State<BeerCards> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Ninguna cervezas todavía", style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8,),
+                    Text("Ninguna cerveza todavía", style: TextStyle(fontWeight: FontWeight.bold)),
                     SizedBox(height: 5.0),
                     Text("¿Conoces alguna?"),
                     SizedBox(height: 5.0),
