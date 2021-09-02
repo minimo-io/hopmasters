@@ -661,7 +661,7 @@ class WordpressAPI{
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
 
     Map<String, dynamic> dataMap = newOrder.toJson();
-    print(dataMap);
+    // print(dataMap);
 
     try{
 
@@ -676,14 +676,6 @@ class WordpressAPI{
             }
         ),
 
-
-        /*
-        options: new Options(
-            headers: {
-              HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
-            }
-        ),
-        */
       );
       if (response.statusCode == 200){
         var jsonResponse = response.data;
@@ -696,6 +688,33 @@ class WordpressAPI{
       throw Exception('Failed to create order!' + e.message);
     }
     return true;
+  }
+
+  // get user orders
+  static Future<List<dynamic>?> getOrders(int? customerId)async{
+    String query =  _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_ORDERS + "/?customer=" + customerId.toString() + "&order=desc&orderby=date&per_page=100&page=1";
+    query = query + "&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+    // print(query);
+    try{
+      var response = await Dio().get(
+        query,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
+
+        return response.data;
+
+
+      }
+    } on DioError catch(e) {
+      return jsonDecode("{}");
+      print(e.message);
+    }
   }
 
 }

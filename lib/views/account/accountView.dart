@@ -72,6 +72,16 @@ class _AccountViewState extends State<AccountView> {
 
                          */
                         ProfileMenu(
+                          text: "Tus pedidos",
+                          icon: Icon(Icons.shopping_cart),
+                          press: () {
+                            Navigator.pushNamed(
+                              context,
+                              "orders"
+                            );
+                          },
+                        ),
+                        ProfileMenu(
                           text: "Notificaciones",
                           icon: Icon(Icons.notifications),
                           press: () {},

@@ -13,9 +13,8 @@ import 'package:Hops/models/order_data.dart';
 
 class ShippingDetails extends StatefulWidget {
   static const String routeName = "shippingDetails";
-  final Function()? notifyParent;
 
-  const ShippingDetails({Key? key, @required this.notifyParent }) : super(key: key);
+  const ShippingDetails({Key? key }) : super(key: key);
 
   @override
   _ShippingDetailsState createState() => _ShippingDetailsState();
