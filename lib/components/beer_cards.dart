@@ -199,11 +199,14 @@ class _BeerCardsState extends State<BeerCards> {
                                   height: 15,
                                   fit: BoxFit.fill,
                                 ),
-                                new Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: new Text(
-                                    beer.breweryName!,
-                                    style: TextStyle(fontSize:14 ,color: SECONDARY_TEXT_DARK.withOpacity(1)),
+                                Expanded(
+                                  child: new Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: new Text(
+                                      beer.breweryName!,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize:14 ,color: SECONDARY_TEXT_DARK.withOpacity(1)),
+                                    ),
                                   ),
                                 ),
                               ],
