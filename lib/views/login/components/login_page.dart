@@ -25,6 +25,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with GotosMixin {
   final _formLoginKey = GlobalKey<FormState>();
+
   bool isLoadingApiCall = false;
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 

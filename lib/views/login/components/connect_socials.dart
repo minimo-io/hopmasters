@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
+import 'package:Hops/utils/size_config.dart';
 
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/services/facebook_signin.dart';
@@ -11,6 +12,8 @@ import 'package:Hops/components/top_logo.dart';
 import 'package:Hops/views/login/mixins/gotos.mixin.dart';
 
 import 'package:Hops/models/customer.dart';
+
+
 
 
 class ConnectSocialsPage extends StatefulWidget {
@@ -41,7 +44,10 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
   static const _buttonsPaddingHorizontal = 25.0;
   static const _buttonsPaddingVertical = 13.0;
-  static const _buttonsFontSize = 18.0;
+  //static const _buttonsFontSize = 18.0;
+  static const _buttonsFontSize = 4.0;
+
+
 
   Widget _createButton({
     Color? backgroundColor,
@@ -49,61 +55,63 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
     Function? onTap,
     required String socialIcon
   }){
+    SizeConfig().init(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: _buttonsPaddingHorizontal, vertical: _buttonsPaddingVertical),
-      child: new Expanded(
-        child: new Container(
-          margin: EdgeInsets.only(right: 8.0),
-          alignment: Alignment.center,
-          child: new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new FlatButton(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                  color: backgroundColor,
-                  onPressed: onTap as void Function()?,
-                  child: new Container(
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            onPressed: onTap,
-                            padding: EdgeInsets.only(
-                              top: 18.0,
-                              bottom: 18.0,
-                            ),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+      child: new Container(
+        margin: EdgeInsets.only(right: 8.0),
+        alignment: Alignment.center,
+        child: new Row(
+          children: <Widget>[
+            new Expanded(
+              child: new FlatButton(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+                color: backgroundColor,
+                onPressed: onTap as void Function()?,
+                child: new Container(
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new Expanded(
+                        child: new FlatButton(
+                          onPressed: onTap,
+                          padding: EdgeInsets.only(
+                            top: 18.0,
+                            bottom: 18.0,
+                          ),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
 
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 0.0, right:15),
-                                  child: Image.asset(socialIcon, height: 23,),
-                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 0.0, right:15),
+                                child: Image.asset(socialIcon, height: 23,),
+                              ),
 
-                                Text(
+                              Expanded(
+                                child: Text(
                                   title,
                                   textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize:_buttonsFontSize,
+                                      fontSize: SizeConfig.safeBlockHorizontal * _buttonsFontSize,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -112,6 +120,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   @override
   Widget build(BuildContext context) {
     var notificationsClient = new HopsNotifications();
+
 
     Future<void> _loginAfterSignUp(
         String? email,
@@ -199,8 +208,8 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
             key: _formLoginKey,
             autovalidateMode: _autovalidate,
             child: Container(
-              padding: EdgeInsets.only(top:50),
-              height: MediaQuery.of(context).size.height,
+              //padding: EdgeInsets.only(top:50),
+              height: MediaQuery.of(context).size.height + 100,
               decoration: widget.headerDecoration,
               child: new Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,12 +217,14 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                   TopLogo(topPadding: 60,),
                   SizedBox(height: 0,),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
+                  /*
                   _createButton(
                       backgroundColor: Colors.black,
-                      title: "Conectate con tu Apple",
+                      title: "Conectate con Apple ID",
                       onTap:() => null,
                       socialIcon: "assets/images/icons/apple.png"
                   ),
+                    */
                   _createButton(
                       backgroundColor: Color(0Xff3B5998),
                       title: "Conectate con Facebook",
@@ -295,7 +306,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                       socialIcon: "assets/images/icons/email.png"
                   ),
 
-
+                  SizedBox(height: 100,)
                 ],
               ),
             ),

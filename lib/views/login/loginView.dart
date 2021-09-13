@@ -23,13 +23,12 @@ class _LoginViewState extends State<LoginView> {
         image: AssetImage('assets/images/bg5.png'),
         fit: BoxFit.fill
     ),
-
      */
     image: DecorationImage(
-      image: AssetImage("assets/images/decoration.png"),
-      fit: BoxFit.scaleDown,
-      alignment: Alignment.center,
-      colorFilter: new ColorFilter.mode(Colors.white.withOpacity(0.1), BlendMode.dstATop)
+        image: AssetImage("assets/images/decoration.png"),
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.center,
+        colorFilter: new ColorFilter.mode(Colors.white.withOpacity(0.1), BlendMode.dstATop)
     ),
     gradient: PRIMARY_GRADIENT_COLOR,
   );
@@ -44,28 +43,27 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Scaffold(
         body: Container(
-        //height: MediaQuery.of(context).size.height,
-        child: PageView(
-          controller: _controller,
-          physics: new AlwaysScrollableScrollPhysics(),
-          children: <Widget>[
-            LoginPage(
+          //height: MediaQuery.of(context).size.height,
+            child: PageView(
               controller: _controller,
-              headerDecoration: _headerDecoration ,
-            ),
-            SignupPage(
-              controller: _controller,
-              headerDecoration: _headerDecoration ,
-            ),
-            ConnectSocialsPage(
-              controller: _controller,
-              headerDecoration: _headerDecoration ,
-            )
-          ],
-          scrollDirection: Axis.vertical,
-        )),
+              physics: new AlwaysScrollableScrollPhysics(),
+              children: <Widget>[
+                LoginPage(
+                  controller: _controller,
+                  headerDecoration: _headerDecoration ,
+                ),
+                SignupPage(
+                  controller: _controller,
+                  headerDecoration: _headerDecoration ,
+                ),
+                ConnectSocialsPage(
+                  controller: _controller,
+                  headerDecoration: _headerDecoration ,
+                )
+              ],
+              scrollDirection: Axis.vertical,
+            )),
       ),
     );
   }
 }
-
