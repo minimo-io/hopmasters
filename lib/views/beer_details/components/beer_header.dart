@@ -582,21 +582,21 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         ),
 
         new Positioned(
-          top: 38.0,
+          top: 15.0,
           left: 4.0,
           child: new BackButton(color: Colors.white),
         ),
 
 
          new Positioned(
-            top: 50.0,
+            top: 28.0,
             right: 60.0,
             child: _buildFavoriteButton(),
           ),
 
 
         new Positioned(
-          top: 50.0,
+          top: 28.0,
           right: 20.0,
           child: InkWell(
             onTap: (){

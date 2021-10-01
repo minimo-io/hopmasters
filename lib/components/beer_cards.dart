@@ -184,33 +184,23 @@ class _BeerCardsState extends State<BeerCards> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(beer.name!, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0), textAlign: TextAlign.left),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(
-                                context,
-                                "/brewery",
-                                arguments: { 'breweryId': int.parse(beer.breweryId!) },
-
-                              );
-                            },
-                            child: new Row(
-                              children: <Widget>[
-                                Image.network( beer.breweryImage! ,
-                                  height: 15,
-                                  fit: BoxFit.fill,
-                                ),
-                                Expanded(
-                                  child: new Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: new Text(
-                                      beer.breweryName!,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize:14 ,color: SECONDARY_TEXT_DARK.withOpacity(1)),
-                                    ),
+                          new Row(
+                            children: <Widget>[
+                              Image.network( beer.breweryImage! ,
+                                height: 15,
+                                fit: BoxFit.fill,
+                              ),
+                              Expanded(
+                                child: new Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: new Text(
+                                    beer.breweryName!,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize:14 ,color: SECONDARY_TEXT_DARK.withOpacity(1)),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 5,),
                           Text(beer.type.toString() ,

@@ -32,7 +32,7 @@ dependencies:
   english_words: ^4.0.0
   shared_preferences: ^2.0.6
   google_fonts: ^2.1.0
-  search_page: ^2.0.0+1
+  # search_page: ^2.0.0+1
   # vector_math: ^2.0.8
   dio: ^4.0.0
   html: ^0.15.0

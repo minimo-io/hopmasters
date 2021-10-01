@@ -55,7 +55,7 @@ class BeerBody extends StatelessWidget {
 
 
     return new Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(24.0),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -69,6 +69,7 @@ class BeerBody extends StatelessWidget {
                 children: [
                 new Text(
                   this.beer.name,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 new Padding(

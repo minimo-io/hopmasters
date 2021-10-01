@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:Hops/components/search_hops.dart';
 
 class SearchBar extends StatefulWidget {
   @override
@@ -39,6 +40,8 @@ class _SearchBarState extends State<SearchBar> {
       ),
       child: TextField(
         style: TextStyle(color: Colors.black),
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.search,
         maxLines: 1,
         // controller: _textController,
         decoration: InputDecoration(
@@ -64,15 +67,7 @@ class _SearchBarState extends State<SearchBar> {
           hintText: "Buscar cerveza o cervecería...",
         ),
         onSubmitted: (value) {
-          /*
-          setState(() {
-            _textController.text.isEmpty
-                ? _validate = true
-                : Provider.of<WeatherProvider>(context, listen: false)
-                    .searchWeatherData(location: value);
-          });
-
-           */
+          showSearch(context: context, delegate: SearchHops(), query: value);
         },
       ),
     );

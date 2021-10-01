@@ -213,8 +213,9 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
               decoration: widget.headerDecoration,
               child: new Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TopLogo(topPadding: 60,),
+                  TopLogo(topPadding: 0,),
                   SizedBox(height: 0,),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
                   /*

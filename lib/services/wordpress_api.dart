@@ -717,4 +717,29 @@ class WordpressAPI{
     }
   }
 
+  static Future<List<dynamic>?> search({ String? query })async {
+    String searchQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&fields=name&search="+ query! +"&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+    print(searchQuery);
+    try{
+      var response = await Dio().get(
+        searchQuery,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
+
+        return response.data;
+
+
+      }
+    } on DioError catch(e) {
+      return jsonDecode("{}");
+      print(e.message);
+    }
+  }
+
 }
