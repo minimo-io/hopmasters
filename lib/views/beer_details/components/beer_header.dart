@@ -554,6 +554,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    double safePadding = Helpers.getTopSafeArea(context);
 
     return new Stack(
       children: <Widget>[
@@ -582,21 +583,21 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         ),
 
         new Positioned(
-          top: 15.0,
+          top: 15.0 + safePadding,
           left: 4.0,
           child: new BackButton(color: Colors.white),
         ),
 
 
          new Positioned(
-            top: 28.0,
+            top: 28.0 + safePadding,
             right: 60.0,
             child: _buildFavoriteButton(),
           ),
 
 
         new Positioned(
-          top: 28.0,
+          top: 28.0 + safePadding,
           right: 20.0,
           child: InkWell(
             onTap: (){

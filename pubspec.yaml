@@ -41,6 +41,8 @@ dependencies:
   share_plus: ^2.1.4
   flutter_rating_bar: ^4.0.0
   # expandable_page_view: ^1.0.7
+  #multiselect: ^0.0.4
+  multi_select_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

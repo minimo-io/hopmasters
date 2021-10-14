@@ -44,7 +44,10 @@ class _BreweryBeersState extends State<BreweryBeers> {
               if (snapshot.hasError){
                 return Text('Ups! Error: ${snapshot.error}');
               }else{
-                return BeerCards(beersList: snapshot.data);
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: BeerCards(beersList: snapshot.data),
+                );
                 /*
                 return GridView(
                   padding: const EdgeInsets.only(top: 16.0),

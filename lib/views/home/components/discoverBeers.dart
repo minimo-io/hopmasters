@@ -6,6 +6,17 @@ import 'package:Hops/theme/style.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/components/beer_cards.dart';
 
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+class Animal {
+  final int id;
+  final String name;
+
+  Animal({
+    required this.id,
+    required this.name,
+  });
+}
+
 class DiscoverBeers extends StatefulWidget {
   const DiscoverBeers({Key? key}) : super(key: key);
 
@@ -17,6 +28,52 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
   Future? _beers;
   String _disoverBeersType = "recent";
 
+  static List<Animal> _animals = [
+    Animal(id: 1, name: "Lion"),
+    Animal(id: 2, name: "Flamingo"),
+    Animal(id: 3, name: "Hippo"),
+    Animal(id: 4, name: "Horse"),
+    Animal(id: 5, name: "Tiger"),
+    Animal(id: 6, name: "Penguin"),
+    Animal(id: 7, name: "Spider"),
+    Animal(id: 8, name: "Snake"),
+    Animal(id: 9, name: "Bear"),
+    Animal(id: 10, name: "Beaver"),
+    Animal(id: 11, name: "Cat"),
+    Animal(id: 12, name: "Fish"),
+    Animal(id: 13, name: "Rabbit"),
+    Animal(id: 14, name: "Mouse"),
+    Animal(id: 15, name: "Dog"),
+    Animal(id: 16, name: "Zebra"),
+    Animal(id: 17, name: "Cow"),
+    Animal(id: 18, name: "Frog"),
+    Animal(id: 19, name: "Blue Jay"),
+    Animal(id: 20, name: "Moose"),
+    Animal(id: 21, name: "Gecko"),
+    Animal(id: 22, name: "Kangaroo"),
+    Animal(id: 23, name: "Shark"),
+    Animal(id: 24, name: "Crocodile"),
+    Animal(id: 25, name: "Owl"),
+    Animal(id: 26, name: "Dragonfly"),
+    Animal(id: 27, name: "Dolphin"),
+  ];
+  List _selectedAnimals = [];
+
+  void _showMultiSelect(BuildContext context) async {
+    await showDialog(
+      context: context,
+      useSafeArea: true,
+      builder: (ctx) {
+        return  MultiSelectDialog(
+          items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
+          initialValue: _selectedAnimals,
+          onConfirm: (values) {
+            _selectedAnimals = values;
+          },
+        );
+      },
+    );
+  }
 
   Widget _discoverBeersHeader(){
     return Padding(
@@ -51,11 +108,100 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                             width: MediaQuery.of(context).size.width,
                             height:  430,
                             color: Colors.white,
-                            child: Column(
-                              children: [
+                            child: Container(
+                              // height: (widget.height != null ? widget.height : 430),
+                              height: (430),
+                              color: Colors.white,
+                              child: ListView(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.only(left: 20, top: 20),
+                                      height: 50,
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            "FILTRAR",
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                                        ),
+                                      )
+                                  ),
+                                  SizedBox(height: 30,),
+                                  /*
+                            Divider(
+                              thickness: 1,
+                            ),
+                            */
+                                  // direct buy
+
+                                  Container(
+                                      width: MediaQuery.of(context).size.width * 0.95,
+                                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                      child: ElevatedButton(
+                                              onPressed: (){
+                                                print("OK");
+                                              },
+
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      //mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Icon(Icons.bolt, size: 35, color: Colors.amber),
+                                                          SizedBox(width: 8,),
+                                                          // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                          Text( "Con compra inmediata" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                                        ]
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
 
 
-                              ],
+
+                                  ),
+                                  SizedBox(height: 7,),
+
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        _showMultiSelect(context);
+
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.sports_bar, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Por tipos de cervezas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  MultiSelectChipDisplay(
+                                    items: _selectedAnimals.map((e) => MultiSelectItem(e, e)).toList(),
+                                    //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
+                                    onTap: (value) {
+                                      setState(() {
+                                        _selectedAnimals.remove(value);
+                                      });
+                                    },
+                                  ),
+
+                                  SizedBox(height: 5)
+                                ],
+                              ),
                             ),
                           ),
                         );

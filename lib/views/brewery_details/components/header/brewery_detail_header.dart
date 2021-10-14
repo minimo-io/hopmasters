@@ -14,7 +14,7 @@ import 'package:Hops/utils/notifications.dart';
 // import 'package:Hops/theme/style.dart';
 import 'package:Hops/components/async_loader.dart';
 import 'package:Hops/components/diagonally_cut_colored_image.dart';
-
+import 'package:Hops/helpers.dart';
 
 import 'package:Hops/models/brewery.dart';
 
@@ -327,6 +327,8 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
+    double safePadding = Helpers.getTopSafeArea(context);
+
 
     return new Stack(
       children: <Widget>[
@@ -369,19 +371,19 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
         ),
 
         new Positioned(
-          top: 26.0,
+          top: 15.0 + safePadding,
           left: 4.0,
           child: new BackButton(color: Colors.white),
         ),
 
         new Positioned(
-          top: 38.0,
+          top: 28.0 + safePadding,
           right: 60.0,
           child: _buildFavoriteButton(),
         ),
 
         new Positioned(
-          top: 38.0,
+          top: 28.0 + safePadding,
           right: 20.0,
           child: InkWell(
               onTap: (){

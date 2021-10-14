@@ -111,16 +111,60 @@ class _CommentsViewState extends State<CommentsView> {
                           */
                           // List comments = Comment.allFromResponse(snapshot);
                           List<Widget> commentsCardList = <Widget>[];
-                          for(var i = 0; i < snapshot.data.length; i++){
 
-                            Comment comment = Comment.fromJson(snapshot.data[i]);
-                            commentsCardList.add( _buildCommentBox( comment ));
+                          if (snapshot.data.length > 0){
+                            for(var i = 0; i < snapshot.data.length; i++){
 
+                              Comment comment = Comment.fromJson(snapshot.data[i]);
+                              commentsCardList.add( _buildCommentBox( comment ));
+
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0, left:8, right:8 ),
+                              child: Column(children: commentsCardList,),
+                            );
+                          }else{
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 90),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  SizedBox(height: 0,),
+                                  Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
+                                  SizedBox(height: 10,),
+                                  Center(child: RichText(
+                                    text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(text: "Cerveza ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                          TextSpan(text: "sin opiniones.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                                        ]
+                                    ),
+                                  ),),
+                                  SizedBox(height: 10,),
+                                  Center(child: RichText(
+                                    text: TextSpan(text: "Opina en la pantalla anterior ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                  ),),
+                                  Center(child: RichText(
+                                    text: TextSpan(text: "y decide su ranking", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                  ),),
+                                  Center(child: RichText(
+                                    text: TextSpan(text: "con tu voto.", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                  ),),
+                                  SizedBox(height: 10,),
+                                  Center(child: RichText(
+                                    text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(text: "¡Y gana puntos!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                                        ]
+                                    ),
+                                  ),),
+
+                                ],
+                              ),
+                            );
                           }
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left:8, right:8 ),
-                            child: Column(children: commentsCardList,),
-                          );
+
                         }
                     }
                   }

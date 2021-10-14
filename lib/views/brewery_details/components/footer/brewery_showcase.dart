@@ -44,7 +44,7 @@ class _BreweryShowcaseState extends State<BreweryShowcase>
   @override
   Widget build(BuildContext context) {
     return new Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: new Column(
         children: <Widget>[
           new TabBar(

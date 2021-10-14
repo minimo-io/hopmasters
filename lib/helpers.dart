@@ -37,4 +37,12 @@ class Helpers{
   }
 
 
+  static double getTopSafeArea(BuildContext context) {
+    var safePadding = MediaQuery.of(context).padding.top;
+    safePadding = safePadding - 15;
+
+    return safePadding;
+  }
+
+
 }
