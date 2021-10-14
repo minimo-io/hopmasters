@@ -7,6 +7,8 @@ import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/components/beer_cards.dart';
 
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:Hops/utils/notifications.dart';
+
 class Animal {
   final int id;
   final String name;
@@ -27,6 +29,8 @@ class DiscoverBeers extends StatefulWidget {
 class _DiscoverBeersState extends State<DiscoverBeers> {
   Future? _beers;
   String _disoverBeersType = "recent";
+  HopsNotifications notificationClient =  new HopsNotifications();
+
 
   static List<Animal> _animals = [
     Animal(id: 1, name: "Lion"),
@@ -57,25 +61,45 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
     Animal(id: 26, name: "Dragonfly"),
     Animal(id: 27, name: "Dolphin"),
   ];
-  List _selectedAnimals = [];
+  List _selectedBeers = [];
 
   void _showMultiSelect(BuildContext context) async {
     await showDialog(
       context: context,
+      //barrierColor: Colors.white,
       useSafeArea: true,
-      builder: (ctx) {
-        return  MultiSelectDialog(
-          items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
-          initialValue: _selectedAnimals,
-          onConfirm: (values) {
-            _selectedAnimals = values;
-          },
+      builder: (context) {
+        return Theme(
+          data: Theme.of(context).copyWith(colorScheme: ColorScheme.light(primary: Colors.black)),
+          child: MultiSelectDialog(
+            backgroundColor: Colors.white.withOpacity(1),
+            checkColor: Colors.black,
+            cancelText: Text("Cancelar"),
+            confirmText: Text("Buscar"),
+            searchHint: "Buscar",
+            title: Text("Tipos de cervezas"),
+            searchable: true,
+            items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
+            initialValue: _selectedBeers,
+            onConfirm: (values) {
+              setState(() {
+                _selectedBeers = values;
+              });
+              Navigator.of(context).pop();
+              // call parent call back to re-launch the search with this special filter
+              notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+            },
+          ),
         );
       },
     );
   }
 
   Widget _discoverBeersHeader(){
+    HopsNotifications notificationClient =  new HopsNotifications();
+
+
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: marginSide),
       child: Padding(
@@ -138,7 +162,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                       child: ElevatedButton(
                                               onPressed: (){
-                                                print("OK");
+                                                Navigator.of(context).pop();
                                               },
 
                                               child: Padding(
@@ -189,14 +213,121 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                                       ),
                                     ),
                                   ),
-                                  MultiSelectChipDisplay(
-                                    items: _selectedAnimals.map((e) => MultiSelectItem(e, e)).toList(),
-                                    //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
-                                    onTap: (value) {
-                                      setState(() {
-                                        _selectedAnimals.remove(value);
-                                      });
-                                    },
+
+                                  SizedBox(height: 7,),
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_showMultiSelect(context);
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.money_off, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Mas económicas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
+                                  SizedBox(height: 7,),
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_showMultiSelect(context);
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.liquor, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Mayor alcohol" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 7,),
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_showMultiSelect(context);
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.trending_up, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Mayor IBU" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 7,),
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_showMultiSelect(context);
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.trending_down, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Menor IBU" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
                                   ),
 
                                   SizedBox(height: 5)
@@ -400,6 +531,21 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
 
         SizedBox(height: 15,),
 
+        if (_selectedBeers.length > 0) Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: MultiSelectChipDisplay(
+            chipColor: Colors.black54,
+            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            items: _selectedBeers.map((e) => MultiSelectItem(e, e.name)).toList(),
+            //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
+            onTap: (value) {
+              setState(() {
+
+                _selectedBeers.remove(value);
+              });
+            },
+          ),
+        ),
 
         FutureBuilder(
             future: _beers,
@@ -423,6 +569,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
               }
             }
         ),
+
         /*
         SizedBox(
           height: 40,
@@ -445,8 +592,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
             ),
           ),
         ),
+        */
 
-         */
       ],
 
     );

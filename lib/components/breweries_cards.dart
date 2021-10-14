@@ -24,7 +24,7 @@ class BreweriesCards extends StatefulWidget {
 class _BreweriesCardsState extends State<BreweriesCards> {
 
   Future? _breweries;
-  static int _page = 1;
+  static int _breweriesPage = 1;
   bool _isLoadingApiCall = false;
   bool _hideLoadMoreButton = false;
   List<Widget> _moreBreweriesCardList = <Widget>[];
@@ -36,7 +36,8 @@ class _BreweriesCardsState extends State<BreweriesCards> {
     if (widget.breweriesList != null){
       _breweries = WordpressAPI.getBreweries(userBreweries: widget.breweriesList!);
     }else{
-      _breweries = WordpressAPI.getBreweries( orderType: 'followers' );
+      _breweriesPage = 1;
+      _breweries = WordpressAPI.getBreweries( page: 1, orderType: 'followers' );
     }
   }
 
@@ -128,11 +129,11 @@ class _BreweriesCardsState extends State<BreweriesCards> {
         onPressed: () {
 
           setState(() {
-            _page++;
+            _breweriesPage++;
             _isLoadingApiCall = true;
           });
 
-          WordpressAPI.getBreweries(page: _page).then((beersList){
+          WordpressAPI.getBreweries(page: _breweriesPage, orderType: 'followers').then((beersList){
             setState(() => _isLoadingApiCall = false);
             var beersBottom = (beersList as List)
                 .map((data) => new Brewery.fromJson(data))

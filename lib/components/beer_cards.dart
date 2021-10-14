@@ -49,6 +49,7 @@ class _BeerCardsState extends State<BeerCards> {
       _beers =  Future.delayed(const Duration(seconds: 1), () => widget.beersList);
     }else{
       // else make the query
+
       _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!, type: widget.discoverBeersType);
     }
     /*

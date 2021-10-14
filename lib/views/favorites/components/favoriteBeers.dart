@@ -62,10 +62,13 @@ class _FavoriteBeersState extends State<FavoriteBeers> with AutomaticKeepAliveCl
                     ],
                   );
                 }else{
-
-                  return BeerCards(
-                    loadingText: "Ya casi...",
-                    userBeersList: snapshot.data[0]["result"],
+                  print( snapshot.data[0]["result"] );
+                  return SingleChildScrollView(
+                    child: BeerCards(
+                      loadingText: "Ya casi...",
+                      userBeersList: snapshot.data[0]["result"],
+                      discoverBeersType: 'user_beers',
+                    ),
                   );
                 }
 

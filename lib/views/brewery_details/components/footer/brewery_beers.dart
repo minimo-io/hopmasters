@@ -46,7 +46,9 @@ class _BreweryBeersState extends State<BreweryBeers> {
               }else{
                 return Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: BeerCards(beersList: snapshot.data),
+                  child: SingleChildScrollView(
+                      child: BeerCards(beersList: snapshot.data)
+                  ),
                 );
                 /*
                 return GridView(

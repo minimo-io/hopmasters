@@ -131,7 +131,7 @@ class _CommentsViewState extends State<CommentsView> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   SizedBox(height: 0,),
-                                  Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
+                                  Image.asset("assets/images/medal.png", height: 45,),
                                   SizedBox(height: 10,),
                                   Center(child: RichText(
                                     text: TextSpan(
