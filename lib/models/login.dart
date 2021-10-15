@@ -51,6 +51,7 @@ class Data{
   String? displayName;
   String? avatarUrl;
   String? connectionType;
+  String? score;
 
   Data({
     this.token,
@@ -62,6 +63,7 @@ class Data{
     this.displayName,
     this.avatarUrl,
     this.connectionType,
+    this.score,
   });
 
   Data.fromJson( Map<String, dynamic> json ){
@@ -74,6 +76,7 @@ class Data{
     displayName  = json["displayName"];
     avatarUrl = json["avatarUrl"];
     connectionType = (json["connectionType"] != null ? json["connectionType"] : null );
+    score = json["score"];
   }
 
   Map<String, dynamic> toJson(){
@@ -87,6 +90,7 @@ class Data{
     data['displayName'] = this.displayName;
     data['avatarUrl'] = this.avatarUrl;
     data['connectionType'] = this.connectionType;
+    data['score'] = this.score;
     return data;
   }
 }

@@ -90,7 +90,7 @@ class WordpressAPI{
           if (customAvatar != null) response.data["data"]["avatarUrl"] = customAvatar;
           response.data["data"]["connectionType"] = connectionType;
         }
-
+        // print(response.data);
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 
         if (loginResponse.statusCode == 200){

@@ -61,9 +61,11 @@ class _FavoriteBreweriesState extends State<FavoriteBreweries> with AutomaticKee
                       ],
                     );
                   }else{
-                    return BreweriesCards(
-                        loadingText: "Ya casi...",
-                        breweriesList: snapshot.data[0]["result"]
+                    return SingleChildScrollView(
+                      child: BreweriesCards(
+                          loadingText: "Ya casi...",
+                          breweriesList: snapshot.data[0]["result"]
+                      ),
                     );
                   }
 

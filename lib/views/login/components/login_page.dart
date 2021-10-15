@@ -81,13 +81,13 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
       opacity: 0.5,
-      child: SingleChildScrollView(
-        child: SafeArea(
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Form(
             key: _formLoginKey,
             autovalidateMode: _autovalidate,
             child: Container(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height + 100,
               decoration: widget.headerDecoration,
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,7 +285,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                       ],
                     ),
                   ),
-                  SocialLoginButtons(),
+                  // SocialLoginButtons(),
 
                 ],
               ),

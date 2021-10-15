@@ -45,7 +45,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   static const _buttonsPaddingHorizontal = 25.0;
   static const _buttonsPaddingVertical = 13.0;
   //static const _buttonsFontSize = 18.0;
-  static const _buttonsFontSize = 4.0;
+  static const _buttonsFontSize = 5.0;
 
 
 
@@ -129,6 +129,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
         String? customAvatar,
         { String connectionType = "Google", bool? signUpResult }
         )async {
+
       WordpressAPI.login(
           email,
           password,
@@ -266,8 +267,9 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                       onTap:(){
 
                         Google googleClient = new Google();
+                        print(googleClient);
                         googleClient.login(context).then((googleUser){
-
+                          print(googleUser);
 
                           if (googleUser != null){
                             setState(() => this.isLoadingApiCall = true );

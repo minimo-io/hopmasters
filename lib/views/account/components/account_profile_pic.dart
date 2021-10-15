@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class BreweryProfilePic extends StatelessWidget {
-  String? avatarUrl;
+  String? avatarUrl, score;
   BreweryProfilePic({
     Key? key,
-    String? this.avatarUrl
+    String? this.avatarUrl,
+    String? this.score,
   }) : super(key: key);
 
    _buildAvatar(){
-
     if (this.avatarUrl != null){
       return NetworkImage(this.avatarUrl!);
     }else{
@@ -28,11 +28,11 @@ class BreweryProfilePic extends StatelessWidget {
             backgroundImage: _buildAvatar(),
           ),
           Positioned(
-            right: -16,
+            right: 15,
             bottom: 0,
             child: SizedBox(
-              height: 40,
-              width: 65,
+              height: 30,
+              width: 80,
               child: FlatButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
@@ -42,9 +42,10 @@ class BreweryProfilePic extends StatelessWidget {
                 onPressed: () {},
                 child: Row(
                   children:[
-                    Icon(Icons.sports_bar, size: 15,),
-                    SizedBox(width: 4),
-                    Text("0", style: TextStyle(fontSize: 14),)
+                    //Icon(Icons.sports_bar, size: 15,),
+                    Image.asset("assets/images/medal.png", height: 20,),
+                    SizedBox(width: 0),
+                    Text(this.score.toString(), style: TextStyle(fontSize: 13),)
                   ]
                 ),
               ),

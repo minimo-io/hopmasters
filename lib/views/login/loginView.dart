@@ -25,8 +25,10 @@ class _LoginViewState extends State<LoginView> {
     ),
      */
     image: DecorationImage(
-        image: AssetImage("assets/images/decoration.png"),
-        fit: BoxFit.scaleDown,
+        // image: AssetImage("assets/images/decoration.png"),
+        image: AssetImage("assets/images/beer_bg_bw2.png"),
+        //fit: BoxFit.scaleDown,
+        fit: BoxFit.cover,
         alignment: Alignment.center,
         colorFilter: new ColorFilter.mode(Colors.white.withOpacity(0.1), BlendMode.dstATop)
     ),

@@ -12,7 +12,7 @@ class TopLogo extends StatelessWidget {
     this.topPadding = 15.0,
     this.bottomPadding = 70.0,
     this.showSlogan = true,
-    this.title = "Hops"
+    this.title = "HOPS"
   });
 
   @override

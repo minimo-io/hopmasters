@@ -131,7 +131,7 @@ class _CommentsViewState extends State<CommentsView> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   SizedBox(height: 0,),
-                                  Image.asset("assets/images/medal.png", height: 45,),
+                                  Image.asset("assets/images/medal.png", height: 70,),
                                   SizedBox(height: 10,),
                                   Center(child: RichText(
                                     text: TextSpan(
@@ -155,7 +155,7 @@ class _CommentsViewState extends State<CommentsView> {
                                   Center(child: RichText(
                                     text: TextSpan(
                                         children: <TextSpan>[
-                                          TextSpan(text: "¡Y gana puntos!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                                          TextSpan(text: "¡Además gana puntos!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
                                         ]
                                     ),
                                   ),),
@@ -175,6 +175,12 @@ class _CommentsViewState extends State<CommentsView> {
         ),
       ),
       appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: PRIMARY_GRADIENT_COLOR
+            ),
+          ),
+          elevation: 0,
           title: Text("Opiniones" + ( widget.postTitle != null ? " sobre " + widget.postTitle! : "" ))
       ),
     );

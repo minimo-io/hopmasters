@@ -36,7 +36,7 @@ dependencies:
   # vector_math: ^2.0.8
   dio: ^4.0.0
   html: ^0.15.0
-  google_sign_in: ^5.0.4
+  google_sign_in: ^5.0.7
   flutter_facebook_auth: ^3.4.1
   share_plus: ^2.1.4
   flutter_rating_bar: ^4.0.0

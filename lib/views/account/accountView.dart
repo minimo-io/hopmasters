@@ -51,7 +51,7 @@ class _AccountViewState extends State<AccountView> {
                     return Column(
                       children: [
                         SizedBox(height: 40),
-                        BreweryProfilePic(avatarUrl: snapshot.data.data.avatarUrl),
+                        BreweryProfilePic(avatarUrl: snapshot.data.data.avatarUrl, score: snapshot.data.data.score),
                         SizedBox(height: 20),
                         ProfileMenu(
                           text: "Mi perfil",
