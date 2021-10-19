@@ -284,7 +284,7 @@ class _CartViewState extends State<CartView> {
                                   ),),
                                   SizedBox(height: 10,),
                                   Center(child: RichText(
-                                    text: TextSpan(text: "Incluye tus productos ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                    text: TextSpan(text: "Incluye tus cervezas ", style: TextStyle(fontSize: 20, color: Colors.black87)),
                                   ),),
                                   Center(child: RichText(
                                     text: TextSpan(text: "a través de la compra", style: TextStyle(fontSize: 20, color: Colors.black87)),

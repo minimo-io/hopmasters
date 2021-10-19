@@ -205,8 +205,73 @@ class _OrdersViewState extends State<OrdersView> {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      print(snapshot.data);
-                      return _buildOrderBoxes(snapshot.data);
+                      print("DATA: " + snapshot.data.toString());
+                      if (snapshot.data.length > 0){
+                        return _buildOrderBoxes(snapshot.data);
+                      }else{
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(height: 50,),
+                              Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
+                              SizedBox(height: 10,),
+                              Center(child: RichText(
+                                text: TextSpan(
+                                    children: <TextSpan>[
+                                      // TextSpan(text: "No hay ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                      TextSpan(text: "No hay pedidos.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                                    ]
+                                ),
+                              ),),
+                              SizedBox(height: 10,),
+                              Center(child: RichText(
+                                text: TextSpan(text: "Incluye tus cervezas ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                              ),),
+                              Center(child: RichText(
+                                text: TextSpan(text: "a través de la compra", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                              ),),
+                              Center(child: RichText(
+                                text: TextSpan(text: "inmediata.", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                              ),),
+
+                              SizedBox(height: 10,),
+
+                              ElevatedButton(
+                                onPressed: (){
+
+                                  Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                                },
+                                child: Wrap(
+                                    spacing: 4.0,
+                                    children: [
+                                      Icon(Icons.sports_bar),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:4),
+                                        child: Text("¡Descubrir cevezas ahora!"),
+                                      )
+                                    ]
+
+                                ),
+                                style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          side: BorderSide(color: Colors.black.withOpacity(.2)),
+                                        )
+                                    )
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        );
+                      }
+
                     }
                 }
               }

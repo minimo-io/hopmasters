@@ -45,7 +45,10 @@ class BreweryProfilePic extends StatelessWidget {
                     //Icon(Icons.sports_bar, size: 15,),
                     Image.asset("assets/images/medal.png", height: 20,),
                     SizedBox(width: 0),
-                    Text(this.score.toString(), style: TextStyle(fontSize: 13),)
+                    Text(
+                      this.score == null ? "0" : this.score.toString(),
+                      style: TextStyle(fontSize: 13),
+                    )
                   ]
                 ),
               ),

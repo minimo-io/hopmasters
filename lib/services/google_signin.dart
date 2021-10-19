@@ -9,7 +9,7 @@ class Google{
 
   Google(){
     this._googleSignIn = GoogleSignIn(
-      clientId: GOOGLE_CLIENTID,
+      // clientId: GOOGLE_CLIENTID,
       scopes: <String>[
         'email',
         //'https://www.googleapis.com/auth/contacts.readonly',
@@ -23,7 +23,7 @@ class Google{
     GoogleSignInAccount? googleUser = null;
     try {
       final googleUser = await this._googleSignIn.signIn();
-      final googleAuth = (await googleUser?.authentication)!;
+      //final googleAuth = (await googleUser?.authentication)!;
 
       return googleUser;
     } catch (error) {

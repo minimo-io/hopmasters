@@ -161,28 +161,28 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                                       width: MediaQuery.of(context).size.width * 0.95,
                                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                       child: ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.of(context).pop();
-                                                notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
-                                              },
+                                        onPressed: (){
+                                          Navigator.of(context).pop();
+                                          notificationClient.message(context, "Esta función estará disponible en próximas versiones.");
+                                        },
 
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                child: Column(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Icon(Icons.bolt, size: 35, color: Colors.amber),
-                                                          SizedBox(width: 8,),
-                                                          // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                                          Text( "Con compra inmediata" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                                        ]
-                                                    ),
-                                                  ],
-                                                ),
+                                                    Icon(Icons.bolt, size: 35, color: Colors.amber),
+                                                    SizedBox(width: 8,),
+                                                    // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                    Text( "Con compra inmediata" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                                  ]
                                               ),
-                                            )
+                                            ],
+                                          ),
+                                        ),
+                                      )
 
 
 
@@ -631,3 +631,4 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
     );
   }
 }
+

@@ -26,14 +26,14 @@ class SpecialOffers extends StatelessWidget {
             children: [
               SpecialOfferCard(
                 image: "assets/images/Beer_Banner_5.png",
-                category: "IPAs",
-                numOfBrands: 18,
+                category: "Promo de IPAs",
+                numOfBrands: 6,
                 press: () {},
               ),
               SpecialOfferCard(
                 image: "assets/images/Beer_Banner_4.png",
-                category: "Maltosas",
-                numOfBrands: 24,
+                category: "Pack de Maltosas",
+                numOfBrands: 3,
                 press: () {},
               ),
               SizedBox(width: (20)),
