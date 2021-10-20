@@ -30,7 +30,8 @@ dependencies:
   url_launcher: ^6.0.6
   provider: ^5.0.0
   # This was for test purposes onyl.
-  english_words: ^4.0.0
+  #english_words: ^4.0.0
+  location: ^4.3.0
   shared_preferences: ^2.0.6
   google_fonts: ^2.1.0
   # search_page: ^2.0.0+1

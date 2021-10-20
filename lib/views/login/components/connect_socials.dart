@@ -13,7 +13,7 @@ import 'package:Hops/views/login/mixins/gotos.mixin.dart';
 
 import 'package:Hops/models/customer.dart';
 
-
+import 'package:location/location.dart';
 
 
 class ConnectSocialsPage extends StatefulWidget {
@@ -142,6 +142,66 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
           notificationsClient.message(context, message);
           setState(() => this.isLoadingApiCall = false );
           String goToRoute = "/";
+
+          // ask for location
+          Location location = new Location();
+          print(location);
+          location.serviceEnabled().then((serviceEnabled){
+            print("Service Enabled");
+            print(serviceEnabled);
+            if (!serviceEnabled) {
+              location.requestService().then((serviceEnabled){
+                if (!serviceEnabled) {
+                  print("Service NOT enabled");
+                  return;
+                }else{
+
+                  location.hasPermission().then((permissionGranted){
+                    if (permissionGranted == PermissionStatus.denied) {
+                      location.requestPermission().then((permissionGranted){
+                        if (permissionGranted != PermissionStatus.granted) {
+                          return;
+                        }else{
+                          location.getLocation().then((LocationData locationData) {
+                            print(locationData);
+                          });
+                        }
+                      });
+
+                    }
+                  });
+
+
+                }
+
+
+
+              });
+
+            }else{
+
+              location.hasPermission().then((permissionGranted){
+                print("Permission granted?");
+                print(permissionGranted);
+                if (permissionGranted == PermissionStatus.denied) {
+                  location.requestPermission().then((permissionGranted){
+                    if (permissionGranted != PermissionStatus.granted) {
+                      return;
+                    }else{
+                      location.getLocation().then((LocationData locationData) {
+                        print(locationData);
+                      });
+                    }
+                  });
+
+                }
+              });
+
+            }
+          });
+
+
+          // redirect
           if (signUpResult == true){
             Navigator.pushReplacementNamed(
               context,
