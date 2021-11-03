@@ -57,39 +57,42 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   }
 
-  Widget _buildDeliveryMethodBox({String image = "", String name = "" , bool isSelected = false} ){
-    return SizedBox(
-        width: (MediaQuery.of(context).size.width / 3 ) - 10,
-        height: 120,
-        child: Card(
-          color: (isSelected ? Colors.black.withOpacity(.2) : Colors.white),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-            side: BorderSide(
-              color: Colors.black.withOpacity(.6),
-              width: (isSelected ? 0.0 : 0.0),
+  Widget _buildDeliveryMethodBox({String image = "", String name = "" , bool isSelected = false, Function()? tapAction} ){
+    return InkWell(
+      onTap: (tapAction != null ? tapAction : null),
+      child: SizedBox(
+          width: (MediaQuery.of(context).size.width / 3 ) - 10,
+          height: 120,
+          child: Card(
+            color: (isSelected ? Colors.black.withOpacity(.2) : Colors.white),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              side: BorderSide(
+                color: Colors.black.withOpacity(.6),
+                width: (isSelected ? 0.0 : 0.0),
+              ),
+            ),
+
+            elevation: 100,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(image, height: 50, width: 50,),
+                      SizedBox(height: 3,),
+                      Text(name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+                      //SizedBox(height: 10,),
+                      //Text("Eduardo Acevedo 1376, apartamento 901"),
+                      //Text("Montevideo, Uruguay")
+                    ],
+                  ),
+
+              ),
             ),
           ),
-
-          elevation: 100,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(image, height: 50, width: 50,),
-                    SizedBox(height: 3,),
-                    Text(name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
-                    //SizedBox(height: 10,),
-                    //Text("Eduardo Acevedo 1376, apartamento 901"),
-                    //Text("Montevideo, Uruguay")
-                  ],
-                ),
-
-            ),
-          ),
-        );
+    );
   }
 
   Widget _buildFinishCheckoutButton(){
@@ -99,120 +102,122 @@ class _CheckoutViewState extends State<CheckoutView> {
       duration: new Duration(milliseconds: 500),
       height: bottomHeight,
       padding: EdgeInsets.only( bottom: 5 ),
-      decoration: BoxDecoration( gradient: PRIMARY_GRADIENT_COLOR,),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 23),
-        child: SizedBox(
-            width: double.infinity,
-            child: Consumer<Cart>(
-                builder: (context, cart, child){
-                  return (cart.items.length > 0 ? ElevatedButton(
+      decoration: BoxDecoration(
+        gradient: PRIMARY_GRADIENT_COLOR,
+      ),
+      child: Consumer<Cart>(
+          builder: (context, cart, child){
+            return (cart.items.length > 0 ? Container(
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 23),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
 
-                    onPressed: ()async{
-                      /*
-                      Navigator.pushNamed(
-                        context,
-                        "/checkout",
-                        // arguments: { 'breweryId': int.parse(breweries[i].id) },
+                  onPressed: ()async{
+                    /*
+                    Navigator.pushNamed(
+                      context,
+                      "/checkout",
+                      // arguments: { 'breweryId': int.parse(breweries[i].id) },
 
-                      );
+                    );
 
-                       */
-                      setState(() {
-                        bottomHeight = 0;
-                        isLoadingApiCall = true;
-                      });
+                     */
+                    setState(() {
+                      bottomHeight = 0;
+                      isLoadingApiCall = true;
+                    });
 
-                      LoginResponse? loginData = await SharedServices.loginDetails();
-                      OrderData? orderData = await SharedServices.lastShippingDetails();
-
-
-
-
-                      // get last shipping details from stored shared services
-                      OrderData newOrder = new OrderData(
-                        customerId: loginData!.data!.id.toString(), // we use the login data
-                        firstName: orderData!.firstName,
-                        lastName: orderData.lastName,
-                        telephone: orderData.telephone,
-                        email: loginData.data!.email, // we use the login data
-                        paymentType: "cod", // cash on delivery
-                        status: "processing",
-                        address1: orderData.address1,
-                        address2: orderData.address2,
-                        city: orderData.city,
-                        state: orderData.state,
-                        country: orderData.country,
-                        postCode: orderData.postCode,
-                        beersList: cart.getShippingList(),
-                        shippingMethodId: "flat_rate",
-                        shippingRate: deliveryCost.toString()
-
-                      );
+                    LoginResponse? loginData = await SharedServices.loginDetails();
+                    OrderData? orderData = await SharedServices.lastShippingDetails();
 
 
 
 
-                      SharedServices.lastShippingDetails().then((lastOrderData){
-                        SharedServices.setLastShippingDetails(newOrder).then((value){
+                    // get last shipping details from stored shared services
+                    OrderData newOrder = new OrderData(
+                      customerId: loginData!.data!.id.toString(), // we use the login data
+                      firstName: orderData!.firstName,
+                      lastName: orderData.lastName,
+                      telephone: orderData.telephone,
+                      email: loginData.data!.email, // we use the login data
+                      paymentType: "cod", // cash on delivery
+                      status: "processing",
+                      address1: orderData.address1,
+                      address2: orderData.address2,
+                      city: orderData.city,
+                      state: orderData.state,
+                      country: orderData.country,
+                      postCode: orderData.postCode,
+                      beersList: cart.getShippingList(),
+                      shippingMethodId: "flat_rate",
+                      shippingRate: deliveryCost.toString()
 
-                           WordpressAPI.createOrder(newOrder).then((result) {
-                             var notificationClient = new HopsNotifications();
-                             setState(() {
-                               bottomHeight = 70;
-                               isLoadingApiCall = false;
-                             });
-                            if (true == result){
-                              // redirect to the order list view
-                              cart.removeAll();
-                              Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                              notificationClient.message(context, WordpressAPI.MESSAGE_OK_CREATEORDER);
+                    );
 
-                            }else{
 
-                              notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_CREATEORDER);
-                            }
 
-                          });
+
+                    SharedServices.lastShippingDetails().then((lastOrderData){
+                      SharedServices.setLastShippingDetails(newOrder).then((value){
+
+                         WordpressAPI.createOrder(newOrder).then((result) {
+                           var notificationClient = new HopsNotifications();
+                           setState(() {
+                             bottomHeight = 70;
+                             isLoadingApiCall = false;
+                           });
+                          if (true == result){
+                            // redirect to the order list view
+                            cart.removeAll();
+                            Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                            notificationClient.message(context, WordpressAPI.MESSAGE_OK_CREATEORDER);
+
+                          }else{
+
+                            notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_CREATEORDER);
+                          }
 
                         });
 
                       });
 
+                    });
 
 
-                    },
-                    child: Text(
-                        "Realizar pedido " + "(\$" + (cart.finalPrice() + deliveryCost).round().toString() + ")",
-                        //"Finalizar compra",
-                        style: TextStyle(
-                            fontSize: 20
-                        )
-                    ),
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
-                        foregroundColor: MaterialStateProperty
-                            .all<Color>(
-                            Colors.black.withOpacity(
-                                .6)),
-                        backgroundColor: backgroundColor,
-                        shape: MaterialStateProperty
-                            .all<
-                            RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius
-                                    .circular(18.0),
-                                side: BorderSide(
-                                    color: Colors.black
-                                        .withOpacity(
-                                        .2))
-                            )
-                        )
-                    ),
-                  ) : Container() );
-                }
-            )
-        ),
+
+                  },
+                  child: Text(
+                      "Realizar pedido " + "(\$" + (cart.finalPrice() + deliveryCost).round().toString() + ")",
+                      //"Finalizar compra",
+                      style: TextStyle(
+                          fontSize: 20
+                      )
+                  ),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
+                      foregroundColor: MaterialStateProperty
+                          .all<Color>(
+                          Colors.black.withOpacity(
+                              .6)),
+                      backgroundColor: backgroundColor,
+                      shape: MaterialStateProperty
+                          .all<
+                          RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius
+                                  .circular(18.0),
+                              side: BorderSide(
+                                  color: Colors.black
+                                      .withOpacity(
+                                      .2))
+                          )
+                      )
+                  ),
+                ),
+              ),
+            ) : Container() );
+          }
       ),
     );
   }
@@ -331,10 +336,12 @@ class _CheckoutViewState extends State<CheckoutView> {
                     builder: (context, cart, child){
 
                       return Container(
+
                           padding: const EdgeInsets.all(8.0),
                           width: MediaQuery.of(context).size.width,
                           // padding: EdgeInsets.only(top: 50),
-                          height: MediaQuery.of(context).size.height - 100,
+                          //height: MediaQuery.of(context).size.height - 100,
+                          //height: MediaQuery.of(context).size.height,
                           child: Container(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,9 +444,18 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     _buildDeliveryMethodBox(name: "Hops", image: "assets/images/hops-logo.png", isSelected: true),
+                                    _buildDeliveryMethodBox(name: "Uber", image: "assets/images/uber-logo.png", tapAction: (){
+                                      var notificationClient = new HopsNotifications();
+                                      notificationClient.message(context, "¡En próximas versiones!");
+                                    }),
+                                    _buildDeliveryMethodBox(name: "DAC", image: "assets/images/dac-logo.png", tapAction: (){
+                                      var notificationClient = new HopsNotifications();
+                                      notificationClient.message(context, "¡En próximas versiones!");
+                                    }),
+                                    /*
                                     _buildDeliveryMethodBox(name: "BirraVa", image: "assets/images/birrava-logo.png"),
                                     _buildDeliveryMethodBox(name: "SabremosTomar", image: "assets/images/sabremostomar-logo.png"),
-
+                                    */
                                   ],
                                 ),
 
@@ -451,7 +467,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Text("Orden",
+                                      Text("Pedido",
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                               fontSize: 18,
@@ -517,6 +533,9 @@ class _CheckoutViewState extends State<CheckoutView> {
                                     ],
                                   ),
                                 ),
+
+                                SizedBox(height: 25,),
+
 
                               ],
                             ),
