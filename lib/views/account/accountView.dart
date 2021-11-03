@@ -11,6 +11,8 @@ import 'package:Hops/theme/style.dart';
 import 'components/account_profile_pic.dart';
 import 'components/profile_menu.dart';
 
+import 'package:Hops/utils/notifications.dart';
+
 class AccountView extends StatefulWidget {
 
   final String? userID;
@@ -53,24 +55,16 @@ class _AccountViewState extends State<AccountView> {
                         SizedBox(height: 40),
                         BreweryProfilePic(avatarUrl: snapshot.data.data.avatarUrl, score: snapshot.data.data.score),
                         SizedBox(height: 20),
+
                         ProfileMenu(
                           text: "Mi perfil",
                           icon: Icon(Icons.verified_user),
-                          press: () => {},
-                        ),
-                                            /*
-                        ProfileMenu(
-                          text: "Login Screen",
-                          icon: Icon(Icons.login),
-                          press: () {
-                            Navigator.pushNamed(
-                              context,
-                              "/login"
-                            );
+                          press: (){
+                            var notificationClient = new HopsNotifications();
+                            notificationClient.message(context, "¡En próximas versiones!");
                           },
                         ),
 
-                         */
                         ProfileMenu(
                           text: "Tus pedidos",
                           icon: Icon(Icons.shopping_cart),
@@ -81,11 +75,14 @@ class _AccountViewState extends State<AccountView> {
                             );
                           },
                         ),
+                        /*
                         ProfileMenu(
                           text: "Notificaciones",
                           icon: Icon(Icons.notifications),
                           press: () {},
                         ),
+
+                         */
                         ProfileMenu(
                           text: "Preferencias",
                           icon: Icon(Icons.settings),

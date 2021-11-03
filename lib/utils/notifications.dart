@@ -9,6 +9,8 @@ class HopsNotifications{
       String label = "Ocultar";
       if (action == "hideSnackBar") label = "Ocultar";
       if (action == "goToCart") label = "Ir al carrito";
+      if (action == "goToOrders") label = "Ver pedidos";
+
       return label;
     }
 
@@ -22,6 +24,14 @@ class HopsNotifications{
           label: _buildLabel(action),
           onPressed: (){
             if (action == "hideSnackBar") ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            if (action == "goToOrders"){
+              /*
+              Navigator.pushNamed(
+                context,
+                "orders",
+              );*/
+
+            }
             if (action == "goToCart"){
               /*
               Navigator.pushNamed(

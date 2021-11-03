@@ -38,7 +38,7 @@ class WordpressAPI{
   static const String MESSAGE_ERROR_LOGIN_UNEXPECTED = "Ups! Ocurrió un error intentando ingresar. Ponete en contacto.";
 
   static const String MESSAGE_THANKS_FOR_SIGNUP = "¡Hola cervecer@! Gracias por registrate.";
-  static const String MESSAGE_OK_LOGIN_BACK = "¡Que bueno es verte de vuelta!";
+  static const String MESSAGE_OK_LOGIN_BACK = "¿Hay sed en el cuadro? ¡Que bueno verte de vuelta!";
 
   static const String MESSAGE_ERROR_UPDATING_PREFS = "¡Ups! Ocurrió un error actualizando las preferencias. Ponete en contacto.";
   static const String MESSAGE_OK_UPDATING_PREFS = "¡Copiado! A descubrir cervezas.";
@@ -55,7 +55,7 @@ class WordpressAPI{
   static const String MESSAGE_OK_EDITCOMMENT = "Cambiar de opinión es de sabios. ¡Opinión modificada!";
 
   static const String MESSAGE_ERROR_CREATEORDER = "Ocurrió un error al intentar crear la orden. Por favor ponete en contacto.";
-  static const String MESSAGE_OK_CREATEORDER = "¡Oh yeah! Pedido enviado. En breve te contactamos para hacertelo llegar.";
+  static const String MESSAGE_OK_CREATEORDER = "¡Pedido recibido! En breve te contactamos para entregártelo.";
 
 
 

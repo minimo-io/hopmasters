@@ -173,14 +173,14 @@ class _OrdersViewState extends State<OrdersView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /*
+
         flexibleSpace: Container(
           decoration: BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
         ),
 
-         */
+
         title: Text("Pedidos realizados"),
-        //elevation: 0,
+        elevation: 0,
       ),
       // bottomNavigationBar: _buildFinishCheckoutButton(),
       body: SafeArea(

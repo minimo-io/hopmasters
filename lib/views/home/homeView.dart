@@ -73,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
                               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
-                                height:  430,
+                                height:  MediaQuery.of(context).size.height,
                                 color: Colors.white,
                                 child: Column(
                                   children: [

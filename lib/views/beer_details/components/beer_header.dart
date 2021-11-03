@@ -395,7 +395,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                               width: MediaQuery.of(context).size.width * 0.95,
                               padding: EdgeInsets.only(right: 20.0, left:20, top: 20.0, bottom: 10),
                               child: Text(
-                                "Al comprar directo colaboras con \$1 para la Federación de Cerveceros Artesanales.",
+                                "Con la compra inmediata colaboras con \$1 para la Federación de Cerveceros Artesanales. ¡Unite a lo artesanál!",
                                 style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal, color: Colors.black38),
                               ),
                             ),
@@ -404,7 +404,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                             Container(
                               width: MediaQuery.of(context).size.width * 0.95,
-                              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                               child: Divider(),
                             ),
 

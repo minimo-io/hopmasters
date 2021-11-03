@@ -21,6 +21,8 @@ class CheckoutView extends StatefulWidget{
 
   static const String routeName = "/checkout";
 
+  CheckoutView();
+
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -34,6 +36,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   @override
   void initState() {
+
     super.initState();
     _lastOrderData = SharedServices.lastShippingDetails();
 
@@ -156,7 +159,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                     );
 
 
-
+                    BuildContext oldContext = context;
 
                     SharedServices.lastShippingDetails().then((lastOrderData){
                       SharedServices.setLastShippingDetails(newOrder).then((value){
@@ -170,8 +173,19 @@ class _CheckoutViewState extends State<CheckoutView> {
                           if (true == result){
                             // redirect to the order list view
                             cart.removeAll();
+                            notificationClient.message(context, WordpressAPI.MESSAGE_OK_CREATEORDER, action: "", callback: (){
+                              /*
+                              Navigator.pushNamed(
+                                  context,
+                                  "orders"
+                              );
+
+                               */
+                            });
+                            notificationClient.message(context, "Por cierto, ¡ganate puntos HOPS!", action: "");
+
                             Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                            notificationClient.message(context, WordpressAPI.MESSAGE_OK_CREATEORDER);
+
 
                           }else{
 
@@ -443,7 +457,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    _buildDeliveryMethodBox(name: "Hops", image: "assets/images/hops-logo.png", isSelected: true),
+                                    _buildDeliveryMethodBox(name: "Hops", image: "assets/images/hops-logo-delivery.png", isSelected: true),
                                     _buildDeliveryMethodBox(name: "Uber", image: "assets/images/uber-logo.png", tapAction: (){
                                       var notificationClient = new HopsNotifications();
                                       notificationClient.message(context, "¡En próximas versiones!");

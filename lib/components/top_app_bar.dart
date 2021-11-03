@@ -102,6 +102,8 @@ class _TopAppBarState extends State<TopAppBar> {
 
           ],
         ),
+        SizedBox(width: 10,),
+        /*
         Stack(
             children: [
               Container(
@@ -130,6 +132,8 @@ class _TopAppBarState extends State<TopAppBar> {
               )
             ]
         )
+
+         */
       ],
     );
   }
