@@ -55,7 +55,7 @@ class WordpressAPI{
   static const String MESSAGE_OK_EDITCOMMENT = "Cambiar de opinión es de sabios. ¡Opinión modificada!";
 
   static const String MESSAGE_ERROR_CREATEORDER = "Ocurrió un error al intentar crear la orden. Por favor ponete en contacto.";
-  static const String MESSAGE_OK_CREATEORDER = "¡Yeah! Pedido creado. Nos pondremos en contacto";
+  static const String MESSAGE_OK_CREATEORDER = "¡Oh yeah! Pedido enviado. En breve te contactamos para hacertelo llegar.";
 
 
 

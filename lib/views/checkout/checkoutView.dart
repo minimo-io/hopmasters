@@ -137,6 +137,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                         telephone: orderData.telephone,
                         email: loginData.data!.email, // we use the login data
                         paymentType: "cod", // cash on delivery
+                        status: "processing",
                         address1: orderData.address1,
                         address2: orderData.address2,
                         city: orderData.city,
@@ -253,7 +254,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                 Text(lastOrder.firstName! + " " + lastOrder.lastName!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
                 SizedBox(height: 10,),
                 Text( (lastOrder.address1 != null ? lastOrder.address1 : "")! + ", " + (lastOrder.address2 != null ? lastOrder.address2 : "")!),
-                Text(lastOrder.city!  + ", " + lastOrder.country!),
+                Text(lastOrder.city!  + ", " + lastOrder.country! + ". CP: " + lastOrder.postCode!),
                 SizedBox(height: 10,),
                 Row(
                   children: [

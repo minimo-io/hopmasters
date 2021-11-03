@@ -266,6 +266,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               padding: EdgeInsets.only(left:2),
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
                 //Helpers.showPersistentBottomSheet(context);
+                BuildContext oldContext = context;
                 Scaffold.of(context)
                     .showBottomSheet<void>(
                       (context) {
@@ -312,8 +313,24 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                         itemPrice: double.parse(_itemsCount.toString()) * double.parse(widget.beer.price)
                                       ));
 
-                                      notificationClient.message(context, "Birra agregada al carrito.");
+                                      notificationClient.message(
+                                          context,
+                                          "Birra agregada al carrito.",
+                                          action: "goToCart",
+                                          callback: (){
+
+
+                                            Navigator.pushNamed(
+                                              oldContext,
+                                              "/cart",
+                                              arguments: {'name': "Maracuyipas", "count": 125}
+                                            );
+
+
+                                          }
+                                      );
                                       Navigator.pop(context);
+
 
                                     } : null),
 

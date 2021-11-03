@@ -3,7 +3,15 @@ import 'package:Hops/theme/style.dart';
 
 class HopsNotifications{
 
-  void message(BuildContext context, String notificationTitle){
+  void message(BuildContext context, String notificationTitle, { String action = "hideSnackBar", Function? callback }){
+
+    String _buildLabel(String action){
+      String label = "Ocultar";
+      if (action == "hideSnackBar") label = "Ocultar";
+      if (action == "goToCart") label = "Ir al carrito";
+      return label;
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content:  Text(notificationTitle),
@@ -11,9 +19,18 @@ class HopsNotifications{
         elevation: 6.0,
         action: SnackBarAction(
           textColor: colorScheme.background,
-          label: "Ocultar",
+          label: _buildLabel(action),
           onPressed: (){
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            if (action == "hideSnackBar") ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            if (action == "goToCart"){
+              /*
+              Navigator.pushNamed(
+                context,
+                "/cart",
+              );
+              */
+            }
+            if (callback != null) callback();
           },
         ),
         ),

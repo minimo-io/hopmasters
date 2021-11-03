@@ -35,6 +35,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
   String? _frmTelephone = "";
   String? _frmAddress1 = "";
   String? _frmAddress2 = "";
+  String? _frmCP = "";
 
 
   @override
@@ -93,7 +94,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                       city: _dropdownValue,
                       state: _dropdownValue,
                       country: "UY",
-                      postCode: "",
+                      postCode: _frmCP,
                       beersList: [],
                       shippingMethodId: "flat_rate",
                       shippingRate: "0.0"
@@ -352,7 +353,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                                     _dropdownValue = newValue!;
                                   });
                                 },
-                                items: <String>['Montevideo', 'Rocha', 'Paysandú']
+                                items: <String>['Montevideo']
                                     .map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -362,6 +363,49 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                               ),
                             ),
 
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 8),
+                              child: TextFormField(
+                                initialValue: (snapshot.data != null ? snapshot.data.postCode  : null),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Ingresa tu código postal.";
+                                  }
+                                  if (!RegExp(r'.{4,}').hasMatch(value)) return 'Sé un poco mas específico (al menos 5 letras o números).';
+                                  if (value.length >= 700) return '¡Wow!, ¿podrías ser mas concret@?.';
+                                  return null;
+                                },
+                                autovalidateMode: (this.formValidatedOnce == true ? AutovalidateMode.always : AutovalidateMode.onUserInteraction ),
+
+                                onSaved: (String? value) {
+                                  // This optional block of code can be used to run
+                                  // code when the user saves the form.
+                                  setState(() { _frmCP = value; });
+                                },
+
+                                keyboardType: TextInputType.name,
+                                textAlignVertical: TextAlignVertical.top,
+                                style: TextStyle(fontSize: 12.5),
+
+                                //style: TextStyle( fontSize: 13 ),
+
+                                decoration: new InputDecoration(
+                                  labelStyle: TextStyle( color: colorScheme.secondary, fontSize: 12.5, fontWeight: FontWeight.normal ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 2),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: colorScheme.secondary, width: 1),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: colorScheme.secondary)),
+                                  hintText: 'Código postal. Ejemplo: 11200.',
+                                  //labelText: '¿Qué te pareció esta cerveza?',
+                                  //helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
+                                ),
+                              ),
+                            ),
 
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 8),

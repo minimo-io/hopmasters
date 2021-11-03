@@ -16,6 +16,7 @@ class OrderData{
   List? beersList;
   String? shippingMethodId = "flat_rate";
   String? shippingRate;
+  String? status = "processing";
 
 
   OrderData({
@@ -34,6 +35,7 @@ class OrderData{
     this.beersList,
     this.shippingMethodId,
     this.shippingRate,
+    this.status,
   });
 
   Map<String, dynamic> toJson(){
@@ -44,6 +46,7 @@ class OrderData{
       "payment_method": paymentType,
       "payment_method_title": "Contra reembolso",
       "set_paid": false,
+      "status": status,
       "billing": {
         "first_name": firstName,
         "last_name": lastName,
@@ -96,6 +99,7 @@ class OrderData{
     beersList = json["beersList"]; //beerList = json["data"].length > 0 ? new Data.fromJson(json["data"]) : null;
     shippingMethodId = json["shipping_lines"][0]["method_id"];
     shippingRate = json["shipping_lines"][0]["total"];
+    status =  json["status"];
 
   }
 
