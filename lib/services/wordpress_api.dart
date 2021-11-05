@@ -257,7 +257,7 @@ class WordpressAPI{
     // add page
     beersUriQuery = beersUriQuery + "&page=" + page.toString();
 
-    print(beersUriQuery);
+    //print(beersUriQuery);
 
 
 

@@ -49,8 +49,10 @@ class TopLogo extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10,),
-          if (this.showSlogan) Center(child: Text("Descubre y compra", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)),
-          if (this.showSlogan) Text("cervezas artesanales locales", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
+          if (this.showSlogan) Text("¡Unite a lo artesanal!", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          if (this.showSlogan) Center(child: Text("Descubrí y comprá", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)),
+          if (this.showSlogan) Text("cervezas locales", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
+
           SizedBox(height:this.bottomPadding)
         ]
     );
