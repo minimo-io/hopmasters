@@ -7,7 +7,7 @@ class ArticlesShowcase extends StatelessWidget {
 
     return new Center(
       child: new Text(
-        'Articles: TODO'
+        'En próximas versiones.'
       ),
     );
   }

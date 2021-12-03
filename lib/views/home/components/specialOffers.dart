@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:Hops/helpers.dart';
 import 'sectionTitle.dart';
 
 class SpecialOffers extends StatelessWidget {
@@ -25,17 +25,27 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
               SpecialOfferCard(
-                image: "assets/images/Beer_Banner_5.png",
-                category: "Promo de IPAs",
-                numOfBrands: 6,
-                press: () {},
+                image: "assets/images/Beer_Banner_3.png",
+                category: "¿Cómo funciona?",
+                subtitle: "Mira la idea detrás de HOPS",
+                press: () {
+                  Helpers.launchURL("https://hops.uy/revista/novedades/cervezas-artesanales-de-uruguay/");
+                },
               ),
               SpecialOfferCard(
-                image: "assets/images/Beer_Banner_4.png",
-                category: "Pack de Maltosas",
-                numOfBrands: 3,
-                press: () {},
+                image: "assets/images/Beer_Banner_5.png",
+                category: "Cerveza destacada",
+                subtitle: "Oferta de Maracuyipa",
+                press: () {
+                  Navigator.pushNamed(
+                    context,
+                    "/beer",
+                    arguments: { 'beerId': 89342 },
+
+                  );
+                },
               ),
+
               SizedBox(width: (20)),
             ],
           ),
@@ -50,12 +60,12 @@ class SpecialOfferCard extends StatelessWidget {
     Key? key,
     required this.category,
     required this.image,
-    required this.numOfBrands,
+    required this.subtitle,
     required this.press,
   }) : super(key: key);
 
-  final String category, image;
-  final int numOfBrands;
+  final String category, image, subtitle;
+  //final int numOfBrands;
   final GestureTapCallback press;
 
   @override
@@ -103,7 +113,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Cervezas")
+                        TextSpan(text: "$subtitle")
                       ],
                     ),
                   ),
