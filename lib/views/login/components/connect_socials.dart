@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
@@ -121,6 +122,18 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   Widget build(BuildContext context) {
     var notificationsClient = new HopsNotifications();
 
+    Future<String> _buildVersionNumber()async{
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      String appName = packageInfo.appName;
+      String packageName = packageInfo.packageName;
+      String version = packageInfo.version;
+      String buildNumber = packageInfo.buildNumber;
+      print("Version:");
+      print(version);
+      return "v."+version.toString();
+
+    }
 
     Future<void> _loginAfterSignUp(
         String? email,
@@ -368,7 +381,24 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                       onTap:() => super.gotoSignUp(widget.controller!),
                       socialIcon: "assets/images/icons/email.png"
                   ),
+                  SizedBox(height: 20,),
 
+                  FutureBuilder(
+                    future: _buildVersionNumber(),
+                    builder: (context, snapshot){
+                      if (snapshot.connectionState == ConnectionState.done){
+                        if (snapshot.hasError){
+                          return Text("No available version", style: TextStyle(fontSize: 11, color: Colors.black.withOpacity(0.8)));
+                        }else{
+                          return Text(snapshot.data.toString(), style: TextStyle(fontSize: 11, color: Colors.black.withOpacity(0.8)));
+                        }
+
+                      }else{
+                        return Container();
+                      }
+
+                    }
+                  ),
                   SizedBox(height: 100,)
                 ],
               ),
