@@ -41,7 +41,10 @@ class _AccountViewState extends State<AccountView> {
             gradient: PRIMARY_GRADIENT_COLOR,
           ),
           child: FutureBuilder(
-            future: _userData,
+            future: Future.wait([
+              SharedServices.loginDetails(),
+
+            ]),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -50,10 +53,14 @@ class _AccountViewState extends State<AccountView> {
                   if (snapshot.hasError){
                     return Text(' Ups! Errors: ${snapshot.error}');
                   }else{
+
                     return Column(
                       children: [
                         SizedBox(height: 40),
-                        BreweryProfilePic(avatarUrl: snapshot.data.data.avatarUrl, score: snapshot.data.data.score),
+                        BreweryProfilePic(
+                            avatarUrl: snapshot.data[0].data.avatarUrl,
+                            userId: snapshot.data[0].data.id
+                        ),
                         SizedBox(height: 20),
 
                         ProfileMenu(
@@ -101,15 +108,14 @@ class _AccountViewState extends State<AccountView> {
 
                             showAboutDialog(
                               context: context,
-                              applicationVersion: '2.0.1',
+                              applicationVersion: '0.1.8',
                               applicationIcon: MyAppIcon(),
                               applicationLegalese:
-                              'This application has been approved for all audiences.',
+                              'Esta es una aplicación pensada para mayores de 18 años.',
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20),
-                                  child: Text('This is where I\'d put more information about '
-                                      'this app, if there was anything interesting to say.'),
+                                  child: Text('¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal\r\n ¡Unite a lo local!'),
                                 ),
                               ],
                             );

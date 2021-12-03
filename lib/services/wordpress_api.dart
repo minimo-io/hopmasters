@@ -543,8 +543,6 @@ class WordpressAPI{
       if (response.statusCode == 200){
 
         Map<String, dynamic> jsonResponse = response.data;
-
-        //print(jsonResponse);
         return jsonResponse;
 
 

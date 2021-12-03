@@ -30,6 +30,8 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.5.0)
+  - location (0.0.1):
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - share_plus (0.0.1):
@@ -43,6 +45,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -64,6 +67,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   share_plus:
@@ -79,10 +84,11 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: d98498c598ec09de657385a9349a1f21119b7f86
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_facebook_auth: 4b170c07b7fce791497093fcc3f134fb215f3f07
-  google_sign_in: 6bd214b9c154f881422f5fe27b66aaa7bbd580cc
+  google_sign_in: de494e5e993986afae63e22a32441e30c35c9823
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

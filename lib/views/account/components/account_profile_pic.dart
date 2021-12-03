@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:Hops/theme/style.dart';
+import 'package:Hops/services/wordpress_api.dart';
 
-class BreweryProfilePic extends StatelessWidget {
-  String? avatarUrl, score;
+class BreweryProfilePic extends StatefulWidget {
+  String? avatarUrl;
+  int? userId;
   BreweryProfilePic({
     Key? key,
     String? this.avatarUrl,
-    String? this.score,
+    int? this.userId,
   }) : super(key: key);
 
+  @override
+  _BreweryProfilePicState createState() => _BreweryProfilePicState();
+}
+
+class _BreweryProfilePicState extends State<BreweryProfilePic> {
    _buildAvatar(){
-    if (this.avatarUrl != null){
-      return NetworkImage(this.avatarUrl!);
+    if (this.widget.avatarUrl != null){
+      return NetworkImage(this.widget.avatarUrl!);
     }else{
       return AssetImage("assets/images/profile-test.png");
     }
@@ -45,9 +53,35 @@ class BreweryProfilePic extends StatelessWidget {
                     //Icon(Icons.sports_bar, size: 15,),
                     Image.asset("assets/images/medal.png", height: 20,),
                     SizedBox(width: 0),
-                    Text(
-                      this.score == null ? "0" : this.score.toString(),
-                      style: TextStyle(fontSize: 13),
+                    FutureBuilder(
+                      future: WordpressAPI.getUserPrefs( widget.userId, indexType: "score" ),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                                child: SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: CircularProgressIndicator(
+                                    color: PROGRESS_INDICATOR_COLOR,
+                                    strokeWidth: 1.0,
+                                  ),
+                                )
+                            );
+                          default:
+                            if (snapshot.hasError) {
+                              return Text(' Ups! Errors: ${snapshot.error}');
+                            } else {
+
+                              return Text(
+                                //this.widget.score == null ? "0" : this.widget.score.toString(),
+                                snapshot.data["result"].toString(),
+                                style: TextStyle(fontSize: 13),
+                              );
+                            }
+                        }
+                      }
                     )
                   ]
                 ),
