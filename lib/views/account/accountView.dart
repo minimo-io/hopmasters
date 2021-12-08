@@ -8,6 +8,7 @@ import 'package:Hops/services/google_signin.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/theme/style.dart';
 
+import '../../helpers.dart';
 import 'components/account_profile_pic.dart';
 import 'components/profile_menu.dart';
 
@@ -106,19 +107,20 @@ class _AccountViewState extends State<AccountView> {
                           icon: Icon(Icons.help_center),
                           press: () {
 
-                            showAboutDialog(
-                              context: context,
-                              applicationVersion: '0.1.8',
-                              applicationIcon: MyAppIcon(),
-                              applicationLegalese:
-                              'Esta es una aplicación pensada para mayores de 18 años.',
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Text('¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal\r\n ¡Unite a lo local!'),
-                                ),
-                              ],
-                            );
+                                showAboutDialog(
+                                  context: context,
+                                  // applicationVersion: snapshot.data.toString(),
+                                  applicationIcon: MyAppIcon(),
+                                  applicationLegalese:
+                                  'Esta es una aplicación pensada para mayores de 18 años.',
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Text('¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal ¡Unite a lo local!'),
+                                    ),
+                                  ],
+                                );
+
 
                           },
                         ),

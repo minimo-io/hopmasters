@@ -35,7 +35,7 @@ class SpecialOffers extends StatelessWidget {
               SpecialOfferCard(
                 image: "assets/images/Beer_Banner_5.png",
                 category: "Cerveza destacada",
-                subtitle: "Oferta de Maracuyipa",
+                subtitle: "Maracuyipa de Oso Pardo",
                 press: () {
                   Navigator.pushNamed(
                     context,

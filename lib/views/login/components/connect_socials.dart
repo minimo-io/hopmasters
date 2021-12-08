@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/utils/size_config.dart';
+import 'package:Hops/helpers.dart';
 
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/services/facebook_signin.dart';
@@ -121,19 +121,6 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
   @override
   Widget build(BuildContext context) {
     var notificationsClient = new HopsNotifications();
-
-    Future<String> _buildVersionNumber()async{
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      String appName = packageInfo.appName;
-      String packageName = packageInfo.packageName;
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
-      print("Version:");
-      print(version);
-      return "v."+version.toString();
-
-    }
 
     Future<void> _loginAfterSignUp(
         String? email,
@@ -384,7 +371,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                   SizedBox(height: 20,),
 
                   FutureBuilder(
-                    future: _buildVersionNumber(),
+                    future: Helpers.buildVersionNumber(),
                     builder: (context, snapshot){
                       if (snapshot.connectionState == ConnectionState.done){
                         if (snapshot.hasError){

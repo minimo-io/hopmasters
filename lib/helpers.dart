@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:html/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class Helpers{
   // convert an html like hex color #FFFFFF to Color Widget
@@ -44,5 +45,16 @@ class Helpers{
     return safePadding;
   }
 
+  static Future<String> buildVersionNumber()async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String appName = packageInfo.appName;
+    String packageName = packageInfo.packageName;
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
+    return "v."+version.toString();
+
+  }
 
 }
