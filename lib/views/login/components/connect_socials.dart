@@ -335,7 +335,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                             setState(() => this.isLoadingApiCall = true );
                             // if google ok then wordpress call
                             // try to sign up user to WooCommerce
-                            Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName(googleUser.displayName!);
+                            Map<String, dynamic> userName = WordpressAPI.generateNameFromDisplayName( (googleUser.displayName != null ? googleUser.displayName! : googleUser.email));
 
                             String pwd = WordpressAPI.generatePassword(googleUser.email);
 

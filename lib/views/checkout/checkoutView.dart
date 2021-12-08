@@ -183,6 +183,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                */
                             });
                             notificationClient.message(context, "Por cierto, ¡ganate puntos HOPS!", action: "");
+                            notificationClient.message(context, "Miralo en tu de perfil de usuario.", action: "");
 
                             Navigator.of(context).popUntil(ModalRoute.withName('/'));
 
@@ -548,7 +549,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   ),
                                 ),
 
-                                SizedBox(height: 25,),
+                                SizedBox(height: 300,),
 
 
                               ],

@@ -351,6 +351,7 @@ class WordpressAPI{
 
   static Map<String, dynamic> generateNameFromDisplayName(String displayName){
     Map<String, dynamic> userName = new Map();
+
     userName["firstName"] = displayName;
     userName["lastName"] = '';
 
