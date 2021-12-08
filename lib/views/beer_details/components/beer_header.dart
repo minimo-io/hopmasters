@@ -404,7 +404,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Container(
                         // height: (widget.height != null ? widget.height : 430),
-                        height: (430),
+                        // height: (430),
+                        height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - kToolbarHeight - 20,
                         color: Colors.white,
                         child: ListView(
                           children: [
