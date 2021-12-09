@@ -45,7 +45,22 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
   Future<Beer?>? _beerFuture;
   LoginResponse? _userData;
   bool _activeButton = false;
+  bool _hideCommentsFloatingButtons = false;
   Map<String, dynamic> _scores = new Map();
+
+  refresh() {
+
+    if (_hideCommentsFloatingButtons == false){
+      setState(() {
+        _hideCommentsFloatingButtons = true;
+      });
+    }else{
+      setState(() {
+        _hideCommentsFloatingButtons = false;
+      });
+    }
+
+  }
 
   @override
   void initState() {
@@ -100,7 +115,7 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
               else
 
                 return Scaffold(
-                floatingActionButton: OpinionFloatingAction(
+                floatingActionButton: (_hideCommentsFloatingButtons == false ? OpinionFloatingAction(
                   "PUBLICAR",
                   "OPINAR",
                   title: "OPINAR",
@@ -136,7 +151,18 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
                       }
                     });
                   }
-                ),
+                ) : Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: FloatingActionButton.extended(
+                      shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
+                      onPressed: (){
+                        refresh();
+                        Navigator.pop(context);
+                      },
+                      backgroundColor: snapshot.data.rgbColor.withOpacity(0.95),
+                      label: Text("X", style: TextStyle(color: Colors.white, fontSize: 12))
+                  ),
+                ) ),
                 body: new SingleChildScrollView(
                   child: new Container(
                     decoration: linearGradient,
@@ -146,6 +172,7 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
                         BeerHeader(
                           beer: snapshot.data,
                           userData: _userData,
+                          notifyParent: refresh
                         ),
                         SizedBox(height: 10,),
                         BeerBody(beer: snapshot.data, scores: _scores),

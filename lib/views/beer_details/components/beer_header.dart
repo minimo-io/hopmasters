@@ -27,10 +27,12 @@ import 'package:provider/provider.dart';
 
 class BeerHeader extends StatefulWidget{
 
+  final Function() notifyParent;
 
   BeerHeader({
     required Beer? this.beer,
-    this.userData
+    this.userData,
+    required this.notifyParent
   });
 
   final beer;
@@ -397,6 +399,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               child: _buildButton(text: Text("COMPRAR"), icon: Icon(Icons.shopping_cart), doOnPressed: (){
                 //Helpers.showPersistentBottomSheet(context);
                 BuildContext oldContext = context;
+                widget.notifyParent();
+
                 Scaffold.of(context)
                     .showBottomSheet<void>(
                       (context) {
