@@ -58,6 +58,26 @@ class _TopAppBarState extends State<TopAppBar> {
         ),
       ),
       actions: <Widget>[
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
+          child: InkWell(
+            onTap: (){
+              print("Scan beer!");
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.qr_code_scanner,
+                ),
+                SizedBox(width: 5,),
+                Text("ESCANEAR", style: TextStyle(fontWeight: FontWeight.bold,))
+              ],
+            ),
+          ),
+        ),
+
+        SizedBox(width: 10,),
+
         Stack(
           children: [
             Container(
