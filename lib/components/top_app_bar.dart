@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:Hops/models/cart.dart';
+// import 'package:Hops/components/qr_scanner.dart';
+
 
 class TopAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -15,6 +17,8 @@ class TopAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _TopAppBarState extends State<TopAppBar> {
+
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -58,11 +62,20 @@ class _TopAppBarState extends State<TopAppBar> {
         ),
       ),
       actions: <Widget>[
+
         Container(
           padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
           child: InkWell(
             onTap: (){
               print("Scan beer!");
+              /*
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const QRViewExample(),
+              ));
+              */
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y juntar puntos de descuentos.')),
+              );
             },
             child: Row(
               children: [
@@ -70,7 +83,7 @@ class _TopAppBarState extends State<TopAppBar> {
                   Icons.qr_code_scanner,
                 ),
                 SizedBox(width: 5,),
-                Text("ESCANEAR", style: TextStyle(fontWeight: FontWeight.bold,))
+                Text("ESCANEAR", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
               ],
             ),
           ),
@@ -157,4 +170,7 @@ class _TopAppBarState extends State<TopAppBar> {
       ],
     );
   }
+
+
+
 }

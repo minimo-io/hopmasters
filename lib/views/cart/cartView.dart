@@ -336,12 +336,15 @@ class _CartViewState extends State<CartView> {
         ),
       ),
       appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: Colors.black
+        ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: PRIMARY_GRADIENT_COLOR
           ),
         ),
-        title: Text("Carrito"),
+        title: Text("Carrito", style: TextStyle(color: Colors.black)),
         elevation: 0,
         actions: [
           Consumer<Cart>(

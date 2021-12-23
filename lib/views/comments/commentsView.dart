@@ -136,8 +136,8 @@ class _CommentsViewState extends State<CommentsView> {
                                   Center(child: RichText(
                                     text: TextSpan(
                                         children: <TextSpan>[
-                                          TextSpan(text: "Cerveza ", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                                          TextSpan(text: "sin opiniones.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                                          // TextSpan(text: "Cerveza ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                                          TextSpan(text: "Sin opiniones.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
                                         ]
                                     ),
                                   ),),
@@ -181,7 +181,13 @@ class _CommentsViewState extends State<CommentsView> {
             ),
           ),
           elevation: 0,
-          title: Text("Opiniones" + ( widget.postTitle != null ? " sobre " + widget.postTitle! : "" ))
+          iconTheme: IconThemeData(
+              color: Colors.black
+          ),
+          title: Text(
+            "Opiniones" + ( widget.postTitle != null ? " sobre " + widget.postTitle! : "" ),
+            style: TextStyle(color:Colors.black),
+          )
       ),
     );
   }

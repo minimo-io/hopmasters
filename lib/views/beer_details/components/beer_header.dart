@@ -24,6 +24,8 @@ import 'package:Hops/helpers.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:location/location.dart';
+
 
 class BeerHeader extends StatefulWidget{
 
@@ -48,6 +50,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
   bool _isBeerIncluded = false;
   bool _isLoadingApiCall = false;
   int _itemsCount = 1;
+  LocationData? _location;
 
   @override
   void initState(){
@@ -367,6 +370,21 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       );
     }
 
+    Widget _buildShops(){
+      return Column(children: [
+        Container(
+            width: MediaQuery.of(context).size.width * 0.90,
+            //padding: EdgeInsets.symmetric(horizontal: 20),
+            child: _buildShopCard(name: "Nino Bar", address: "Bartolome Mitre 1316.", logo: "assets/images/nino-bar-logo.png")
+        ),
+        Container(
+            width: MediaQuery.of(context).size.width * 0.90,
+            //padding: EdgeInsets.symmetric(horizontal: 20),
+            child: _buildShopCard(name: "Pepe Botella", address: "José Enrique Rodó 2052.", logo: "assets/images/pepebotella-logo.png")
+        ),
+      ],);
+    }
+
     HopsNotifications notificationClient =  new HopsNotifications();
 
     double getItemsFinalPrice(int itemsCount, double price){
@@ -400,6 +418,15 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                 //Helpers.showPersistentBottomSheet(context);
                 BuildContext oldContext = context;
                 widget.notifyParent();
+
+                // ask for location
+                Helpers.askForLocation()?.then((location){
+                    print(location);
+                    setState(() {
+                      this._location = location;
+                    });
+
+                });
 
                 Scaffold.of(context)
                     .showBottomSheet<void>(
@@ -545,6 +572,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                             SizedBox(height: 5,),
 
+
                             Consumer<Cart>(
                               builder: (context, cart, child){
                                 return _buildOnlineStores( _itemsCount );
@@ -554,6 +582,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
 
                             SizedBox(height: 30,),
+
 
                             Container(
                                 padding: EdgeInsets.only(left: 20, top: 0),
@@ -569,17 +598,30 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                             SizedBox(height: 15,),
 
+                            (this._location != null ? _buildShops() : Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Habilita la ubicación para ver las tiendas mas cercanas."),
+                                  SizedBox(height: 5,),
+                                  Center(
+                                    child: ElevatedButton.icon(
+                                      label: Text("Habilitar ubicación", style: TextStyle(color: Colors.black),),
+                                      icon: Icon(Icons.send, color: Colors.black,),
+                                      onPressed: (){
+                                        Helpers.askForLocation()?.then((location){
+                                          print(location);
+                                        });
+                                      },
+                                    ),
+                                  )
+                                ],
+                              )
+                            ) ),
 
-                            Container(
-                                width: MediaQuery.of(context).size.width * 0.90,
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: _buildShopCard(name: "Nino Bar", address: "Bartolome Mitre 1316.", logo: "assets/images/nino-bar-logo.png")
-                            ),
-                            Container(
-                                width: MediaQuery.of(context).size.width * 0.90,
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: _buildShopCard(name: "Pepe Botella", address: "José Enrique Rodó 2052.", logo: "assets/images/pepebotella-logo.png")
-                            ),
+
+
 
                             SizedBox(height: 5)
                           ],

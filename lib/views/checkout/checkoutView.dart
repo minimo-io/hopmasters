@@ -569,7 +569,10 @@ class _CheckoutViewState extends State<CheckoutView> {
                 gradient: PRIMARY_GRADIENT_COLOR
             ),
           ),
-          title: Text("Finalizar la compra"),
+          iconTheme: IconThemeData(
+              color: Colors.black
+          ),
+          title: Text("Finalizar la compra", style: TextStyle(color: Colors.black)),
           elevation: 0,
         ),
       ),

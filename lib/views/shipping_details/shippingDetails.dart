@@ -168,7 +168,10 @@ class _ShippingDetailsState extends State<ShippingDetails> {
               gradient: PRIMARY_GRADIENT_COLOR
           ),
         ),
-        title: Text("Datos de envío"),
+        iconTheme: IconThemeData(
+            color: Colors.black
+        ),
+        title: Text("Datos de envío", style: TextStyle(color: Colors.black)),
         elevation: 0,
       ),
       bottomNavigationBar: _buildFinishCheckoutButton(),

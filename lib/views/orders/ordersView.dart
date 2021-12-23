@@ -178,8 +178,10 @@ class _OrdersViewState extends State<OrdersView> {
           decoration: BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
         ),
 
-
-        title: Text("Pedidos realizados"),
+        iconTheme: IconThemeData(
+            color: Colors.black
+        ),
+        title: Text("Pedidos realizados", style: TextStyle(color: Colors.black)),
         elevation: 0,
       ),
       // bottomNavigationBar: _buildFinishCheckoutButton(),

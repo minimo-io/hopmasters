@@ -4,6 +4,8 @@ import 'package:html/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import 'package:location/location.dart';
+
 class Helpers{
   // convert an html like hex color #FFFFFF to Color Widget
   static Color HexToColor(String HexColor){
@@ -54,6 +56,103 @@ class Helpers{
     String buildNumber = packageInfo.buildNumber;
 
     return "v."+version.toString();
+
+  }
+
+  static Future<LocationData?>? _getLocationData(Location location)async{
+    LocationData _locationData;
+    _locationData = await location.getLocation();
+    return _locationData;
+  }
+  static askForLocation()async{
+    /*
+    Location location = new Location();
+    location.serviceEnabled().then((serviceEnabled){
+      print("Service Enabled");
+      print(serviceEnabled);
+
+      if (!serviceEnabled) {
+        location.requestService().then((serviceEnabled){
+          if (!serviceEnabled) {
+            print("Service NOT enabled");
+            return false;
+          }else{
+
+            location.hasPermission().then((permissionGranted){
+              if (permissionGranted == PermissionStatus.denied) {
+                location.requestPermission().then((permissionGranted){
+                  if (permissionGranted != PermissionStatus.granted) {
+                    return false;
+                  }else{
+
+                    // get location
+                    return _getLocationData(location);
+
+                  }
+                });
+
+              }
+            });
+
+
+          }
+
+
+
+        });
+
+      }else{
+
+        location.hasPermission().then((permissionGranted){
+          print("Permission granted? 2");
+          print(permissionGranted);
+          if (permissionGranted == PermissionStatus.denied) {
+            location.requestPermission().then((permissionGranted){
+
+              if (permissionGranted != PermissionStatus.granted) {
+                return false;
+              }else{
+                print("LOCATION DATA: ");
+                return _getLocationData(location);
+              }
+            });
+
+          }else{
+            print("OK GRANTED! NOW LOCATION:");
+
+            return _getLocationData(location);
+          }
+        });
+
+      }
+    });
+
+     */
+
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+    return _locationData;
 
   }
 
