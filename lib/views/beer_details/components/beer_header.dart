@@ -51,7 +51,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
   bool _isBeerIncluded = false;
   bool _isLoadingApiCall = false;
   int _itemsCount = 1;
-  LocationData? _location;
+  Future<LocationData?>? _location;
 
   @override
   void initState(){
@@ -60,6 +60,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         indexType: "beers_favorites_preference"
     );
 
+    /*
     // ask for location
     Helpers.askForLocation()?.then((location){
       print(location);
@@ -68,7 +69,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       });
 
     });
-
+    */
+    _location = Helpers.askForLocation();
 
     void defineBeers(BuildContext context)async {
       _userBeersPreferences.then((beers_prefs) {
@@ -191,17 +193,12 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       bool isVerified = true,
       String storeBeerUrl = ""
     }){
-      return GestureDetector(
+      return InkWell(
         onTap: (){
-          /*
-          Navigator.pushNamed(
-            context,
-            "/brewery",
-            arguments: { 'breweryId': int.parse(breweries[i].id) },
 
-          );
+          if (storeBeerUrl != null) Helpers.launchURL(storeBeerUrl);
 
-           */
+
         },
         child: Card(
           child: Padding(
@@ -221,45 +218,40 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: InkWell(
-                    onTap: (){
-                      if (storeBeerUrl != null) Helpers.launchURL(storeBeerUrl);
-                    },
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
 
-                          if (isVerified) Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              //crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 1.0),
-                                  child: new CircleAvatar(
-                                    backgroundColor: Color.fromRGBO(25, 119, 227, 1),
-                                    child: new Icon(
-                                      Icons.gpp_good,
-                                      color: Colors.white ,
-                                      size: 10.0,
-                                    ),
-                                    radius: 10.0,
+                        if (isVerified) Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            //crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 1.0),
+                                child: new CircleAvatar(
+                                  backgroundColor: Color.fromRGBO(25, 119, 227, 1),
+                                  child: new Icon(
+                                    Icons.gpp_good,
+                                    color: Colors.white ,
+                                    size: 10.0,
                                   ),
+                                  radius: 10.0,
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(left:6.0),
-                                    child: Text("verificado", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.0))
-                                )
-                              ],
-                            ),
-                          )
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left:6.0),
+                                  child: Text("verificado", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.0))
+                              )
+                            ],
+                          ),
+                        )
 
 
-                          // Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
-                        ]
-                    ),
+                        // Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                      ]
                   ),
                 ),
 
@@ -401,8 +393,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                   name: "SabremosTomar",
                   price: double.parse((210 * itemCount).toString()),
                   logo: "assets/images/sabremostomar-logo.png",
-                  isVerified: false,
-                  storeBeerUrl: "https://birrava.uy/"
+                  isVerified: true,
+                  storeBeerUrl: "https://www.sabremostomar.com/"
               )
           ),
 
@@ -413,7 +405,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                   name: "La Vikinga",
                   price: double.parse((217 * itemCount).toString()),
                   logo: "assets/images/lavikinga-logo.png",
-                  isVerified: true,
+                  isVerified: false,
                   storeBeerUrl: "https://lavikinga.uy/"
               )
           ),
@@ -639,37 +631,54 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                   ),
                                 )
                             ),
-                            if (this._location != null ) Padding(
-                              padding: const EdgeInsets.only(right: 20.0, left:20.0, top:10.0),
-                              child: AlertBox(
-                                  text: "Habilita la ubicación para ver las tiendas cercanas.",
-                                  icon: Icons.place
-                              ),
+                            FutureBuilder(
+                              future: _location,
+                              builder: (context, snapshot){
+                                if (snapshot != null){
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 20.0, left:20.0, top:10.0),
+                                    child: AlertBox(
+                                        text: "Habilita la ubicación para ver las tiendas cercanas.",
+                                        icon: Icons.place
+                                    ),
+                                  );
+                                }else{
+                                  return Container();
+                                }
+                              }
                             ),
+
                             SizedBox(height: 15,),
 
-                            (this._location != null ? _buildShops() : Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Habilita la ubicación para ver las tiendas mas cercanas."),
-                                  SizedBox(height: 5,),
-                                  Center(
-                                    child: ElevatedButton.icon(
-                                      label: Text("Habilitar ubicación", style: TextStyle(color: Colors.black),),
-                                      icon: Icon(Icons.send, color: Colors.black,),
-                                      onPressed: (){
-                                        Helpers.askForLocation()?.then((location){
-                                          print(location);
-                                        });
-                                      },
-                                    ),
-                                  )
-                                ],
-                              )
-                            ) ),
+                            FutureBuilder(
+                              future: _location,
+                              builder: (context, snapshot) {
+                                if (snapshot.data != null) {
+                                  return _buildShops();
+                                }else{
+                                  return Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Center(
+                                            child: ElevatedButton.icon(
+                                              label: Text("Habilitar ubicación", style: TextStyle(color: Colors.black),),
+                                              icon: Icon(Icons.send, color: Colors.black,),
+                                              onPressed: (){
+                                                Helpers.askForLocation()?.then((location){
+                                                  print(location);
+                                                });
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                  );
+                                }
 
+                              },
+                            ),
 
 
 

@@ -64,70 +64,8 @@ class Helpers{
     _locationData = await location.getLocation();
     return _locationData;
   }
-  static askForLocation()async{
-    /*
-    Location location = new Location();
-    location.serviceEnabled().then((serviceEnabled){
-      print("Service Enabled");
-      print(serviceEnabled);
+  static Future<LocationData?>? askForLocation()async{
 
-      if (!serviceEnabled) {
-        location.requestService().then((serviceEnabled){
-          if (!serviceEnabled) {
-            print("Service NOT enabled");
-            return false;
-          }else{
-
-            location.hasPermission().then((permissionGranted){
-              if (permissionGranted == PermissionStatus.denied) {
-                location.requestPermission().then((permissionGranted){
-                  if (permissionGranted != PermissionStatus.granted) {
-                    return false;
-                  }else{
-
-                    // get location
-                    return _getLocationData(location);
-
-                  }
-                });
-
-              }
-            });
-
-
-          }
-
-
-
-        });
-
-      }else{
-
-        location.hasPermission().then((permissionGranted){
-          print("Permission granted? 2");
-          print(permissionGranted);
-          if (permissionGranted == PermissionStatus.denied) {
-            location.requestPermission().then((permissionGranted){
-
-              if (permissionGranted != PermissionStatus.granted) {
-                return false;
-              }else{
-                print("LOCATION DATA: ");
-                return _getLocationData(location);
-              }
-            });
-
-          }else{
-            print("OK GRANTED! NOW LOCATION:");
-
-            return _getLocationData(location);
-          }
-        });
-
-      }
-    });
-
-     */
 
     Location location = new Location();
 
@@ -139,7 +77,7 @@ class Helpers{
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        return;
+        return null;
       }
     }
 
@@ -147,7 +85,7 @@ class Helpers{
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
-        return;
+        return null;
       }
     }
 
