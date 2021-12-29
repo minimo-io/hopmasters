@@ -55,7 +55,7 @@ class Helpers{
     String version = packageInfo.version;
     String buildNumber = packageInfo.buildNumber;
 
-    return "v."+version.toString();
+    return "Beta • v."+version.toString();
 
   }
 

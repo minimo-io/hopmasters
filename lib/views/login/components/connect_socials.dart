@@ -270,13 +270,13 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
             autovalidateMode: _autovalidate,
             child: Container(
               //padding: EdgeInsets.only(top:50),
-              height: MediaQuery.of(context).size.height + 100,
+              height: MediaQuery.of(context).size.height + 80,
               decoration: widget.headerDecoration,
               child: new Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TopLogo(topPadding: 0,),
+                  TopLogo(topPadding: 0, bottomPadding: 50.0,),
                   SizedBox(height: 0,),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
                   /*
@@ -377,7 +377,21 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
                         if (snapshot.hasError){
                           return Text("No available version", style: TextStyle(fontSize: 11, color: Colors.black.withOpacity(0.8)));
                         }else{
-                          return Text(snapshot.data.toString(), style: TextStyle(fontSize: 11, color: Colors.black.withOpacity(0.8)));
+                          return Container(
+                              decoration: BoxDecoration(
+                                  //color: Color.fromRGBO(112, 207, 61, .5),
+                                  color: Colors.black.withOpacity(.9),
+
+                                  borderRadius: BorderRadius.all(Radius.circular(20))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                                child: Text(
+                                    snapshot.data.toString(),
+                                    style: TextStyle(fontSize: 11, color: Colors.white.withOpacity(.8))
+                                ),
+                              )
+                          );
                         }
 
                       }else{

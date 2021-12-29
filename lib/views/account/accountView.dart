@@ -10,7 +10,7 @@ import 'package:Hops/theme/style.dart';
 
 import '../../helpers.dart';
 import 'components/account_profile_pic.dart';
-import 'components/profile_menu.dart';
+import '../../components/profile_menu.dart';
 
 import 'package:Hops/utils/notifications.dart';
 

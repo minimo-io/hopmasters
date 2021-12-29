@@ -20,9 +20,11 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 20,
-        horizontal: MediaQuery.of(context).size.width * .05,
+      margin: EdgeInsets.only(
+        top: 20,
+        bottom:1,
+        left: MediaQuery.of(context).size.width * .05,
+        right: MediaQuery.of(context).size.width * .05,
       ),
       decoration: BoxDecoration(
         color: Colors.white,

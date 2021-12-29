@@ -29,7 +29,7 @@ class SpecialOffers extends StatelessWidget {
                 category: "¿Cómo funciona?",
                 subtitle: "Mira la idea detrás de HOPS",
                 press: () {
-                  Helpers.launchURL("https://hops.uy/revista/novedades/cervezas-artesanales-de-uruguay/");
+                  Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
                 },
               ),
               SpecialOfferCard(

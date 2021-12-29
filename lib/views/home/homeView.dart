@@ -9,10 +9,13 @@ import 'package:Hops/components/beer_cards.dart';
 import 'package:Hops/components/breweries_cards.dart';
 import 'package:Hops/components/app_title.dart';
 import 'package:Hops/components/search_bar.dart';
+import 'package:Hops/components/score_button.dart';
 
 import 'package:Hops/views/home/components/bannerBreweries.dart';
 import 'package:Hops/views/home/components/specialOffers.dart';
 import 'package:Hops/views/home/components/discoverBeers.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/helpers.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -29,8 +32,13 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
-  }
 
+  }
+  Future getUserScore() async {
+    var userData = await SharedServices.loginDetails();
+    return WordpressAPI.getUserPrefs( userData!.data!.id, indexType: "score" );
+
+  }
 
 
   @override
@@ -45,6 +53,33 @@ class _HomeViewState extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchBar(),
+              FutureBuilder(
+                  future: getUserScore(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Container();
+                      default:
+                        if (snapshot.hasError) {
+                          return Text(' Ups! Errors: ${snapshot.error}');
+                        } else {
+                          return ScoreButton(
+                            text: "¡Hola! Tenés " + snapshot.data["result"].toString() + " puntos Hops",
+                            image: Image.asset("assets/images/medal.png", height: 20,),
+                            press: () {
+
+                              Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
+
+
+                            },
+                          );
+
+                        }
+                    }
+                  }
+              ),
+
               //BreweriesBanner(),
               SizedBox(height: (20)),
               SpecialOffers(),
