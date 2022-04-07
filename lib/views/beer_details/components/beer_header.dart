@@ -188,11 +188,13 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
     }
 
     Widget _buildOnlineShopCard({
+      String id = "",
       String name = "",
       double price = 0.00,
       String logo = "",
       bool isVerified = true,
-      String storeBeerUrl = ""
+      String storeBeerUrl = "",
+      String priceLastUpdate = ""
     }){
       return InkWell(
         onTap: (){
@@ -208,7 +210,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               // mainAxisAlignment: MainAxisAlignment.start,
               children:[
                 Hero(
-                  tag: "shop-1",
+                  tag: "shop-" + id,
                   child: Image.network(
                     logo,
                     fit: BoxFit.cover, // this is the solution for border
@@ -224,7 +226,26 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
-
+                        if (priceLastUpdate != "") Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            //crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 1.0),
+                                child: Icon(
+                                  Icons.visibility,
+                                  color: Colors.black ,
+                                  size: 10.0,
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left:6.0),
+                                  child: Text(priceLastUpdate, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.0))
+                              )
+                            ],
+                          ),
+                        ),
                         if (isVerified) Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -383,17 +404,20 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
               width: MediaQuery.of(context).size.width * 0.90,
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: _buildOnlineShopCard(
+                  id: store.id,
                   name: store.name,
                   price: double.parse((int.parse(store.price) * itemCount).toString()),
+                  priceLastUpdate: store.priceLastUpdate,
                   logo: store.image,
-                  storeBeerUrl: store.url
+                  storeBeerUrl: store.url,
+                  isVerified: (store.isVerified.toLowerCase() == "true" ? true : false )
               )
           ),
 
           if (widget.beer.stores == null) Container(
               width: MediaQuery.of(context).size.width * 0.90,
               padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Text("Ninguna tienda online tiene este producto.", style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal, color: Colors.black38),)
+              child: Text("Ninguna tienda online tiene esta cerveza.", style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal, color: Colors.black38),)
           ),
 
 

@@ -8,6 +8,7 @@ class Store{
   String? priceLastUpdate;
   String? url;
   String? image;
+  String? isVerified;
 
 
   Store({
@@ -17,6 +18,7 @@ class Store{
     this.priceLastUpdate,
     this.url,
     this.image,
+    this.isVerified,
   });
 
   Store.fromJson(Map<String, dynamic> parsedJson){
@@ -27,6 +29,7 @@ class Store{
     priceLastUpdate = (parsedJson["price_last_update"] != null ? parsedJson["price_last_update"] : "" );
     url = (parsedJson["url"] != null ? parsedJson["url"] : "" );
     image = (parsedJson["image"] != null ? parsedJson["image"] : "" );
+    isVerified = (parsedJson["is_verified"] != null ? parsedJson["is_verified"] : "" );
 
 
   }
