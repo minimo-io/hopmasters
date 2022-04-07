@@ -386,7 +386,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                   name: store.name,
                   price: double.parse((int.parse(store.price) * itemCount).toString()),
                   logo: store.image,
-                  storeBeerUrl: store.url,
+                  storeBeerUrl: store.url
               )
           ),
 
