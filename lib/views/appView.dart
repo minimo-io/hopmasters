@@ -27,12 +27,14 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends State<AppView> {
   int currentTab = 0;
-  final PageStorageBucket _bucket = PageStorageBucket();
+  static const String routeName = "/";
+  late PageController pageController;
 
 
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
     // get preferences (beers, news, etc) and set them in provider for app use
       // beer_types
     SharedServices.populateProvider(context, "beer_types");
@@ -42,11 +44,11 @@ class _AppViewState extends State<AppView> {
 
   final List<Widget> pages = const <Widget>[
     HomeView(
-      key: PageStorageKey<String>('page1'),
+
     ),
-    FavoritesView( key: PageStorageKey<String>('page2') ),
-    ExperiencesView( key: PageStorageKey<String>('page4'), ),
-    AccountView( key: PageStorageKey<String>('page3'),)
+    FavoritesView(),
+    ExperiencesView(  ),
+    AccountView( )
   ];
 
 
@@ -78,7 +80,27 @@ class _AppViewState extends State<AppView> {
     ),
   ];
 
-  static const String routeName = "/";
+
+
+  @override
+  void dispose(){
+    pageController.dispose();
+    super.dispose();
+  }
+
+  _onTapped(int index){
+    setState(() {
+      currentTab = index;
+    });
+    pageController.jumpToPage(index);
+  }
+
+  void onPageChanged(int index){
+    setState(() {
+      currentTab = index;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +111,16 @@ class _AppViewState extends State<AppView> {
     return Scaffold(
         floatingActionButton: SearchButton(),
         appBar: TopAppBar(),
+        /*
         body: PageStorage(
           child: pages[currentTab],
           bucket: _bucket,
+        ),
+        */
+        body: PageView(
+          children: pages,
+          controller: pageController,
+          onPageChanged: onPageChanged,
         ),
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -108,11 +137,15 @@ class _AppViewState extends State<AppView> {
                   currentIndex: currentTab,
                   //      selectedFontSize: textTheme.caption.fontSize,
                   //      unselectedFontSize: textTheme.caption.fontSize,
+                  onTap: _onTapped,
+                  /*
                   onTap: (int index) {
                     setState(() {
                       currentTab = index;
                     });
                   },
+
+                   */
                 )
 
               /*child:*/

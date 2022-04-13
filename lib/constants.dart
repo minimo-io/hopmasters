@@ -25,6 +25,7 @@ const firstHeaderDesktopTopPadding = 5.0;
 
 const marginSide = 18.0;
 
+const showSearchBar = false;
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 

@@ -16,7 +16,7 @@ import 'package:Hops/views/home/components/specialOffers.dart';
 import 'package:Hops/views/home/components/discoverBeers.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/helpers.dart';
-
+import 'package:Hops/constants.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchBar(),
+              if (showSearchBar) SearchBar(),
               FutureBuilder(
                   future: _userScore,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -89,6 +89,9 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                   }
               ),
 
+              //DiscoverBeers(),
+              _discoverBeers,
+
               //BreweriesBanner(),
               SizedBox(height: (20)),
               SpecialOffers(),
@@ -97,8 +100,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
 
               //SizedBox(height: (30)),
 
-              //DiscoverBeers(),
-              _discoverBeers,
+
 
               SizedBox(height: (30)),
 
