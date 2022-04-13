@@ -26,11 +26,13 @@ class DiscoverBeers extends StatefulWidget {
   _DiscoverBeersState createState() => _DiscoverBeersState();
 }
 
-class _DiscoverBeersState extends State<DiscoverBeers> {
+class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveClientMixin {
   Future? _beers;
   String _disoverBeersType = "recent";
   HopsNotifications notificationClient =  new HopsNotifications();
 
+  @override
+  bool get wantKeepAlive => true;
 
   static List<Animal> _animals = [
     Animal(id: 1, name: "Lion"),

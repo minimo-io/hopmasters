@@ -25,15 +25,23 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
   Future? _breweryBeers;
+  Future? _userScore;
+  late Widget _discoverBeers;
 
   @override
   void initState() {
     super.initState();
     //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
-
+    _userScore = getUserScore();
+    _discoverBeers = DiscoverBeers();
+    print(_discoverBeers);
   }
+
+  @override
+  bool get wantKeepAlive => true;
+
   Future getUserScore() async {
     var userData = await SharedServices.loginDetails();
     return WordpressAPI.getUserPrefs( userData!.data!.id, indexType: "score" );
@@ -43,6 +51,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -54,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               SearchBar(),
               FutureBuilder(
-                  future: getUserScore(),
+                  future: _userScore,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
 
                     switch (snapshot.connectionState) {
@@ -88,7 +97,8 @@ class _HomeViewState extends State<HomeView> {
 
               //SizedBox(height: (30)),
 
-              DiscoverBeers(),
+              //DiscoverBeers(),
+              _discoverBeers,
 
               SizedBox(height: (30)),
 

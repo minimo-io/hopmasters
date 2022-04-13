@@ -14,6 +14,7 @@ import 'package:Hops/views/home/homeView.dart';
 import 'package:Hops/views/store/storeView.dart';
 import 'package:Hops/views/account/accountView.dart';
 import 'package:Hops/views/favorites/favoritesView.dart';
+import 'package:Hops/views/experiences/experiencesView.dart';
 
 
 class AppView extends StatefulWidget {
@@ -25,12 +26,13 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  int currentTab = 0;
+  final PageStorageBucket _bucket = PageStorageBucket();
 
 
   @override
   void initState() {
     super.initState();
-
     // get preferences (beers, news, etc) and set them in provider for app use
       // beer_types
     SharedServices.populateProvider(context, "beer_types");
@@ -43,12 +45,12 @@ class _AppViewState extends State<AppView> {
       key: PageStorageKey<String>('page1'),
     ),
     FavoritesView( key: PageStorageKey<String>('page2') ),
-    // StoreView( key: PageStorageKey<String>('page3'), ),
+    ExperiencesView( key: PageStorageKey<String>('page4'), ),
     AccountView( key: PageStorageKey<String>('page3'),)
   ];
 
-  int currentTab = 0;
-  final PageStorageBucket _bucket = PageStorageBucket();
+
+
 
   var bottomNavigationBarItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -66,6 +68,10 @@ class _AppViewState extends State<AppView> {
     ),
 
      */
+    BottomNavigationBarItem(
+      icon: const Icon(Icons.place),
+      label: "Experiencias",
+    ),
     BottomNavigationBarItem(
       icon: const Icon(Icons.account_circle),
       label: "Cuenta",
