@@ -41,126 +41,135 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
     super.build(context);
 
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: PRIMARY_GRADIENT_COLOR,
-          ),
-          child: FutureBuilder(
-            future: Future.wait([
-              SharedServices.loginDetails(),
+      child: RefreshIndicator(
+        onRefresh: ()async{
+          setState(() {
+            _userData = SharedServices.loginDetails();
+          });
 
-            ]),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR) );
-                default:
-                  if (snapshot.hasError){
-                    return Text(' Ups! Errors: ${snapshot.error}');
-                  }else{
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: PRIMARY_GRADIENT_COLOR,
+            ),
+            child: FutureBuilder(
+              future: Future.wait([
+                SharedServices.loginDetails(),
 
-                    return Column(
-                      children: [
-                        SizedBox(height: 40),
-                        BreweryProfilePic(
-                            avatarUrl: snapshot.data[0].data.avatarUrl,
-                            userId: snapshot.data[0].data.id
-                        ),
-                        SizedBox(height: 20),
+              ]),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR) );
+                  default:
+                    if (snapshot.hasError){
+                      return Text(' Ups! Errors: ${snapshot.error}');
+                    }else{
 
-                        ProfileMenu(
-                          text: "Mi perfil",
-                          icon: Icon(Icons.verified_user),
-                          press: (){
-                            var notificationClient = new HopsNotifications();
-                            notificationClient.message(context, "¡En próximas versiones!");
-                          },
-                        ),
+                      return Column(
+                        children: [
+                          SizedBox(height: 40),
+                          BreweryProfilePic(
+                              key: UniqueKey(),
+                              avatarUrl: snapshot.data[0].data.avatarUrl,
+                              userId: snapshot.data[0].data.id
+                          ),
+                          SizedBox(height: 20),
 
-                        ProfileMenu(
-                          text: "Tus pedidos",
-                          icon: Icon(Icons.shopping_cart),
-                          press: () {
-                            Navigator.pushNamed(
-                              context,
-                              "orders"
-                            );
-                          },
-                        ),
-                        /*
-                        ProfileMenu(
-                          text: "Notificaciones",
-                          icon: Icon(Icons.notifications),
-                          press: () {},
-                        ),
+                          ProfileMenu(
+                            text: "Mi perfil",
+                            icon: Icon(Icons.verified_user),
+                            press: (){
+                              var notificationClient = new HopsNotifications();
+                              notificationClient.message(context, "¡En próximas versiones!");
+                            },
+                          ),
 
-                         */
-                        ProfileMenu(
-                          text: "Preferencias",
-                          icon: Icon(Icons.settings),
-                          press: () {
-                            Navigator.pushNamed(
-                              context,
-                              "preferences",
-                              arguments: { 'fromMainApp': true },
-                            );
-                          },
-                        ),
-                        ProfileMenu(
-                          text: "Acerca de Hops",
-                          icon: Icon(Icons.help_center),
-                          press: () {
+                          ProfileMenu(
+                            text: "Tus pedidos",
+                            icon: Icon(Icons.shopping_cart),
+                            press: () {
+                              Navigator.pushNamed(
+                                context,
+                                "orders"
+                              );
+                            },
+                          ),
+                          /*
+                          ProfileMenu(
+                            text: "Notificaciones",
+                            icon: Icon(Icons.notifications),
+                            press: () {},
+                          ),
 
-                                showAboutDialog(
-                                  context: context,
-                                  // applicationVersion: snapshot.data.toString(),
-                                  applicationIcon: MyAppIcon(),
-                                  applicationLegalese:
-                                  'Esta es una aplicación pensada para mayores de 18 años.',
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 20),
-                                      child: Text('¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal ¡Unite a lo local!'),
-                                    ),
-                                  ],
-                                );
+                           */
+                          ProfileMenu(
+                            text: "Preferencias",
+                            icon: Icon(Icons.settings),
+                            press: () {
+                              Navigator.pushNamed(
+                                context,
+                                "preferences",
+                                arguments: { 'fromMainApp': true },
+                              );
+                            },
+                          ),
+                          ProfileMenu(
+                            text: "Acerca de Hops",
+                            icon: Icon(Icons.help_center),
+                            press: () {
 
-
-                          },
-                        ),
-                        ProfileMenu(
-                          text: "Salir",
-                          icon: Icon(Icons.logout),
-                          press: () {
-
-
-                            SharedServices.loginDetails().then((loginPrefs){
-
-                              SharedServices.logout(context);
-                              if (loginPrefs!.data!.connectionType == "Google"){
-                                Google googleService = new Google();
-                                googleService.logout().then((value) => SharedServices.logout(context));
-                              }else if(loginPrefs.data!.connectionType == "Facebook"){
-                                Facebook facebookService = new Facebook();
-
-                                facebookService.logout((){
-                                  print("Facebook Logout OK");
-                                });
-                              }
-
-                            });
+                                  showAboutDialog(
+                                    context: context,
+                                    // applicationVersion: snapshot.data.toString(),
+                                    applicationIcon: MyAppIcon(),
+                                    applicationLegalese:
+                                    'Esta es una aplicación pensada para mayores de 18 años.',
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: Text('¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal ¡Unite a lo local!'),
+                                      ),
+                                    ],
+                                  );
 
 
+                            },
+                          ),
+                          ProfileMenu(
+                            text: "Salir",
+                            icon: Icon(Icons.logout),
+                            press: () {
 
-                          },
-                        ),
-                        SizedBox(height: 150),
-                      ],
-                    );
-                  }
+
+                              SharedServices.loginDetails().then((loginPrefs){
+
+                                SharedServices.logout(context);
+                                if (loginPrefs!.data!.connectionType == "Google"){
+                                  Google googleService = new Google();
+                                  googleService.logout().then((value) => SharedServices.logout(context));
+                                }else if(loginPrefs.data!.connectionType == "Facebook"){
+                                  Facebook facebookService = new Facebook();
+
+                                  facebookService.logout((){
+                                    print("Facebook Logout OK");
+                                  });
+                                }
+
+                              });
+
+
+
+                            },
+                          ),
+                          SizedBox(height: 150),
+                        ],
+                      );
+                    }
+                }
               }
-            }
+            ),
           ),
         ),
       ),

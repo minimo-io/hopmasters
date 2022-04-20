@@ -68,14 +68,9 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
     return SafeArea(
       child: RefreshIndicator(
         onRefresh:()async{
-
-
           setState(() {
             _userScore = getUserScore();
           });
-
-
-
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
