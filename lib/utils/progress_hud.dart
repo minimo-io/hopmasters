@@ -8,6 +8,7 @@ class ProgressHUD extends StatelessWidget {
   final double opacity;
   final Color color;
   final Animation<Color>? valueColor;
+  final String? text;
 
   ProgressHUD({
     Key? key,
@@ -16,6 +17,7 @@ class ProgressHUD extends StatelessWidget {
     this.opacity = 0.3,
     this.color = Colors.grey,
     this.valueColor,
+    this.text
   }) : super(key: key);
 
   @override
@@ -30,10 +32,19 @@ class ProgressHUD extends StatelessWidget {
             child: ModalBarrier(dismissible: false, color: color),
           ),
           new Center(
-            child: new CircularProgressIndicator(
+            /*child: new CircularProgressIndicator(
               color: PROGRESS_INDICATOR_COLOR,
               valueColor: valueColor,
-            ),
+            ),*/
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Image.asset("assets/images/loader-hops.gif",width: 100,),
+              if (text != null) Padding(padding:EdgeInsets.only(top:10), child: Material(child:Text(text!), type: MaterialType.transparency,) ),
+
+             ],)
+
+
           ),
         ],
       );

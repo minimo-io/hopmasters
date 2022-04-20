@@ -197,11 +197,21 @@ class _OrdersViewState extends State<OrdersView> {
               builder: (BuildContext context, AsyncSnapshot snapshot){
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
-                      ],
+                    return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                                child: Image.asset("assets/images/loader-hops.gif",width: 100,)
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text("Cargando pedidos..."),
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        )
                     );
                   default:
                     if (snapshot.hasError) {

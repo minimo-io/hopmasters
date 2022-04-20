@@ -26,6 +26,7 @@ class OpinionFloatingAction extends StatefulWidget {
   int postId;
   Comment? comment;
   String? commentText; // inviting to vote, varies if beer or brewery.
+  String? commentPlaceholder;
 
   OpinionFloatingAction(
       this.textInactive,
@@ -44,6 +45,7 @@ class OpinionFloatingAction extends StatefulWidget {
         this.comment,
         this.isActive = false,
         this.commentText = "Contanos qué te pareció esta cerveza y qué puntaje le dejarías.",
+        this.commentPlaceholder = "¿Qué te pareció esta cerveza?",
         Key? key,
       }) : super(key: key);
 
@@ -182,7 +184,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
                                       border: OutlineInputBorder(
                                           borderSide: new BorderSide(color: colorScheme.secondary)),
                                       hintText: 'Contanos...',
-                                      labelText: '¿Qué te pareció esta cerveza?',
+                                      labelText: widget.commentPlaceholder,
                                       helperText: 'Toda artesanál se hace con esfuerzo, intenta ser amable 😊',
                                     ),
                                   ),

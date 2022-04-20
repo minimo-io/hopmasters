@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:Hops/services/wordpress_api.dart';
-
+import 'package:provider/provider.dart';
 import 'package:Hops/theme/style.dart';
 
 import 'package:Hops/components/async_loader.dart';
@@ -13,6 +13,8 @@ import 'package:Hops/components/opinion_floating_action.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/login.dart';
+
+
 
 
 
@@ -48,6 +50,7 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
   bool _hideCommentsFloatingButtons = false;
   Map<String, dynamic> _scores = new Map();
 
+
   refresh() {
 
     if (_hideCommentsFloatingButtons == false){
@@ -71,7 +74,9 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
     _scores["opinionScore"] = 0.0;
 
     WidgetsBinding.instance?.addPostFrameCallback((_){
+
       _beerFuture!.then((beerData){
+
         refreshScore(
             int.parse(beerData!.scoreCount!),
             double.parse(beerData.scoreAvg!)
@@ -108,7 +113,7 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
         builder: (BuildContext context, AsyncSnapshot snapshot) {
 
           switch (snapshot.connectionState) {
-            case ConnectionState.waiting: return AsyncLoader();
+            case ConnectionState.waiting: return AsyncLoader(text: "Cargando cerveza...",);
             default:
               if (snapshot.hasError)
                 return Text('Error: ${snapshot.error}');

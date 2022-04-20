@@ -337,7 +337,8 @@ class _CheckoutViewState extends State<CheckoutView> {
 
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
-      opacity: 0.5,
+      opacity: 0.9,
+      text: "Enviando pedido...",
       child: Scaffold(
         // bottomNavigationBar: _buildCheckoutButton(),
         bottomNavigationBar: _buildFinishCheckoutButton(),

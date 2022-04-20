@@ -114,7 +114,8 @@ class _SignupPageState extends State<SignupPage> with GotosMixin{
   Widget build(BuildContext context) {
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
-      opacity: 0.5,
+      opacity: 0.9,
+      text: "Ya casi...",
       child: SafeArea(
         child: SingleChildScrollView(
           child: Form(

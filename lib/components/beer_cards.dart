@@ -427,11 +427,16 @@ class _BeerCardsState extends State<BeerCards> {
                   return Center(child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,),
+                      SizedBox(height: 10),
+                      Center(
+                        //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                          child: Image.asset("assets/images/loader-hops.gif",width: 100,)
+                      ),
 
                       if (widget.loadingText != null) Padding(
                           padding: EdgeInsets.only(top: 10),
-                          child: Text(widget.loadingText!))
+                          child: Text(widget.loadingText!)),
+                      SizedBox(height: 10),
 
 
                     ],

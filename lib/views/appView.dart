@@ -1,23 +1,27 @@
+import 'package:Hops/models/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/theme/style.dart';
 
 import 'package:Hops/models/preferences.dart';
+import 'package:Hops/models/loader.dart';
 
 import 'package:Hops/components/search_button.dart';
 import 'package:Hops/components/top_app_bar.dart';
-
+import 'package:Hops/components/async_loader.dart';
 import 'package:Hops/services/shared_services.dart';
 
 import 'package:Hops/views/home/homeView.dart';
 import 'package:Hops/views/store/storeView.dart';
 import 'package:Hops/views/account/accountView.dart';
 import 'package:Hops/views/favorites/favoritesView.dart';
+import 'package:Hops/views/experiences/experiencesView.dart';
 
 
 class AppView extends StatefulWidget {
   static const routeName = '/';
+
   const AppView({Key? key}) : super(key: key);
 
   @override
@@ -25,30 +29,31 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  int currentTab = 0;
+  static const String routeName = "/";
+  late PageController pageController;
 
 
   @override
   void initState() {
     super.initState();
-
+    pageController = PageController();
     // get preferences (beers, news, etc) and set them in provider for app use
-      // beer_types
+    // beer_types
     SharedServices.populateProvider(context, "beer_types");
-      // news_types
+    // news_types
     SharedServices.populateProvider(context, "news_types");
   }
 
   final List<Widget> pages = const <Widget>[
     HomeView(
-      key: PageStorageKey<String>('page1'),
+
     ),
-    FavoritesView( key: PageStorageKey<String>('page2') ),
-    // StoreView( key: PageStorageKey<String>('page3'), ),
-    AccountView( key: PageStorageKey<String>('page3'),)
+    FavoritesView(),
+    ExperiencesView(),
+    AccountView()
   ];
 
-  int currentTab = 0;
-  final PageStorageBucket _bucket = PageStorageBucket();
 
   var bottomNavigationBarItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -67,52 +72,79 @@ class _AppViewState extends State<AppView> {
 
      */
     BottomNavigationBarItem(
+      icon: const Icon(Icons.place),
+      label: "Experiencias",
+    ),
+    BottomNavigationBarItem(
       icon: const Icon(Icons.account_circle),
       label: "Cuenta",
     ),
   ];
 
-  static const String routeName = "/";
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  _onTapped(int index) {
+    setState(() {
+      currentTab = index;
+    });
+    pageController.jumpToPage(index);
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      currentTab = index;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
-
     // final Orientation orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
-        floatingActionButton: SearchButton(),
-        appBar: TopAppBar(),
-        body: PageStorage(
-          child: pages[currentTab],
-          bucket: _bucket,
-        ),
-        bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              gradient: PRIMARY_GRADIENT_COLOR,
-            ),
-            child: BottomNavigationBar(
-                  elevation: 0,
-                  showUnselectedLabels: true,
-                  backgroundColor: Colors.transparent,
-                  type: BottomNavigationBarType.fixed,
-                  unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
-                  selectedItemColor: colorScheme.secondary,
-                  items: bottomNavigationBarItems,
-                  currentIndex: currentTab,
-                  //      selectedFontSize: textTheme.caption.fontSize,
-                  //      unselectedFontSize: textTheme.caption.fontSize,
-                  onTap: (int index) {
-                    setState(() {
-                      currentTab = index;
-                    });
-                  },
+                floatingActionButton: SearchButton(),
+                appBar: TopAppBar(),
+                body: PageView(
+                  children: pages,
+                  controller: pageController,
+                  onPageChanged: onPageChanged,
+                ),
+                bottomNavigationBar: Container(
+                    decoration: BoxDecoration(
+                      gradient: PRIMARY_GRADIENT_COLOR,
+                    ),
+                    child: BottomNavigationBar(
+                      elevation: 0,
+                      showUnselectedLabels: true,
+                      backgroundColor: Colors.transparent,
+                      type: BottomNavigationBarType.fixed,
+                      unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
+                      selectedItemColor: colorScheme.secondary,
+                      items: bottomNavigationBarItems,
+                      currentIndex: currentTab,
+                      //      selectedFontSize: textTheme.caption.fontSize,
+                      //      unselectedFontSize: textTheme.caption.fontSize,
+                      onTap: _onTapped,
+                      /*
+                      onTap: (int index) {
+                        setState(() {
+                          currentTab = index;
+                        });
+                      },
+
+                       */
+                    )
+
+                  /*child:*/
+
                 )
+            );
 
-              /*child:*/
-
-        )
-    );
   }
 }
 

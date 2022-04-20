@@ -80,7 +80,8 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
 
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
-      opacity: 0.5,
+      opacity: 0.9,
+      text: "Entrando...",
       child: SafeArea(
         child: SingleChildScrollView(
           child: Form(

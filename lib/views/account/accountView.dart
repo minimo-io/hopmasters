@@ -23,8 +23,11 @@ class AccountView extends StatefulWidget {
   _AccountViewState createState() => _AccountViewState();
 }
 
-class _AccountViewState extends State<AccountView> {
+class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClientMixin {
   Future<LoginResponse?>? _userData;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -35,6 +38,8 @@ class _AccountViewState extends State<AccountView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(

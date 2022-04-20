@@ -26,11 +26,13 @@ class DiscoverBeers extends StatefulWidget {
   _DiscoverBeersState createState() => _DiscoverBeersState();
 }
 
-class _DiscoverBeersState extends State<DiscoverBeers> {
+class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveClientMixin {
   Future? _beers;
   String _disoverBeersType = "recent";
   HopsNotifications notificationClient =  new HopsNotifications();
 
+  @override
+  bool get wantKeepAlive => true;
 
   static List<Animal> _animals = [
     Animal(id: 1, name: "Lion"),
@@ -618,7 +620,23 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                  return Center( child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,) );
+                  return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 10),
+                          Center(
+                            //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                              child: Image.asset("assets/images/loader-hops.gif",width: 100,)
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Text("Cargando cervezas..."),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      )
+                  );
                 default:
                   if (snapshot.hasError){
                     return Text('Ups! Error: ${snapshot.error}');
@@ -627,7 +645,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> {
                       children: [
                         _buildListGridView(),
                         SizedBox(height: 10,),
-                        BeerCards( beersList: snapshot.data, discoverBeersType: _disoverBeersType,),
+                        BeerCards( loadingText: "Cargando cervezas...", beersList: snapshot.data, discoverBeersType: _disoverBeersType,),
 
                       ],
                     );

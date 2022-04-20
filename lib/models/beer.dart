@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/helpers.dart';
 import 'package:Hops/models/comment.dart';
+import 'package:Hops/models/store.dart';
 
 
 
@@ -25,7 +26,8 @@ class Beer{
     required this.stockStatus,
     required this.scoreAvg,
     required this.scoreCount,
-    this.comment
+    this.comment,
+    this.stores
 
   }) : this.rgbColor = Helpers.HexToColor(bgColor ?? "#ffffff");
 
@@ -44,8 +46,8 @@ class Beer{
     String? abv = "0";
     if (parsedJson.containsKey("acf")) abv = parsedJson['acf']["abv"].toString();
 
-    String? ibu = "0";
-    if (parsedJson.containsKey("acf")) ibu = parsedJson['acf']["ibu"].toString();
+    String? ibu = "?";
+    if (parsedJson.containsKey("acf")) ibu = (parsedJson['acf']["ibu"].toString() == "0" ? "?" : parsedJson['acf']["ibu"].toString());
 
     String? launch = "0";
     if (parsedJson.containsKey("acf")) launch = parsedJson['acf']["launch"].toString();
@@ -83,6 +85,14 @@ class Beer{
       scoreAvg = parsedJson["scores"]["opinionScore"].toString();
       scoreCount = parsedJson["scores"]["opinionCount"].toString();
     }
+
+    List stores = [];
+    if (parsedJson.containsKey("stores")){
+      // parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"]) : null;
+      stores = parsedJson["stores"];
+      print(stores);
+    }
+
     return Beer(
       beerId: parsedJson['id'].toString(),
       name: parsedJson['name'].toString(),
@@ -103,6 +113,7 @@ class Beer{
       stockStatus: stockStatus,
       scoreAvg: scoreAvg,
       scoreCount: scoreCount,
+      stores: stores.length > 0 ? Store.allFromResponse(stores) : null,
       comment: parsedJson["user_comment"].length > 0 ? new Comment.fromJson(parsedJson["user_comment"][0]) : null // passing only the first one (as user can edit)
     );
   }
@@ -125,4 +136,5 @@ class Beer{
   String? scoreCount;
   String stockStatus;
   String? breweryId, breweryName, breweryImage, breweryWhatsapp;
+  List? stores;
 }

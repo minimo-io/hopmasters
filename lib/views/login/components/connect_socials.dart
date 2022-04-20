@@ -262,7 +262,8 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage> with GotosMixin
 
     return ProgressHUD(
       inAsyncCall: isLoadingApiCall,
-      opacity: 0.5,
+      opacity: 0.9,
+      text: "¡Gluc gluc! Entrando...",
       child: SingleChildScrollView(
         child: SafeArea(
           child: Form(

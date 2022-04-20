@@ -94,6 +94,7 @@ class _BreweryViewState extends State<BreweryView> {
                     "OPINAR",
                     title: "OPINAR",
                     commentText: "Contanos qué te parece esta cervecería y qué puntaje le dejarías.",
+                    commentPlaceholder: "¿Qué te pareció esta cervecería?",
                     height: MediaQuery.of(context).size.height * 0.5,
                     isActive: _activeButton,
                     child: null,

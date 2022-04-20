@@ -178,7 +178,8 @@ class _PreferencesSignUpViewState extends State<PreferencesSignUpView> {
                     body: SafeArea(
                       child: ProgressHUD(
                         inAsyncCall: isLoadingApiCall,
-                        opacity: 0.5,
+                        opacity: 0.9,
+                        text:"Guardando preferencias...",
                         child: SingleChildScrollView(
                           child: new Container(
                             width: MediaQuery.of(context).size.width,

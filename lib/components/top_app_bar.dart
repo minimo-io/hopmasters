@@ -83,7 +83,7 @@ class _TopAppBarState extends State<TopAppBar> {
                   Icons.qr_code_scanner,
                 ),
                 SizedBox(width: 5,),
-                Text("ESCANEAR", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
+                Text("COLABORAR", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:Hops/models/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/services/shared_services.dart';
@@ -44,6 +45,7 @@ class HopsApp extends StatelessWidget{
         ChangeNotifierProvider( create: (context) => NavMenuProvider(), ),
         ChangeNotifierProvider( create: (context) => Preferences(), ),
         ChangeNotifierProvider( create: (context) => Cart(), ),
+        // ChangeNotifierProvider( create: (context) => Loader(), ),
       ],
 
       child: MaterialApp(
