@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '3'
+    flutterVersionCode = '5'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '0.7.1'
 }
 
 apply plugin: 'com.android.application'
@@ -52,7 +52,7 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('/Users/nicolaserramuspe/Development/hops_keys/key.jks')
+            storeFile file('/Users/minimo/DevOps/hops_keys/key.jks')
             storePassword 'Qdio9o7WGMHHD4ew'
             keyAlias 'androiddebugkey'
             keyPassword 'Qdio9o7WGMHHD4ew'

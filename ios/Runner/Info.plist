@@ -42,6 +42,8 @@
 	<string>Hops</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+	    <string>https</string>
+        <string>http</string>
 		<string>fbapi</string>
 		<string>fbapi20130214</string>
 		<string>fbapi20130410</string>
