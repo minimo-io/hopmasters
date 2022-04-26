@@ -21,6 +21,8 @@ import 'package:Hops/helpers.dart';
 import 'package:Hops/constants.dart';
 import 'package:provider/provider.dart';
 
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -34,10 +36,12 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
   late Widget _discoverBeers;
   bool _isLoading = true;
   String _scoreOverview = "";
+  final String oneSignalAppId = "ab209bbc-1de2-4693-a683-3674d281d4cb";
 
   @override
   void initState() {
     super.initState();
+    initOneSignalNotifications();
     //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
     _userScore = getUserScore();
     // _discoverBeers = DiscoverBeers();
@@ -53,6 +57,14 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> initOneSignalNotifications()async{
+    OneSignal.shared.setAppId(
+        oneSignalAppId,
+    );
+    //OneSignal.shared.disablePush(false);
+
+  }
 
   Future getUserScore() async {
     var userData = await SharedServices.loginDetails();
