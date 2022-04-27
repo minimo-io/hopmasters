@@ -82,7 +82,7 @@ class _BreweryViewState extends State<BreweryView> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
 
         switch (snapshot.connectionState) {
-          case ConnectionState.waiting: return AsyncLoader();
+          case ConnectionState.waiting: return AsyncLoader(text: "Cargando cervecería...",);
           default:
             if (snapshot.hasError)
               return Text('Error: ${snapshot.error}');

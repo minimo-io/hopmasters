@@ -206,7 +206,23 @@ class _BreweriesCardsState extends State<BreweriesCards> {
                       _isLoadingApiCall
                       ? Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: CircularProgressIndicator(strokeWidth: 1.0, color: PROGRESS_INDICATOR_COLOR),
+                          child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(height: 10),
+                                  Center(
+                                    //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                                      child: Image.asset("assets/images/loader-hops.gif",width: 100,)
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Text("Cargando cervecerías..."),
+                                  ),
+                                  SizedBox(height: 10),
+                                ],
+                              )
+                          ),
                         )
                       : Padding(
                           padding: EdgeInsets.symmetric(horizontal: 18),

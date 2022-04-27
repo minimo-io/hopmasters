@@ -63,7 +63,27 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
         oneSignalAppId,
     );
     //OneSignal.shared.disablePush(false);
+    OneSignal.shared.setNotificationOpenedHandler((openedResult) {
+      var data = openedResult.notification.additionalData;
 
+      if (data!["post_type"] == "product"){
+        Navigator.pushNamed(
+          context,
+          "/beer",
+          arguments: { 'beerId': data!["post_id"] },
+        );
+      }else if( data!["post_type"] == "brewery"){
+        Navigator.pushNamed(
+          context,
+          "/brewery",
+          arguments: { 'breweryId': int.parse(data!["post_id"].toString()) },
+        );
+
+      }
+
+
+
+    });
   }
 
   Future getUserScore() async {
