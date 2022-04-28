@@ -16,6 +16,8 @@ import 'package:Hops/models/preferences.dart';
 import 'package:Hops/models/order_data.dart';
 import 'package:Hops/services/shared_services.dart';
 
+import 'package:location/location.dart';
+
 class WordpressAPI{
 
   static String _apiKey = WC_CONSUMER_KEY;
@@ -26,6 +28,7 @@ class WordpressAPI{
   static String _WP_JWT_AUTH_URI = "/jwt-auth/v1/token";
   static String _WP_REST_WP_URI = "/wp/v2/";
     static String _WP_REST_WP_COMMENTS = "comments";
+    static String _WP_REST_WP_BARS = "bares";
   static String _WP_REST_WC_URI = "/wc/v3/"; // for WooCommerce
     static String _WP_REST_WC_CUSTOMER = "customers";
     static String _WP_REST_WC_CATEGORIES = "products/categories";
@@ -706,6 +709,39 @@ class WordpressAPI{
 
       if (response.statusCode == 200){
 
+        return response.data;
+
+
+      }
+    } on DioError catch(e) {
+      return jsonDecode("{}");
+      print(e.message);
+    }
+  }
+
+  // get bars
+  static Future<List<dynamic>?> getBars({ LocationData? location })async{
+
+    String query =   _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_BARS + "/?_embed&order=desc&orderby=date&per_page=100&page=1";
+    query = query + "&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+    print(location.toString());
+    if ( location != null) {
+      query = query + "&location=" + location.latitude.toString() + "|" + location.longitude.toString();
+    }
+
+    print(query);
+
+    try{
+      var response = await Dio().get(
+        query,
+        options: new Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json"
+            }
+        ),
+      );
+
+      if (response.statusCode == 200){
         return response.data;
 
 

@@ -90,7 +90,10 @@ class _BeerViewState extends State<BeerView> with SingleTickerProviderStateMixin
   Future<Beer?> getBeer() async {
     _userData =  await SharedServices.loginDetails();
 
-    return await WordpressAPI.getBeer(widget.beerId.toString(), userId: _userData!.data!.id.toString());
+    return await WordpressAPI.getBeer(
+        widget.beerId.toString(),
+        userId: _userData!.data!.id.toString()
+    );
   }
 
   refreshScore(int opinionCount, double opinionScore) {

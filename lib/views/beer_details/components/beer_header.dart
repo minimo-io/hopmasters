@@ -14,6 +14,7 @@ import 'package:Hops/theme/style.dart';
 import 'package:Hops/models/login.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:Hops/models/cart.dart';
+import 'package:Hops/models/bar.dart';
 
 import 'package:Hops/components/diagonally_cut_colored_image.dart';
 import 'package:Hops/utils/load_network_image.dart';
@@ -72,6 +73,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
     });
     */
     _location = Helpers.askForLocation();
+
+
 
     void defineBeers(BuildContext context)async {
       _userBeersPreferences.then((beers_prefs) {
@@ -299,7 +302,11 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       );
     }
 
-    Widget _buildShopCard({ String name = "", String address = "", String logo = "", bool isVerified = true  }){
+    Widget _buildShopCard({
+      String? name = "",
+      String? address = "",
+      String? logo = "",
+      bool isVerified = true  }){
       return GestureDetector(
         onTap: (){
           /*
@@ -318,9 +325,9 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.start,
               children:[
-                Hero(
+                if (logo != null) Hero(
                   tag: "shop-1",
-                  child: Image.asset(
+                  child: Image.network(
                     logo,
                     fit: BoxFit.cover, // this is the solution for border
                     width: 55.0,
@@ -334,8 +341,8 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
-                        Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                        if (name != null) Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                        if (address != null) Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
                       ]
                   ),
                 ),
@@ -425,7 +432,30 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
       );
     }
 
-    Widget _buildShops(){
+    Widget _buildShops(List<Bar> barsList){
+      List<Widget> barWidgetList = [];
+      // print(barsList[0].name);
+      for(var bar in barsList ){
+        print(bar.avatar);
+        barWidgetList.add(
+            Container(
+                width: MediaQuery.of(context).size.width * 0.90,
+                padding: EdgeInsets.symmetric(horizontal: 0),
+                child: Container(
+                    width: MediaQuery.of(context).size.width * 0.90,
+                    //padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: _buildShopCard(name: bar.name, address: bar.address, logo: bar.avatar)
+                )
+            )
+        );
+
+      }
+      barWidgetList.add(SizedBox(height: 50,));
+
+      return Column(
+        children: barWidgetList,
+      );
+      /*
       return Column(children: [
         Container(
             width: MediaQuery.of(context).size.width * 0.90,
@@ -438,6 +468,9 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
             child: _buildShopCard(name: "Pepe Botella", address: "José Enrique Rodó 2052.", logo: "assets/images/pepebotella-logo.png")
         ),
       ],);
+
+       */
+
     }
 
     HopsNotifications notificationClient =  new HopsNotifications();
@@ -649,13 +682,18 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                 if (snapshot != null){
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 20.0, left:20.0, top:10.0),
-                                    child: AlertBox(
-                                        text: "Habilita la ubicación para ver las tiendas cercanas.",
-                                        icon: Icons.place
-                                    ),
+                                    child: Container(),
                                   );
                                 }else{
-                                  return Container();
+                                  return Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20.0, left:20.0, top:10.0),
+                                      child: AlertBox(
+                                          text: "Habilita la ubicación para ver los bares cercanos.",
+                                          icon: Icons.place
+                                      ),
+                                    ),
+                                  );
                                 }
                               }
                             ),
@@ -664,9 +702,41 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
 
                             FutureBuilder(
                               future: _location,
-                              builder: (context, snapshot) {
+                              builder: (context, AsyncSnapshot snapshot) {
                                 if (snapshot.data != null) {
-                                  return _buildShops();
+                                  return FutureBuilder(
+                                    future: WordpressAPI.getBars(location: snapshot.data),
+                                    builder: (context, AsyncSnapshot snapshot2){
+                                        switch (snapshot2.connectionState) {
+                                          case ConnectionState.waiting:
+                                            return Center( child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height: 10),
+                                                Image.asset("assets/images/loader-hops.gif",width: 100,),
+                                                Padding(padding:EdgeInsets.only(top:10), child: Text("Cargando bares...")),
+                                                SizedBox(height: 10),
+                                              ],
+                                            ) );
+                                          default:
+                                            if (snapshot2.hasError){
+                                              return Text('Ups! Error: ${snapshot2.error}');
+                                            }else{
+
+                                              print(snapshot2.data);
+
+
+                                              var barsCardsList = (snapshot2.data as List)
+                                                  .map((data) => new Bar.fromJson(data))
+                                                  .toList();
+                                              print( barsCardsList.toString() );
+
+                                              return _buildShops(barsCardsList);
+
+                                            }
+                                        }
+                                    }
+                                  );
                                 }else{
                                   return Container(
                                       padding: EdgeInsets.symmetric(horizontal: 20),
