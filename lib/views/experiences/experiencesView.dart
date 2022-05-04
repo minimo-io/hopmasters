@@ -3,6 +3,7 @@ import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
 
 class ExperiencesView extends StatefulWidget {
+  static const String routeName = "experiences";
   const ExperiencesView({Key? key}) : super(key: key);
 
   @override

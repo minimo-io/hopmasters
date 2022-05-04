@@ -10,6 +10,7 @@ import 'package:Hops/views/comments/commentsView.dart';
 import 'package:Hops/views/checkout/checkoutView.dart';
 import 'package:Hops/views/shipping_details/shippingDetails.dart';
 import 'package:Hops/views/orders/ordersView.dart';
+import 'package:Hops/views/experiences/experiencesView.dart';
 import 'package:Hops/views/notFound/not_found_page.dart';
 
 /*
@@ -61,6 +62,12 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => CheckoutView(),
+          );
+
+        case ExperiencesView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => ExperiencesView(),
           );
 
         case ShippingDetails.routeName:

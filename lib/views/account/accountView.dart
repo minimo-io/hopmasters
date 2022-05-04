@@ -87,6 +87,17 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
                           ),
 
                           ProfileMenu(
+                            text: "Experiencias",
+                            icon: Icon(Icons.place),
+                            press: (){
+                              Navigator.pushNamed(
+                                  context,
+                                  "experiences"
+                              );
+                            },
+                          ),
+
+                          ProfileMenu(
                             text: "Tus pedidos",
                             icon: Icon(Icons.shopping_cart),
                             press: () {

@@ -16,6 +16,7 @@ import 'package:Hops/views/home/homeView.dart';
 import 'package:Hops/views/store/storeView.dart';
 import 'package:Hops/views/account/accountView.dart';
 import 'package:Hops/views/favorites/favoritesView.dart';
+import 'package:Hops/views/promos/promosView.dart';
 import 'package:Hops/views/experiences/experiencesView.dart';
 
 
@@ -46,11 +47,10 @@ class _AppViewState extends State<AppView> {
   }
 
   final List<Widget> pages = const <Widget>[
-    HomeView(
-
-    ),
+    HomeView(),
     FavoritesView(),
-    ExperiencesView(),
+    //ExperiencesView(),
+    PromosView(),
     AccountView()
   ];
 
@@ -64,13 +64,20 @@ class _AppViewState extends State<AppView> {
       icon: const Icon(Icons.favorite),
       label: "Favoritas",
     ),
-    /*
+
     BottomNavigationBarItem(
-      icon: const Icon(Icons.shopping_cart),
-      label: "Tienda",
+      icon: const Icon(Icons.redeem),
+      label: "Promos",
     ),
 
-     */
+
+    BottomNavigationBarItem(
+      icon: const Icon(Icons.more_horiz),
+      label: 'Más'
+    ),
+
+    /*
+
     BottomNavigationBarItem(
       icon: const Icon(Icons.place),
       label: "Experiencias",
@@ -79,6 +86,8 @@ class _AppViewState extends State<AppView> {
       icon: const Icon(Icons.account_circle),
       label: "Cuenta",
     ),
+
+     */
   ];
 
 
@@ -89,10 +98,13 @@ class _AppViewState extends State<AppView> {
   }
 
   _onTapped(int index) {
+
     setState(() {
       currentTab = index;
     });
     pageController.jumpToPage(index);
+
+
   }
 
   void onPageChanged(int index) {
@@ -120,11 +132,13 @@ class _AppViewState extends State<AppView> {
                     ),
                     child: BottomNavigationBar(
                       elevation: 0,
+                      showSelectedLabels: true,
                       showUnselectedLabels: true,
                       backgroundColor: Colors.transparent,
                       type: BottomNavigationBarType.fixed,
                       unselectedItemColor: colorScheme.secondary.withOpacity(0.5),
                       selectedItemColor: colorScheme.secondary,
+
                       items: bottomNavigationBarItems,
                       currentIndex: currentTab,
                       //      selectedFontSize: textTheme.caption.fontSize,
