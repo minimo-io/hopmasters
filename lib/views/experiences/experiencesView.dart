@@ -13,77 +13,91 @@ class ExperiencesView extends StatefulWidget {
 class _ExperiencesViewState extends State<ExperiencesView> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: ()async{
-          setState(() {
-            // _userData = SharedServices.loginDetails();
-          });
+    return Scaffold(
+      appBar: AppBar(
 
-        },
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: PRIMARY_GRADIENT_COLOR,
-            ),
-            child: Center(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 100,),
-                Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
-                SizedBox(height: 10,),
-                Center(child: RichText(
-                  text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(text: "En construcción.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
-                      ]
-                  ),
-                ),),
-                SizedBox(height: 10,),
-                Center(child: RichText(
-                  text: TextSpan(text: "Mientras tanto puedes descubrir ", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                ),),
-                Center(child: RichText(
-                  text: TextSpan(text: "nuevas experiencias en ", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                ),),
-                Center(child: RichText(
-                  text: TextSpan(text: "hops.uy", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                ),),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
+        ),
 
-                SizedBox(height: 10,),
+        iconTheme: IconThemeData(
+            color: Colors.black
+        ),
+        title: Text("Experiencias", style: TextStyle(color: Colors.black)),
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: ()async{
+            setState(() {
+              // _userData = SharedServices.loginDetails();
+            });
 
-                ElevatedButton(
-                  onPressed: (){
+          },
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: PRIMARY_GRADIENT_COLOR,
+              ),
+              child: Center(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 100,),
+                  Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
+                  SizedBox(height: 10,),
+                  Center(child: RichText(
+                    text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(text: "En construcción.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
+                        ]
+                    ),
+                  ),),
+                  SizedBox(height: 10,),
+                  Center(child: RichText(
+                    text: TextSpan(text: "Mientras tanto puedes descubrir ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                  ),),
+                  Center(child: RichText(
+                    text: TextSpan(text: "nuevas experiencias en ", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                  ),),
+                  Center(child: RichText(
+                    text: TextSpan(text: "hops.uy", style: TextStyle(fontSize: 20, color: Colors.black87)),
+                  ),),
 
-                    Helpers.launchURL("https://hops.uy/revista/turismo/");
+                  SizedBox(height: 10,),
 
-                  },
-                  child: Wrap(
-                      spacing: 4.0,
-                      children: [
-                        Icon(Icons.sports_bar),
-                        Padding(
-                          padding: const EdgeInsets.only(top:4),
-                          child: Text("Descubrir ahora"),
-                        )
-                      ]
+                  ElevatedButton(
+                    onPressed: (){
 
-                  ),
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.black.withOpacity(.2)),
+                      Helpers.launchURL("https://hops.uy/revista/turismo/");
+
+                    },
+                    child: Wrap(
+                        spacing: 4.0,
+                        children: [
+                          Icon(Icons.sports_bar),
+                          Padding(
+                            padding: const EdgeInsets.only(top:4),
+                            child: Text("Descubrir ahora"),
                           )
-                      )
+                        ]
+
+                    ),
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(color: Colors.black.withOpacity(.2)),
+                            )
+                        )
+                    ),
                   ),
-                ),
-                SizedBox(height: 600,),
-              ],
-            ),)
+                  SizedBox(height: 600,),
+                ],
+              ),)
+            ),
           ),
         ),
       ),
