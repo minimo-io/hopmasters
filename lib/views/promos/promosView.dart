@@ -1,6 +1,15 @@
+import 'package:Hops/components/app_title.dart';
+import 'package:Hops/components/async_loader.dart';
+import 'package:Hops/components/text_expandable.dart';
+import 'package:Hops/models/login.dart';
+import 'package:Hops/models/promo.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/services/wordpress_api.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
+import 'package:location/location.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class PromosView extends StatefulWidget {
   static const String routeName = "promos";
@@ -10,87 +19,207 @@ class PromosView extends StatefulWidget {
   State<PromosView> createState() => _PromosViewState();
 }
 
-class _PromosViewState extends State<PromosView> {
+class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMixin {
+  // future for lat, lon
+  Future<LocationData?>? _latLonFuture;
+  // future for promos, send lat, lon
+  Future? _promosFuture;
+  // user data
+  LoginResponse? _userData;
+
+  static List<Filters> _filters = [
+    Filters(id: 1, name: "Cashback"),
+    Filters(id: 2, name: "Descuento"),
+    Filters(id: 3, name: "Puntos"),
+  ];
+  List _selectedFilters = [];
+
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: ()async{
-          setState(() {
-            // _userData = SharedServices.loginDetails();
-          });
+  bool get wantKeepAlive => true;
 
-        },
-        child: SingleChildScrollView(
-          child: Container(
-              decoration: BoxDecoration(
-                gradient: PRIMARY_GRADIENT_COLOR,
-              ),
-              child: Center(child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 100,),
-                  Image.asset("assets/images/loudly-crying-face_1f62d.png", height: 45,),
-                  SizedBox(height: 10,),
-                  Center(child: RichText(
-                    text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(text: "En construcción.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87))
-                        ]
-                    ),
-                  ),),
-                  SizedBox(height: 10,),
-                  Center(child: RichText(
-                    text: TextSpan(text: "Mientras tanto puedes descubrir ", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                  ),),
-                  Center(child: RichText(
-                    text: TextSpan(text: "nuevas experiencias en ", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                  ),),
-                  Center(child: RichText(
-                    text: TextSpan(text: "hops.uy", style: TextStyle(fontSize: 20, color: Colors.black87)),
-                  ),),
+  @override
+  void initState(){
+    //super.initState();
 
-                  SizedBox(height: 10,),
+    _promosFuture = getPromos();
 
-                  /*
-                  ElevatedButton(
-                    onPressed: (){
+    WidgetsBinding.instance?.addPostFrameCallback((_){
 
-                      Helpers.launchURL("https://hops.uy/revista/turismo/");
+      _promosFuture!.then((beerData){
 
-                    },
+        print("Promos loaded.");
 
-                    child: Wrap(
-                        spacing: 4.0,
-                        children: [
-                          Icon(Icons.sports_bar),
-                          Padding(
-                            padding: const EdgeInsets.only(top:4),
-                            child: Text("Descubrir ahora"),
-                          )
-                        ]
+      });
 
-                    ),
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(.6)),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.black.withOpacity(.2)),
-                            )
-                        )
-                    ),
+    });
+  }
+
+  Future? getPromos() async {
+
+    _userData =  await SharedServices.loginDetails();
+
+    return await WordpressAPI.getPromos(
+        //latLon: _userData!.data!.id.toString()
+    );
+  }
+
+
+
+  Widget _buildPromoBox(Promo promo){
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:[
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:8.0),
+              child: Hero(
+                tag: "promo-"+promo.id.toString(),
+                child: ClipOval(
+                  child: Image.network(
+                    promo.avatar!,
+                    width: 55,
+                    height: 55,
+                    fit: BoxFit.cover,
                   ),
+                ),
 
-                   */
-                  SizedBox(height: 600,),
-                ],
-              ),)
-          ),
+
+              ),
+            ),
+
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(promo.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                      SizedBox(height: 3,),
+                      TextExpandable(
+                          Helpers.parseHtmlString(promo.description!),
+                         linesToShow: 2,
+                      ),
+                      /*
+                      StarsScore(
+                          opinionCount: 0,
+                          opinionScore: double.parse(comment.rating!),
+                          onlyStars: true
+                      )
+                       */
+                    ]
+                ),
+              ),
+            ),
+
+          ],
         ),
       ),
     );
   }
+
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return FutureBuilder(
+      future: _promosFuture,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+
+      switch (snapshot.connectionState) {
+        case ConnectionState.waiting:
+          return AsyncLoader(text: "Cargando promos...",);
+        default:
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }else {
+            List<Widget> promosCardList = <Widget>[];
+
+            if (snapshot.hasData && snapshot.data.length > 0) {
+              for (var i = 0; i < snapshot.data.length; i++) {
+
+                Promo promo = Promo.fromJson(snapshot.data[i]);
+                promosCardList.add( _buildPromoBox(promo) );
+
+              }
+            }
+            promosCardList.add( SizedBox(height: MediaQuery.of(context).size.height - 200,) );
+
+            return SafeArea(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  setState(() {
+                    _promosFuture = getPromos();
+                  });
+                },
+                child: SingleChildScrollView(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        gradient: PRIMARY_GRADIENT_COLOR,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 20,),
+                            AppTitle(title: "Promos"),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 33),
+                              child: TextExpandable(
+                                "Accedé a cualquier de estos beneficios con tus puntos Hops. Podés conseguirlos con tus compras a través de la app o de tu participación en comentarios y discusiones.",
+                                linesToShow: 2,
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                              child: MultiSelectChipField(
+                                searchable: false,
+                                showHeader: false,
+                                decoration: BoxDecoration(
+                                  border: Border.all(style: BorderStyle.none)
+                                ),
+                                //decoration: BoxDecoration(border: BoxBorder),
+
+                                initialValue: _selectedFilters,
+                                items: _filters.map((e) => MultiSelectItem(e, e.name)).toList(),
+                                icon: Icon(Icons.check),
+
+                                onTap: (values) {
+                                  _selectedFilters = values;
+                                },
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal:25 ),
+                              child: Column(
+                                children: promosCardList,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                  ),
+                ),
+              ),
+            );
+          }
+        }
+      }
+    );
+  }
+}
+
+class Filters {
+  final int id;
+  final String name;
+
+  Filters({
+    required this.id,
+    required this.name,
+  });
 }
