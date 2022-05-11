@@ -300,7 +300,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                           setState(() => this.isLoadingApiCall = false );
                         }
 */
-                      print("Lets do it!");
+                      print("Lets do it! OK!");
                       final credential =
                           await SignInWithApple.getAppleIDCredential(
                         scopes: [
