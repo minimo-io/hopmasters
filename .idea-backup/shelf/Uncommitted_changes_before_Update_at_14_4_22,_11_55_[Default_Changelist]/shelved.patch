@@ -1,0 +1,25 @@
+Index: android/app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>def localProperties = new Properties()\ndef localPropertiesFile = rootProject.file('local.properties')\nif (localPropertiesFile.exists()) {\n    localPropertiesFile.withReader('UTF-8') { reader ->\n        localProperties.load(reader)\n    }\n}\n\ndef flutterRoot = localProperties.getProperty('flutter.sdk')\nif (flutterRoot == null) {\n    throw new GradleException(\"Flutter SDK not found. Define location with flutter.sdk in the local.properties file.\")\n}\n\ndef flutterVersionCode = localProperties.getProperty('flutter.versionCode')\nif (flutterVersionCode == null) {\n    flutterVersionCode = '3'\n}\n\ndef flutterVersionName = localProperties.getProperty('flutter.versionName')\nif (flutterVersionName == null) {\n    flutterVersionName = '1.0'\n}\n\napply plugin: 'com.android.application'\napply plugin: 'kotlin-android'\napply from: \"$flutterRoot/packages/flutter_tools/gradle/flutter.gradle\"\n\ndef keystoreProperties = new Properties()\ndef keystorePropertiesFile = rootProject.file('key.properties')\nif (keystorePropertiesFile.exists()) {\n    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))\n}\n\nandroid {\n    compileSdkVersion 29\n\n    sourceSets {\n        main.java.srcDirs += 'src/main/kotlin'\n    }\n\n    lintOptions {\n        disable 'InvalidPackage'\n    }\n\n    defaultConfig {\n        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).\n        applicationId \"com.minimolabs.hops\"\n        minSdkVersion 16\n        targetSdkVersion 30\n        versionCode flutterVersionCode.toInteger()\n        versionName flutterVersionName\n    }\n    signingConfigs {\n        debug {\n            storeFile file('/Users/nicolaserramuspe/Development/hops_keys/key.jks')\n            storePassword 'Qdio9o7WGMHHD4ew'\n            keyAlias 'androiddebugkey'\n            keyPassword 'Qdio9o7WGMHHD4ew'\n        }\n        release {\n            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null\n            storePassword keystoreProperties['keyPassword']\n            keyAlias keystoreProperties['keyAlias']\n            keyPassword keystoreProperties['keyPassword']\n        }\n    }\n    buildTypes {\n        release {\n            // TODO: Add your own signing config for the release build.\n            // Signing with the debug keys for now, so `flutter run --release` works.\n            signingConfig signingConfigs.release\n        }\n        debug {\n            signingConfig signingConfigs.debug\n        }\n    }\n}\n\nflutter {\n    source '../..'\n}\n\ndependencies {\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/android/app/build.gradle b/android/app/build.gradle
+--- a/android/app/build.gradle	(revision a46064a7e91a6dd222129b3e6112b9b69474b74c)
++++ b/android/app/build.gradle	(date 1640886667928)
+@@ -13,12 +13,12 @@
+ 
+ def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+ if (flutterVersionCode == null) {
+-    flutterVersionCode = '3'
++    flutterVersionCode = '5'
+ }
+ 
+ def flutterVersionName = localProperties.getProperty('flutter.versionName')
+ if (flutterVersionName == null) {
+-    flutterVersionName = '1.0'
++    flutterVersionName = '0.7.1'
+ }
+ 
+ apply plugin: 'com.android.application'

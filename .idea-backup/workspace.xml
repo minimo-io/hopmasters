@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5e5ef1cc-cc0b-4ad0-83cf-4022b3b17dfb" name="Default Changelist" comment="0.8.1">
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1tLojsaQFuGTHkNXYLZGoevXhfm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDK Location" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="instant.run" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/components" />
+      <recent name="$PROJECT_DIR$/android/app/src/main" />
+      <recent name="$PROJECT_DIR$/lib/views/favorites" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5e5ef1cc-cc0b-4ad0-83cf-4022b3b17dfb" name="Default Changelist" comment="" />
+      <created>1622557869352</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622557869352</updated>
+    </task>
+    <task id="LOCAL-00070" summary="fix pagination issues.">
+      <created>1627504501994</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1627504501998</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Populate cart.">
+      <created>1627509098080</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1627509098081</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Build and create fn for cart items.">
+      <created>1627514791735</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1627514791735</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Cart amount system ready!">
+      <created>1627587815437</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1627587815443</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Empty cart message.">
+      <created>1627591937957</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1627591937957</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Checkout button style and value done.">
+      <created>1627593133864</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1627593133864</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Starting checkout page.">
+      <created>1627945212644</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1627945212645</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Continue checkout delivery options.">
+      <created>1628084930001</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1628084930001</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Test order created!">
+      <created>1630428416082</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1630428416085</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Save order last shipping address.">
+      <created>1630440854484</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1630440854484</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Orden creada con datos del usuario.">
+      <created>1630451709387</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1630451709387</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Add shipping address button style.">
+      <created>1630452672381</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1630452672381</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Basic shipping details form.">
+      <created>1630525266191</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1630525266192</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Shipping orders details can be saved and edited.">
+      <created>1630539154721</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1630539154725</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Crear órdenes a partir de datos del usuario y datos de shipping.">
+      <created>1630596941310</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1630596941316</updated>
+    </task>
+    <task id="LOCAL-00085" summary="View orders finished!">
+      <created>1630612439069</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1630612439070</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Margins for no beer text.">
+      <created>1630613504513</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1630613504513</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Breweyname with elypsis.">
+      <created>1631542339741</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1631542339742</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Login scroll fix.">
+      <created>1631548399407</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1631548399409</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Basic search functionality.">
+      <created>1633126914656</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1633126914657</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Safearea fix (top).">
+      <created>1634239667425</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1634239667426</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Multiple minor fixes.">
+      <created>1634253853351</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1634253853351</updated>
+    </task>
+    <task id="LOCAL-00092" summary="User scores and several other functions.">
+      <created>1634336812709</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1634336812712</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Google Sign In &amp; Several fixes.">
+      <created>1634685213985</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1634685213990</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Location Permissions tests &amp; user scores.">
+      <created>1634698914660</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1634698914674</updated>
+    </task>
+    <task id="LOCAL-00095" summary="icons, and CP in orders.">
+      <created>1635959241135</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1635959241136</updated>
+    </task>
+    <task id="LOCAL-00096" summary="icons, and CP in orders.">
+      <created>1635959586484</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1635959586484</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Fix search min chars &amp; empty search screen.">
+      <created>1635960600651</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1635960600651</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Deliveries logos.">
+      <created>1635964327278</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1635964327278</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Better logos and more bug crush session!">
+      <created>1635974081235</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1635974081236</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Online stores mockup and added lavikinga.uy">
+      <created>1636129300614</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1636129300616</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Update scores in account view.">
+      <created>1638553287892</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1638553287896</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Offers box.">
+      <created>1638555714767</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1638555714767</updated>
+    </task>
+    <task id="LOCAL-00103" summary="App version in home screen.">
+      <created>1638557879993</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1638557879993</updated>
+    </task>
+    <task id="LOCAL-00104" summary="New version.">
+      <created>1638982374583</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1638982374583</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Google display name fix.">
+      <created>1638983224770</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1638983224770</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Buy height fix.">
+      <created>1638987616041</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1638987616041</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Big buy screen.">
+      <created>1639010529799</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1639010529799</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Add scan button.">
+      <created>1640118303046</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1640118303048</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Several fixes. Playing with QR scanner.">
+      <created>1640273390885</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1640273390886</updated>
+    </task>
+    <task id="LOCAL-00110" summary="AlertBox &amp; Shops locations">
+      <created>1640351186336</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1640351186338</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Shops locations better future.">
+      <created>1640352000556</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1640352000557</updated>
+    </task>
+    <task id="LOCAL-00112" summary="How it works, and scores in the homepage.">
+      <created>1640738280891</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1640738280892</updated>
+    </task>
+    <task id="LOCAL-00113" summary="New loader!">
+      <created>1650486107948</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1650486107949</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Refresh state en account.">
+      <created>1650487486790</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1650487486790</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Refresh state en account.">
+      <created>1650487686631</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1650487686632</updated>
+    </task>
+    <task id="LOCAL-00116" summary="OneSignal setup">
+      <created>1651012828106</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1651012828107</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Push Notifications finished!">
+      <created>1651083493804</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1651083493805</updated>
+    </task>
+    <task id="LOCAL-00118" summary="0.8.1">
+      <created>1651178593869</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1651178593871</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="User scores and several other functions." />
+    <MESSAGE value="Google Sign In &amp; Several fixes." />
+    <MESSAGE value="Location Permissions tests &amp; user scores." />
+    <MESSAGE value="icons, and CP in orders." />
+    <MESSAGE value="Fix search min chars &amp; empty search screen." />
+    <MESSAGE value="Deliveries logos." />
+    <MESSAGE value="Better logos and more bug crush session!" />
+    <MESSAGE value="Online stores mockup and added lavikinga.uy" />
+    <MESSAGE value="Update scores in account view." />
+    <MESSAGE value="Offers box." />
+    <MESSAGE value="App version in home screen." />
+    <MESSAGE value="New version." />
+    <MESSAGE value="Google display name fix." />
+    <MESSAGE value="Buy height fix." />
+    <MESSAGE value="Big buy screen." />
+    <MESSAGE value="Add scan button." />
+    <MESSAGE value="Several fixes. Playing with QR scanner." />
+    <MESSAGE value="AlertBox &amp; Shops locations" />
+    <MESSAGE value="Shops locations better future." />
+    <MESSAGE value="How it works, and scores in the homepage." />
+    <MESSAGE value="New loader!" />
+    <MESSAGE value="Refresh state en account." />
+    <MESSAGE value="OneSignal setup" />
+    <MESSAGE value="Push Notifications finished!" />
+    <MESSAGE value="0.8.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.8.1" />
+  </component>
+</project>
