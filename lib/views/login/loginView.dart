@@ -18,14 +18,7 @@ class _LoginViewState extends State<LoginView> {
 
 
   BoxDecoration _headerDecoration = BoxDecoration(
-    /*
     image: DecorationImage(
-        image: AssetImage('assets/images/bg5.png'),
-        fit: BoxFit.fill
-    ),
-     */
-    image: DecorationImage(
-        // image: AssetImage("assets/images/decoration.png"),
         image: AssetImage("assets/images/beer_bg_bw2.png"),
         //fit: BoxFit.scaleDown,
         fit: BoxFit.cover,

@@ -15,7 +15,8 @@ class _hmSearchButtonState extends State<SearchButton> {
 
 
     return FloatingActionButton(
-      backgroundColor: SECONDARY_BUTTON_COLOR,
+      //backgroundColor: SECONDARY_BUTTON_COLOR,
+      backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       onPressed: () => showSearch(
         context: context,

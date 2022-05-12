@@ -2,5 +2,6 @@
 <resources>
     <string name="app_name">Hops</string>
     <string name="facebook_app_id">503758990937379</string>
-    <string name="fb_login_protocol_scheme">fb503758990937379</string>
+    <string name="facebook_client_token">e5fc509f47787d112230aa820e7fc2fb</string>
+
 </resources>

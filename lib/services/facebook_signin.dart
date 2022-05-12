@@ -11,16 +11,18 @@ class Facebook{
 
     }
     */
-    await FacebookAuth.instance.logOut();
+    // await FacebookAuth.instance.logOut();
+
+
     final LoginResult result = await FacebookAuth.instance.login(
       permissions: ['public_profile', 'email'],
 
     );
-
+    print( result.status );
     // by default we request the email and the public profile
     if (result.status == LoginStatus.success) {
       // you are logged
-      //final AccessToken accessToken = result.accessToken;
+      //final AccessToken accessToken = result.accessToken!;
       var resultJson = await FacebookAuth.instance.getUserData();
       return resultJson;
     }{
