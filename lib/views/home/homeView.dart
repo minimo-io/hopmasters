@@ -33,9 +33,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
   Future? _breweryBeers;
   Future? _userScore;
+  String _scoreOverview = "";
   late Widget _discoverBeers;
   bool _isLoading = true;
-  String _scoreOverview = "";
   final String oneSignalAppId = "ab209bbc-1de2-4693-a683-3674d281d4cb";
 
   @override

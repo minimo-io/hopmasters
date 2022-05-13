@@ -4,7 +4,12 @@ import 'package:Hops/theme/style.dart';
 class AppTitle extends StatelessWidget {
 
   final String? subtitle, title;
-  AppTitle({ this.subtitle, this.title });
+  double? horizontalPadding;
+  AppTitle({
+    this.subtitle,
+    this.title,
+    this.horizontalPadding
+  });
 
 
   @override
@@ -13,7 +18,7 @@ class AppTitle extends StatelessWidget {
     //var checkTitle = this.title;
 
     button = Padding(
-        padding:const EdgeInsets.symmetric( horizontal: 33.0 ),
+        padding: EdgeInsets.symmetric( horizontal: this.horizontalPadding ?? 33.0 ),
         child: Text(
           this.subtitle ?? "",
           textAlign: TextAlign.start,
@@ -26,7 +31,7 @@ class AppTitle extends StatelessWidget {
 
     if (this.title != null){
       button = Padding(
-          padding:const EdgeInsets.symmetric( horizontal: 33.0 ),
+          padding: EdgeInsets.symmetric( horizontal: this.horizontalPadding ?? 33.0 ),
           child: Text(
             this.title ?? "",
             // textAlign: TextAlign.start,

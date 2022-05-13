@@ -44,7 +44,7 @@ class _TopAppBarState extends State<TopAppBar> {
       ),
 
       title: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 28.0, 0, 8.0),
+        padding: const EdgeInsets.fromLTRB(15, 6.0, 0, 8.0),
         child: Row(
           children: [
             Image.asset(
@@ -64,7 +64,7 @@ class _TopAppBarState extends State<TopAppBar> {
       actions: <Widget>[
 
         Container(
-          padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0.0, 0, 0),
           child: InkWell(
             onTap: (){
               print("Scan beer!");
@@ -74,7 +74,7 @@ class _TopAppBarState extends State<TopAppBar> {
               ));
               */
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y juntar puntos de descuentos.')),
+                const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y acceder a descuentos.')),
               );
             },
             child: Row(
@@ -94,7 +94,7 @@ class _TopAppBarState extends State<TopAppBar> {
         Stack(
           children: [
             Container(
-                padding: const EdgeInsets.fromLTRB(0, 18.0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 3.0, 0, 0),
                 child: IconButton(
                 icon: const Icon(Icons.shopping_cart),
                 tooltip: 'Carrito',

@@ -1,4 +1,5 @@
 import 'package:Hops/components/app_title.dart';
+import 'package:Hops/constants.dart';
 import 'package:Hops/components/async_loader.dart';
 import 'package:Hops/components/text_expandable.dart';
 import 'package:Hops/models/login.dart';
@@ -11,6 +12,8 @@ import 'package:Hops/helpers.dart';
 import 'package:location/location.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
+import 'package:Hops/views/promos/components/promos_header.dart';
+
 class PromosView extends StatefulWidget {
   static const String routeName = "promos";
   const PromosView({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class PromosView extends StatefulWidget {
 }
 
 class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMixin {
+  bool showFilters = false;
   // future for lat, lon
   Future<LocationData?>? _latLonFuture;
   // future for promos, send lat, lon
@@ -28,9 +32,9 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
   LoginResponse? _userData;
 
   static List<Filters> _filters = [
-    Filters(id: 1, name: "Cashback"),
-    Filters(id: 2, name: "Descuento"),
-    Filters(id: 3, name: "Puntos"),
+    Filters(id: 1, name: "Agazajos"),
+    Filters(id: 2, name: "Descuentos"),
+    Filters(id: 3, name: "Puntos Hops"),
   ];
   List _selectedFilters = [];
 
@@ -42,6 +46,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
     //super.initState();
 
     _promosFuture = getPromos();
+
 
     WidgetsBinding.instance?.addPostFrameCallback((_){
 
@@ -164,17 +169,19 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 20,),
-                            AppTitle(title: "Promos"),
+                            SizedBox(height: marginSide,),
+                            // AppTitle(title: "Promos"),
+                            PromosHeader(),
+
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 33),
+                              padding: EdgeInsets.symmetric(horizontal: 25),
                               child: TextExpandable(
-                                "Accedé a cualquier de estos beneficios con tus puntos Hops. Podés conseguirlos con tus compras a través de la app o de tu participación en comentarios y discusiones.",
+                                "Accedé a cualquier de estos beneficios con tus puntos Hops. Podés conseguirlos con tus compras a través de la app o invitando amigos.",
                                 linesToShow: 2,
                               ),
                             ),
 
-                            Padding(
+                            if (showFilters) Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
                               child: MultiSelectChipField(
                                 searchable: false,
@@ -194,8 +201,10 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                               ),
                             ),
 
+                            if (!showFilters) SizedBox(height: 10,),
+
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal:25 ),
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal:marginSide ),
                               child: Column(
                                 children: promosCardList,
                               ),
