@@ -6,12 +6,16 @@ class TextExpandable extends StatefulWidget {
   bool? isExpanded;
   String text;
   int linesToShow;
+  Widget? callToActionWidget;
+  double? fontSize;
 
   TextExpandable(
     this.text,
     {
       this.linesToShow = 3,
       this.isExpanded = false,
+      this.callToActionWidget,
+      this.fontSize = 13,
       Key? key
     }) : super(key: key);
 
@@ -34,6 +38,22 @@ class _TextExpandableState extends State<TextExpandable> {
     });
   }
   
+  Widget _buildExpandableButton(){
+    return Padding(
+      padding: EdgeInsets.only(
+        top: Helpers.screenAwareSize(5.0, context),
+        left: Helpers.screenAwareSize(0.0, context),
+      ),
+      child: GestureDetector(
+        onTap: _expand,
+        child: Text(
+          isExpanded ? 'Leer menos' : 'Leer mas',
+          style: TextStyle(
+              color: Colors.black54, fontWeight: FontWeight.w700, fontSize: widget.fontSize),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,20 +87,23 @@ class _TextExpandableState extends State<TextExpandable> {
               : CrossFadeState.showFirst,
           duration: kThemeAnimationDuration,
         ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: Helpers.screenAwareSize(5.0, context),
-            left: Helpers.screenAwareSize(0.0, context),
-          ),
-          child: GestureDetector(
-            onTap: _expand,
-            child: Text(
-              isExpanded ? 'Leer menos' : 'Leer mas',
-              style: TextStyle(
-                  color: Colors.black54, fontWeight: FontWeight.w700),
+
+        if (widget.callToActionWidget != null) Row(children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: Helpers.screenAwareSize(5.0, context),
+              left: Helpers.screenAwareSize(0.0, context),
             ),
+            child: widget.callToActionWidget!,
           ),
-        ),
+          SizedBox(width: 10,),
+          _buildExpandableButton(),
+
+
+
+        ],),
+
+        if (widget.callToActionWidget == null) _buildExpandableButton(),
       ],
     );
   }

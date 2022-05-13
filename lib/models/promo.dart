@@ -10,6 +10,11 @@ class Promo {
     required this.name,
     required this.bgColor,
     required this.description,
+    this.channelType,
+    this.promoType,
+    this.pointsScore,
+    this.dateLimit,
+    this.callToActionText,
     /*
     required this.scoreAvg,
     required this.scoreCount,
@@ -30,6 +35,17 @@ class Promo {
       bgColor: parsedJson['acf']['bg_color'],
       name: parsedJson['title']['rendered'],
       description: parsedJson['excerpt']['rendered'],
+      channelType: parsedJson['acf']['channel_type'],
+      promoType: parsedJson['acf']['type'],
+      pointsScore: parsedJson['acf']['points_score'],
+      dateLimit: parsedJson['acf']['date_limit'],
+      callToActionText: parsedJson['acf']['date_limit'],
+
+      /*
+      barAssociated: parsedJson['acf']['bar_associated'],
+      productAssociated: parsedJson['acf']['bar_associated'],
+
+       */
       /*
         scoreAvg: scoreAvg,
         scoreCount: scoreCount,
@@ -54,6 +70,11 @@ class Promo {
   String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC'
   String? description;
   Color rgbColor; // this is a Color object
+  String? channelType;
+  String? promoType;
+  String? pointsScore;
+  String? dateLimit;
+  String? callToActionText;
 //String? scoreAvg;
 //String? scoreCount;
 //Comment? comment;

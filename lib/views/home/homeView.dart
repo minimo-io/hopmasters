@@ -135,7 +135,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                               image: Image.asset("assets/images/medal.png", height: 20,),
                               press: () {
 
-                                Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
+                                 Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
 
 
                               },

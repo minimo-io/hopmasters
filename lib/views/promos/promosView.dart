@@ -14,6 +14,8 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import 'package:Hops/views/promos/components/promos_header.dart';
 
+import 'package:Hops/components/score_mini_button.dart';
+
 class PromosView extends StatefulWidget {
   static const String routeName = "promos";
   const PromosView({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class PromosView extends StatefulWidget {
 }
 
 class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMixin {
-  bool showFilters = false;
+  bool showFilters = true;
   // future for lat, lon
   Future<LocationData?>? _latLonFuture;
   // future for promos, send lat, lon
@@ -70,7 +72,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
 
 
 
-  Widget _buildPromoBox(Promo promo){
+  Widget _buildPromoBox(Promo promo, { bool isExpanded = false }){
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10.0),
@@ -79,21 +81,33 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
           mainAxisAlignment: MainAxisAlignment.center,
           children:[
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:8.0),
-              child: Hero(
-                tag: "promo-"+promo.id.toString(),
-                child: ClipOval(
-                  child: Image.network(
-                    promo.avatar!,
-                    width: 55,
-                    height: 55,
-                    fit: BoxFit.cover,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:8.0),
+                  child: Hero(
+                    tag: "promo-"+promo.id.toString(),
+                    child: ClipOval(
+                      child: Image.network(
+                        promo.avatar!,
+                        width: 55,
+                        height: 55,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+
                   ),
                 ),
+                SizedBox(height: 8,),
+                Row(children: [
+                  Image.asset("assets/images/medal.png", height: 15,),
 
+                  Text((int.parse(promo.pointsScore!) > 0 ? '+' : '') + promo.pointsScore.toString()),
+                ],)
 
-              ),
+              ],
             ),
 
             Flexible(
@@ -103,12 +117,32 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(promo.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                      Text(promo.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0), textAlign: TextAlign.left),
                       SizedBox(height: 3,),
                       TextExpandable(
-                          Helpers.parseHtmlString(promo.description!),
-                         linesToShow: 2,
+                        Helpers.parseHtmlString(promo.description!),
+                        linesToShow: 1,
+                        isExpanded: isExpanded,
+                        callToActionWidget: Row(children: [
+                          ElevatedButton.icon(
+                              icon: Icon(Icons.shopping_cart, size: 15,),
+                              label: Text("Comprar", style: TextStyle(fontSize: 13),),
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 0)),
+                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                  backgroundColor: MaterialStateProperty.all<Color>(promo.rgbColor),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                          side: (1==1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))
+                                      )
+                                  )
+                              ),
+                              onPressed: (){  }
+                          ),
+                        ],),
                       ),
+
                       /*
                       StarsScore(
                           opinionCount: 0,
@@ -148,7 +182,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
               for (var i = 0; i < snapshot.data.length; i++) {
 
                 Promo promo = Promo.fromJson(snapshot.data[i]);
-                promosCardList.add( _buildPromoBox(promo) );
+                promosCardList.add( _buildPromoBox(promo, isExpanded: (i==0 ? true : false )) );
 
               }
             }
@@ -172,7 +206,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                             SizedBox(height: marginSide,),
                             // AppTitle(title: "Promos"),
                             PromosHeader(),
-
+                            SizedBox(height:5),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 25),
                               child: TextExpandable(
@@ -182,7 +216,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                             ),
 
                             if (showFilters) Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: marginSide, vertical: 10),
                               child: MultiSelectChipField(
                                 searchable: false,
                                 showHeader: false,
