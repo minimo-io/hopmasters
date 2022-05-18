@@ -47,7 +47,7 @@ class Beer{
     if (parsedJson.containsKey("acf")) abv = parsedJson['acf']["abv"].toString();
 
     String? ibu = "N/A";
-    if (parsedJson.containsKey("acf")) ibu = (parsedJson['acf']["ibu"].toString() == "0" ? "?" : parsedJson['acf']["ibu"].toString());
+    if (parsedJson.containsKey("acf")) ibu = (parsedJson['acf']["ibu"].toString() == "0" ? "N/A" : parsedJson['acf']["ibu"].toString());
 
     String? launch = "0";
     if (parsedJson.containsKey("acf")) launch = parsedJson['acf']["launch"].toString();
