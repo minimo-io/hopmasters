@@ -126,6 +126,19 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
                               );
                             },
                           ),
+
+
+                          ProfileMenu(
+                            text: "Contacto",
+                            icon: Icon(Icons.whatsapp),
+                            press: () {
+
+
+                              Helpers.launchURL("https://wa.me/59896666902");
+                            },
+                          ),
+
+
                           ProfileMenu(
                             text: "Acerca de Hops",
                             icon: Icon(Icons.help_center),
@@ -148,6 +161,7 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
 
                             },
                           ),
+
                           ProfileMenu(
                             text: "Salir",
                             icon: Icon(Icons.logout),

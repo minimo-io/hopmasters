@@ -92,7 +92,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
             height: 18,
             width:100,
             decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.red.withOpacity(.8),
                 shape: BoxShape.rectangle,
                 border: Border.all(width: 0, color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(20))
@@ -180,7 +180,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                                       // share with friends
                                       if (promo.callToActionIcon == Icons.share){
                                         Share.share(
-                                            'Descargate y utilizá la app de HOPS ¡y ganemos descuentos en birras juntos! https://hops.uy/',
+                                            'Descargate HOPS ¡y ganemos descuentos en birras juntos! https://hops.uy/',
                                             subject: 'Descargate la app de HOPS y ganemos descuentos!'
                                         );
                                       }
