@@ -63,19 +63,22 @@ class BreweryDetailBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                new Text(
-                  brewery!.name!,
-                  style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: _buildLocationInfo(textTheme),
-                ),
-              ],),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  new Text(
+                    brewery!.name!,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  new Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: _buildLocationInfo(textTheme),
+                  ),
+                ],),
+            ),
 
             InkWell(
                 onTap: (){

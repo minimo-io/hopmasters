@@ -334,19 +334,22 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (name != null) Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
-                        if (address != null) Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
-                      ]
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (name != null) Text(name, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                          if (address != null) Text(address, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                        ]
+                    ),
                   ),
                 ),
 
-                if (isVerified) Expanded(
+                if (isVerified) Flexible(
+                  fit: FlexFit.loose,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     //crossAxisAlignment: CrossAxisAlignment.end,
@@ -606,28 +609,35 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                             Container(
                               width: MediaQuery.of(context).size.width * 0.95,
                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-
-                                  
-                                  void _launchURL(String _url) async => await canLaunch(_url)
-                                      ? await launch(_url) : notificationClient.message(context, "¡Parece que no tienes whatsapp instalado!");
+                              child: Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () {
 
 
-                                  _launchURL("whatsapp://send?phone="+widget.beer.breweryWhatsapp+"&text=");
+                                    void _launchURL(String _url) async => await canLaunch(_url)
+                                        ? await launch(_url) : notificationClient.message(context, "¡Parece que no tienes whatsapp instalado!");
 
-                                },
 
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Row(
-                                    //mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                        SizedBox(width: 8,),
-                                        // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                        Text( "Whatsapp de " + widget.beer.breweryName, style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                      ]
+                                    _launchURL("whatsapp://send?phone="+widget.beer.breweryWhatsapp+"&text=");
+
+                                  },
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Row(
+                                      //mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                          SizedBox(width: 8,),
+                                          // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                          Expanded(
+                                            child: Text(
+                                              "Whatsapp de " + widget.beer.breweryName,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(fontSize: 20, color: Colors.black54),),
+                                          )
+                                        ]
+                                    ),
                                   ),
                                 ),
                               ),
@@ -637,7 +647,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                               width: MediaQuery.of(context).size.width * 0.95,
                               padding: EdgeInsets.only(right: 20.0, left:20, top: 20.0, bottom: 10),
                               child: Text(
-                                "Con la compra inmediata ayudas al creacimiento de la comunidad.",
+                                "Con la compra en HOPS ganás puntos canjeables por descuentos en las tiendas y bares asociados.",
                                 style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal, color: Colors.black38),
                               ),
                             ),
@@ -722,13 +732,12 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                               return Text('Ups! Error: ${snapshot2.error}');
                                             }else{
 
-                                              print(snapshot2.data);
 
 
                                               var barsCardsList = (snapshot2.data as List)
                                                   .map((data) => new Bar.fromJson(data))
                                                   .toList();
-                                              print( barsCardsList.toString() );
+
 
                                               return _buildShops(barsCardsList);
 

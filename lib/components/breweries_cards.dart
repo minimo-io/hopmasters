@@ -67,15 +67,17 @@ class _BreweriesCardsState extends State<BreweriesCards> {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(brewery.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
-                      Text(brewery.followers! + " seguidor" + (int.parse(brewery.followers!) != 1 ? "es" : ""), style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
-                    ]
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(brewery.name!,  overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.left),
+                        Text(brewery.followers! + " seguidor" + (int.parse(brewery.followers!) != 1 ? "es" : ""), style: TextStyle(fontSize: 12, color: Colors.black54), textAlign: TextAlign.left)
+                      ]
+                  ),
                 ),
               ),
 

@@ -63,20 +63,22 @@ class BeerBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                new Text(
-                  this.beer.name,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: _buildBreweryInfo(textTheme, context),
-                ),
-              ],),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  new Text(
+                    this.beer.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color:SECONDARY_TEXT_DARK, fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  new Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: _buildBreweryInfo(textTheme, context),
+                  ),
+                ],),
+              ),
 
               InkWell(
                 onTap: (){
