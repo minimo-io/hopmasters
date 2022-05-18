@@ -15,6 +15,8 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
   late TabController _tabController;
   late ScrollController _scrollController;
   bool? fixedScroll;
+  LoginResponse? _userData;
+  Future? _loginFuture;
 
   final List<Widget> _tabs = [
     Tab(key: UniqueKey(), icon: Icon(Icons.storefront_rounded), text: "Cervecerías"),
@@ -34,7 +36,14 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
     _scrollController.addListener(_scrollListener);
     _tabController = TabController(length: _tabs.length, vsync: this, initialIndex: 0);
 
+    _loginFuture = getUserData();
+  }
 
+  Future? getUserData() async {
+
+    _userData = await SharedServices.loginDetails();
+
+    return _userData;
   }
 /*
   @override
@@ -77,10 +86,9 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
           },
           body: Container(
             child: FutureBuilder(
-                future: Future.wait([
-                  SharedServices.loginDetails(),
-                ]),
+                future: _loginFuture,
                 builder: (BuildContext context, AsyncSnapshot snapshot){
+
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                       return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR);
@@ -94,13 +102,27 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
                             key: UniqueKey(),
                             controller: _tabController,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
-                                child: FavoriteBreweries(key: UniqueKey(), loginResponse: snapshot.data[0],),
+                              RefreshIndicator(
+                                onRefresh: () async {
+                                  setState(() {
+                                    _loginFuture = getUserData();
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: FavoriteBreweries(key: UniqueKey(), loginResponse: snapshot.data),
+                                ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
-                                child: FavoriteBeers(key: UniqueKey(), loginResponse: snapshot.data[0],),
+                              RefreshIndicator(
+                                onRefresh: () async {
+                                  setState(() {
+                                    _loginFuture = getUserData();
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: FavoriteBeers(key: UniqueKey(), loginResponse: snapshot.data),
+                                ),
                               ),
                               //Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
                             ],),
