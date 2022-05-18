@@ -105,7 +105,7 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
         children: <Widget>[
           SizedBox(height: 5,),
           Hero(
-            tag: "beer-" + widget.beer.name,
+            tag: "beer-" + widget.beer.beerId,
             child: LoadNetworkImage(uri: widget.beer.image, height: 230,),
           ),
         ],
