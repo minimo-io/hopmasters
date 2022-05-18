@@ -15,6 +15,8 @@ class Promo {
     this.pointsScore,
     this.dateLimit,
     this.callToActionText,
+    this.callToActionIcon,
+    this.productAssociated,
     /*
     required this.scoreAvg,
     required this.scoreCount,
@@ -29,6 +31,28 @@ class Promo {
       scoreCount = parsedJson["scores"]["opinionCount"].toString();
     }
     */
+    String callToActionBtnText = parsedJson['acf']['call_to_action_button_text'];
+    if (callToActionBtnText == "") callToActionBtnText = "Comprar";
+
+    String callToActionBtnIconCode = parsedJson['acf']['call_to_action_button_icon'];
+
+    IconData callToActionBtnIcon = Icons.shopping_cart;
+    if (callToActionBtnIconCode == "qr_code_scanner"){
+      callToActionBtnIcon = Icons.qr_code_scanner;
+    }else if(callToActionBtnIconCode == "share"){
+      callToActionBtnIcon = Icons.share;
+    }else{
+      callToActionBtnIcon = Icons.shopping_cart;
+    }
+
+    String? productAssociated = "0";
+    if (parsedJson.containsKey("acf")
+      && (parsedJson['acf']["product_associated"] != null )
+    ){
+      productAssociated = parsedJson['acf']["product_associated"].toString();
+    }
+
+
     return Promo(
       id: parsedJson["id"].toString(),
       avatar: parsedJson["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"] ?? "",
@@ -39,7 +63,9 @@ class Promo {
       promoType: parsedJson['acf']['type'],
       pointsScore: parsedJson['acf']['points_score'],
       dateLimit: parsedJson['acf']['date_limit'],
-      callToActionText: parsedJson['acf']['date_limit'],
+      callToActionText: callToActionBtnText,
+      callToActionIcon: callToActionBtnIcon,
+      productAssociated: productAssociated,
 
       /*
       barAssociated: parsedJson['acf']['bar_associated'],
@@ -75,6 +101,8 @@ class Promo {
   String? pointsScore;
   String? dateLimit;
   String? callToActionText;
+  IconData? callToActionIcon;
+  String? productAssociated;
 //String? scoreAvg;
 //String? scoreCount;
 //Comment? comment;

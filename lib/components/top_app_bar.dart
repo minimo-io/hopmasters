@@ -74,7 +74,7 @@ class _TopAppBarState extends State<TopAppBar> {
               ));
               */
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y acceder a descuentos.')),
+                const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y acceder a descuentos y beneficios.')),
               );
             },
             child: Row(

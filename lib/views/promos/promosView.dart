@@ -11,8 +11,11 @@ import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
 import 'package:location/location.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:Hops/views/promos/components/promos_header.dart';
+import 'package:Hops/models/cart.dart';
 
 import 'package:Hops/components/score_mini_button.dart';
 
@@ -73,6 +76,35 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
 
 
   Widget _buildPromoBox(Promo promo, { bool isExpanded = false }){
+
+    String scoreText = (int.parse(promo.pointsScore!) > 0 ? '+' : '') + promo.pointsScore.toString();
+    if (int.parse(promo.pointsScore!) == 0) scoreText = "Gratis";
+    DateTime currentDateTime = DateTime.now();
+    DateTime? parsedDate;
+    if (promo.dateLimit != null && promo.dateLimit != ""){
+      parsedDate = DateTime.parse(promo.dateLimit.toString());
+    }
+
+    // expired text
+    Widget expiredWidget = Container();
+    if (parsedDate != null  && currentDateTime.isAfter(parsedDate)){
+        expiredWidget = Container(
+            height: 18,
+            width:100,
+            decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.rectangle,
+                border: Border.all(width: 0, color: Colors.white),
+                borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: Center(child: Text("Expiró", style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
+        );
+
+    }
+
+
+
+
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10.0),
@@ -104,7 +136,7 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                 Row(children: [
                   Image.asset("assets/images/medal.png", height: 15,),
 
-                  Text((int.parse(promo.pointsScore!) > 0 ? '+' : '') + promo.pointsScore.toString()),
+                  Text(scoreText),
                 ],)
 
               ],
@@ -123,23 +155,57 @@ class _PromosViewState extends State<PromosView> with AutomaticKeepAliveClientMi
                         Helpers.parseHtmlString(promo.description!),
                         linesToShow: 1,
                         isExpanded: isExpanded,
-                        callToActionWidget: Row(children: [
-                          ElevatedButton.icon(
-                              icon: Icon(Icons.shopping_cart, size: 15,),
-                              label: Text("Comprar", style: TextStyle(fontSize: 13),),
-                              style: ButtonStyle(
-                                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 0)),
-                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                  backgroundColor: MaterialStateProperty.all<Color>(promo.rgbColor),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                          side: (1==1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))
-                                      )
-                                  )
-                              ),
-                              onPressed: (){  }
-                          ),
+                        callToActionWidget: Row(
+                          children: [
+                            expiredWidget,
+
+                            if (parsedDate == null
+                            || currentDateTime.isBefore(parsedDate)) Consumer<Cart>(
+                              builder: (context, cart, child){
+                                return ElevatedButton.icon(
+                                    icon: Icon(promo.callToActionIcon, size: 15,),
+                                    label: Text( promo.callToActionText.toString() , style: TextStyle(fontSize: 13),),
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 0)),
+                                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                        backgroundColor: MaterialStateProperty.all<Color>(promo.rgbColor),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                side: (1==1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))
+                                            )
+                                        )
+                                    ),
+                                    onPressed: (){
+                                      // share with friends
+                                      if (promo.callToActionIcon == Icons.share){
+                                        Share.share(
+                                            'Descargate y utilizá la app de HOPS ¡y ganemos descuentos en birras juntos! https://hops.uy/',
+                                            subject: 'Descargate la app de HOPS y ganemos descuentos!'
+                                        );
+                                      }
+                                      // scan QR option
+                                      if (promo.callToActionIcon == Icons.qr_code_scanner){
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('En próximas versiones vas a poder comprar con Hops via QR en bares y acceder a descuentos y beneficios.')),
+                                        );
+                                      }
+                                      // add promo item to cart
+                                      if (promo.callToActionIcon == Icons.shopping_cart){
+
+                                        Navigator.pushNamed(
+                                          context,
+                                          "/beer",
+                                          arguments: { 'beerId': int.parse(promo.productAssociated.toString()) },
+
+                                        );
+
+                                      }
+                                    }
+                                );
+                              }
+                            ),
+
                         ],),
                       ),
 
