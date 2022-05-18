@@ -37,6 +37,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
   late Widget _discoverBeers;
   bool _isLoading = true;
   final String oneSignalAppId = "ab209bbc-1de2-4693-a683-3674d281d4cb";
+  bool _moreFilters = false;
 
   @override
   void initState() {
@@ -92,129 +93,153 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
 
   }
 
+  Widget _buildHomeFloatingButtons(){
+    return (_moreFilters == true ? Padding(
+      padding: const EdgeInsets.only(right: 5.0),
+      child: FloatingActionButton.extended(
+        shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
+        onPressed: () => Navigator.pop(context),
+        backgroundColor: Colors.black,
+        label: Text("X", style: TextStyle(color: Colors.white, fontSize: 12))
+      ),
+    ) : Container() );
+  }
+
+  void refreshFromChild() {
+    setState(() {
+      _moreFilters = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh:()async{
-          setState(() {
-            _userScore = getUserScore();
-          });
-        },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: PRIMARY_GRADIENT_COLOR,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (showSearchBar) SearchBar(),
-                FutureBuilder(
-                    future: _userScore,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return Scaffold(
+      floatingActionButton: _buildHomeFloatingButtons(),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh:()async{
+            setState(() {
+              _userScore = getUserScore();
+            });
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: PRIMARY_GRADIENT_COLOR,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (showSearchBar) SearchBar(),
+                  FutureBuilder(
+                      future: _userScore,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
 
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                          return ScoreButton(
-                            text: "Cargando puntaje...",
-                            image: Image.asset("assets/images/medal.png", height: 20,),
-                            press: () {},
-                          );
-                        default:
-                          if (snapshot.hasError) {
-                            return Text(' Ups! Errors: ${snapshot.error}');
-                          } else {
-                            _scoreOverview = snapshot.data["result"].toString();
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
                             return ScoreButton(
-                              text: "Tenés " + _scoreOverview + " puntos Hops",
+                              text: "Cargando puntaje...",
                               image: Image.asset("assets/images/medal.png", height: 20,),
-                              press: () {
-
-                                 Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
-
-
-                              },
+                              press: () {},
                             );
+                          default:
+                            if (snapshot.hasError) {
+                              return Text(' Ups! Errors: ${snapshot.error}');
+                            } else {
+                              _scoreOverview = snapshot.data["result"].toString();
+                              return ScoreButton(
+                                text: "Tenés " + _scoreOverview + " puntos Hops",
+                                image: Image.asset("assets/images/medal.png", height: 20,),
+                                press: () {
 
-                          }
-                      }
-                    }
-                ),
-
-                DiscoverBeers(
-                  key: UniqueKey()
-                ),
-
-                //BreweriesBanner(),
-                SizedBox(height: (20)),
-                SpecialOffers(),
-                SizedBox(height: (30)),
-                SizedBox(height: (30)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppTitle(title: "Cervecerías"),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: InkWell(
-                        onTap: () {
-
-                          Scaffold.of(context)
-                              .showBottomSheet<void>(
-                                (context) {
-                              return BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:  MediaQuery.of(context).size.height,
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
+                                   Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
 
 
-                                    ],
-                                  ),
-                                ),
+                                },
                               );
-                            },
-                            elevation: 25,
-                          )
-                              .closed
-                              .whenComplete(() {
 
-                          });
+                            }
+                        }
+                      }
+                  ),
 
-                        },
-                        child: Row(
-                          children: [
-                            Icon(Icons.map, color: Colors.black26,),
-                            SizedBox(width: 5,),
-                            Text(
-                              "Mapa",
-                              style: TextStyle(color: BUTTONS_TEXT_DARK),
-                            ),
-                          ],
+                  DiscoverBeers(
+                    key: UniqueKey(),
+                    notifyParent: refreshFromChild,
+                  ),
+
+                  //BreweriesBanner(),
+                  SizedBox(height: (20)),
+                  SpecialOffers(),
+                  SizedBox(height: (30)),
+                  SizedBox(height: (30)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppTitle(title: "Cervecerías"),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: InkWell(
+                          onTap: () {
+
+                            Helpers.launchURL("https://hops.uy/mapa-cervecero/");
+                            /*
+                            Scaffold.of(context)
+                                .showBottomSheet<void>(
+                                  (context) {
+                                return BackdropFilter(
+                                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height:  MediaQuery.of(context).size.height,
+                                    color: Colors.white,
+                                    child: Column(
+                                      children: [
+
+
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              elevation: 25,
+                            )
+                                .closed
+                                .whenComplete(() {
+
+                            });
+                            */
+
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.map, color: Colors.black26,),
+                              SizedBox(width: 5,),
+                              Text(
+                                "Mapa",
+                                style: TextStyle(color: BUTTONS_TEXT_DARK),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
-                SizedBox(height: (5)),
-                AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
-                SizedBox(height: (15.0)),
-                BreweriesCards(
-                  key: UniqueKey(),
-                  loadingText: "Cargando cervecerías...",
-                ),
+                  SizedBox(height: (5)),
+                  AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
+                  SizedBox(height: (15.0)),
+                  BreweriesCards(
+                    key: UniqueKey(),
+                    loadingText: "Cargando cervecerías...",
+                  ),
 
-                SizedBox(height: (100)),
-              ],
+                  SizedBox(height: (100)),
+                ],
+              ),
             ),
           ),
         ),

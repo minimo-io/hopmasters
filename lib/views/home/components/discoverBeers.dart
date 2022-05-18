@@ -20,7 +20,12 @@ class Animal {
 }
 
 class DiscoverBeers extends StatefulWidget {
-  const DiscoverBeers({Key? key}) : super(key: key);
+  final Function()? notifyParent;
+
+  const DiscoverBeers({
+    this.notifyParent,
+    Key? key
+  }) : super(key: key);
 
   @override
   _DiscoverBeersState createState() => _DiscoverBeersState();
@@ -124,6 +129,11 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                 ),
                 InkWell(
                   onTap: () {
+
+                    // more filters state on parent
+                    //if (widget.notifyParent != null) widget.notifyParent!();
+
+                    // create build
                     BuildContext oldContext = context;
                     Scaffold.of(context)
                         .showBottomSheet<void>(
@@ -140,16 +150,48 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                               color: Colors.white,
                               child: ListView(
                                 children: [
-                                  Container(
-                                      padding: EdgeInsets.only(left: 25, top: 20),
-                                      height: 50,
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "FILTRAR CERVEZAS",
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          padding: EdgeInsets.only(left: 25, top: 20),
+                                          height: 50,
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                                "FILTRAR CERVEZAS",
+                                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                                            ),
+                                          )
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 15.0, right:15.0),
+                                        child: SizedBox(
+                                          height: 37,
+                                          child: ElevatedButton(
+
+                                            onPressed: ()=> Navigator.pop(context),
+                                            child: Text("Cerrar", style: TextStyle(fontSize: 12),),
+                                            style: ButtonStyle(
+                                                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
+                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                                                shape: MaterialStateProperty
+                                                    .all<
+                                                    RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius
+                                                            .circular(20.0),
+                                                        side: BorderSide(
+                                                            width: .8,
+                                                            color: Colors.black.withOpacity(.2))
+                                                    )
+                                                )
+                                            ),
+                                          ),
                                         ),
-                                      )
+                                      ),
+
+                                    ],
                                   ),
                                   SizedBox(height: 30,),
                                   /*
@@ -417,7 +459,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                     children: [
                       Icon(Icons.filter_alt, color: Colors.black26,),
                       Text(
-                        "Mas filtros",
+                        "Más filtros",
                         style: TextStyle(color: BUTTONS_TEXT_DARK),
                       ),
                     ],

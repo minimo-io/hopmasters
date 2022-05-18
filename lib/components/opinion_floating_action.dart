@@ -317,8 +317,7 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
             child: SizedBox(height: 10, width: 10, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 1.0,)),
           ) ) ,
           backgroundColor: (this.isLoading == false ? widget.bgColor : Colors.grey),
-        )
-        ,
+        ),
 
         // ADD / PUBLISH BUTTON
 
@@ -333,7 +332,8 @@ class _OpinionFloatingActionState extends State<OpinionFloatingAction>  {
               backgroundColor: widget.bgColor,
               label: Text("X", style: TextStyle(color: Colors.white, fontSize: 12))
           ),
-        ) : SizedBox(height: 0.01,)),
+        ) : SizedBox(height: 0.01,)
+        ),
       ],
     );
   }
