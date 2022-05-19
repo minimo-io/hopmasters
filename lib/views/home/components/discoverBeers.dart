@@ -5,6 +5,7 @@ import 'package:Hops/theme/style.dart';
 
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/components/beer_cards.dart';
+import 'package:Hops/models/advanced_beer_filter.dart';
 
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:Hops/utils/notifications.dart';
@@ -32,10 +33,17 @@ class DiscoverBeers extends StatefulWidget {
 class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveClientMixin {
   Future? _beers;
   String _disoverBeersType = "recent";
+  String _disoverBeersTypeExtraParam = "";
   HopsNotifications notificationClient =  new HopsNotifications();
 
   @override
   bool get wantKeepAlive => true;
+
+  static List<AdvacedBeerFilter> _moreFilters = [
+    AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "high", icon: Icons.trending_up, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
+    AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "low", icon: Icons.trending_down, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
+
+  ];
 
   static List<Animal> _animals = [
     Animal(id: 1, name: "Lion"),
@@ -67,6 +75,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     Animal(id: 27, name: "Dolphin"),
   ];
   List _selectedBeers = [];
+  List _selectedBeerFilters = [];
 
   void _showMultiSelect(BuildContext context, BuildContext oldContext) async {
     await showDialog(
@@ -204,8 +213,14 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                       child: ElevatedButton(
                                         onPressed: (){
+
+                                          setState(() {
+                                            _disoverBeersType = "premium";
+                                            _beers = WordpressAPI.getBeers(type: "premium");
+                                          });
                                           Navigator.of(context).pop();
-                                          notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+
+                                          //notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
                                         },
 
                                         child: Padding(
@@ -215,10 +230,10 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                               Row(
                                                 //mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Icon(Icons.bolt, size: 35, color: Colors.amber),
+                                                    Icon(Icons.verified, size: 35, color: BUTTON_GREEN),
                                                     SizedBox(width: 8,),
                                                     // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                                    Text( "Con compra inmediata" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                                    Text( "Con compra verificada" , style: TextStyle(fontSize: 20, color: Colors.black54),)
                                                   ]
                                               ),
                                             ],
@@ -229,6 +244,37 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
 
 
                                   ),
+                                  SizedBox(height: 7,),
+
+
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_showMultiSelect(context);
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.money_off, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Mas económicas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -270,9 +316,15 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     width: MediaQuery.of(context).size.width * 0.95,
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: ElevatedButton(
+                                      /*
                                       onPressed: () {
                                         _showMultiSelect(context, oldContext);
 
+                                      },
+                                      */
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                        notificationClient.message(oldContext, "Esta función estará disponible en la versión 2 de la app.");
                                       },
 
                                       child: Padding(
@@ -281,7 +333,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                           //mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.sports_bar, size: 35, color: Colors.amber),
+                                              Icon(Icons.sports_bar, size: 35, color: Colors.grey),
                                               SizedBox(width: 8,),
                                               // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
                                               Text( "Por tipos de cervezas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
@@ -291,33 +343,6 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     ),
                                   ),
 
-                                  SizedBox(height: 7,),
-
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //_showMultiSelect(context);
-                                        Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.money_off, size: 35, color: Colors.amber),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Mas económicas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
-                                        ),
-                                      ),
-                                    ),
-                                  ),
 
 
                                   SizedBox(height: 7,),
@@ -386,9 +411,19 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        //_showMultiSelect(context);
+
+                                        // _showMultiSelect(context, oldContext);
+                                        setState(() {
+                                          _selectedBeerFilters = [];
+                                          _selectedBeerFilters = [
+                                            AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "high", icon: Icons.trending_up, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
+                                          ];
+
+                                          _disoverBeersType = "ibu";
+                                          _disoverBeersTypeExtraParam = "high";
+                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
+                                        });
                                         Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
 
                                       },
 
@@ -415,9 +450,19 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        //_showMultiSelect(context);
+
+                                        setState(() {
+                                          _selectedBeerFilters = [];
+                                          _selectedBeerFilters = [
+                                            AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "low", icon: Icons.trending_up, iconColor: Colors.amber, name: "Menor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
+                                          ];
+
+                                          _disoverBeersType = "ibu";
+                                          _disoverBeersTypeExtraParam = "low";
+                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
+                                        });
                                         Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+
 
                                       },
 
@@ -478,23 +523,26 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildCategoryButton(
-                text: "Novedades",
+                text: "Nuevas",
                 icon: Icons.schedule,
                 color: Colors.white,
-                isSelected: true,
+                isSelected: (_disoverBeersType == "recent" ? true : false ),
                 onPressedAction: (){
                   setState(() {
+                    _selectedBeerFilters = [];
                     _disoverBeersType = "recent";
                     _beers = WordpressAPI.getBeers(type: "recent");
                   });
                 }
             ),
             _buildCategoryButton(
-                text: "Mas votadas",
+                text: "Más Votadas",
+                isSelected: (_disoverBeersType == "most_voted" ? true : false ),
                 icon: Icons.star,
                 color: Colors.amberAccent,
                 onPressedAction: (){
                   setState(() {
+                    _selectedBeerFilters = [];
                     _disoverBeersType = "most_voted";
                     _beers = WordpressAPI.getBeers(type: "most_voted");
                   });
@@ -502,21 +550,27 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
             ),
             _buildCategoryButton(
                 text: "Tendencia",
+                isSelected: (_disoverBeersType == "trends" ? true : false ),
                 icon: Icons.local_fire_department,
                 color: Colors.red,
                 onPressedAction: (){
                   setState(() {
+                    _selectedBeerFilters = [];
                     _disoverBeersType = "trends";
                     _beers = WordpressAPI.getBeers(type: "trends");
                   });
                 }
             ),
             _buildCategoryButton(
-                text: "Premium",
+                text: "Verificadas",
+                isSelected: (_disoverBeersType == "premium" ? true : false ),
+                // icon: Icons.verified,
                 icon: Icons.verified,
-                color: Color.fromRGBO(25, 119, 227, 1),
+                //color: Color.fromRGBO(25, 119, 227, 1),
+                color: BUTTON_GREEN,
                 onPressedAction: (){
                   setState(() {
+                    _selectedBeerFilters = [];
                     _disoverBeersType = "premium";
                     _beers = WordpressAPI.getBeers(type: "premium");
                   });
@@ -527,8 +581,12 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _buildButtonText({ String text = "" }){
-    return Text(text, style: TextStyle(fontSize: 15, color: BUTTONS_TEXT_DARK));
+  Widget _buildButtonText({ String text = "", isSelected = false }){
+    return Text(text, style: TextStyle(
+        fontSize: 15,
+        color: BUTTONS_TEXT_DARK,
+        fontWeight: (isSelected ? FontWeight.bold : FontWeight.normal )
+    ));
   }
 
   Widget _buildCategoryButton({
@@ -556,7 +614,9 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                     Colors.black.withOpacity(
                         .6)),
                  */
-                backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor.withOpacity(  (isSelected ? 1.0 : 0.4 )  )
+                ),
                 shape: MaterialStateProperty
                     .all<
                     RoundedRectangleBorder>(
@@ -571,7 +631,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
             ),
           ),
         ),
-        _buildButtonText(text: text)
+        _buildButtonText(text: text, isSelected: isSelected)
       ],
     );
   }
@@ -642,7 +702,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
         if (_selectedBeers.length > 0) Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: MultiSelectChipDisplay(
-            chipColor: Colors.black54,
+            chipColor: Colors.black,
             textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             items: _selectedBeers.map((e) => MultiSelectItem(e, e.name)).toList(),
             //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
@@ -650,6 +710,25 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
               setState(() {
 
                 _selectedBeers.remove(value);
+              });
+            },
+          ),
+        ),
+        // more filters chips
+        if (_selectedBeerFilters.length > 0) Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: MultiSelectChipDisplay(
+            icon: Icon(Icons.close),
+            chipColor: Colors.black,
+            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            items: _selectedBeerFilters.map((e) => MultiSelectItem(e, e.name)).toList(),
+            onTap: (value) {
+              setState(() {
+                _selectedBeerFilters = [];
+                // back to default, could bet get back to last filter before this
+                _disoverBeersType = "recent";
+                _beers = WordpressAPI.getBeers(type: "recent");
+                //_selectedBeerFilters.remove(value);
               });
             },
           ),
@@ -685,7 +764,12 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                       children: [
                         _buildListGridView(),
                         SizedBox(height: 10,),
-                        BeerCards( loadingText: "Cargando cervezas...", beersList: snapshot.data, discoverBeersType: _disoverBeersType,),
+                        BeerCards(
+                          loadingText: "Cargando cervezas...",
+                          beersList: snapshot.data,
+                          discoverBeersType: _disoverBeersType,
+                          discoverBeersTypeExtraParam: _disoverBeersTypeExtraParam,
+                        ),
 
                       ],
                     );

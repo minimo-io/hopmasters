@@ -30,6 +30,9 @@ const Color ACTION_BUTTON_PRIMARY_COLOR = Color.fromRGBO(234,240,76, 1); // logi
 
 const Color PROGRESS_INDICATOR_COLOR = Colors.black54; // login eg.
 
+
+const Color BUTTON_GREEN = Color.fromRGBO(107, 205, 47, 1);
+
 // const Color BUTTONS_TEXT_GREY = Color(0xFFBBBBBB);
 const Color BUTTONS_TEXT_DARK = Color.fromRGBO(107, 107, 107, 1);
 

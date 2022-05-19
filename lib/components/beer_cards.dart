@@ -17,6 +17,7 @@ class BeerCards extends StatefulWidget {
   String? userBeersList; // possible favorite beers to call
   String viewType;
   String discoverBeersType;
+  String? discoverBeersTypeExtraParam;
 
   BeerCards({
     this.beersList,
@@ -24,6 +25,7 @@ class BeerCards extends StatefulWidget {
     this.userBeersList,
     this.viewType = "list",
     this.discoverBeersType = "recent",
+    this.discoverBeersTypeExtraParam = "",
     Key? key
   }) : super(key: key);
 
@@ -50,7 +52,7 @@ class _BeerCardsState extends State<BeerCards> {
     }else{
       // else make the query
 
-      _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!, type: widget.discoverBeersType);
+      _beers = WordpressAPI.getBeers(userBeers: widget.userBeersList!, type: widget.discoverBeersType, extraParam1: widget.discoverBeersTypeExtraParam);
     }
     /*
     WidgetsBinding.instance?.addPostFrameCallback((_){
@@ -387,7 +389,7 @@ class _BeerCardsState extends State<BeerCards> {
             _isLoadingApiCall = true;
           });
 
-          WordpressAPI.getBeers(page: _page, type: widget.discoverBeersType).then((beersList){
+          WordpressAPI.getBeers(page: _page, type: widget.discoverBeersType, extraParam1: widget.discoverBeersTypeExtraParam).then((beersList){
             setState(() => _isLoadingApiCall = false);
             var beersBottom = (beersList as List)
                 .map((data) => new Beer.fromJson(data))

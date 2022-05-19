@@ -245,7 +245,13 @@ class WordpressAPI{
   }
 
   // get list of beers
-  static Future getBeers( { String? userBeers = null, String type = 'user_beers', String? userId = "0", int? page = 1 } )async{
+  static Future getBeers( {
+    String? userBeers = null,
+    String type = 'user_beers',
+    String? userId = "0",
+    String? extraParam1 = "",
+    int? page = 1 } )async{
+
     String beersUriQuery = _WP_BASE_API + _WP_REST_WC_URI + "products/?_embed&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
     if (userId != null && userId != "0") beersUriQuery = beersUriQuery + "&userId=" + userId;
     if (userBeers != null && type == "user_beers") beersUriQuery += "&include=" + userBeers.replaceAll("|", ",");
@@ -257,11 +263,13 @@ class WordpressAPI{
     if (type == "most_voted") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/mostVoted?_embed";
     // premium or sponsored beers
     if (type == "premium") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/premium?_embed";
+    // ibu
+    if (type == "ibu") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/ibu?extraParam1="+ extraParam1! +"&_embed";
 
     // add page
     beersUriQuery = beersUriQuery + "&page=" + page.toString();
 
-    //print(beersUriQuery);
+    print(beersUriQuery);
 
 
 
@@ -279,8 +287,8 @@ class WordpressAPI{
         return response.data;
       }
     } on DioError catch(e) {
-      print('Failed to load breweries list!');
-      throw Exception('Failed to load breweries list!');
+      print('Failed to load beers!');
+      throw Exception('Failed to load beers!');
     }
 
 
