@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:Hops/constants.dart';
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/utils/notifications.dart';
 import 'package:Hops/utils/size_config.dart';
@@ -267,7 +267,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                       socialIcon: "assets/images/icons/apple.png"
                   ),
                     */
-                  _createButton(
+                  if (SHOW_LOGIN_APPLE) _createButton(
                     backgroundColor: Colors.black,
                     title: "Conectate con Apple",
                     socialIcon: "assets/images/icons/apple.png",
@@ -312,7 +312,8 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                       print(credential);
                     },
                   ),
-                  _createButton(
+
+                  if (SHOW_LOGIN_FACEBOOK) _createButton(
                     backgroundColor: Color(0Xff3B5998),
                     title: "Conectate con Facebook",
                     socialIcon: "assets/images/icons/facebook.png",
@@ -349,7 +350,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                     },
                   ),
                   // google
-                  _createButton(
+                  if (SHOW_LOGIN_GOOGLE) _createButton(
                       backgroundColor: Color.fromRGBO(65, 120, 247, 1),
                       title: "Conectate con Google",
                       onTap: () {
@@ -388,7 +389,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                         });
                       },
                       socialIcon: "assets/images/icons/google.png"),
-                  _createButton(
+                  if (SHOW_LOGIN_EMAIL) _createButton(
                       backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
                       title: "Conectate con tu Email",
                       onTap: () => super.gotoSignUp(widget.controller!),

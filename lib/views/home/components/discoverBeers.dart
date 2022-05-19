@@ -20,10 +20,8 @@ class Animal {
 }
 
 class DiscoverBeers extends StatefulWidget {
-  final Function()? notifyParent;
 
   const DiscoverBeers({
-    this.notifyParent,
     Key? key
   }) : super(key: key);
 

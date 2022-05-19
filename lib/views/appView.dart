@@ -29,11 +29,10 @@ class AppView extends StatefulWidget {
   _AppViewState createState() => _AppViewState();
 }
 
-class _AppViewState extends State<AppView> {
+class _AppViewState extends State<AppView>   {
   int currentTab = 0;
   static const String routeName = "/";
   late PageController pageController;
-
 
   @override
   void initState() {
@@ -46,8 +45,10 @@ class _AppViewState extends State<AppView> {
     SharedServices.populateProvider(context, "news_types");
   }
 
-  final List<Widget> pages = const <Widget>[
-    HomeView(),
+
+  List<Widget> pages =  <Widget>[
+    HomeView(
+    ),
     FavoritesView(),
     //ExperiencesView(),
     PromosView(),
@@ -97,6 +98,7 @@ class _AppViewState extends State<AppView> {
     super.dispose();
   }
 
+
   _onTapped(int index) {
 
     setState(() {
@@ -106,6 +108,7 @@ class _AppViewState extends State<AppView> {
 
 
   }
+
 
   void onPageChanged(int index) {
     setState(() {

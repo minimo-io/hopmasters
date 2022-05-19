@@ -25,6 +25,12 @@ const firstHeaderDesktopTopPadding = 5.0;
 
 const marginSide = 18.0;
 
+// login buttons
+const SHOW_LOGIN_APPLE = false;
+const SHOW_LOGIN_FACEBOOK = true;
+const SHOW_LOGIN_GOOGLE = true;
+const SHOW_LOGIN_EMAIL = true;
+
 const showSearchBar = false;
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];

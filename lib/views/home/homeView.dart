@@ -24,7 +24,12 @@ import 'package:provider/provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  final Function(int index)? notifyParent;
+
+  const HomeView({
+    this.notifyParent,
+    Key? key
+  }) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -154,8 +159,8 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                                 text: "Tenés " + _scoreOverview + " puntos Hops",
                                 image: Image.asset("assets/images/medal.png", height: 20,),
                                 press: () {
-
-                                   Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
+                                   if (widget.notifyParent != null) widget.notifyParent!(2);
+                                   //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
 
 
                                 },
@@ -168,7 +173,6 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
 
                   DiscoverBeers(
                     key: UniqueKey(),
-                    notifyParent: refreshFromChild,
                   ),
 
                   //BreweriesBanner(),
