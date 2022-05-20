@@ -265,6 +265,10 @@ class WordpressAPI{
     if (type == "premium") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/premium?_embed";
     // ibu
     if (type == "ibu") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/ibu?extraParam1="+ extraParam1! +"&_embed";
+    // price
+    if (type == "price") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/price?extraParam1="+ extraParam1! +"&_embed";
+    // abv
+    if (type == "abv") beersUriQuery = _WP_BASE_API + _WP_REST_HOPS_URI + "beers/abv?extraParam1="+ extraParam1! +"&_embed";
 
     // add page
     beersUriQuery = beersUriQuery + "&page=" + page.toString();

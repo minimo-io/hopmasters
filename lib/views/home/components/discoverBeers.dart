@@ -244,18 +244,34 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
 
 
                                   ),
+
+
+                                  /*
                                   SizedBox(height: 7,),
-
-
 
                                   Container(
                                     width: MediaQuery.of(context).size.width * 0.95,
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        //_showMultiSelect(context);
+
+                                        setState(() {
+                                          _selectedBeerFilters = [];
+                                          _selectedBeerFilters = [
+                                            AdvacedBeerFilter(
+                                                apiEndpoint: "price",
+                                                extraParam: "ASC",
+                                                icon: Icons.money_off,
+                                                iconColor: Colors.amber,
+                                                name: "Más económicas")
+                                          ];
+
+                                          _disoverBeersType = "price";
+                                          _disoverBeersTypeExtraParam = "ASC";
+                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
+                                        });
                                         Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+
                                       },
 
                                       child: Padding(
@@ -274,7 +290,9 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     ),
                                   ),
 
+                                  */
 
+                                  /*
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -307,6 +325,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
 
 
                                   ),
+                                   */
+
 
                                   SizedBox(height: 7,),
 
@@ -344,7 +364,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                   ),
 
 
-
+                                  /*
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -373,7 +393,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                       ),
                                     ),
                                   ),
-
+                                  */
 
                                   SizedBox(height: 7,),
 
@@ -382,9 +402,20 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        //_showMultiSelect(context);
+
+                                        // _showMultiSelect(context, oldContext);
+                                        setState(() {
+                                          _selectedBeerFilters = [];
+                                          _selectedBeerFilters = [
+                                            AdvacedBeerFilter(apiEndpoint: "abv", extraParam: "DESC", icon: Icons.liquor, iconColor: Colors.amber, name: "Mayor alcohól")
+                                          ];
+
+                                          _disoverBeersType = "abv";
+                                          _disoverBeersTypeExtraParam = "DESC";
+                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
+                                        });
                                         Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+
 
                                       },
 
@@ -397,7 +428,47 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                               Icon(Icons.liquor, size: 35, color: Colors.amber),
                                               SizedBox(width: 8,),
                                               // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Mayor alcohol" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                              Text( "Mayor alcohól" , style: TextStyle(fontSize: 20, color: Colors.black54),)
+                                            ]
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 7,),
+
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.95,
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+
+                                        // _showMultiSelect(context, oldContext);
+                                        setState(() {
+                                          _selectedBeerFilters = [];
+                                          _selectedBeerFilters = [
+                                            AdvacedBeerFilter(apiEndpoint: "abv", extraParam: "ASC", icon: Icons.local_bar, iconColor: Colors.amber, name: "Menor alcohól")
+                                          ];
+
+                                          _disoverBeersType = "abv";
+                                          _disoverBeersTypeExtraParam = "ASC";
+                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
+                                        });
+                                        Navigator.of(context).pop();
+
+
+                                      },
+
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                              Icon(Icons.local_bar, size: 35, color: Colors.amber),
+                                              SizedBox(width: 8,),
+                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                              Text( "Menor alcohól" , style: TextStyle(fontSize: 20, color: Colors.black54),)
                                             ]
                                         ),
                                       ),
