@@ -613,12 +613,15 @@ class _BeerHeaderState extends State<BeerHeader> with SingleTickerProviderStateM
                                 child: ElevatedButton(
                                   onPressed: () {
 
-
+  /*
                                     void _launchURL(String _url) async => await canLaunch(_url)
                                         ? await launch(_url) : notificationClient.message(context, "¡Parece que no tienes whatsapp instalado!");
 
 
                                     _launchURL("whatsapp://send?phone="+widget.beer.breweryWhatsapp+"&text=");
+   */
+                                    print(widget.beer.breweryWhatsapp.toString().replaceAll(" ", "").replaceAll("+", ""));
+                                    Helpers.launchURL("https://wa.me/" + widget.beer.breweryWhatsapp.toString().replaceAll(" ", "").replaceAll("+", "") + "?text=");
 
                                   },
 
