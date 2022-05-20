@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
+import 'package:Hops/constants.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/models/login.dart';
@@ -219,7 +220,12 @@ class _OrdersViewState extends State<OrdersView> {
                     } else {
                       print("DATA: " + snapshot.data.toString());
                       if (snapshot.data.length > 0){
-                        return _buildOrderBoxes(snapshot.data);
+
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: marginSide),
+                          child: _buildOrderBoxes(snapshot.data),
+                        );
+
                       }else{
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
