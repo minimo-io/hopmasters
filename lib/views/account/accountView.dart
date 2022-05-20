@@ -14,6 +14,10 @@ import '../../components/profile_menu.dart';
 
 import 'package:Hops/utils/notifications.dart';
 
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/services/wordpress_api.dart';
+import 'package:Hops/models/login.dart';
+
 class AccountView extends StatefulWidget {
 
   final String? userID;
@@ -26,6 +30,9 @@ class AccountView extends StatefulWidget {
 class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClientMixin {
   Future<LoginResponse?>? _userData;
 
+  LoginResponse? _userData2;
+  late Future<List<dynamic>?> _customerOrders;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -34,6 +41,15 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
   super.initState();
   //SharedServices.logout(context);
   _userData = SharedServices.loginDetails();
+
+  _customerOrders = getOrders();
+
+  }
+
+
+  Future<List<dynamic>?> getOrders() async {
+    _userData2 =  await SharedServices.loginDetails();
+    return await WordpressAPI.getOrders(_userData2!.data!.id, status: "pending, processing, on-hold");
   }
 
   @override
@@ -45,6 +61,7 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
         onRefresh: ()async{
           setState(() {
             _userData = SharedServices.loginDetails();
+            _customerOrders = getOrders();
           });
 
         },
@@ -77,6 +94,7 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
                           ),
                           SizedBox(height: 20),
 
+
                           ProfileMenu(
                             text: "Mi perfil",
                             icon: Icon(Icons.verified_user),
@@ -85,6 +103,61 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
                               notificationClient.message(context, "¡En próximas versiones!");
                             },
                           ),
+
+
+                          ProfileMenu(
+                            text: "Tus pedidos",
+                            icon: Icon(Icons.shopping_cart),
+                            press: () {
+                              Navigator.pushNamed(
+                                  context,
+                                  "orders"
+                              );
+                            },
+                            counterWidget:  FutureBuilder(
+                                future: _customerOrders,
+                                builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+                                  switch (snapshot.connectionState) {
+                                    case ConnectionState.waiting:
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 10.0),
+                                        child: SizedBox(
+                                            height: 10,
+                                            width: 10,
+                                            child: Center( child:
+                                              CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                                            )
+                                        ),
+                                      );
+                                    default:
+                                      if (snapshot.hasError){
+                                        return Text(' Ups! Errors: ${snapshot.error}');
+
+                                      }else {
+
+                                        return (snapshot.data.length > 0 ? Padding(
+                                          padding: const EdgeInsets.only(right: 10.0),
+                                          child: Container(
+                                              height: 28,
+                                              width:28,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(width: 1.5, color: Colors.white)
+                                              ),
+                                              child: Center(child: Text(snapshot.data.length.toString(), style: TextStyle(fontSize: 11, height: 1, color: Colors.white, fontWeight: FontWeight.w600)))
+                                          ),
+                                        ) : Container() );
+
+
+                                      }
+                                  }
+
+                                }),
+                          ),
+
+
 
                           ProfileMenu(
                             text: "Experiencias",
@@ -97,16 +170,7 @@ class _AccountViewState extends State<AccountView> with AutomaticKeepAliveClient
                             },
                           ),
 
-                          ProfileMenu(
-                            text: "Tus pedidos",
-                            icon: Icon(Icons.shopping_cart),
-                            press: () {
-                              Navigator.pushNamed(
-                                context,
-                                "orders"
-                              );
-                            },
-                          ),
+
                           /*
                           ProfileMenu(
                             text: "Notificaciones",

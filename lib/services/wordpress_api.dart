@@ -706,9 +706,12 @@ class WordpressAPI{
   }
 
   // get user orders
-  static Future<List<dynamic>?> getOrders(int? customerId)async{
+  static Future<List<dynamic>?> getOrders(int? customerId, { String? status="any" })async{
     String query =  _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_ORDERS + "/?customer=" + customerId.toString() + "&order=desc&orderby=date&per_page=100&page=1";
     query = query + "&consumer_key="+ _apiKey +"&consumer_secret=" + _apiSecret;
+
+    if (status != null) query = query + "&status=" + status;
+
     // print(query);
     try{
       var response = await Dio().get(
