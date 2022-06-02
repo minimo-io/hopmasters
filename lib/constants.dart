@@ -22,7 +22,6 @@ const splashPageAnimationDurationInMilliseconds = 300;
 // The desktop top padding for a page's first header (e.g. Gallery, Settings)
 const firstHeaderDesktopTopPadding = 5.0;
 
-
 const marginSide = 18.0;
 
 // login buttons
@@ -30,6 +29,8 @@ const SHOW_LOGIN_APPLE = false;
 const SHOW_LOGIN_FACEBOOK = true;
 const SHOW_LOGIN_GOOGLE = true;
 const SHOW_LOGIN_EMAIL = true;
+
+const SHOW_BREWERY_WHATSAPP_ON_BEER_BUY_OPTIONS = false;
 
 const showSearchBar = false;
 
@@ -46,10 +47,9 @@ Map<String, Pref> SINGUP_PREFS = {
       id: 666661,
       image: '',
       menu_order: 0,
-      parent:0,
-      slug: ''
-  ),
-  'news' : Pref(
+      parent: 0,
+      slug: ''),
+  'news': Pref(
       count: 0,
       description: '',
       name: "Notícias",
@@ -57,9 +57,8 @@ Map<String, Pref> SINGUP_PREFS = {
       id: 666662,
       image: '',
       menu_order: 0,
-      parent:0,
-      slug: ''
-  ),
+      parent: 0,
+      slug: ''),
   'discounts': Pref(
       count: 0,
       description: '',
@@ -68,9 +67,8 @@ Map<String, Pref> SINGUP_PREFS = {
       id: 666663,
       image: '',
       menu_order: 0,
-      parent:0,
-      slug: ''
-  ),
+      parent: 0,
+      slug: ''),
   'events': Pref(
       count: 0,
       description: '',
@@ -79,9 +77,8 @@ Map<String, Pref> SINGUP_PREFS = {
       id: 666664,
       image: '',
       menu_order: 0,
-      parent:0,
-      slug: ''
-  ),
+      parent: 0,
+      slug: ''),
   'friends': Pref(
       count: 0,
       description: '',
@@ -90,9 +87,8 @@ Map<String, Pref> SINGUP_PREFS = {
       id: 666665,
       image: '',
       menu_order: 0,
-      parent:0,
-      slug: ''
-  )
+      parent: 0,
+      slug: '')
 };
 
 /*

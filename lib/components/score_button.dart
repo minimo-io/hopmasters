@@ -6,11 +6,13 @@ class ScoreButton extends StatelessWidget {
     required this.text,
     required this.image,
     this.press,
+    this.contrast = "low",
   }) : super(key: key);
 
   final String text;
   final Image image;
   final VoidCallback? press;
+  final String contrast;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +21,23 @@ class ScoreButton extends StatelessWidget {
       child: FlatButton(
         padding: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Color(0xFFF5F6F9),
+        //color: Color(0xFFF5F6F9),
+        color: (this.contrast == "high" ? Colors.black : Color(0xFFF5F6F9)),
         onPressed: press,
         child: Row(
           children: [
             image,
-            SizedBox(width: 20),
-            Expanded(child: Text(text)),
-            Icon(Icons.arrow_forward_ios, size: 15,),
+            const SizedBox(width: 20),
+            Expanded(
+                child: Text(
+              text,
+              style: TextStyle(
+                  color:
+                      (this.contrast == "high" ? Colors.white : Colors.black)),
+            )),
+            Icon(Icons.arrow_forward_ios,
+                size: 15,
+                color: (this.contrast == "high" ? Colors.white : Colors.black)),
           ],
         ),
       ),

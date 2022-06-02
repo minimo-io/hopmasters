@@ -7,13 +7,13 @@ class CounterSelector extends StatefulWidget {
   int? counterInitCount;
   EdgeInsetsGeometry? counterPadding;
 
-  CounterSelector({
-    this.color,
-    @required this.notifyParent,
-    this.counterInitCount = 1,
-    this.counterPadding,
-    Key? key
-  }) : super(key: key);
+  CounterSelector(
+      {this.color,
+      @required this.notifyParent,
+      this.counterInitCount = 1,
+      this.counterPadding,
+      Key? key})
+      : super(key: key);
 
   @override
   _CounterSelectorState createState() => _CounterSelectorState();
@@ -21,7 +21,6 @@ class CounterSelector extends StatefulWidget {
 
 class _CounterSelectorState extends State<CounterSelector> {
   int _counter = 1;
-
 
   @override
   void initState() {
@@ -38,7 +37,7 @@ class _CounterSelectorState extends State<CounterSelector> {
 
   void _decrease() {
     setState(() {
-      if (_counter > 0) _counter--;
+      if (_counter > 1) _counter--;
     });
     if (widget.notifyParent != null) widget.notifyParent!(_counter);
   }
@@ -56,7 +55,9 @@ class _CounterSelectorState extends State<CounterSelector> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: (widget.counterPadding != null ? widget.counterPadding! : EdgeInsets.all(12.0) ),
+      padding: (widget.counterPadding != null
+          ? widget.counterPadding!
+          : EdgeInsets.all(12.0)),
       child: Container(
         width: Helpers.screenAwareSize(100.0, context),
         height: Helpers.screenAwareSize(37.0, context),
@@ -89,12 +90,12 @@ class _CounterSelectorState extends State<CounterSelector> {
                 height: double.infinity,
                 child: Center(
                     child: Text(
-                      _counter.toString(),
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 18.0,
-                          fontFamily: 'Montserrat-Bold'),
-                    )),
+                  _counter.toString(),
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 18.0,
+                      fontFamily: 'Montserrat-Bold'),
+                )),
               ),
             ),
             _divider(),

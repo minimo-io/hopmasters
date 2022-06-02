@@ -26,16 +26,14 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 class HomeView extends StatefulWidget {
   final Function(int index)? notifyParent;
 
-  const HomeView({
-    this.notifyParent,
-    Key? key
-  }) : super(key: key);
+  const HomeView({this.notifyParent, Key? key}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
+class _HomeViewState extends State<HomeView>
+    with AutomaticKeepAliveClientMixin {
   Future? _breweryBeers;
   Future? _userScore;
   String _scoreOverview = "";
@@ -52,62 +50,57 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
     _userScore = getUserScore();
     // _discoverBeers = DiscoverBeers();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_){
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       //Provider.of<Loader>(context, listen: false).setLoading(true);
       // now i need to check that all loadings are done
-
-
     });
   }
 
   @override
   bool get wantKeepAlive => true;
 
-  Future<void> initOneSignalNotifications()async{
+  Future<void> initOneSignalNotifications() async {
     OneSignal.shared.setAppId(
-        oneSignalAppId,
+      oneSignalAppId,
     );
     //OneSignal.shared.disablePush(false);
     OneSignal.shared.setNotificationOpenedHandler((openedResult) {
       var data = openedResult.notification.additionalData;
 
-      if (data!["post_type"] == "product"){
+      if (data!["post_type"] == "product") {
         Navigator.pushNamed(
           context,
           "/beer",
-          arguments: { 'beerId': data!["post_id"] },
+          arguments: {'beerId': data!["post_id"]},
         );
-      }else if( data!["post_type"] == "brewery"){
+      } else if (data!["post_type"] == "brewery") {
         Navigator.pushNamed(
           context,
           "/brewery",
-          arguments: { 'breweryId': int.parse(data!["post_id"].toString()) },
+          arguments: {'breweryId': int.parse(data!["post_id"].toString())},
         );
-
       }
-
-
-
     });
   }
 
   Future getUserScore() async {
     var userData = await SharedServices.loginDetails();
-    return WordpressAPI.getUserPrefs( userData!.data!.id, indexType: "score" );
-
+    return WordpressAPI.getUserPrefs(userData!.data!.id, indexType: "score");
   }
 
-  Widget _buildHomeFloatingButtons(){
-    return (_moreFilters == true ? Padding(
-      padding: const EdgeInsets.only(right: 5.0),
-      child: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(15)) ),
-        onPressed: () => Navigator.pop(context),
-        backgroundColor: Colors.black,
-        label: Text("X", style: TextStyle(color: Colors.white, fontSize: 12))
-      ),
-    ) : Container() );
+  Widget _buildHomeFloatingButtons() {
+    return (_moreFilters == true
+        ? Padding(
+            padding: const EdgeInsets.only(right: 5.0),
+            child: FloatingActionButton.extended(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                onPressed: () => Navigator.pop(context),
+                backgroundColor: Colors.black,
+                label: Text("X",
+                    style: TextStyle(color: Colors.white, fontSize: 12))),
+          )
+        : Container());
   }
 
   void refreshFromChild() {
@@ -124,7 +117,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
       floatingActionButton: _buildHomeFloatingButtons(),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh:()async{
+          onRefresh: () async {
             setState(() {
               _userScore = getUserScore();
             });
@@ -142,34 +135,40 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                   FutureBuilder(
                       future: _userScore,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
                             return ScoreButton(
+                              contrast: "low",
                               text: "Cargando puntaje...",
-                              image: Image.asset("assets/images/medal.png", height: 20,),
+                              image: Image.asset(
+                                "assets/images/medal.png",
+                                height: 20,
+                              ),
                               press: () {},
                             );
                           default:
                             if (snapshot.hasError) {
                               return Text(' Ups! Errors: ${snapshot.error}');
                             } else {
-                              _scoreOverview = snapshot.data["result"].toString();
+                              _scoreOverview =
+                                  snapshot.data["result"].toString();
                               return ScoreButton(
-                                text: "Tenés " + _scoreOverview + " puntos Hops",
-                                image: Image.asset("assets/images/medal.png", height: 20,),
+                                contrast: "low",
+                                text:
+                                    "Tenés " + _scoreOverview + " puntos Hops",
+                                image: Image.asset(
+                                  "assets/images/medal.png",
+                                  height: 20,
+                                ),
                                 press: () {
-                                   if (widget.notifyParent != null) widget.notifyParent!(2);
-                                   //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
-
-
+                                  if (widget.notifyParent != null)
+                                    widget.notifyParent!(2);
+                                  //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
                                 },
                               );
-
                             }
                         }
-                      }
-                  ),
+                      }),
 
                   DiscoverBeers(
                     key: UniqueKey(),
@@ -188,8 +187,8 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: InkWell(
                           onTap: () {
-
-                            Helpers.launchURL("https://hops.uy/mapa-cervecero/");
+                            Helpers.launchURL(
+                                "https://hops.uy/mapa-cervecero/");
                             /*
                             Scaffold.of(context)
                                 .showBottomSheet<void>(
@@ -216,12 +215,16 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
 
                             });
                             */
-
                           },
                           child: Row(
                             children: [
-                              Icon(Icons.map, color: Colors.black26,),
-                              SizedBox(width: 5,),
+                              Icon(
+                                Icons.map,
+                                color: Colors.black26,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
                               Text(
                                 "Mapa",
                                 style: TextStyle(color: BUTTONS_TEXT_DARK),
@@ -234,7 +237,9 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
                   ),
 
                   SizedBox(height: (5)),
-                  AppTitle(subtitle: "Las cervecerías mas seguidas por los usuarios."),
+                  AppTitle(
+                      subtitle:
+                          "Las cervecerías mas seguidas por los usuarios."),
                   SizedBox(height: (15.0)),
                   BreweriesCards(
                     key: UniqueKey(),
@@ -249,7 +254,5 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
         ),
       ),
     );
-
-
   }
 }
