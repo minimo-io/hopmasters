@@ -18,8 +18,6 @@ import 'package:Hops/helpers.dart';
 
 import 'package:Hops/models/brewery.dart';
 
-
-
 class BreweryDetailHeader extends StatefulWidget {
   static const BACKGROUND_IMAGE = 'assets/images/beer-toast-bg-2.png';
 
@@ -37,101 +35,95 @@ class BreweryDetailHeader extends StatefulWidget {
   _BreweryDetailHeaderState createState() => _BreweryDetailHeaderState();
 }
 
-class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTickerProviderStateMixin{
+class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
+    with SingleTickerProviderStateMixin {
   bool _isLoadingApiCall = false;
   bool _isBreweryIncluded = false;
   int _breweryFollowersCount = -1;
 
-
   late AnimationController _animationController;
-  late Future<Map<String,dynamic>?> _userBreweriesPreferences;
+  late Future<Map<String, dynamic>?> _userBreweriesPreferences;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     _userBreweriesPreferences = WordpressAPI.getUserPrefs(
         widget.userData?.data?.id,
-        indexType: "breweries_preferences"
-    );
+        indexType: "breweries_preferences");
     this._breweryFollowersCount = int.parse(widget.brewery!.followers!);
     // after layour is built then set the state that will define
     // which button to show: follow or unfollow.
-    defineBreweries(BuildContext context)async{
-
-      _userBreweriesPreferences.then((breweries_prefs){
-
-
+    defineBreweries(BuildContext context) async {
+      _userBreweriesPreferences.then((breweries_prefs) {
         String breweriesFollowed = breweries_prefs!["result"];
-        String breweryId = (widget.brewery?.id != null ? widget.brewery!.id : '' );
+        String breweryId =
+            (widget.brewery?.id != null ? widget.brewery!.id : '');
         bool isBreweryIncluded = breweriesFollowed.contains(breweryId);
-
 
         setState(() {
           this._isBreweryIncluded = isBreweryIncluded;
         });
-
-
-
-
       });
-
     }
-    WidgetsBinding.instance?.addPostFrameCallback((_) => defineBreweries(context));
 
-
+    WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => defineBreweries(context));
   }
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return new DiagonallyCutColoredImage(
-      new Image.asset(
-        BreweryDetailHeader.BACKGROUND_IMAGE,
-        width: screenWidth,
-        height: 335.0,
-        fit: BoxFit.cover,
-      ),
-      color: widget.brewery!.rgbColor.withOpacity(0.3)
-    );
+        new Image.asset(
+          BreweryDetailHeader.BACKGROUND_IMAGE,
+          width: screenWidth,
+          height: 335.0,
+          fit: BoxFit.cover,
+        ),
+        color: widget.brewery!.rgbColor.withOpacity(0.3));
   }
 
   Widget _buildAvatar() {
-    return new Hero(
+    return Hero(
       tag: widget.avatarTag,
-      child: Stack(
-        children: [
-          new CircleAvatar(
-            backgroundImage: new NetworkImage(widget.brewery!.avatar!),
-            //backgroundImage: LoadNetworkImage(brewery.avatar),
-            radius: 50.0,
-          ),
-          Positioned(
-            top:5,
-            right:1,
-            width: 20,
-            height: 20,
-            child: Image.asset("assets/images/flags/uy.png"),
-          ),
-        ]
-      ),
+      child: Stack(children: [
+        CircleAvatar(
+          backgroundImage: NetworkImage(widget.brewery!.image!),
+          //backgroundImage: LoadNetworkImage(brewery.avatar),
+          radius: 50.0,
+        ),
+        Positioned(
+          top: 5,
+          right: 1,
+          width: 20,
+          height: 20,
+          child: Image.asset("assets/images/flags/uy.png"),
+        ),
+      ]),
     );
   }
 
   Widget _buildFollowerInfo(TextTheme textTheme) {
-
     return new Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text(_breweryFollowersCount.toString() + ' seguidores', style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 18, fontWeight: FontWeight.bold), ),
+          new Text(
+            _breweryFollowersCount.toString() + ' seguidores',
+            style: TextStyle(
+                color: Color(0xBBFFFFFF),
+                fontSize: 18,
+                fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
   }
 
-  Widget _followButton(){
+  Widget _followButton() {
     return ClipRRect(
       borderRadius: new BorderRadius.circular(10.0),
       child: ElevatedButton.icon(
@@ -139,48 +131,38 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
             icon: AnimatedIcons.play_pause,
             progress: _animationController,
           ),
-          label: Text(
-              "SEGUIR",
-              style: TextStyle(fontSize: 14)
-          ),
+          label: Text("SEGUIR", style: TextStyle(fontSize: 14)),
           style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-              backgroundColor: MaterialStateProperty.all<Color>(widget.brewery!.rgbColor),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(widget.brewery!.rgbColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      side: BorderSide(color: widget.brewery!.rgbColor)
-                  )
-              )
-          ),
-          onPressed: _followAction
-      ),
+                      side: BorderSide(color: widget.brewery!.rgbColor)))),
+          onPressed: _followAction),
     );
   }
 
-  Widget _unfollowButton(){
+  Widget _unfollowButton() {
     return ClipRRect(
       borderRadius: new BorderRadius.circular(10.0),
       child: ElevatedButton.icon(
           icon: Icon(Icons.close),
-          label: Text(
-              "DEJAR DE SEGUIR",
-              style: TextStyle(fontSize: 14)
-          ),
+          label: Text("DEJAR DE SEGUIR", style: TextStyle(fontSize: 14)),
           style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white24.withOpacity(.5)),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                  Colors.white24.withOpacity(.5)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      side: BorderSide(style: BorderStyle.none)
-                  )
-              )
-          ),
-          onPressed: _followAction
-      ),
+                      side: BorderSide(style: BorderStyle.none)))),
+          onPressed: _followAction),
     );
   }
 
@@ -195,132 +177,147 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          if (_isLoadingApiCall == true) CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)
-          else (_isBreweryIncluded ? _unfollowButton() : _followButton() )
+          if (_isLoadingApiCall == true)
+            CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)
+          else
+            (_isBreweryIncluded ? _unfollowButton() : _followButton())
         ],
       ),
     );
   }
 
-  void _followAction()async{
-    HopsNotifications notificationClient =  new HopsNotifications();
+  void _followAction() async {
+    HopsNotifications notificationClient = new HopsNotifications();
 
     try {
       // get user details
 
+      int? userId = widget.userData?.data?.id;
+      int breweryId = int.parse(widget.brewery!.id);
+      setState(() => this._isLoadingApiCall = true);
+      // api call
+      bool favRest = await WordpressAPI.editBreweryPref(
+          (userId != null ? userId : 0), breweryId,
+          addOrRemove: "add");
+
+      if (favRest == true) {
+        setState(() => this._isLoadingApiCall = false);
+        setState(() => this._breweryFollowersCount++);
+        setState(() {
+          this._isBreweryIncluded = true;
+        });
+
+        setState(() {});
+        // save Shared Service for each preference
+
+        notificationClient.message(
+            context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
+      }
+    } on Exception catch (exception) {
+      setState(() => this._isLoadingApiCall = false);
+
+      notificationClient.message(
+          context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(exception);
+    } catch (error) {
+      setState(() => this._isLoadingApiCall = false);
+
+      notificationClient.message(
+          context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      print(error);
+    }
+  }
+
+  void _unfollowAction() async {
+    HopsNotifications notificationClient = new HopsNotifications();
+
+    try {
+      // get user details
 
       int? userId = widget.userData?.data?.id;
       int breweryId = int.parse(widget.brewery!.id);
-      setState(() => this._isLoadingApiCall = true );
+      setState(() => this._isLoadingApiCall = true);
       // api call
       bool favRest = await WordpressAPI.editBreweryPref(
-          (userId != null ? userId : 0),
-          breweryId,
-          addOrRemove: "add"
-      );
+          (userId != null ? userId : 0), breweryId,
+          addOrRemove: "remove");
 
-      if (favRest == true){
-        setState(() => this._isLoadingApiCall = false );
-        setState(() => this._breweryFollowersCount++  );
-        setState(() { this._isBreweryIncluded = true; });
-
+      if (favRest == true) {
+        setState(() => this._isLoadingApiCall = false);
+        setState(() => this._breweryFollowersCount--);
         setState(() {
-
+          this._isBreweryIncluded = false;
         });
         // save Shared Service for each preference
 
-        notificationClient.message(context, WordpressAPI.MESSAGE_OK_FOLLOWING_BREWERY);
-
+        notificationClient.message(
+            context, WordpressAPI.MESSAGE_OK_UNFOLLOWING_BREWERY);
       }
     } on Exception catch (exception) {
-      setState(() => this._isLoadingApiCall = false );
+      setState(() => this._isLoadingApiCall = false);
 
-      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
+      notificationClient.message(
+          context, WordpressAPI.MESSAGE_ERROR_UNFOLLOWING_BREWERY);
       print(exception);
     } catch (error) {
-      setState(() => this._isLoadingApiCall = false );
+      setState(() => this._isLoadingApiCall = false);
 
-      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_FOLLOWING_BREWERY);
-      print(error);
-    }
-  }
-  void _unfollowAction()async{
-    HopsNotifications notificationClient =  new HopsNotifications();
-
-    try {
-      // get user details
-
-
-      int? userId = widget.userData?.data?.id;
-      int breweryId = int.parse(widget.brewery!.id);
-      setState(() => this._isLoadingApiCall = true );
-      // api call
-      bool favRest = await WordpressAPI.editBreweryPref(
-          (userId != null ? userId : 0),
-          breweryId,
-          addOrRemove: "remove"
-      );
-
-      if (favRest == true){
-        setState(() => this._isLoadingApiCall = false );
-        setState(() => this._breweryFollowersCount--  );
-        setState(() { this._isBreweryIncluded = false; });
-        // save Shared Service for each preference
-
-        notificationClient.message(context, WordpressAPI.MESSAGE_OK_UNFOLLOWING_BREWERY);
-
-      }
-    } on Exception catch (exception) {
-      setState(() => this._isLoadingApiCall = false );
-
-      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_UNFOLLOWING_BREWERY);
-      print(exception);
-    } catch (error) {
-      setState(() => this._isLoadingApiCall = false );
-
-      notificationClient.message(context, WordpressAPI.MESSAGE_ERROR_UNFOLLOWING_BREWERY);
+      notificationClient.message(
+          context, WordpressAPI.MESSAGE_ERROR_UNFOLLOWING_BREWERY);
       print(error);
     }
   }
 
-  Widget _followIconButton(){
+  Widget _followIconButton() {
     return InkWell(
         onTap: _followAction,
-        child: Icon(Icons.favorite_border, color: Colors.white,)
-    );
+        child: Icon(
+          Icons.favorite_border,
+          color: Colors.white,
+        ));
   }
 
-  Widget _unfollowIconButton(){
+  Widget _unfollowIconButton() {
     return InkWell(
         onTap: _unfollowAction,
-        child: Icon(Icons.favorite, color: Colors.white,)
-    );
+        child: Icon(
+          Icons.favorite,
+          color: Colors.white,
+        ));
   }
 
-  Widget _buildFavoriteButton(){
-
+  Widget _buildFavoriteButton() {
     return FutureBuilder(
         future: _userBreweriesPreferences,
-        builder: (BuildContext context, AsyncSnapshot snapshot){
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return SizedBox(height:22, width: 22,child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,));
+              return SizedBox(
+                  height: 22,
+                  width: 22,
+                  child: CircularProgressIndicator(
+                    color: PROGRESS_INDICATOR_COLOR,
+                    strokeWidth: 1,
+                  ));
             default:
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-
-                if (_isLoadingApiCall == true){
-                  return SizedBox(height:22, width: 22,child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1,));
+                if (_isLoadingApiCall == true) {
+                  return SizedBox(
+                      height: 22,
+                      width: 22,
+                      child: CircularProgressIndicator(
+                        color: PROGRESS_INDICATOR_COLOR,
+                        strokeWidth: 1,
+                      ));
                 }
-                return (_isBreweryIncluded ? _unfollowIconButton() : _followIconButton() );
+                return (_isBreweryIncluded
+                    ? _unfollowIconButton()
+                    : _followIconButton());
               }
-
           }
-        }
-    );
-
-
+        });
   }
 
   @override
@@ -328,7 +325,6 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
     double safePadding = Helpers.getTopSafeArea(context);
-
 
     return new Stack(
       children: <Widget>[
@@ -338,7 +334,9 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
           heightFactor: 1.4,
           child: new Column(
             children: <Widget>[
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
               _buildAvatar(),
               _buildFollowerInfo(textTheme),
               /*
@@ -369,31 +367,31 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader> with SingleTi
             ],
           ),
         ),
-
         new Positioned(
           top: 15.0 + safePadding,
           left: 4.0,
           child: new BackButton(color: Colors.white),
         ),
-
         new Positioned(
           top: 28.0 + safePadding,
           right: 60.0,
           child: _buildFavoriteButton(),
         ),
-
         new Positioned(
           top: 28.0 + safePadding,
           right: 20.0,
           child: InkWell(
-              onTap: (){
-                Share.share('Esta cervecería te puede interesar https://hops.uy/?p=' + widget.brewery!.id ,);
+              onTap: () {
+                Share.share(
+                  'Esta cervecería te puede interesar https://hops.uy/?p=' +
+                      widget.brewery!.id,
+                );
               },
-              child: Icon(Icons.share, color: Colors.white,)
-          ),
+              child: Icon(
+                Icons.share,
+                color: Colors.white,
+              )),
         ),
-
-
       ],
     );
   }

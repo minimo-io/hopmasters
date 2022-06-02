@@ -24,7 +24,7 @@ class CounterSelectorBig extends StatefulWidget {
 class _CounterSelectorState extends State<CounterSelectorBig> {
   int _counter = 1;
   String _beersString = "cerveza";
-  final double _buttonsFontSize = 25.0;
+  final double _buttonsFontSize = 30.0;
   final double _textFontSize = 20.0;
 
   @override
@@ -84,7 +84,7 @@ class _CounterSelectorState extends State<CounterSelectorBig> {
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: IconButton(
-                  color: Colors.black54,
+                  color: widget.color,
                   icon: Icon(Icons.remove_circle, size: _buttonsFontSize),
                   onPressed: _decrease,
                 ),
@@ -111,7 +111,8 @@ class _CounterSelectorState extends State<CounterSelectorBig> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
                   icon: Icon(
-                    color: Colors.black54,
+                    color: widget.color,
+                    // color: Colors.black54,
                     Icons.add_circle,
                     size: _buttonsFontSize,
                   ),

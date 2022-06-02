@@ -9,15 +9,33 @@ class Cart extends ChangeNotifier {
   final List<CartItem> _items = [];
   // final List<Brewery> _breweries = [];
 
-  UnmodifiableListView<CartItem> get items => UnmodifiableListView(_items);
+  List<CartItem> get items => _items;
   List<Brewery> get breweries => getBreweriesFromCart();
 
   /// convert all preferences to json for then sending it to server
   String get toJson => jsonEncode(_items.map((e) => e.toJson()).toList());
 
-  /// Adds [preference] to the basket. This and [removeAll] are the only ways to modify the
   void add(CartItem item) {
-    _items.add(item);
+    // items.add(item);
+
+    bool beerAlreadyInCart = false;
+    for (var i = 0; i < _items.length; i++) {
+      if (item.beer!.beerId == _items[i].beer!.beerId) {
+        beerAlreadyInCart = true;
+        break;
+      }
+    }
+
+    if (beerAlreadyInCart) {
+      // increase amount, the number of items added
+      for (var i = 1; i <= item.itemCount; i++) {
+        modifyAmount(item, "increase");
+      }
+    } else {
+      // else add for the first time
+      items.add(item);
+    }
+
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }

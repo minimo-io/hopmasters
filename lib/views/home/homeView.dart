@@ -71,13 +71,13 @@ class _HomeViewState extends State<HomeView>
         Navigator.pushNamed(
           context,
           "/beer",
-          arguments: {'beerId': data!["post_id"]},
+          arguments: {'beerId': data["post_id"]},
         );
-      } else if (data!["post_type"] == "brewery") {
+      } else if (data["post_type"] == "brewery") {
         Navigator.pushNamed(
           context,
           "/brewery",
-          arguments: {'breweryId': int.parse(data!["post_id"].toString())},
+          arguments: {'breweryId': int.parse(data["post_id"].toString())},
         );
       }
     });

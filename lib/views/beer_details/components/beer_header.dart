@@ -82,7 +82,7 @@ class _BeerHeaderState extends State<BeerHeader>
     }
 
     //WidgetsBinding.instance?.addPostFrameCallback((_) => defineBeers(context));
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       defineBeers(context);
     });
   }
@@ -539,7 +539,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                                           FontWeight.bold)),
                                             )),
                                         const SizedBox(
-                                          height: 10,
+                                          height: 30,
                                         ),
 
                                         /*
@@ -781,9 +781,9 @@ class _BeerHeaderState extends State<BeerHeader>
                                           child: Divider(),
                                         ),
 
-                                        SizedBox(
-                                          height: 5,
-                                        ),
+                                        // SizedBox(
+                                        //   height: 5,
+                                        // ),
 
                                         Consumer<Cart>(
                                             builder: (context, cart, child) {

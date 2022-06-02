@@ -1,6 +1,7 @@
 import 'package:Hops/models/preferences.dart';
 
 const APP_TITLE = "HOPS";
+const DEBUG = true;
 
 // Only put constants shared between files here.
 
