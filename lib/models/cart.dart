@@ -10,6 +10,7 @@ class Cart extends ChangeNotifier {
   // final List<Brewery> _breweries = [];
 
   List<CartItem> get items => _items;
+  int get itemsCount => getItemsCount();
   List<Brewery> get breweries => getBreweriesFromCart();
 
   /// convert all preferences to json for then sending it to server
@@ -93,22 +94,20 @@ class Cart extends ChangeNotifier {
   List<Brewery> getBreweriesFromCart() {
     List<Brewery> breweriesList = [];
     for (var i = 0; i < _items.length; i++) {
-      // if (item.beer!.beerId == _items[i].beer!.beerId) {
-      //   // print("INCREASE AMOUNT OF: " + _items[i].beer!.name.toString());
-      //   if (type == "increase") _items[i].itemCount++;
-      //   if (type == "decrease") _items[i].itemCount--;
-      //   _items[i].itemPrice =
-      //       _items[i].itemCount * double.parse(_items[i].beer!.price!);
-      //   if (_items[i].itemPrice < 0) _items[i].itemPrice = 0;
-      //   notifyListeners();
-      //   break;
-      // }
-      print(_items[i].beer!.breweryName);
-      // breweriesList.add(
-
-      // );
+      if (!breweriesList
+          .any((Brewery brewery) => brewery.id == _items[i].beer!.brewery.id))
+        breweriesList.add(_items[i].beer!.brewery);
     }
-    return [];
+    return breweriesList;
+  }
+
+  int getItemsCount() {
+    int itemsCount = 0;
+    for (var i = 0; i < _items.length; i++) {
+      // if (item.beer!.beerId == _items[i].beer!.beerId){
+      itemsCount += _items[i].itemCount;
+    }
+    return itemsCount;
   }
 }
 

@@ -65,7 +65,7 @@ class Brewery {
 
   String id;
   String image;
-  String? name;
+  String name;
   String? location;
   String? followers;
   String? beersCount;

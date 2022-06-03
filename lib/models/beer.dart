@@ -135,7 +135,7 @@ class Beer {
   }
 
   String beerId;
-  Brewery? brewery;
+  Brewery brewery;
   String? name;
   String? image;
   String? abv;

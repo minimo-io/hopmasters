@@ -55,6 +55,7 @@ dependencies:
   # qr_code_scanner: ^0.6.1
   onesignal_flutter: ^3.0.0
   sign_in_with_apple: ^3.3.0
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_test:
