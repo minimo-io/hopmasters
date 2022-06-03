@@ -33,25 +33,31 @@ class Brewery {
       scoreCount = parsedJson["scores"]["opinionCount"].toString();
     }
 
+    Map<String, dynamic> baseJson = parsedJson;
+    if (parsedJson.containsKey("brewery")) {
+      baseJson = parsedJson["brewery"];
+    }
+
     return Brewery(
-        id: parsedJson['brewery']["id"].toString(),
-        name: parsedJson['brewery']['name'].toString(),
-        description: parsedJson['brewery']['description'],
-        datePublished: parsedJson['brewery']['date_published'],
-        dateModified: parsedJson['brewery']['date_modified'],
-        location: parsedJson['brewery']['location'],
-        followers: parsedJson['brewery']['followers'],
-        beersCount: parsedJson['brewery']['beers_count'],
-        bgColor: parsedJson['brewery']['bg_color'],
-        url: parsedJson['brewery']['brewery_url'],
-        instagram: parsedJson['brewery']['brewery_instagram'],
-        whatsapp: parsedJson['brewery']['whatsapp'],
+        id: baseJson["id"].toString(),
+        name: baseJson['name'].toString(),
+        description: baseJson['description'],
+        datePublished: baseJson['date_published'],
+        dateModified: baseJson['date_modified'],
+        location: baseJson['location'],
+        followers: baseJson['followers'],
+        beersCount: baseJson['beers_count'],
+        bgColor: baseJson['bg_color'],
+        url: baseJson['brewery_url'],
+        instagram: baseJson['brewery_instagram'],
+        whatsapp: baseJson['whatsapp'],
         scoreAvg: scoreAvg,
         scoreCount: scoreCount,
-        viewsCount: parsedJson['brewery']['views_count'],
-        viewsCountHistory: parsedJson['brewery']['views_count_history'],
-        image: parsedJson['brewery']['image'],
-        comment: parsedJson["user_comment"].length > 0
+        viewsCount: baseJson['views_count'],
+        viewsCountHistory: baseJson['views_count_history'],
+        image: baseJson['image'],
+        comment: parsedJson.containsKey("user_comment") &&
+                parsedJson["user_comment"].length > 0
             ? Comment.fromJson(parsedJson["user_comment"][0])
             : null // passing only the first one (as user can edit)
         );

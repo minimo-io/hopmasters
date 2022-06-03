@@ -314,7 +314,7 @@ class WordpressAPI {
       String? orderType = null,
       int? page = 1}) async {
     String breweryUriQuery =
-        _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109&_embed";
+        _WP_BASE_API + _WP_REST_WP_URI + "pages/?parent=89109";
     if (userBreweries != null)
       breweryUriQuery += "&include=" + userBreweries.replaceAll("|", ",");
     if (orderType != null && orderType == "followers")
@@ -344,7 +344,7 @@ class WordpressAPI {
   static Future<Brewery?> getBrewery(String breweryId,
       {String? userId = "0"}) async {
     String breweryUriQuery =
-        _WP_BASE_API + _WP_REST_WP_URI + "pages/" + breweryId + "?_embed";
+        _WP_BASE_API + _WP_REST_WP_URI + "pages/" + breweryId + "?";
     if (userId != null && userId != "0")
       breweryUriQuery = breweryUriQuery + "&userId=" + userId;
 
