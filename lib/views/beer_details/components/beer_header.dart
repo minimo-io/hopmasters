@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:Hops/components/alert_box.dart';
+import 'package:Hops/components/hops_button.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -132,27 +133,12 @@ class _BeerHeaderState extends State<BeerHeader>
         required Icon icon,
         Function? doOnPressed = null,
         bool isGrey = false}) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: ElevatedButton.icon(
-            icon: icon,
-            label: text,
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    (isGrey ? Colors.white70 : Colors.white)),
-                backgroundColor: (isGrey
-                    ? MaterialStateProperty.all<Color>(
-                        Colors.white24.withOpacity(.5))
-                    : MaterialStateProperty.all<Color?>(widget.beer.rgbColor)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        side: (isGrey
-                            ? BorderSide(style: BorderStyle.none)
-                            : BorderSide(color: widget.beer.rgbColor))))),
-            onPressed: doOnPressed as void Function()?),
+      return HopsButton(
+        text: text,
+        icon: icon,
+        bgColor: widget.beer.rgbColor,
+        doOnPressed: doOnPressed,
+        isGrey: isGrey,
       );
     }
 

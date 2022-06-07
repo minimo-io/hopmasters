@@ -1,3 +1,4 @@
+import 'package:Hops/components/hops_button.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
@@ -40,6 +41,8 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
   bool _isLoadingApiCall = false;
   bool _isBreweryIncluded = false;
   int _breweryFollowersCount = -1;
+
+  final double _sizeLoadingButton = 30.0;
 
   late AnimationController _animationController;
   late Future<Map<String, dynamic>?> _userBreweriesPreferences;
@@ -106,14 +109,16 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
   }
 
   Widget _buildFollowerInfo(TextTheme textTheme) {
-    return new Padding(
+    return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text(
-            _breweryFollowersCount.toString() + ' seguidores',
-            style: TextStyle(
+          Text(
+            _breweryFollowersCount.toString() +
+                ' seguidor' +
+                (_breweryFollowersCount > 1 ? "es" : ""),
+            style: const TextStyle(
                 color: Color(0xBBFFFFFF),
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
@@ -123,71 +128,67 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
     );
   }
 
-  Widget _followButton() {
-    return ClipRRect(
-      borderRadius: new BorderRadius.circular(10.0),
-      child: ElevatedButton.icon(
-          icon: AnimatedIcon(
-            icon: AnimatedIcons.play_pause,
-            progress: _animationController,
-          ),
-          label: Text("SEGUIR", style: TextStyle(fontSize: 14)),
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(widget.brewery!.rgbColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      side: BorderSide(color: widget.brewery!.rgbColor)))),
-          onPressed: _followAction),
+  Widget _followButton({Color bgColor = Colors.black}) {
+    return HopsButton(
+      text: const Text(
+        "SEGUIR",
+        style: TextStyle(fontSize: 12.0),
+      ),
+      icon: const Icon(
+        Icons.favorite_border,
+        size: 12.0,
+      ),
+      doOnPressed: _followAction,
+      bgColor: bgColor,
     );
   }
 
-  Widget _unfollowButton() {
-    return ClipRRect(
-      borderRadius: new BorderRadius.circular(10.0),
-      child: ElevatedButton.icon(
-          icon: Icon(Icons.close),
-          label: Text("DEJAR DE SEGUIR", style: TextStyle(fontSize: 14)),
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 7.5)),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-              backgroundColor: MaterialStateProperty.all<Color>(
-                  Colors.white24.withOpacity(.5)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      side: BorderSide(style: BorderStyle.none)))),
-          onPressed: _followAction),
+  Widget _unfollowButton({Color bgColor = Colors.black}) {
+    return HopsButton(
+      text: const Text(
+        "DEJAR DE SEGUIR",
+        style: TextStyle(fontSize: 12.0),
+      ),
+      icon: const Icon(Icons.close, size: 12.0),
+      doOnPressed: _unfollowAction,
+      bgColor: bgColor,
     );
   }
 
   Widget _buildActionButtons(ThemeData theme) {
     //setState(() { this._isBreweryIncluded = false; });
-    return new Padding(
+    return Padding(
       padding: const EdgeInsets.only(
-        top: 16.0,
+        top: 3.0,
         left: 16.0,
         right: 16.0,
       ),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           if (_isLoadingApiCall == true)
-            CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR)
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: SizedBox(
+                height: _sizeLoadingButton,
+                width: _sizeLoadingButton,
+                child: const CircularProgressIndicator(
+                  color: PROGRESS_INDICATOR_COLOR,
+                  strokeWidth: 1.0,
+                ),
+              ),
+            )
           else
-            (_isBreweryIncluded ? _unfollowButton() : _followButton())
+            (_isBreweryIncluded
+                ? _unfollowButton(bgColor: widget.brewery!.rgbColor)
+                : _followButton(bgColor: widget.brewery!.rgbColor))
         ],
       ),
     );
   }
 
   void _followAction() async {
-    HopsNotifications notificationClient = new HopsNotifications();
+    HopsNotifications notificationClient = HopsNotifications();
 
     try {
       // get user details
@@ -229,7 +230,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
   }
 
   void _unfollowAction() async {
-    HopsNotifications notificationClient = new HopsNotifications();
+    HopsNotifications notificationClient = HopsNotifications();
 
     try {
       // get user details
@@ -326,58 +327,61 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
     var textTheme = theme.textTheme;
     double safePadding = Helpers.getTopSafeArea(context);
 
-    return new Stack(
+    return Stack(
       children: <Widget>[
         _buildDiagonalImageBackground(context),
-        new Align(
+        Align(
           alignment: FractionalOffset.bottomCenter,
           heightFactor: 1.4,
-          child: new Column(
+          child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 35,
+              const SizedBox(
+                height: 1,
               ),
               _buildAvatar(),
               _buildFollowerInfo(textTheme),
-              /*
+              // follow button
               FutureBuilder(
-                future: _userBreweriesPreferences,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR),
-                      );
-                    default:
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-
-                        // defineIsSelected(snapshot.data).then((value) {
+                  future: _userBreweriesPreferences,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: SizedBox(
+                            height: _sizeLoadingButton,
+                            width: _sizeLoadingButton,
+                            child: const CircularProgressIndicator(
+                              color: PROGRESS_INDICATOR_COLOR,
+                              strokeWidth: 1.0,
+                            ),
+                          ),
+                        );
+                      default:
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          // defineIsSelected(snapshot.data).then((value) {
                           return _buildActionButtons(theme);
-                        //});
-                        //return
-                      }
-
-                  }
-                }),
-              */
+                          //});
+                          //return
+                        }
+                    }
+                  }),
             ],
           ),
         ),
-        new Positioned(
+        Positioned(
           top: 15.0 + safePadding,
           left: 4.0,
-          child: new BackButton(color: Colors.white),
+          child: const BackButton(color: Colors.white),
         ),
-        new Positioned(
-          top: 28.0 + safePadding,
-          right: 60.0,
-          child: _buildFavoriteButton(),
-        ),
-        new Positioned(
+        // Positioned(
+        //   top: 28.0 + safePadding,
+        //   right: 60.0,
+        //   child: _buildFavoriteButton(),
+        // ),
+        Positioned(
           top: 28.0 + safePadding,
           right: 20.0,
           child: InkWell(
@@ -387,7 +391,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
                       widget.brewery!.id,
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.share,
                 color: Colors.white,
               )),
