@@ -90,8 +90,8 @@ class _CartViewState extends State<CartView> {
                       shape: BadgeShape.circle,
                       borderRadius: BorderRadius.circular(8),
                       badgeColor: Colors.red.withOpacity(1),
-                      badgeContent: Text(
-                        '2',
+                      badgeContent: const Text(
+                        '3',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 12.0,
