@@ -1,5 +1,6 @@
 import 'package:Hops/constants.dart';
 import 'package:Hops/models/brewery.dart';
+import 'package:Hops/models/promo.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/theme/style.dart';
@@ -30,7 +31,93 @@ class _CartViewState extends State<CartView> {
     return "\$" + finalPrice.toString();
   }
 
-  Widget _buildBreweryItem(Brewery brewery) {
+  bool _isMinBuyOk(int breweryItemsCount, int promoMinBuy) {
+    return (breweryItemsCount >= promoMinBuy ? true : false);
+  }
+
+  double _discountedItemPrice(double itemValue, double discountValue) {
+    // for no only percentage
+    double discountPercentage = ((discountValue * itemValue) / 100);
+    return itemValue - discountPercentage;
+  }
+
+  Widget _buildItemPrice(CartItem item, Cart cart) {
+    int breweryItems = cart.countBreweryItems(int.parse(item.beer!.brewery.id));
+
+    bool minBuyOk =
+        _isMinBuyOk(breweryItems, item.beer!.brewery.promos!.first.minBuy ?? 0);
+
+    double itemPrice = item.itemPrice.roundToDouble();
+    double discountedValue = 0.0;
+
+    if (minBuyOk == true) {
+      double discountValue = item.beer!.brewery.promos!.first.discountValue;
+      discountedValue = _discountedItemPrice(itemPrice, discountValue);
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      //crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        (discountedValue > 0.0
+            ? Text("\$" + discountedValue.round().toString(),
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold))
+            : Container()),
+        Text("\$" + item.itemPrice.round().toString(),
+            style: TextStyle(
+                fontSize: discountedValue > 0.0 ? 15.0 : 20.0,
+                color: Colors.black,
+                decoration: (discountedValue > 0.0
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
+                fontWeight: FontWeight.bold))
+      ],
+    );
+  }
+
+  Widget _buildTopPromo(Brewery brewery, int breweryItemsCount) {
+    if (brewery.promos != null && brewery.promos!.isNotEmpty) {
+      String promoName = brewery.promos!.first.nameShort ?? "";
+      int promoMinBuy = brewery.promos!.first.minBuy ?? 0;
+
+      // evaluate if the amount is ok to apply
+      bool minBuyOk = _isMinBuyOk(breweryItemsCount, promoMinBuy);
+
+      return Badge(
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+        toAnimate: false,
+        shape: BadgeShape.square,
+        borderRadius: BorderRadius.circular(8),
+        badgeColor: SECONDARY_BUTTON_COLOR.withOpacity(minBuyOk ? 1.0 : 0.4),
+        badgeContent: Row(
+          children: [
+            minBuyOk
+                ? const Padding(
+                    padding: EdgeInsets.only(right: 5.0),
+                    child: Icon(
+                      Icons.check_circle,
+                      size: 15,
+                      color: Colors.green,
+                    ),
+                  )
+                : Container(),
+            Text(
+              promoName,
+              style: const TextStyle(color: Colors.black54, fontSize: 11.0),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _buildBreweryItem(Brewery brewery, int breweryItemsCount) {
     return Padding(
       padding: const EdgeInsets.only(left: 11.0, bottom: 5.0),
       child: Column(
@@ -65,8 +152,8 @@ class _CartViewState extends State<CartView> {
                               style: const TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Icon(
                                 Icons.chevron_right,
                                 size: 15,
@@ -90,9 +177,9 @@ class _CartViewState extends State<CartView> {
                       shape: BadgeShape.circle,
                       borderRadius: BorderRadius.circular(8),
                       badgeColor: Colors.red.withOpacity(1),
-                      badgeContent: const Text(
-                        '3',
-                        style: TextStyle(
+                      badgeContent: Text(
+                        breweryItemsCount.toString(),
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12.0,
                             fontWeight: FontWeight.bold),
@@ -129,7 +216,7 @@ class _CartViewState extends State<CartView> {
                           width: 4.0,
                         ),
                         Text(
-                          'Utilizar puntos',
+                          'Promociones',
                           style: TextStyle(
                               color: Colors.white.withOpacity(.8),
                               fontSize: 11.0),
@@ -165,7 +252,7 @@ class _CartViewState extends State<CartView> {
           //     //         color: Colors.black54, fontSize: 10.0, letterSpacing: .1))
           //   ],
           // ),
-          SizedBox(
+          const SizedBox(
             height: 2.0,
           ),
           Row(
@@ -180,27 +267,21 @@ class _CartViewState extends State<CartView> {
                 width: 3.0,
               ),
               Text(
-                "4.5",
+                double.parse(brewery.scoreAvg.toString()).toString(),
                 style: const TextStyle(
                     fontSize: 11.0, fontWeight: FontWeight.bold),
               ),
-              Text(" (251)", style: TextStyle(fontSize: 11.0)),
+              Text(
+                  " (" +
+                      brewery.scoreCount.toString() +
+                      " voto" +
+                      (int.parse(brewery.scoreCount!) == 1 ? "" : "s") +
+                      ")",
+                  style: TextStyle(fontSize: 11.0)),
               const SizedBox(
                 width: 5.0,
               ),
-              Badge(
-                elevation: 0,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
-                toAnimate: false,
-                shape: BadgeShape.square,
-                borderRadius: BorderRadius.circular(8),
-                badgeColor: SECONDARY_BUTTON_COLOR.withOpacity(.4),
-                badgeContent: Text(
-                  'Hasta 30% OFF',
-                  style: TextStyle(color: Colors.black54, fontSize: 11.0),
-                ),
-              ),
+              _buildTopPromo(brewery, breweryItemsCount)
             ],
           )
         ],
@@ -314,17 +395,7 @@ class _CartViewState extends State<CartView> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    //crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text("\$" + cartItem.itemPrice.round().toString(),
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                  _buildItemPrice(cartItem, cart),
                   const SizedBox(
                     height: 3,
                   ),
@@ -582,7 +653,8 @@ class _CartViewState extends State<CartView> {
                       SizedBox(
                         height: (b == 0 ? 10 : 40),
                       ),
-                      _buildBreweryItem(breweries[b]),
+                      _buildBreweryItem(breweries[b],
+                          cart.countBreweryItems(int.parse(breweries[b].id))),
                       _buildCartSummaryBox(),
                     ],
                   ));
@@ -742,7 +814,7 @@ class _CartViewState extends State<CartView> {
                 padding: const EdgeInsets.only(right: 5.0),
                 child: (cart.items.isNotEmpty
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
+                        padding: const EdgeInsets.only(right: 10.0),
                         child: TextButton.icon(
                           onPressed: () {
                             cart.removeAll();

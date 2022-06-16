@@ -1,3 +1,4 @@
+import 'package:Hops/models/promo.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/helpers.dart';
 import 'package:Hops/models/comment.dart';
@@ -22,6 +23,7 @@ class Brewery {
     required this.viewsCount,
     required this.viewsCountHistory,
     this.comment,
+    this.promos,
   }) : this.rgbColor = Helpers.HexToColor(
             bgColor ?? const Color.fromRGBO(234, 186, 0, 0.6) as String);
 
@@ -36,6 +38,19 @@ class Brewery {
     Map<String, dynamic> baseJson = parsedJson;
     if (parsedJson.containsKey("brewery")) {
       baseJson = parsedJson["brewery"];
+    }
+
+    if (parsedJson.containsKey("score_avg")) {
+      scoreAvg = parsedJson["score_avg"].toString();
+    }
+    if (parsedJson.containsKey("score_count")) {
+      scoreCount = parsedJson["score_count"].toString();
+    }
+
+    List<Promo>? promos;
+
+    if (baseJson.containsKey("promos") && baseJson["promos"] != null) {
+      promos = Promo.allFromResponse(baseJson["promos"]);
     }
 
     return Brewery(
@@ -56,6 +71,7 @@ class Brewery {
         viewsCount: baseJson['views_count'],
         viewsCountHistory: baseJson['views_count_history'],
         image: baseJson['image'],
+        promos: promos,
         comment: parsedJson.containsKey("user_comment") &&
                 parsedJson["user_comment"].length > 0
             ? Comment.fromJson(parsedJson["user_comment"][0])
@@ -85,4 +101,5 @@ class Brewery {
   String whatsapp;
   String viewsCount;
   String viewsCountHistory;
+  List<Promo>? promos;
 }

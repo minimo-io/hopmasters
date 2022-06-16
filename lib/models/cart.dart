@@ -66,6 +66,19 @@ class Cart extends ChangeNotifier {
     return finalPrice;
   }
 
+  int countBreweryItems(int breweryId) {
+    int breweryCount = 0;
+    for (var i = 0; i < _items.length; i++) {
+      // if (item.beer!.beerId == _items[i].beer!.beerId){
+
+      if (breweryId == int.parse(_items[i].beer!.brewery.id)) {
+        breweryCount += _items[i].itemCount;
+      }
+    }
+
+    return breweryCount;
+  }
+
   void remove(CartItem item) {
     //print(_items);
     //_items.remove(pref);
@@ -95,8 +108,9 @@ class Cart extends ChangeNotifier {
     List<Brewery> breweriesList = [];
     for (var i = 0; i < _items.length; i++) {
       if (!breweriesList
-          .any((Brewery brewery) => brewery.id == _items[i].beer!.brewery.id))
+          .any((Brewery brewery) => brewery.id == _items[i].beer!.brewery.id)) {
         breweriesList.add(_items[i].beer!.brewery);
+      }
     }
     return breweriesList;
   }
