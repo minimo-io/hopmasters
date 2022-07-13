@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/theme/style.dart';
@@ -21,28 +22,39 @@ class Animal {
 }
 
 class DiscoverBeers extends StatefulWidget {
-
-  const DiscoverBeers({
-    Key? key
-  }) : super(key: key);
+  const DiscoverBeers({Key? key}) : super(key: key);
 
   @override
   _DiscoverBeersState createState() => _DiscoverBeersState();
 }
 
-class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveClientMixin {
+class _DiscoverBeersState extends State<DiscoverBeers>
+    with AutomaticKeepAliveClientMixin {
   Future? _beers;
   String _disoverBeersType = "recent";
   String _disoverBeersTypeExtraParam = "";
-  HopsNotifications notificationClient =  new HopsNotifications();
+  HopsNotifications notificationClient = new HopsNotifications();
 
   @override
   bool get wantKeepAlive => true;
 
   static List<AdvacedBeerFilter> _moreFilters = [
-    AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "high", icon: Icons.trending_up, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
-    AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "low", icon: Icons.trending_down, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
-
+    AdvacedBeerFilter(
+        apiEndpoint: "ibu",
+        extraParam: "high",
+        icon: Icons.trending_up,
+        iconColor: Colors.amber,
+        name: "Mayor IBU",
+        alert:
+            "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
+    AdvacedBeerFilter(
+        apiEndpoint: "ibu",
+        extraParam: "low",
+        icon: Icons.trending_down,
+        iconColor: Colors.amber,
+        name: "Mayor IBU",
+        alert:
+            "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking."),
   ];
 
   static List<Animal> _animals = [
@@ -84,7 +96,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
       useSafeArea: true,
       builder: (context) {
         return Theme(
-          data: Theme.of(context).copyWith(colorScheme: ColorScheme.light(primary: Colors.black)),
+          data: Theme.of(context)
+              .copyWith(colorScheme: ColorScheme.light(primary: Colors.black)),
           child: MultiSelectDialog(
             backgroundColor: Colors.white.withOpacity(1),
             checkColor: Colors.black,
@@ -101,7 +114,8 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
               });
               Navigator.of(context).pop();
               // call parent call back to re-launch the search with this special filter
-              notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+              notificationClient.message(oldContext,
+                  "Esta función estará disponible en próximas versiones.");
             },
           ),
         );
@@ -109,17 +123,14 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _discoverBeersHeader(){
-    HopsNotifications notificationClient =  new HopsNotifications();
-
-
+  Widget _discoverBeersHeader() {
+    HopsNotifications notificationClient = new HopsNotifications();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: marginSide),
       child: Padding(
         /*padding: const EdgeInsets.only(top: 8.0),*/
-        padding:const EdgeInsets.symmetric(
-            horizontal: 15.0, vertical: 0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
         child: Column(
           children: [
             Row(
@@ -130,13 +141,12 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontSize: 25,
+                    fontSize: titlesLeftSize,
                     color: colorScheme.secondary,
                   ),
                 ),
                 InkWell(
                   onTap: () {
-
                     // more filters state on parent
                     //if (widget.notifyParent != null) widget.notifyParent!();
 
@@ -145,108 +155,148 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                     Scaffold.of(context)
                         .showBottomSheet<void>(
                           (context) {
-                        return BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height:  430,
-                            color: Colors.white,
-                            child: Container(
-                              // height: (widget.height != null ? widget.height : 430),
-                              height: (430),
-                              color: Colors.white,
-                              child: ListView(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            return BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 430,
+                                color: Colors.white,
+                                child: Container(
+                                  // height: (widget.height != null ? widget.height : 430),
+                                  height: (430),
+                                  color: Colors.white,
+                                  child: ListView(
                                     children: [
-                                      Container(
-                                          padding: EdgeInsets.only(left: 25, top: 20),
-                                          height: 50,
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                                "FILTRAR CERVEZAS",
-                                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                                            ),
-                                          )
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 15.0, right:15.0),
-                                        child: SizedBox(
-                                          height: 37,
-                                          child: ElevatedButton(
-
-                                            onPressed: ()=> Navigator.pop(context),
-                                            child: Text("Cerrar", style: TextStyle(fontSize: 12),),
-                                            style: ButtonStyle(
-                                                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
-                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                                                shape: MaterialStateProperty
-                                                    .all<
-                                                    RoundedRectangleBorder>(
-                                                    RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius
-                                                            .circular(20.0),
-                                                        side: BorderSide(
-                                                            width: .8,
-                                                            color: Colors.black.withOpacity(.2))
-                                                    )
-                                                )
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25, top: 20),
+                                              height: 50,
+                                              child: const Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text("FILTRAR CERVEZAS",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              )),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 15.0, right: 15.0),
+                                            child: SizedBox(
+                                              height: 37,
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    Navigator.pop(context),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 4.0),
+                                                  child: Badge(
+                                                    elevation: 0,
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 12.0,
+                                                        vertical: 0.0),
+                                                    toAnimate: false,
+                                                    shape: BadgeShape.square,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    badgeColor:
+                                                        mainButtonsColor,
+                                                    badgeContent: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.close,
+                                                          size:
+                                                              titlesRightButtonsIconSize,
+                                                          color: Colors.white
+                                                              .withOpacity(.8),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 4.0,
+                                                        ),
+                                                        Text(
+                                                          'Cerrar',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      .8),
+                                                              fontSize:
+                                                                  titlesRightButtonsSize),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-
-                                    ],
-                                  ),
-                                  SizedBox(height: 30,),
-                                  /*
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      /*
                             Divider(
                               thickness: 1,
                             ),
                             */
-                                  // direct buy
+                                      // direct buy
 
-                                  Container(
-                                      width: MediaQuery.of(context).size.width * 0.95,
-                                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                      child: ElevatedButton(
-                                        onPressed: (){
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.95,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0),
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _disoverBeersType = "premium";
+                                                _beers = WordpressAPI.getBeers(
+                                                    type: "premium");
+                                              });
+                                              Navigator.of(context).pop();
 
-                                          setState(() {
-                                            _disoverBeersType = "premium";
-                                            _beers = WordpressAPI.getBeers(type: "premium");
-                                          });
-                                          Navigator.of(context).pop();
-
-                                          //notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
-                                        },
-
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                //mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Icon(Icons.verified, size: 35, color: BUTTON_GREEN),
-                                                    SizedBox(width: 8,),
-                                                    // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                                    Text( "Con compra verificada" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                                  ]
+                                              //notificationClient.message(oldContext, "Esta función estará disponible en próximas versiones.");
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                      //mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Icon(Icons.verified,
+                                                            size: 35,
+                                                            color:
+                                                                BUTTON_GREEN),
+                                                        SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                        Text(
+                                                          "Con compra verificada",
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Colors
+                                                                  .black54),
+                                                        )
+                                                      ]),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
+                                            ),
+                                          )),
 
-
-
-                                  ),
-
-
-                                  /*
+                                      /*
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -292,7 +342,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
 
                                   */
 
-                                  /*
+                                      /*
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -327,44 +377,55 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                   ),
                                    */
 
+                                      SizedBox(
+                                        height: 7,
+                                      ),
 
-                                  SizedBox(height: 7,),
-
-
-
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      /*
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.95,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: ElevatedButton(
+                                          /*
                                       onPressed: () {
                                         _showMultiSelect(context, oldContext);
 
                                       },
                                       */
-                                      onPressed: (){
-                                        Navigator.of(context).pop();
-                                        notificationClient.message(oldContext, "Esta función estará disponible en la versión 2 de la app.");
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.sports_bar, size: 35, color: Colors.grey),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Por tipos de cervezas" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            notificationClient.message(
+                                                oldContext,
+                                                "Esta función estará disponible en la versión 2 de la app.");
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                                  Icon(Icons.sports_bar,
+                                                      size: 35,
+                                                      color: Colors.grey),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                  Text(
+                                                    "Por tipos de cervezas",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black54),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
 
-
-                                  /*
+                                      /*
                                   SizedBox(height: 7,),
 
                                   Container(
@@ -395,189 +456,302 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                                   ),
                                   */
 
-                                  SizedBox(height: 7,),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
 
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.95,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // _showMultiSelect(context, oldContext);
+                                            setState(() {
+                                              _selectedBeerFilters = [];
+                                              _selectedBeerFilters = [
+                                                AdvacedBeerFilter(
+                                                    apiEndpoint: "abv",
+                                                    extraParam: "DESC",
+                                                    icon: Icons.liquor,
+                                                    iconColor: Colors.amber,
+                                                    name: "Mayor alcohól")
+                                              ];
 
-                                        // _showMultiSelect(context, oldContext);
-                                        setState(() {
-                                          _selectedBeerFilters = [];
-                                          _selectedBeerFilters = [
-                                            AdvacedBeerFilter(apiEndpoint: "abv", extraParam: "DESC", icon: Icons.liquor, iconColor: Colors.amber, name: "Mayor alcohól")
-                                          ];
-
-                                          _disoverBeersType = "abv";
-                                          _disoverBeersTypeExtraParam = "DESC";
-                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
-                                        });
-                                        Navigator.of(context).pop();
-
-
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.liquor, size: 35, color: Colors.amber),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Mayor alcohól" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
+                                              _disoverBeersType = "abv";
+                                              _disoverBeersTypeExtraParam =
+                                                  "DESC";
+                                              _beers = WordpressAPI.getBeers(
+                                                  type: _disoverBeersType,
+                                                  extraParam1:
+                                                      _disoverBeersTypeExtraParam);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                                  Icon(Icons.liquor,
+                                                      size: 35,
+                                                      color: Colors.amber),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                  Text(
+                                                    "Mayor alcohól",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black54),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
 
-                                  SizedBox(height: 7,),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
 
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.95,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // _showMultiSelect(context, oldContext);
+                                            setState(() {
+                                              _selectedBeerFilters = [];
+                                              _selectedBeerFilters = [
+                                                AdvacedBeerFilter(
+                                                    apiEndpoint: "abv",
+                                                    extraParam: "ASC",
+                                                    icon: Icons.local_bar,
+                                                    iconColor: Colors.amber,
+                                                    name: "Menor alcohól")
+                                              ];
 
-                                        // _showMultiSelect(context, oldContext);
-                                        setState(() {
-                                          _selectedBeerFilters = [];
-                                          _selectedBeerFilters = [
-                                            AdvacedBeerFilter(apiEndpoint: "abv", extraParam: "ASC", icon: Icons.local_bar, iconColor: Colors.amber, name: "Menor alcohól")
-                                          ];
-
-                                          _disoverBeersType = "abv";
-                                          _disoverBeersTypeExtraParam = "ASC";
-                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
-                                        });
-                                        Navigator.of(context).pop();
-
-
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.local_bar, size: 35, color: Colors.amber),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Menor alcohól" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
+                                              _disoverBeersType = "abv";
+                                              _disoverBeersTypeExtraParam =
+                                                  "ASC";
+                                              _beers = WordpressAPI.getBeers(
+                                                  type: _disoverBeersType,
+                                                  extraParam1:
+                                                      _disoverBeersTypeExtraParam);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                                  Icon(Icons.local_bar,
+                                                      size: 35,
+                                                      color: Colors.amber),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                  Text(
+                                                    "Menor alcohól",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black54),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
 
-                                  SizedBox(height: 7,),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
 
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.95,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // _showMultiSelect(context, oldContext);
+                                            setState(() {
+                                              _selectedBeerFilters = [];
+                                              _selectedBeerFilters = [
+                                                AdvacedBeerFilter(
+                                                    apiEndpoint: "ibu",
+                                                    extraParam: "high",
+                                                    icon: Icons.trending_up,
+                                                    iconColor: Colors.amber,
+                                                    name: "Mayor IBU",
+                                                    alert:
+                                                        "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
+                                              ];
 
-                                        // _showMultiSelect(context, oldContext);
-                                        setState(() {
-                                          _selectedBeerFilters = [];
-                                          _selectedBeerFilters = [
-                                            AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "high", icon: Icons.trending_up, iconColor: Colors.amber, name: "Mayor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
-                                          ];
-
-                                          _disoverBeersType = "ibu";
-                                          _disoverBeersTypeExtraParam = "high";
-                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
-                                        });
-                                        Navigator.of(context).pop();
-
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.trending_up, size: 35, color: Colors.amber),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Mayor IBU" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
+                                              _disoverBeersType = "ibu";
+                                              _disoverBeersTypeExtraParam =
+                                                  "high";
+                                              _beers = WordpressAPI.getBeers(
+                                                  type: _disoverBeersType,
+                                                  extraParam1:
+                                                      _disoverBeersTypeExtraParam);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                                  Icon(Icons.trending_up,
+                                                      size: 35,
+                                                      color: Colors.amber),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                  Text(
+                                                    "Mayor IBU",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black54),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
 
-                                  SizedBox(height: 7,),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
 
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.95,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.95,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedBeerFilters = [];
+                                              _selectedBeerFilters = [
+                                                AdvacedBeerFilter(
+                                                    apiEndpoint: "ibu",
+                                                    extraParam: "low",
+                                                    icon: Icons.trending_up,
+                                                    iconColor: Colors.amber,
+                                                    name: "Menor IBU",
+                                                    alert:
+                                                        "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
+                                              ];
 
-                                        setState(() {
-                                          _selectedBeerFilters = [];
-                                          _selectedBeerFilters = [
-                                            AdvacedBeerFilter(apiEndpoint: "ibu", extraParam: "low", icon: Icons.trending_up, iconColor: Colors.amber, name: "Menor IBU", alert: "Existen cervezas sin valores de IBU público que puede quedar fuera de este ranking.")
-                                          ];
-
-                                          _disoverBeersType = "ibu";
-                                          _disoverBeersTypeExtraParam = "low";
-                                          _beers = WordpressAPI.getBeers(type: _disoverBeersType, extraParam1: _disoverBeersTypeExtraParam);
-                                        });
-                                        Navigator.of(context).pop();
-
-
-                                      },
-
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
-                                              Icon(Icons.trending_down, size: 35, color: Colors.amber),
-                                              SizedBox(width: 8,),
-                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                              Text( "Menor IBU" , style: TextStyle(fontSize: 20, color: Colors.black54),)
-                                            ]
+                                              _disoverBeersType = "ibu";
+                                              _disoverBeersTypeExtraParam =
+                                                  "low";
+                                              _beers = WordpressAPI.getBeers(
+                                                  type: _disoverBeersType,
+                                                  extraParam1:
+                                                      _disoverBeersTypeExtraParam);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  //Image.asset("assets/images/icons/whatsapp-logo-2.png", height: 35, width: 35,),
+                                                  Icon(Icons.trending_down,
+                                                      size: 35,
+                                                      color: Colors.amber),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                  Text(
+                                                    "Menor IBU",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black54),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
+
+                                      SizedBox(height: 20)
+                                    ],
                                   ),
-
-
-                                  SizedBox(height: 20)
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                      elevation: 25,
-                    )
+                            );
+                          },
+                          elevation: 25,
+                        )
                         .closed
-                        .whenComplete(() {
-
-                    });
-
+                        .whenComplete(() {});
                   },
-                  child: Row(
-                    children: [
-                      Icon(Icons.filter_alt, color: Colors.black26,),
-                      Text(
-                        "Más filtros",
-                        style: TextStyle(color: BUTTONS_TEXT_DARK),
-                      ),
-                    ],
+                  child: Badge(
+                    elevation: 0,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 6.0),
+                    toAnimate: false,
+                    shape: BadgeShape.square,
+                    borderRadius: BorderRadius.circular(20.0),
+                    badgeColor: mainButtonsColor,
+                    badgeContent: Row(
+                      children: [
+                        Icon(
+                          Icons.tune,
+                          size: 15.0,
+                          color: Colors.white.withOpacity(.8),
+                        ),
+                        const SizedBox(
+                          width: 4.0,
+                        ),
+                        Text(
+                          'Más Filtros',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(.8),
+                              fontSize: titlesRightButtonsSize),
+                        ),
+                      ],
+                    ),
                   ),
+                  // child: Row(
+                  //   children: const [
+                  //     Icon(
+                  //       Icons.tune,
+                  //       color: Colors.black26,
+                  //       size: titlesRightButtonsIconSize,
+                  //     ),
+                  //     SizedBox(
+                  //       width: 5.0,
+                  //     ),
+                  //     Text(
+                  //       "Más filtros",
+                  //       style: TextStyle(
+                  //           color: BUTTONS_TEXT_DARK,
+                  //           fontSize: titlesRightButtonsSize),
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ],
             ),
@@ -587,118 +761,102 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _disconverBeersCategories(){
+  Widget _disconverBeersCategories() {
     return Container(
-        child:
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildCategoryButton(
-                text: "Nuevas",
-                icon: Icons.schedule,
-                color: Colors.white,
-                isSelected: (_disoverBeersType == "recent" ? true : false ),
-                onPressedAction: (){
-                  setState(() {
-                    _selectedBeerFilters = [];
-                    _disoverBeersType = "recent";
-                    _beers = WordpressAPI.getBeers(type: "recent");
-                  });
-                }
-            ),
-            _buildCategoryButton(
-                text: "Más Votadas",
-                isSelected: (_disoverBeersType == "most_voted" ? true : false ),
-                icon: Icons.star,
-                color: Colors.amberAccent,
-                onPressedAction: (){
-                  setState(() {
-                    _selectedBeerFilters = [];
-                    _disoverBeersType = "most_voted";
-                    _beers = WordpressAPI.getBeers(type: "most_voted");
-                  });
-                }
-            ),
-            _buildCategoryButton(
-                text: "Tendencia",
-                isSelected: (_disoverBeersType == "trends" ? true : false ),
-                icon: Icons.local_fire_department,
-                color: Colors.red,
-                onPressedAction: (){
-                  setState(() {
-                    _selectedBeerFilters = [];
-                    _disoverBeersType = "trends";
-                    _beers = WordpressAPI.getBeers(type: "trends");
-                  });
-                }
-            ),
-            _buildCategoryButton(
-                text: "Verificadas",
-                isSelected: (_disoverBeersType == "premium" ? true : false ),
-                // icon: Icons.verified,
-                icon: Icons.verified,
-                //color: Color.fromRGBO(25, 119, 227, 1),
-                color: BUTTON_GREEN,
-                onPressedAction: (){
-                  setState(() {
-                    _selectedBeerFilters = [];
-                    _disoverBeersType = "premium";
-                    _beers = WordpressAPI.getBeers(type: "premium");
-                  });
-                }
-            )
-          ],
-        )
-    );
-  }
-
-  Widget _buildButtonText({ String text = "", isSelected = false }){
-    return Text(text, style: TextStyle(
-        fontSize: 15,
-        color: BUTTONS_TEXT_DARK,
-        fontWeight: (isSelected ? FontWeight.bold : FontWeight.normal )
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildCategoryButton(
+            text: "Nuevas",
+            icon: Icons.schedule,
+            color: Colors.white,
+            isSelected: (_disoverBeersType == "recent" ? true : false),
+            onPressedAction: () {
+              setState(() {
+                _selectedBeerFilters = [];
+                _disoverBeersType = "recent";
+                _beers = WordpressAPI.getBeers(type: "recent");
+              });
+            }),
+        _buildCategoryButton(
+            text: "Más Votadas",
+            isSelected: (_disoverBeersType == "most_voted" ? true : false),
+            icon: Icons.star,
+            color: Colors.amberAccent,
+            onPressedAction: () {
+              setState(() {
+                _selectedBeerFilters = [];
+                _disoverBeersType = "most_voted";
+                _beers = WordpressAPI.getBeers(type: "most_voted");
+              });
+            }),
+        _buildCategoryButton(
+            text: "Tendencia",
+            isSelected: (_disoverBeersType == "trends" ? true : false),
+            icon: Icons.local_fire_department,
+            color: Colors.red,
+            onPressedAction: () {
+              setState(() {
+                _selectedBeerFilters = [];
+                _disoverBeersType = "trends";
+                _beers = WordpressAPI.getBeers(type: "trends");
+              });
+            }),
+        _buildCategoryButton(
+            text: "Verificadas",
+            isSelected: (_disoverBeersType == "premium" ? true : false),
+            // icon: Icons.verified,
+            icon: Icons.verified,
+            //color: Color.fromRGBO(25, 119, 227, 1),
+            color: BUTTON_GREEN,
+            onPressedAction: () {
+              setState(() {
+                _selectedBeerFilters = [];
+                _disoverBeersType = "premium";
+                _beers = WordpressAPI.getBeers(type: "premium");
+              });
+            })
+      ],
     ));
   }
 
-  Widget _buildCategoryButton({
-    String text = "",
-    IconData? icon,
-    Color color = Colors.black87,
-    Color backgroundColor = Colors.black,
-    bool isSelected = false,
-    VoidCallback? onPressedAction
-  }){
+  Widget _buildButtonText({String text = "", isSelected = false}) {
+    return Text(text,
+        style: TextStyle(
+            fontSize: 14,
+            fontFamily: "Roboto",
+            color: BUTTONS_TEXT_DARK,
+            fontWeight: (isSelected ? FontWeight.bold : FontWeight.normal)));
+  }
+
+  Widget _buildCategoryButton(
+      {String text = "",
+      IconData? icon,
+      Color color = Colors.black87,
+      Color backgroundColor = mainButtonsColor,
+      bool isSelected = false,
+      VoidCallback? onPressedAction}) {
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: ElevatedButton(
-
             onPressed: onPressedAction,
-            child: Icon(icon, color: color, size: 25,),
             style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(12.0)),
-                /*
-                foregroundColor: MaterialStateProperty
-                    .all<Color>(
-                    Colors.black.withOpacity(
-                        .6)),
-                 */
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    const EdgeInsets.all(12.0)),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    backgroundColor.withOpacity(  (isSelected ? 1.0 : 0.4 )  )
-                ),
-                shape: MaterialStateProperty
-                    .all<
-                    RoundedRectangleBorder>(
+                    (isSelected ? backgroundColor : Colors.grey)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                        borderRadius: BorderRadius
-                            .circular(20.0),
-                        side: BorderSide(
-                            width: .8,
-                            color: Colors.black.withOpacity(.2))
-                    )
-                )
+                        borderRadius: BorderRadius.circular(20.0),
+                        side: const BorderSide(
+                            width: .8, color: Colors.transparent)))),
+            child: Icon(
+              icon,
+              color: (isSelected ? Colors.white : Colors.white),
+              size: 25,
             ),
           ),
         ),
@@ -707,7 +865,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _buildListGridView(){
+  Widget _buildListGridView() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
@@ -755,55 +913,71 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
     _beers = WordpressAPI.getBeers(type: _disoverBeersType);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
 
         _discoverBeersHeader(),
-        SizedBox(height: 15,),
+        SizedBox(
+          height: 15,
+        ),
 
         _disconverBeersCategories(),
 
-        SizedBox(height: 15,),
-
-        if (_selectedBeers.length > 0) Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: MultiSelectChipDisplay(
-            chipColor: Colors.black,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            items: _selectedBeers.map((e) => MultiSelectItem(e, e.name)).toList(),
-            //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
-            onTap: (value) {
-              setState(() {
-
-                _selectedBeers.remove(value);
-              });
-            },
-          ),
+        SizedBox(
+          height: 15,
         ),
+
+        if (_selectedBeers.length > 0)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: MultiSelectChipDisplay(
+              chipColor: Colors.black,
+              textStyle:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              items: _selectedBeers
+                  .map((e) => MultiSelectItem(e, e.name))
+                  .toList(),
+              //items: _animals.map((e) => MultiSelectItem(e, e.name)).toList(),
+              onTap: (value) {
+                setState(() {
+                  _selectedBeers.remove(value);
+                });
+              },
+            ),
+          ),
         // more filters chips
-        if (_selectedBeerFilters.length > 0) Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: MultiSelectChipDisplay(
-            icon: Icon(Icons.close),
-            chipColor: Colors.black,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            items: _selectedBeerFilters.map((e) => MultiSelectItem(e, e.name)).toList(),
-            onTap: (value) {
-              setState(() {
-                _selectedBeerFilters = [];
-                // back to default, could bet get back to last filter before this
-                _disoverBeersType = "recent";
-                _beers = WordpressAPI.getBeers(type: "recent");
-                //_selectedBeerFilters.remove(value);
-              });
-            },
+        if (_selectedBeerFilters.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: MultiSelectChipDisplay(
+              icon: const Icon(
+                Icons.close,
+                size: 12,
+              ),
+              chipColor: Colors.grey,
+              textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11.0),
+              items: _selectedBeerFilters
+                  .map((e) => MultiSelectItem(e, e.name))
+                  .toList(),
+              onTap: (value) {
+                setState(() {
+                  _selectedBeerFilters = [];
+                  // back to default, could bet get back to last filter before this
+                  _disoverBeersType = "recent";
+                  _beers = WordpressAPI.getBeers(type: "recent");
+                  //_selectedBeerFilters.remove(value);
+                });
+              },
+            ),
           ),
-        ),
 
         FutureBuilder(
             future: _beers,
@@ -812,42 +986,44 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
                 case ConnectionState.waiting:
                   return Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 10),
-                          Center(
-                            //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
-                              child: Image.asset("assets/images/loader-hops.gif",width: 100,)
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Text("Cargando cervezas..."),
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      )
-                  );
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 10),
+                      Center(
+                          //child: CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR, strokeWidth: 1.0,)
+                          child: Image.asset(
+                        "assets/images/loader-hops.gif",
+                        width: 100,
+                      )),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: Text("Cargando cervezas..."),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ));
                 default:
-                  if (snapshot.hasError){
+                  if (snapshot.hasError) {
                     return Text('Ups! Error: ${snapshot.error}');
-                  }else{
+                  } else {
                     return Column(
                       children: [
                         _buildListGridView(),
-                        SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         BeerCards(
                           loadingText: "Cargando cervezas...",
                           beersList: snapshot.data,
                           discoverBeersType: _disoverBeersType,
-                          discoverBeersTypeExtraParam: _disoverBeersTypeExtraParam,
+                          discoverBeersTypeExtraParam:
+                              _disoverBeersTypeExtraParam,
                         ),
-
                       ],
                     );
                   }
               }
-            }
-        ),
+            }),
 
         /*
         SizedBox(
@@ -872,10 +1048,7 @@ class _DiscoverBeersState extends State<DiscoverBeers> with AutomaticKeepAliveCl
           ),
         ),
         */
-
       ],
-
     );
   }
 }
-

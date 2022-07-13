@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:Hops/helpers.dart';
-
+import 'package:Hops/models/brewery.dart';
 
 class Promo {
-
   Promo({
     required this.id,
     required this.avatar,
     required this.name,
+    this.nameShort,
+    this.minBuy,
+    this.discountValue = 0.0,
     required this.bgColor,
     required this.description,
     this.channelType,
@@ -17,13 +19,15 @@ class Promo {
     this.callToActionText,
     this.callToActionIcon,
     this.productAssociated,
+    this.breweryAssociated,
     /*
     required this.scoreAvg,
     required this.scoreCount,
      */
-  }) : this.rgbColor = Helpers.HexToColor(bgColor ?? Color.fromRGBO(234, 186, 0, 0.6) as String);
+  }) : this.rgbColor = Helpers.HexToColor(
+            bgColor ?? Color.fromRGBO(234, 186, 0, 0.6) as String);
 
-  factory Promo.fromJson(Map<String, dynamic> parsedJson){
+  factory Promo.fromJson(Map<String, dynamic> parsedJson) {
     /*
     String? scoreAvg, scoreCount;
     if (parsedJson.containsKey("scores")){
@@ -31,41 +35,63 @@ class Promo {
       scoreCount = parsedJson["scores"]["opinionCount"].toString();
     }
     */
-    String callToActionBtnText = parsedJson['acf']['call_to_action_button_text'];
+
+    String callToActionBtnText = parsedJson['data']['callToActionText'];
     if (callToActionBtnText == "") callToActionBtnText = "Comprar";
 
-    String callToActionBtnIconCode = parsedJson['acf']['call_to_action_button_icon'];
+    String callToActionBtnIconCode = parsedJson['data']['callToActionIcon'];
 
     IconData callToActionBtnIcon = Icons.shopping_cart;
-    if (callToActionBtnIconCode == "qr_code_scanner"){
+    if (callToActionBtnIconCode == "qr_code_scanner") {
       callToActionBtnIcon = Icons.qr_code_scanner;
-    }else if(callToActionBtnIconCode == "share"){
+    } else if (callToActionBtnIconCode == "share") {
       callToActionBtnIcon = Icons.share;
-    }else{
+    } else {
       callToActionBtnIcon = Icons.shopping_cart;
     }
 
     String? productAssociated = "0";
-    if (parsedJson.containsKey("acf")
-      && (parsedJson['acf']["product_associated"] != null )
-    ){
-      productAssociated = parsedJson['acf']["product_associated"].toString();
+    if (parsedJson.containsKey("data") &&
+        (parsedJson['data']["productAssociated"] != null)) {
+      productAssociated = parsedJson['data']["productAssociated"].toString();
     }
 
+    Brewery? breweryAssociated;
+
+    if (parsedJson.containsKey("data") &&
+        (parsedJson['data']["breweryAssociated"] != null)) {
+      breweryAssociated =
+          Brewery.fromJson(parsedJson['data']["breweryAssociated"]);
+    }
+
+    int minBuy = 0;
+    if (parsedJson.containsKey("data") &&
+        (parsedJson['data']["minBuy"] != null)) {
+      minBuy = int.parse(parsedJson['data']["minBuy"]);
+    }
+    double discountValue = 0.0;
+    if (parsedJson.containsKey("data") &&
+        (parsedJson['data']["discountValue"] != null)) {
+      discountValue = double.parse(parsedJson['data']["discountValue"]);
+    }
 
     return Promo(
-      id: parsedJson["id"].toString(),
-      avatar: parsedJson["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"] ?? "",
-      bgColor: parsedJson['acf']['bg_color'],
-      name: parsedJson['title']['rendered'],
-      description: parsedJson['excerpt']['rendered'],
-      channelType: parsedJson['acf']['channel_type'],
-      promoType: parsedJson['acf']['type'],
-      pointsScore: parsedJson['acf']['points_score'],
-      dateLimit: parsedJson['acf']['date_limit'],
+      id: parsedJson["data"]["id"].toString(),
+      avatar: parsedJson["data"]["avatar"],
+      bgColor: parsedJson['data']['bgColor'],
+      name: parsedJson['data']['name'],
+      description: parsedJson['data']['description'],
+      channelType: parsedJson['data']['channelType'],
+      promoType: parsedJson['data']['promoType'],
+      pointsScore: parsedJson['data']['pointsScore'],
+      dateLimit: parsedJson['data']['dateLimit'],
+      nameShort: parsedJson['data']['nameShort'],
+      minBuy: minBuy,
+      discountValue: discountValue,
       callToActionText: callToActionBtnText,
       callToActionIcon: callToActionBtnIcon,
       productAssociated: productAssociated,
+      breweryAssociated: breweryAssociated,
 
       /*
       barAssociated: parsedJson['acf']['bar_associated'],
@@ -93,7 +119,11 @@ class Promo {
   String id;
   String? avatar;
   String? name;
-  String? bgColor; // this is a string representing the ACF Hex color like '#CCCCCC'
+  String? nameShort;
+  int? minBuy;
+  double discountValue;
+  String?
+      bgColor; // this is a string representing the ACF Hex color like #CCCCCC
   String? description;
   Color rgbColor; // this is a Color object
   String? channelType;
@@ -103,6 +133,7 @@ class Promo {
   String? callToActionText;
   IconData? callToActionIcon;
   String? productAssociated;
+  Brewery? breweryAssociated;
 //String? scoreAvg;
 //String? scoreCount;
 //Comment? comment;

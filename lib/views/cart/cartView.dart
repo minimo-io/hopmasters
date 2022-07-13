@@ -1,5 +1,8 @@
+import 'package:Hops/components/order_details_box.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/models/brewery.dart';
+import 'package:Hops/models/promo.dart';
+import 'package:Hops/utils/notifications.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/theme/style.dart';
@@ -11,6 +14,9 @@ import 'package:Hops/components/stars_score.dart';
 import 'package:Hops/components/counter_selector.dart';
 
 import 'package:badges/badges.dart';
+
+import '../../models/order_data.dart';
+import '../../services/shared_services.dart';
 
 class CartView extends StatefulWidget {
   final String? name;
@@ -25,12 +31,120 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
+  late Future<OrderData?> _lastOrderData;
+
+  @override
+  void initState() {
+    super.initState();
+    _lastOrderData = SharedServices.lastShippingDetails();
+
+    //SharedServices.removeLastShippingDetails();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // _lastOrderData.then((value){
+      //   if (value != null){
+      //     setState(() {
+      //       bottomHeight = 70;
+      //     });
+
+      //   }else{
+      //     setState(() {
+      //       bottomHeight = 0;
+      //     });
+
+      //   }
+      // });
+    });
+  }
+
   String _buildPriceText(CartItem cartItem) {
     int finalPrice = int.parse(cartItem.beer!.price!) * cartItem.itemCount;
     return "\$" + finalPrice.toString();
   }
 
-  Widget _buildBreweryItem(Brewery brewery) {
+  bool _isMinBuyOk(int breweryItemsCount, int promoMinBuy) {
+    return (breweryItemsCount >= promoMinBuy ? true : false);
+  }
+
+  Widget _buildItemPrice(CartItem item, Cart cart) {
+    int breweryItems = cart.countBreweryItems(int.parse(item.beer!.brewery.id));
+    bool minBuyOk = false;
+    if (item.beer!.brewery.promos != null &&
+        item.beer!.brewery.promos!.isNotEmpty) {
+      minBuyOk = _isMinBuyOk(
+          breweryItems, item.beer!.brewery.promos!.first.minBuy ?? 0);
+    }
+    double itemPrice = item.itemPrice.roundToDouble();
+    double discountedValue = 0.0;
+
+    if (minBuyOk == true) {
+      double discountValue = item.beer!.brewery.promos!.first.discountValue;
+      discountedValue = cart.discountedItemPrice(itemPrice, discountValue);
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      //crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        (discountedValue > 0.0
+            ? Text("\$" + discountedValue.toString(),
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold))
+            : Container()),
+        Text("\$" + item.itemPrice.round().toString(),
+            style: TextStyle(
+                fontSize: discountedValue > 0.0 ? 15.0 : 20.0,
+                color: Colors.black,
+                decoration: (discountedValue > 0.0
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
+                fontWeight: FontWeight.bold))
+      ],
+    );
+  }
+
+  Widget _buildTopPromo(Brewery brewery, int breweryItemsCount) {
+    if (brewery.promos != null && brewery.promos!.isNotEmpty) {
+      String promoName = brewery.promos!.first.nameShort ?? "";
+      int promoMinBuy = brewery.promos!.first.minBuy ?? 0;
+
+      // evaluate if the amount is ok to apply
+      bool minBuyOk = _isMinBuyOk(breweryItemsCount, promoMinBuy);
+
+      return Badge(
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+        toAnimate: false,
+        shape: BadgeShape.square,
+        borderRadius: BorderRadius.circular(8),
+        badgeColor: SECONDARY_BUTTON_COLOR.withOpacity(minBuyOk ? 1.0 : 0.4),
+        badgeContent: Row(
+          children: [
+            minBuyOk
+                ? const Padding(
+                    padding: EdgeInsets.only(right: 5.0),
+                    child: Icon(
+                      Icons.check_circle,
+                      size: 15,
+                      color: Colors.green,
+                    ),
+                  )
+                : Container(),
+            Text(
+              promoName,
+              style: const TextStyle(color: Colors.black54, fontSize: 11.0),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget _buildBreweryItem(Brewery brewery, int breweryItemsCount) {
     return Padding(
       padding: const EdgeInsets.only(left: 11.0, bottom: 5.0),
       child: Column(
@@ -65,8 +179,8 @@ class _CartViewState extends State<CartView> {
                               style: const TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Icon(
                                 Icons.chevron_right,
                                 size: 15,
@@ -82,7 +196,7 @@ class _CartViewState extends State<CartView> {
                     Badge(
                       elevation: 0,
                       position: BadgePosition.topEnd(top: 0, end: 3),
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                       animationType: BadgeAnimationType.slide,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7.0, vertical: 5.0),
@@ -90,9 +204,9 @@ class _CartViewState extends State<CartView> {
                       shape: BadgeShape.circle,
                       borderRadius: BorderRadius.circular(8),
                       badgeColor: Colors.red.withOpacity(1),
-                      badgeContent: const Text(
-                        '3',
-                        style: TextStyle(
+                      badgeContent: Text(
+                        breweryItemsCount.toString(),
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12.0,
                             fontWeight: FontWeight.bold),
@@ -102,43 +216,44 @@ class _CartViewState extends State<CartView> {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: InkWell(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    "/brewery",
-                    arguments: {'breweryId': int.parse(brewery.id)},
-                  ),
-                  child: Badge(
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 6.0),
-                    toAnimate: false,
-                    shape: BadgeShape.square,
-                    borderRadius: BorderRadius.circular(20.0),
-                    badgeColor: Colors.black.withOpacity(.3),
-                    badgeContent: Row(
-                      children: [
-                        Icon(
-                          Icons.redeem,
-                          size: 13.0,
-                          color: Colors.white.withOpacity(.8),
-                        ),
-                        const SizedBox(
-                          width: 4.0,
-                        ),
-                        Text(
-                          'Utilizar puntos',
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(.8),
-                              fontSize: 11.0),
-                        ),
-                      ],
+              if (brewery.promos!.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: InkWell(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      "/brewery",
+                      arguments: {'breweryId': int.parse(brewery.id)},
+                    ),
+                    child: Badge(
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 6.0),
+                      toAnimate: false,
+                      shape: BadgeShape.square,
+                      borderRadius: BorderRadius.circular(20.0),
+                      badgeColor: Colors.black.withOpacity(.3),
+                      badgeContent: Row(
+                        children: [
+                          Icon(
+                            Icons.redeem,
+                            size: 13.0,
+                            color: Colors.white.withOpacity(.8),
+                          ),
+                          const SizedBox(
+                            width: 4.0,
+                          ),
+                          Text(
+                            'Ver promos',
+                            style: TextStyle(
+                                color: Colors.white.withOpacity(.8),
+                                fontSize: 11.0),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
           // const SizedBox(
@@ -165,7 +280,7 @@ class _CartViewState extends State<CartView> {
           //     //         color: Colors.black54, fontSize: 10.0, letterSpacing: .1))
           //   ],
           // ),
-          SizedBox(
+          const SizedBox(
             height: 2.0,
           ),
           Row(
@@ -180,27 +295,21 @@ class _CartViewState extends State<CartView> {
                 width: 3.0,
               ),
               Text(
-                "4.5",
+                double.parse(brewery.scoreAvg.toString()).toString(),
                 style: const TextStyle(
                     fontSize: 11.0, fontWeight: FontWeight.bold),
               ),
-              Text(" (251)", style: TextStyle(fontSize: 11.0)),
+              Text(
+                  " (" +
+                      brewery.scoreCount.toString() +
+                      " voto" +
+                      (int.parse(brewery.scoreCount!) == 1 ? "" : "s") +
+                      ")",
+                  style: TextStyle(fontSize: 11.0)),
               const SizedBox(
                 width: 5.0,
               ),
-              Badge(
-                elevation: 0,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
-                toAnimate: false,
-                shape: BadgeShape.square,
-                borderRadius: BorderRadius.circular(8),
-                badgeColor: SECONDARY_BUTTON_COLOR.withOpacity(.4),
-                badgeContent: Text(
-                  'Hasta 30% OFF',
-                  style: TextStyle(color: Colors.black54, fontSize: 11.0),
-                ),
-              ),
+              _buildTopPromo(brewery, breweryItemsCount)
             ],
           )
         ],
@@ -314,17 +423,7 @@ class _CartViewState extends State<CartView> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    //crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text("\$" + cartItem.itemPrice.round().toString(),
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                  _buildItemPrice(cartItem, cart),
                   const SizedBox(
                     height: 3,
                   ),
@@ -361,14 +460,24 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget _buildCheckoutButton() {
+  void Function()? _goToCheckout() {
+    Navigator.pushNamed(
+      context,
+      "/checkout",
+    );
+  }
+
+  Widget _buildCheckoutButton(OrderData? shippingDetails) {
     // MaterialStateProperty<Color?>? backgroundColor = MaterialStateProperty.all<Color>(Colors.white.withOpacity(.8));
     // MaterialStateProperty<Color?>? backgroundColor =
     //     MaterialStateProperty.all<Color>(
     //         SECONDARY_BUTTON_COLOR.withOpacity(.65));
 
     MaterialStateProperty<Color?>? backgroundColor =
-        MaterialStateProperty.all<Color>(Color.fromRGBO(77, 159, 0, 1));
+        MaterialStateProperty.all<Color>(const Color.fromRGBO(77, 159, 0, 1));
+
+    MaterialStateProperty<Color?>? backgroundColorGrey =
+        MaterialStateProperty.all<Color>(Colors.grey);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
@@ -382,110 +491,132 @@ class _CartViewState extends State<CartView> {
         child: SizedBox(
             width: double.infinity,
             child: Consumer<Cart>(builder: (context, cart, child) {
+              String checkoutButtonText = "IR AL PAGO";
+              if (!cart.validateSell) {
+                if (cart.getBreweriesFromCart().length > 1) {
+                  checkoutButtonText = "COMPLETAR PEDIDOS MÍNIMOS";
+                } else {
+                  checkoutButtonText = "COMPLETAR PEDIDO MÍNIMO";
+                }
+              }
+
+              if (!cart.isShippingDataOk(shippingDetails)) {
+                checkoutButtonText = "COMPLETAR DATOS DE ENVÍO";
+              }
+
               return (cart.items.isNotEmpty
                   ? ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          "/checkout",
-                          // arguments: { 'breweryId': int.parse(breweries[i].id) },
-                        );
-                      },
+                      onPressed: cart.validateSell &&
+                              cart.isShippingDataOk(shippingDetails)
+                          ? _goToCheckout
+                          : null,
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(
                               const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 25.0)),
                           foregroundColor: MaterialStateProperty.all<Color>(
                               Colors.black.withOpacity(1)),
-                          backgroundColor: backgroundColor,
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: BorderSide(
-                                          color:
-                                              Color.fromRGBO(77, 159, 0, 1))))),
+                          backgroundColor: cart.validateSell && cart.isShippingDataOk(shippingDetails)
+                              ? backgroundColor
+                              : backgroundColorGrey,
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(
+                                  color: cart.validateSell && cart.isShippingDataOk(shippingDetails)
+                                      ? const Color.fromRGBO(77, 159, 0, 1)
+                                      : Colors.grey)))),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: (cart.validateSell &&
+                                cart.isShippingDataOk(shippingDetails)
+                            ? MainAxisAlignment.spaceBetween
+                            : MainAxisAlignment.center),
                         children: [
                           Row(
                             children: [
-                              Icon(
-                                Icons.shopping_cart,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              SizedBox(
+                              if (cart.validateSell &&
+                                  cart.isShippingDataOk(shippingDetails))
+                                const Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              const SizedBox(
                                 width: 5.0,
                               ),
-                              Text("IR AL PAGO",
+                              Text(checkoutButtonText,
                                   //"Finalizar compra",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15, color: Colors.white)),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.sports_bar,
-                                    size: 18.0,
-                                    color: Colors.white.withOpacity(.5),
-                                  ),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  Text(cart.itemsCount.toString(),
+                          if (cart.validateSell &&
+                              cart.isShippingDataOk(shippingDetails))
+                            Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.sports_bar,
+                                      size: 18.0,
+                                      color: Colors.white.withOpacity(.5),
+                                    ),
+                                    const SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Text(cart.itemsCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            color:
+                                                Colors.white.withOpacity(.5))),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.paid,
+                                      size: 18.0,
+                                      color: Colors.white.withOpacity(.5),
+                                    ),
+                                    const SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Text(
+                                      cart.finalPrice().toString(),
                                       style: TextStyle(
                                           fontSize: 12.0,
-                                          color: Colors.white.withOpacity(.5))),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.paid,
-                                    size: 18.0,
-                                    color: Colors.white.withOpacity(.5),
-                                  ),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  Text(
-                                    cart.finalPrice().round().toString(),
-                                    style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.white.withOpacity(.5)),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.local_shipping,
-                                    size: 18.0,
-                                    color: Colors.white.withOpacity(.5),
-                                  ),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  Text(
-                                    "\$100",
-                                    style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.white.withOpacity(.5)),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
+                                          color: Colors.white.withOpacity(.5)),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.local_shipping,
+                                      size: 18.0,
+                                      color: Colors.white.withOpacity(.5),
+                                    ),
+                                    const SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    Text(
+                                      "\$" +
+                                          cart.totalDeliveryCost
+                                              .round()
+                                              .toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white.withOpacity(.5)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
                         ],
                       ),
                     )
@@ -495,12 +626,12 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget _buildCartSummaryBox() {
+  Widget _buildCartSummaryBox(Brewery brewery) {
     double valuesSizes = 11.0;
 
     return Container(
         width: double.infinity,
-        padding: EdgeInsets.only(bottom: 5.0),
+        padding: const EdgeInsets.only(bottom: 5.0),
         child: Card(
             color: Colors.grey.withOpacity(.25),
             elevation: 0,
@@ -518,7 +649,7 @@ class _CartViewState extends State<CartView> {
                             style: TextStyle(fontSize: valuesSizes),
                           ),
                           Text(
-                            "1-2 días",
+                            brewery.deliveryTime.toString(),
                             style: TextStyle(
                                 fontSize: valuesSizes,
                                 fontWeight: FontWeight.bold),
@@ -532,7 +663,7 @@ class _CartViewState extends State<CartView> {
                             style: TextStyle(fontSize: valuesSizes),
                           ),
                           Text(
-                            "\$100",
+                            "\$" + brewery.deliveryCost.toString(),
                             style: TextStyle(
                                 fontSize: valuesSizes,
                                 fontWeight: FontWeight.bold),
@@ -546,7 +677,7 @@ class _CartViewState extends State<CartView> {
                             style: TextStyle(fontSize: valuesSizes),
                           ),
                           Text(
-                            "3 cervezas",
+                            brewery.deliveryMin.toString() + " cervezas",
                             style: TextStyle(
                                 fontSize: valuesSizes,
                                 fontWeight: FontWeight.bold),
@@ -563,7 +694,20 @@ class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _buildCheckoutButton(),
+      bottomNavigationBar: FutureBuilder(
+          future: _lastOrderData,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Container();
+              default:
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return _buildCheckoutButton(snapshot.data);
+                }
+            }
+          }),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -582,8 +726,9 @@ class _CartViewState extends State<CartView> {
                       SizedBox(
                         height: (b == 0 ? 10 : 40),
                       ),
-                      _buildBreweryItem(breweries[b]),
-                      _buildCartSummaryBox(),
+                      _buildBreweryItem(breweries[b],
+                          cart.countBreweryItems(int.parse(breweries[b].id))),
+                      _buildCartSummaryBox(breweries[b]),
                     ],
                   ));
 
@@ -610,16 +755,58 @@ class _CartViewState extends State<CartView> {
                 // print(cartItemsList.length.toString());
 
                 return Container(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 15.0, right: 15, bottom: 15),
                     // padding: EdgeInsets.only(top: 50),
                     height: MediaQuery.of(context).size.height - 100,
                     child: SingleChildScrollView(
                       child: (cartItemsList.isNotEmpty
-                          ? Padding(
-                              padding: const EdgeInsets.only(bottom: 90.0),
-                              child: Column(
-                                children: cartItemsList,
-                              ),
+                          ? Column(
+                              children: [
+                                FutureBuilder(
+                                    future: _lastOrderData,
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      switch (snapshot.connectionState) {
+                                        case ConnectionState.waiting:
+                                          return const SizedBox(
+                                              height: 22,
+                                              width: 22,
+                                              child: CircularProgressIndicator(
+                                                color: PROGRESS_INDICATOR_COLOR,
+                                                strokeWidth: 1,
+                                              ));
+                                        default:
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            return OrderDetailsBox(
+                                              onChangeShippingDetails: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  "shippingDetails",
+                                                  // arguments: { 'beerId': int.parse(beer.beerId) },
+                                                ).then((_) => setState(() {
+                                                      _lastOrderData =
+                                                          SharedServices
+                                                              .lastShippingDetails();
+                                                      //bottomHeight = 70;
+                                                    }));
+                                              },
+                                              lastOrder: snapshot.data,
+                                            );
+                                          }
+                                      }
+                                    }),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 90.0, top: 10.0),
+                                  child: Column(
+                                    children: cartItemsList,
+                                  ),
+                                ),
+                              ],
                             )
                           : Padding(
                               padding: const EdgeInsets.symmetric(
@@ -628,19 +815,19 @@ class _CartViewState extends State<CartView> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 50,
                                   ),
                                   Image.asset(
                                     "assets/images/loudly-crying-face_1f62d.png",
                                     height: 45,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Center(
                                     child: RichText(
-                                      text: TextSpan(children: <TextSpan>[
+                                      text: const TextSpan(children: <TextSpan>[
                                         TextSpan(
                                             text: "Tu carrito ",
                                             style: TextStyle(
@@ -742,7 +929,7 @@ class _CartViewState extends State<CartView> {
                 padding: const EdgeInsets.only(right: 5.0),
                 child: (cart.items.isNotEmpty
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
+                        padding: const EdgeInsets.only(right: 10.0),
                         child: TextButton.icon(
                           onPressed: () {
                             cart.removeAll();

@@ -32,11 +32,11 @@ class _TopAppBarState extends State<TopAppBar> {
       )),
       */
       flexibleSpace: Container(
-        decoration: BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
+        decoration: const BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
       ),
       iconTheme: IconThemeData(color: colorScheme.secondary),
       title: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 6.0, 0, 8.0),
+        padding: const EdgeInsets.fromLTRB(8, 6.0, 0, 8.0),
         child: Row(
           children: [
             Image.asset(
@@ -85,7 +85,7 @@ class _TopAppBarState extends State<TopAppBar> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Stack(

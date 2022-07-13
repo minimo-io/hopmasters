@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '8'
+    flutterVersionCode = '10'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.0'
+    flutterVersionName = '1.0.1'
 }
 
 apply plugin: 'com.android.application'
@@ -52,14 +52,31 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    signingConfigs {
+        debug {
+            storeFile file('/Users/minimo/DevOps/hops_keys/key.jks')
+            storePassword 'Qdio9o7WGMHHD4ew'
+            keyAlias 'androiddebugkey'
+            keyPassword 'Qdio9o7WGMHHD4ew'
+        }
+        release {
+            storeFile file('/Users/minimo/DevOps/hops_keys/release.jks')
+            storePassword 'mgsWbEtK8iN65Xnh'
+            keyAlias 'release'
+            keyPassword 'mgsWbEtK8iN65Xnh'
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+        debug {
             signingConfig signingConfigs.debug
         }
     }
+
 }
 
 flutter {

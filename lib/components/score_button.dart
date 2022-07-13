@@ -17,7 +17,7 @@ class ScoreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 0),
       child: FlatButton(
         padding: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -35,9 +35,9 @@ class ScoreButton extends StatelessWidget {
                   color:
                       (this.contrast == "high" ? Colors.white : Colors.black)),
             )),
-            Icon(Icons.arrow_forward_ios,
-                size: 15,
-                color: (this.contrast == "high" ? Colors.white : Colors.black)),
+            // Icon(Icons.arrow_forward_ios,
+            //     size: 15,
+            //     color: (this.contrast == "high" ? Colors.white : Colors.black)),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'package:Hops/models/brewery.dart';
+import 'package:Hops/models/order_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:Hops/models/beer.dart';
 import 'package:flutter/rendering.dart';
@@ -15,6 +16,10 @@ class Cart extends ChangeNotifier {
 
   /// convert all preferences to json for then sending it to server
   String get toJson => jsonEncode(_items.map((e) => e.toJson()).toList());
+
+  bool get validateSell => isValidSell();
+
+  double get totalDeliveryCost => getDeliveryCost();
 
   void add(CartItem item) {
     // items.add(item);
@@ -57,13 +62,58 @@ class Cart extends ChangeNotifier {
     }
   }
 
-  double finalPrice() {
+  int finalPrice({int? breweryId}) {
     double finalPrice = 0.0;
     for (var i = 0; i < _items.length; i++) {
-      // if (item.beer!.beerId == _items[i].beer!.beerId){
-      finalPrice += _items[i].itemPrice;
+      double beerPrice = 0.0;
+      // if first promo exists then use the discountedItemPrice
+      if (_items[i].beer!.brewery.promos != null &&
+          _items[i].beer!.brewery.promos!.isNotEmpty) {
+        double discountValue =
+            items[i].beer!.brewery.promos!.first.discountValue;
+
+        beerPrice += discountedItemPrice(_items[i].itemPrice, discountValue);
+      } else {
+        beerPrice += _items[i].itemPrice;
+      }
+      // decide whether to sum or not depending on the fn param
+      bool doSum = false;
+      if (breweryId == null) {
+        doSum = true;
+      } else {
+        if (breweryId == int.parse(items[i].beer!.brewery.id)) {
+          doSum = true;
+        }
+      }
+
+      if (doSum) finalPrice += beerPrice;
     }
-    return finalPrice;
+    return finalPrice.round();
+  }
+
+  // double breweryFinalPrice() {
+  //   double finalPrice = 0.0;
+
+  //   return finalPrice.round();
+  // }
+
+  double discountedItemPrice(double itemValue, double discountValue) {
+    // for no only percentage
+    double discountPercentage = ((discountValue * itemValue) / 100);
+    return itemValue - discountPercentage;
+  }
+
+  int countBreweryItems(int breweryId) {
+    int breweryCount = 0;
+    for (var i = 0; i < _items.length; i++) {
+      // if (item.beer!.beerId == _items[i].beer!.beerId){
+
+      if (breweryId == int.parse(_items[i].beer!.brewery.id)) {
+        breweryCount += _items[i].itemCount;
+      }
+    }
+
+    return breweryCount;
   }
 
   void remove(CartItem item) {
@@ -80,13 +130,34 @@ class Cart extends ChangeNotifier {
     notifyListeners();
   }
 
-  List getShippingList() {
+  List getShippingList({Brewery? brewery}) {
     List shippingList = [];
     for (var i = 0; i < _items.length; i++) {
-      shippingList.add({
-        "product_id": _items[i].beer!.beerId,
-        "quantity": _items[i].itemCount,
-      });
+      bool addToShipping = false;
+      if (brewery != null) {
+        if (_items[i].beer!.brewery.id == brewery.id) addToShipping = true;
+      } else {
+        addToShipping = true;
+      }
+
+      if (addToShipping) {
+        double totalPrice = _items[i].itemPrice;
+        // add total with discount if exits
+        if (_items[i].beer!.brewery.promos != null &&
+            _items[i].beer!.brewery.promos!.isNotEmpty) {
+          double discountValue =
+              _items[i].beer!.brewery.promos!.first.discountValue;
+          double discountedValue =
+              discountedItemPrice(_items[i].itemPrice, discountValue);
+          totalPrice = discountedValue;
+        }
+
+        shippingList.add({
+          "product_id": _items[i].beer!.beerId,
+          "quantity": _items[i].itemCount,
+          "total": totalPrice.toString(),
+        });
+      }
     }
     return shippingList;
   }
@@ -95,8 +166,9 @@ class Cart extends ChangeNotifier {
     List<Brewery> breweriesList = [];
     for (var i = 0; i < _items.length; i++) {
       if (!breweriesList
-          .any((Brewery brewery) => brewery.id == _items[i].beer!.brewery.id))
+          .any((Brewery brewery) => brewery.id == _items[i].beer!.brewery.id)) {
         breweriesList.add(_items[i].beer!.brewery);
+      }
     }
     return breweriesList;
   }
@@ -108,6 +180,41 @@ class Cart extends ChangeNotifier {
       itemsCount += _items[i].itemCount;
     }
     return itemsCount;
+  }
+
+  double getDeliveryCost() {
+    double totalDeliveryCost = 0.0;
+    List<Brewery> breweries = getBreweriesFromCart();
+    for (var i = 0; i < breweries.length; i++) {
+      totalDeliveryCost += double.parse(breweries[i].deliveryCost.toString());
+    }
+    return totalDeliveryCost;
+  }
+
+  bool isValidSell() {
+    bool isValid = false;
+    // check amount of beers for each brewery
+    List<Brewery> breweries = getBreweriesFromCart();
+    for (var i = 0; i < breweries.length; i++) {
+      int breweryMinAmount = breweries[i].deliveryMin ?? 3;
+      int breweryItemsCount = countBreweryItems(int.parse(breweries[i].id));
+
+      if (breweryMinAmount <= breweryItemsCount) {
+        isValid = true;
+      } else {
+        isValid = false;
+        break;
+      }
+    }
+    return isValid;
+  }
+
+  bool isShippingDataOk(OrderData? orderData) {
+    if (orderData == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

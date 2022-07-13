@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
+import 'package:Hops/models/news.dart';
+import 'package:Hops/views/orders/ordersView.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'dart:collection';
@@ -29,8 +31,11 @@ class WordpressAPI {
   static String _WP_REST_WP_COMMENTS = "comments";
   static String _WP_REST_WP_BARS = "bares";
   static String _WP_REST_WP_PROMOS = "promos";
+  static String _WP_REST_WP_NEWS = "posts";
+
   static String _WP_REST_WC_URI = "/wc/v3/"; // for WooCommerce
   static String _WP_REST_WC_CUSTOMER = "customers";
+  static String _WP_REST_WP_PAYMENTS = "payment_gateways";
   static String _WP_REST_WC_CATEGORIES = "products/categories";
   static String _WP_REST_WC_ORDERS = "orders";
 
@@ -685,7 +690,7 @@ class WordpressAPI {
 
   // get user orders
   static Future<List<dynamic>?> getOrders(int? customerId,
-      {String? status = "any"}) async {
+      {String? status = "any", int? orderId}) async {
     String query = _WP_BASE_API +
         _WP_REST_WC_URI +
         _WP_REST_WC_ORDERS +
@@ -696,12 +701,14 @@ class WordpressAPI {
         query + "&consumer_key=" + _apiKey + "&consumer_secret=" + _apiSecret;
 
     if (status != null) query = query + "&status=" + status;
+    if (orderId != null) query = query + "&include=" + orderId.toString();
 
-    // print(query);
+    if (DEBUG) print(query);
+
     try {
       var response = await Dio().get(
         query,
-        options: new Options(
+        options: Options(
             headers: {HttpHeaders.contentTypeHeader: "application/json"}),
       );
 
@@ -782,6 +789,37 @@ class WordpressAPI {
     }
   }
 
+  // get promos
+  static Future<List<dynamic>?> getPayments() async {
+    String query =
+        _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WP_PAYMENTS + "/?order=desc";
+    query =
+        query + "&consumer_key=" + _apiKey + "&consumer_secret=" + _apiSecret;
+    /*
+    print(location.toString());
+    if ( location != null) {
+      query = query + "&location=" + location.latitude.toString() + "|" + location.longitude.toString();
+    }
+     */
+    print("PAYMENTS QUERY");
+    print(query);
+
+    try {
+      var response = await Dio().get(
+        query,
+        options: Options(
+            headers: {HttpHeaders.contentTypeHeader: "application/json"}),
+      );
+
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } on DioError catch (e) {
+      return jsonDecode("{}");
+      print(e.message);
+    }
+  }
+
   static Future<List<dynamic>?> search({String? query}) async {
     String searchQuery = _WP_BASE_API +
         _WP_REST_WC_URI +
@@ -805,6 +843,27 @@ class WordpressAPI {
     } on DioError catch (e) {
       return jsonDecode("{}");
       print(e.message);
+    }
+  }
+
+  static Future<List<News>> getNews({int count = 2}) async {
+    String newsQuery = _WP_BASE_API + _WP_REST_WP_URI + _WP_REST_WP_NEWS;
+    newsQuery += "?orderby=date&per_page=" + count.toString() + "&page=1";
+    if (DEBUG) print("News query: " + newsQuery);
+    try {
+      var response = await Dio().get(
+        newsQuery,
+        options: Options(
+            headers: {HttpHeaders.contentTypeHeader: "application/json"}),
+      );
+
+      if (response.statusCode == 200) {
+        return News.allFromResponse(response.data);
+      } else {
+        return <News>[];
+      }
+    } on DioError catch (e) {
+      return jsonDecode("{}");
     }
   }
 }

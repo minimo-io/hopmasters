@@ -1,3 +1,5 @@
+import 'package:Hops/views/order_details/order_details.dart';
+import 'package:Hops/views/order_results/order_results.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/views/login/loginView.dart';
@@ -11,6 +13,7 @@ import 'package:Hops/views/checkout/checkoutView.dart';
 import 'package:Hops/views/shipping_details/shippingDetails.dart';
 import 'package:Hops/views/orders/ordersView.dart';
 import 'package:Hops/views/experiences/experiencesView.dart';
+import 'package:Hops/views/payments/paymentsView.dart';
 import 'package:Hops/views/notFound/not_found_page.dart';
 
 /*
@@ -20,17 +23,16 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
 };
 */
 
-
 /// Class that holds both route names & generate methods.
 /// Used by the Flutter routing system
 class Routes {
   /// Methods that generate all routes
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     try {
-      final Map<String, dynamic>? args = routeSettings.arguments as Map<String, dynamic>?;
+      final Map<String, dynamic>? args =
+          routeSettings.arguments as Map<String, dynamic>?;
 
       switch (routeSettings.name) {
-
         case AppView.routeName:
           return MaterialPageRoute(
             settings: routeSettings,
@@ -47,17 +49,41 @@ class Routes {
           final fromMain = args?['fromMainApp'] as bool;
           return MaterialPageRoute(
             settings: routeSettings,
-            builder: (_) => PreferencesSignUpView( fromMainApp: fromMain, ),
+            builder: (_) => PreferencesSignUpView(
+              fromMainApp: fromMain,
+            ),
           );
 
         case CartView.routeName:
-          final nameArg = args!['name'] as String?;
-          final countArg = args['count'] as int?;
+          // final nameArg = args!['name'] as String?;
+          // final countArg = args['count'] as int?;
           return MaterialPageRoute(
             settings: routeSettings,
-            builder: (_) => CartView( name: nameArg, count: countArg ),
+            builder: (_) => CartView(),
           );
-
+        case PaymentsView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => PaymentsView(),
+          );
+        case OrderDetailsView.routeName:
+          final orderId = args!['orderId'] as int;
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => OrderDetailsView(
+              orderId: orderId,
+            ),
+          );
+        case OrderResultsView.routeName:
+          final results = args!['results'] as String;
+          final payment = args['payment'] as String;
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => OrderResultsView(
+              results: results,
+              payment: payment,
+            ),
+          );
         case CheckoutView.routeName:
           return MaterialPageRoute(
             settings: routeSettings,
@@ -83,7 +109,6 @@ class Routes {
           );
 
         case BreweryView.routeName:
-
           final breweryArg = args!['breweryId'] as int?;
 
           return MaterialPageRoute(
@@ -102,7 +127,6 @@ class Routes {
               postTitle: postTitle,
             ),
           );
-
 
         case BeerView.routeName:
           final beerArg = args!['beerId'] as int?;

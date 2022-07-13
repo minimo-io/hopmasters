@@ -1,4 +1,5 @@
 import 'package:Hops/models/preferences.dart';
+import 'package:flutter/material.dart';
 
 const APP_TITLE = "HOPS";
 const DEBUG = true;
@@ -24,6 +25,12 @@ const splashPageAnimationDurationInMilliseconds = 300;
 const firstHeaderDesktopTopPadding = 5.0;
 
 const marginSide = 18.0;
+
+const titlesLeftSize = 22.0;
+const double titlesRightButtonsSize = 11;
+const titlesRightButtonsIconSize = 17.0;
+const Color mainButtonsColor = Color.fromRGBO(77, 159, 0, 1);
+//const Color mainButtonsColor = Colors.black;
 
 // login buttons
 const SHOW_LOGIN_APPLE = false;

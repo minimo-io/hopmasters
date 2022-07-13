@@ -1,5 +1,6 @@
 import 'package:Hops/models/loader.dart';
 import 'package:Hops/utils/progress_hud.dart';
+import 'package:Hops/views/home/components/homeNews.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'dart:async';
@@ -125,7 +126,7 @@ class _HomeViewState extends State<HomeView>
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: PRIMARY_GRADIENT_COLOR,
               ),
               child: Column(
@@ -170,15 +171,20 @@ class _HomeViewState extends State<HomeView>
                         }
                       }),
 
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  HomeNews(key: UniqueKey(), count: 2),
+
                   DiscoverBeers(
                     key: UniqueKey(),
                   ),
 
                   //BreweriesBanner(),
-                  SizedBox(height: (20)),
-                  SpecialOffers(),
-                  SizedBox(height: (30)),
-                  SizedBox(height: (30)),
+                  const SizedBox(height: (20)),
+                  const SpecialOffers(),
+                  const SizedBox(height: (30)),
+                  const SizedBox(height: (30)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -217,17 +223,18 @@ class _HomeViewState extends State<HomeView>
                             */
                           },
                           child: Row(
-                            children: [
-                              Icon(
-                                Icons.map,
-                                color: Colors.black26,
-                              ),
+                            children: const [
+                              Icon(Icons.map,
+                                  color: Colors.black26,
+                                  size: titlesRightButtonsIconSize),
                               SizedBox(
                                 width: 5,
                               ),
                               Text(
                                 "Mapa",
-                                style: TextStyle(color: BUTTONS_TEXT_DARK),
+                                style: TextStyle(
+                                    color: BUTTONS_TEXT_DARK,
+                                    fontSize: titlesRightButtonsSize),
                               ),
                             ],
                           ),
@@ -236,17 +243,18 @@ class _HomeViewState extends State<HomeView>
                     ],
                   ),
 
-                  SizedBox(height: (5)),
+                  const SizedBox(height: (5)),
                   AppTitle(
                       subtitle:
                           "Las cervecerías mas seguidas por los usuarios."),
-                  SizedBox(height: (15.0)),
+                  const SizedBox(height: (15.0)),
                   BreweriesCards(
                     key: UniqueKey(),
                     loadingText: "Cargando cervecerías...",
                   ),
-
-                  SizedBox(height: (100)),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),

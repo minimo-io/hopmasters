@@ -1,6 +1,4 @@
-
-
-class OrderData{
+class OrderData {
   String? customerId;
   String? firstName;
   String? lastName;
@@ -18,14 +16,19 @@ class OrderData{
   String? shippingRate;
   String? status = "processing";
 
+  String customerNote = "";
+
+  String paymentTypeTitle = "Contra reembolso";
 
   OrderData({
     this.customerId,
+    this.customerNote = "",
     this.firstName,
     this.lastName,
     this.telephone,
     this.email,
     this.paymentType,
+    this.paymentTypeTitle = "Contra reembolso",
     this.address1,
     this.address2,
     this.city,
@@ -38,13 +41,14 @@ class OrderData{
     this.status,
   });
 
-  Map<String, dynamic> toJson(){
-  //OrderData.toJson(){
+  Map<String, dynamic> toJson() {
+    //OrderData.toJson(){
     Map<String, dynamic> map = {};
     map.addAll({
-      "customer_id" : customerId,
+      "customer_id": customerId,
+      "customer_note": customerNote,
       "payment_method": paymentType,
-      "payment_method_title": "Contra reembolso",
+      "payment_method_title": paymentTypeTitle,
       "set_paid": false,
       "status": status,
       "billing": {
@@ -70,7 +74,6 @@ class OrderData{
         "country": country
       },
       "line_items": beersList,
-
       "shipping_lines": [
         {
           "method_id": shippingMethodId,
@@ -82,26 +85,25 @@ class OrderData{
     return map;
   }
 
-  OrderData.fromJson( Map<String, dynamic> json){
-
+  OrderData.fromJson(Map<String, dynamic> json) {
     customerId = json["customer_id"];
+    customerNote = json["customer_note"] ?? "";
     firstName = json["billing"]["first_name"];
     lastName = json["billing"]["last_name"];
     telephone = json["billing"]["phone"];
     email = json["billing"]["email"];
     paymentType = json["payment_method"];
+    paymentTypeTitle = json["payment_method_title"];
     address1 = json["billing"]["address_1"];
     address2 = json["billing"]["address_2"];
     city = json["billing"]["city"];
     state = json["billing"]["state"];
     country = json["billing"]["country"];
     postCode = json["billing"]["postcode"];
-    beersList = json["beersList"]; //beerList = json["data"].length > 0 ? new Data.fromJson(json["data"]) : null;
+    beersList = json[
+        "beersList"]; //beerList = json["data"].length > 0 ? new Data.fromJson(json["data"]) : null;
     shippingMethodId = json["shipping_lines"][0]["method_id"];
     shippingRate = json["shipping_lines"][0]["total"];
-    status =  json["status"];
-
+    status = json["status"];
   }
-
-
 }

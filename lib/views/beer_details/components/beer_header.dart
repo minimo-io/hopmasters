@@ -408,7 +408,7 @@ class _BeerHeaderState extends State<BeerHeader>
                 width: MediaQuery.of(context).size.width * 0.90,
                 padding: EdgeInsets.symmetric(horizontal: 0),
                 child: Text(
-                  "Ninguna tienda online tiene esta cerveza.",
+                  "Ninguna otra tienda online tiene esta cerveza.",
                   style: TextStyle(
                       fontSize: 14,
                       fontStyle: FontStyle.normal,
@@ -460,6 +460,61 @@ class _BeerHeaderState extends State<BeerHeader>
 
     double getItemsFinalPrice(int itemsCount, double price) {
       return itemsCount * price;
+    }
+
+    showAlertDialog(BuildContext context) {
+      // set up the buttons
+      Widget cancelButton = FlatButton(
+        child: Text("Seguir agregando"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
+      Widget continueButton = FlatButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const [
+            Icon(
+              Icons.shopping_cart,
+              size: 18.0,
+            ),
+            SizedBox(
+              width: 5.0,
+            ),
+            Text("Ir al pago"),
+          ],
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(
+            context,
+            "/cart",
+          );
+        },
+      );
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: const Text("¿Querés ir a finalizar la compra?"),
+        backgroundColor: Colors.white,
+        //content: const Text("¿Ir a finalizar la compra?"),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cancelButton,
+              continueButton,
+            ],
+          ),
+        ],
+      );
+      // show the dialog
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
     }
 
     return Padding(
@@ -516,17 +571,23 @@ class _BeerHeaderState extends State<BeerHeader>
                                             padding: const EdgeInsets.only(
                                                 left: 20, top: 20),
                                             height: 50,
-                                            child: const Align(
+                                            child: Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Text("COMPRA VERIFICADA",
+                                              child: Text(
+                                                  (widget.beer.stockStatus ==
+                                                          "instock"
+                                                      ? "COMPRA VERIFICADA"
+                                                      : "COMPRAR"),
                                                   style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             )),
-                                        const SizedBox(
-                                          height: 30,
-                                        ),
+                                        if (widget.beer.stockStatus ==
+                                            "instock")
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
 
                                         /*
                                         Divider(
@@ -572,113 +633,149 @@ class _BeerHeaderState extends State<BeerHeader>
                                               );
                                             })),
 
-                                        Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.95,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
-                                            child: Consumer<Cart>(builder:
-                                                (context, cart, child) {
-                                              return ElevatedButton(
-                                                style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          widget.beer.rgbColor
-                                                              .withOpacity(
-                                                                  0.95)),
-                                                ),
-                                                onPressed: (widget
-                                                            .beer.stockStatus ==
-                                                        "instock"
-                                                    ? () {
-                                                        // add this beer to cart
-                                                        cart.add(CartItem(
-                                                            beer: widget.beer,
-                                                            itemCount:
-                                                                _itemsCount,
-                                                            itemPrice: double.parse(
-                                                                    _itemsCount
-                                                                        .toString()) *
-                                                                double.parse(
-                                                                    widget.beer
-                                                                        .price)));
-
-                                                        notificationClient.message(
-                                                            context,
-                                                            "Birra agregada al carrito.",
-                                                            action: "goToCart",
-                                                            callback: () {
-                                                          Navigator.pushNamed(
-                                                              oldContext,
-                                                              "/cart",
-                                                              arguments: {
-                                                                'name':
-                                                                    "Maracuyipas",
-                                                                "count": 125
-                                                              });
-                                                        });
-                                                        Navigator.pop(context);
-                                                      }
-                                                    : null),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 4.0),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                          //mainAxisAlignment: MainAxisAlignment.start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            const Icon(
-                                                                Icons
-                                                                    .shopping_cart,
-                                                                size: 35,
-                                                                color: Colors
-                                                                    .white),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                            // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
-                                                            Text(
-                                                              "Agregar al carrito · \$" +
-                                                                  (getItemsFinalPrice(
-                                                                    _itemsCount,
-                                                                    double.parse(
-                                                                        widget
-                                                                            .beer
-                                                                            .price),
-                                                                  )
-                                                                      .round()
-                                                                      .toString()),
-                                                              style: TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .white),
-                                                            )
-                                                          ]),
-                                                    ],
+                                        if (widget.beer.stockStatus ==
+                                            "instock")
+                                          Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.95,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20.0),
+                                              child: Consumer<Cart>(builder:
+                                                  (context, cart, child) {
+                                                return ElevatedButton(
+                                                  style: ButtonStyle(
+                                                    backgroundColor: (widget
+                                                                .beer
+                                                                .stockStatus ==
+                                                            "instock"
+                                                        ? MaterialStateProperty
+                                                            .all(widget
+                                                                .beer.rgbColor
+                                                                .withOpacity(
+                                                                    0.95))
+                                                        : MaterialStateProperty
+                                                            .all(Colors.grey
+                                                                .withOpacity(
+                                                                    0.95))),
                                                   ),
-                                                ),
-                                              );
-                                            })),
-                                        const SizedBox(
-                                          height: 7,
-                                        ),
+                                                  onPressed: (widget.beer
+                                                              .stockStatus ==
+                                                          "instock"
+                                                      ? () async {
+                                                          // add this beer to cart
+                                                          cart.add(CartItem(
+                                                              beer: widget.beer,
+                                                              itemCount:
+                                                                  _itemsCount,
+                                                              itemPrice: double.parse(
+                                                                      _itemsCount
+                                                                          .toString()) *
+                                                                  double.parse(
+                                                                      widget
+                                                                          .beer
+                                                                          .price)));
+
+                                                          // notificationClient.message(
+                                                          //     context,
+                                                          //     "Birra agregada al carrito.",
+                                                          //     //action: "goToCart",
+                                                          //     callback: () {
+                                                          //   // Navigator.pushNamed(
+                                                          //   //     oldContext,
+                                                          //   //     "/cart",
+                                                          //   //     );
+                                                          // });
+
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.pushNamed(
+                                                              context, "/cart");
+                                                          // showAlertDialog(
+                                                          //     oldContext);
+                                                        }
+                                                      : null),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 4.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                            //mainAxisAlignment: MainAxisAlignment.start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              if (widget.beer
+                                                                      .stockStatus ==
+                                                                  "instock")
+                                                                const Icon(
+                                                                    Icons
+                                                                        .shopping_cart,
+                                                                    size: 35,
+                                                                    color: Colors
+                                                                        .white),
+                                                              // if (widget.beer
+                                                              //         .stockStatus !=
+                                                              //     "instock")
+                                                              //   const Icon(
+                                                              //       Icons.error,
+                                                              //       size: 35,
+                                                              //       color: Colors
+                                                              //           .white),
+                                                              const SizedBox(
+                                                                width: 8,
+                                                              ),
+                                                              // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
+                                                              Text(
+                                                                (widget.beer.stockStatus ==
+                                                                        "instock"
+                                                                    ? "Agregar al carrito · \$" +
+                                                                        (getItemsFinalPrice(
+                                                                          _itemsCount,
+                                                                          double.parse(widget
+                                                                              .beer
+                                                                              .price),
+                                                                        )
+                                                                            .round()
+                                                                            .toString())
+                                                                    : "Sin stock"),
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    color: Colors
+                                                                        .white),
+                                                              )
+                                                            ]),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              })),
+                                        if (widget.beer.stockStatus ==
+                                            "instock")
+                                          const SizedBox(
+                                            height: 7,
+                                          ),
 
                                         // whatsapp
                                         if (SHOW_BREWERY_WHATSAPP_ON_BEER_BUY_OPTIONS ==
-                                            true)
+                                                true ||
+                                            widget.beer.stockStatus !=
+                                                "instock")
                                           Container(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 0.95,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0,
+                                                right: 20.0,
+                                                top: 10.0,
+                                                bottom: 0.0),
                                             child: Flexible(
                                               child: ElevatedButton(
                                                 onPressed: () {
@@ -712,7 +809,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                                           height: 35,
                                                           width: 35,
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 8,
                                                         ),
                                                         // Text( widget.beer.breweryWhatsapp, style: TextStyle(fontSize: 18, color: Colors.black54),)
@@ -736,35 +833,38 @@ class _BeerHeaderState extends State<BeerHeader>
                                             ),
                                           ),
 
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.95,
-                                          padding: EdgeInsets.only(
-                                              right: 20.0,
-                                              left: 20,
-                                              top: 20.0,
-                                              bottom: 10),
-                                          child: Text(
-                                            "Con la compra en HOPS ganás puntos canjeables por descuentos en las tiendas y bares asociados.",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontStyle: FontStyle.normal,
-                                                color: Colors.black38),
+                                        if (widget.beer.stockStatus ==
+                                            "instock")
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.95,
+                                            padding: EdgeInsets.only(
+                                                right: 20.0,
+                                                left: 20,
+                                                top: 10.0,
+                                                bottom: 0),
+                                            child: Text(
+                                              "Con la compra en HOPS ganás puntos canjeables por descuentos en las tiendas y bares asociados.",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: Colors.black38),
+                                            ),
                                           ),
-                                        ),
-
-                                        //SizedBox(height: 5,),
 
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.95,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 15.0),
-                                          child: Divider(),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10.0),
+                                          child: (widget.beer.stockStatus ==
+                                                  "instock"
+                                              ? const Divider()
+                                              : Container()),
                                         ),
 
                                         // SizedBox(
