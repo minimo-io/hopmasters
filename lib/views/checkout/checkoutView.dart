@@ -63,7 +63,7 @@ class _CheckoutViewState extends State<CheckoutView> {
             "Deposita en la cuenta que te mostraremos y comenzaremos a procesar tu pedido.",
         enabled: true);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _lastOrderData.then((value) {
         if (value != null) {
           setState(() {

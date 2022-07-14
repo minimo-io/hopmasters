@@ -56,12 +56,6 @@ class _BeerCardsState extends State<BeerCards> {
           type: widget.discoverBeersType,
           extraParam1: widget.discoverBeersTypeExtraParam);
     }
-    /*
-    WidgetsBinding.instance?.addPostFrameCallback((_){
-
-
-    });
-    */
   }
 
   /*

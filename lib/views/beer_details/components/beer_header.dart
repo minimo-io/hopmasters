@@ -82,7 +82,6 @@ class _BeerHeaderState extends State<BeerHeader>
       });
     }
 
-    //WidgetsBinding.instance?.addPostFrameCallback((_) => defineBeers(context));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       defineBeers(context);
     });

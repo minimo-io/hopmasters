@@ -54,7 +54,7 @@ class _BreweriesCardsState extends State<BreweriesCards> {
               Hero(
                 tag: "brewery-" + brewery.id,
                 child: Image.network(
-                  brewery.image!,
+                  brewery.image,
                   fit: BoxFit.cover, // this is the solution for border
                   width: 55.0,
                   height: 55.0,
@@ -67,9 +67,9 @@ class _BreweriesCardsState extends State<BreweriesCards> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(brewery.name!,
+                        Text(brewery.name,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16.0),
                             textAlign: TextAlign.left),
                         Text(

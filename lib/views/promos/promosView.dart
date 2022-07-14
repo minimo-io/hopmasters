@@ -53,7 +53,7 @@ class _PromosViewState extends State<PromosView>
 
     _promosFuture = getPromos();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _promosFuture!.then((beerData) {
         print("Promos loaded.");
       });

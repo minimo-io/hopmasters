@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:Hops/constants.dart';
 import 'package:Hops/services/facebook_signin.dart';
-import 'package:Hops/services/google_signin.dart';
+// import 'package:Hops/services/google_signin.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/theme/style.dart';
 
@@ -224,19 +224,21 @@ class _AccountViewState extends State<AccountView>
                             ),
                             ProfileMenu(
                               text: "Salir",
-                              icon: Icon(Icons.logout),
+                              icon: const Icon(Icons.logout),
                               press: () {
                                 SharedServices.loginDetails()
                                     .then((loginPrefs) {
                                   SharedServices.logout(context);
-                                  if (loginPrefs!.data!.connectionType ==
-                                      "Google") {
-                                    Google googleService = new Google();
-                                    googleService.logout().then((value) =>
-                                        SharedServices.logout(context));
-                                  } else if (loginPrefs.data!.connectionType ==
-                                      "Facebook") {
-                                    Facebook facebookService = new Facebook();
+                                  // if (loginPrefs!.data!.connectionType ==
+                                  //     "Google") {
+                                  //   Google googleService = new Google();
+                                  //   googleService.logout().then((value) =>
+                                  //       SharedServices.logout(context));
+                                  // } else
+                                  if (loginPrefs!.data != null &&
+                                      loginPrefs.data!.connectionType ==
+                                          "Facebook") {
+                                    Facebook facebookService = Facebook();
 
                                     facebookService.logout(() {
                                       print("Facebook Logout OK");
@@ -245,7 +247,7 @@ class _AccountViewState extends State<AccountView>
                                 });
                               },
                             ),
-                            SizedBox(height: 150),
+                            const SizedBox(height: 150),
                           ],
                         );
                       }

@@ -63,7 +63,7 @@ class BreweryDetailBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    brewery!.name!,
+                    brewery!.name,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: SECONDARY_TEXT_DARK,

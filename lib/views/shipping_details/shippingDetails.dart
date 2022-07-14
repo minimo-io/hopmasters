@@ -41,7 +41,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
     super.initState();
     _lastOrderData = SharedServices.lastShippingDetails();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _lastOrderData.then((value) {
         _dropdownValue = value!.city!;
       });

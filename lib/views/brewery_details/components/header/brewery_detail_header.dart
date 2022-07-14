@@ -72,14 +72,14 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
     }
 
     WidgetsBinding.instance
-        ?.addPostFrameCallback((_) => defineBreweries(context));
+        .addPostFrameCallback((_) => defineBreweries(context));
   }
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
 
-    return new DiagonallyCutColoredImage(
-        new Image.asset(
+    return DiagonallyCutColoredImage(
+        Image.asset(
           BreweryDetailHeader.BACKGROUND_IMAGE,
           width: screenWidth,
           height: 335.0,
@@ -93,7 +93,7 @@ class _BreweryDetailHeaderState extends State<BreweryDetailHeader>
       tag: widget.avatarTag,
       child: Stack(children: [
         CircleAvatar(
-          backgroundImage: NetworkImage(widget.brewery!.image!),
+          backgroundImage: NetworkImage(widget.brewery!.image),
           //backgroundImage: LoadNetworkImage(brewery.avatar),
           radius: 50.0,
         ),

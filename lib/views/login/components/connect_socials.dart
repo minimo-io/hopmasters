@@ -267,12 +267,13 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                       socialIcon: "assets/images/icons/apple.png"
                   ),
                     */
-                  if (SHOW_LOGIN_APPLE) _createButton(
-                    backgroundColor: Colors.black,
-                    title: "Conectate con Apple",
-                    socialIcon: "assets/images/icons/apple.png",
-                    onTap: () async {
-                      /*
+                  if (SHOW_LOGIN_APPLE)
+                    _createButton(
+                      backgroundColor: Colors.black,
+                      title: "Conectate con Apple",
+                      socialIcon: "assets/images/icons/apple.png",
+                      onTap: () async {
+                        /*
                         setState(() => this.isLoadingApiCall = true );
                         Facebook facebookClient = new Facebook();
                         Map<String, dynamic>? userData = await facebookClient.login();
@@ -300,100 +301,102 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                           setState(() => this.isLoadingApiCall = false );
                         }
 */
-                      print("Lets do it! OK!");
-                      final credential =
-                          await SignInWithApple.getAppleIDCredential(
-                        scopes: [
-                          AppleIDAuthorizationScopes.email,
-                          AppleIDAuthorizationScopes.fullName,
-                        ],
-                      );
+                        print("Lets do it! OK!");
+                        final credential =
+                            await SignInWithApple.getAppleIDCredential(
+                          scopes: [
+                            AppleIDAuthorizationScopes.email,
+                            AppleIDAuthorizationScopes.fullName,
+                          ],
+                        );
 
-                      print(credential);
-                    },
-                  ),
-
-                  if (SHOW_LOGIN_FACEBOOK) _createButton(
-                    backgroundColor: Color(0Xff3B5998),
-                    title: "Conectate con Facebook",
-                    socialIcon: "assets/images/icons/facebook.png",
-                    onTap: () async {
-                      setState(() => this.isLoadingApiCall = true);
-                      Facebook facebookClient = new Facebook();
-
-                      Map<String, dynamic>? userData =
-                          await facebookClient.login();
-
-                      if (userData != null) {
-                        Map<String, dynamic> userName =
-                            WordpressAPI.generateNameFromDisplayName(
-                                userData["name"]);
-                        String pwd =
-                            WordpressAPI.generatePassword(userData["email"]);
-
-                        Customer customer = new Customer(
-                            email: userData["email"],
-                            firstName: userName["firstName"],
-                            lastName: userName["lastName"],
-                            password: pwd,
-                            avatar_url: userData["picture"]["data"]["url"]);
-
-                        // try to create user if does not exists & login
-                        _trySignUpAndLogin(customer, 'Facebook');
-
-                        //setState(() => this.isLoadingApiCall = false );
-                      } else {
-                        notificationsClient.message(context,
-                            WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
-                        setState(() => this.isLoadingApiCall = false);
-                      }
-                    },
-                  ),
-                  // google
-                  if (SHOW_LOGIN_GOOGLE) _createButton(
-                      backgroundColor: Color.fromRGBO(65, 120, 247, 1),
-                      title: "Conectate con Google",
-                      onTap: () {
-                        Google googleClient = new Google();
-                        print(googleClient);
-                        googleClient.login(context).then((googleUser) {
-                          print(googleUser);
-
-                          if (googleUser != null) {
-                            setState(() => this.isLoadingApiCall = true);
-                            // if google ok then wordpress call
-                            // try to sign up user to WooCommerce
-                            Map<String, dynamic> userName =
-                                WordpressAPI.generateNameFromDisplayName(
-                                    (googleUser.displayName != null
-                                        ? googleUser.displayName!
-                                        : googleUser.email));
-
-                            String pwd =
-                                WordpressAPI.generatePassword(googleUser.email);
-
-                            Customer customer = new Customer(
-                                email: googleUser.email,
-                                firstName: userName["firstName"],
-                                lastName: userName["lastName"],
-                                password: pwd,
-                                avatar_url: googleUser.photoUrl);
-
-                            // try to create user if does not exists & login
-                            _trySignUpAndLogin(customer, 'Google');
-                          } else {
-                            notificationsClient.message(context,
-                                WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
-                            setState(() => this.isLoadingApiCall = false);
-                          }
-                        });
+                        print(credential);
                       },
-                      socialIcon: "assets/images/icons/google.png"),
-                  if (SHOW_LOGIN_EMAIL) _createButton(
-                      backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
-                      title: "Conectate con tu Email",
-                      onTap: () => super.gotoSignUp(widget.controller!),
-                      socialIcon: "assets/images/icons/email.png"),
+                    ),
+
+                  if (SHOW_LOGIN_FACEBOOK)
+                    _createButton(
+                      backgroundColor: Color(0Xff3B5998),
+                      title: "Conectate con Facebook",
+                      socialIcon: "assets/images/icons/facebook.png",
+                      onTap: () async {
+                        setState(() => this.isLoadingApiCall = true);
+                        Facebook facebookClient = new Facebook();
+
+                        Map<String, dynamic>? userData =
+                            await facebookClient.login();
+
+                        if (userData != null) {
+                          Map<String, dynamic> userName =
+                              WordpressAPI.generateNameFromDisplayName(
+                                  userData["name"]);
+                          String pwd =
+                              WordpressAPI.generatePassword(userData["email"]);
+
+                          Customer customer = new Customer(
+                              email: userData["email"],
+                              firstName: userName["firstName"],
+                              lastName: userName["lastName"],
+                              password: pwd,
+                              avatar_url: userData["picture"]["data"]["url"]);
+
+                          // try to create user if does not exists & login
+                          _trySignUpAndLogin(customer, 'Facebook');
+
+                          //setState(() => this.isLoadingApiCall = false );
+                        } else {
+                          notificationsClient.message(context,
+                              WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
+                          setState(() => this.isLoadingApiCall = false);
+                        }
+                      },
+                    ),
+                  // // google
+                  // if (SHOW_LOGIN_GOOGLE) _createButton(
+                  //     backgroundColor: Color.fromRGBO(65, 120, 247, 1),
+                  //     title: "Conectate con Google",
+                  //     onTap: () {
+                  //       Google googleClient = new Google();
+                  //       print(googleClient);
+                  //       googleClient.login(context).then((googleUser) {
+                  //         print(googleUser);
+
+                  //         if (googleUser != null) {
+                  //           setState(() => this.isLoadingApiCall = true);
+                  //           // if google ok then wordpress call
+                  //           // try to sign up user to WooCommerce
+                  //           Map<String, dynamic> userName =
+                  //               WordpressAPI.generateNameFromDisplayName(
+                  //                   (googleUser.displayName != null
+                  //                       ? googleUser.displayName!
+                  //                       : googleUser.email));
+
+                  //           String pwd =
+                  //               WordpressAPI.generatePassword(googleUser.email);
+
+                  //           Customer customer = new Customer(
+                  //               email: googleUser.email,
+                  //               firstName: userName["firstName"],
+                  //               lastName: userName["lastName"],
+                  //               password: pwd,
+                  //               avatar_url: googleUser.photoUrl);
+
+                  //           // try to create user if does not exists & login
+                  //           _trySignUpAndLogin(customer, 'Google');
+                  //         } else {
+                  //           notificationsClient.message(context,
+                  //               WordpressAPI.MESSAGE_ERROR_LOGIN_UNEXPECTED);
+                  //           setState(() => this.isLoadingApiCall = false);
+                  //         }
+                  //       });
+                  //     },
+                  //     socialIcon: "assets/images/icons/google.png"),
+                  if (SHOW_LOGIN_EMAIL)
+                    _createButton(
+                        backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
+                        title: "Conectate con tu Email",
+                        onTap: () => super.gotoSignUp(widget.controller!),
+                        socialIcon: "assets/images/icons/email.png"),
                   SizedBox(
                     height: 20,
                   ),

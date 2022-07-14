@@ -35,7 +35,7 @@ const Color mainButtonsColor = Color.fromRGBO(77, 159, 0, 1);
 // login buttons
 const SHOW_LOGIN_APPLE = false;
 const SHOW_LOGIN_FACEBOOK = true;
-const SHOW_LOGIN_GOOGLE = true;
+const SHOW_LOGIN_GOOGLE = false;
 const SHOW_LOGIN_EMAIL = true;
 
 const SHOW_BREWERY_WHATSAPP_ON_BEER_BUY_OPTIONS = false;
