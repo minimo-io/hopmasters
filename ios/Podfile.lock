@@ -1,10 +1,4 @@
 PODS:
-  - AppAuth (1.5.0):
-    - AppAuth/Core (= 1.5.0)
-    - AppAuth/ExternalUserAgent (= 1.5.0)
-  - AppAuth/Core (1.5.0)
-  - AppAuth/ExternalUserAgent (1.5.0):
-    - AppAuth/Core
   - FBAEMKit (13.2.0):
     - FBSDKCoreKit_Basics (= 13.2.0)
   - FBSDKCoreKit (13.2.0):
@@ -17,17 +11,6 @@ PODS:
   - flutter_facebook_auth (4.3.4):
     - FBSDKLoginKit (~> 13.2.0)
     - Flutter
-  - google_sign_in_ios (0.0.1):
-    - Flutter
-    - GoogleSignIn (~> 6.2)
-  - GoogleSignIn (6.2.2):
-    - AppAuth (~> 1.5)
-    - GTMAppAuth (~> 1.3)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GTMAppAuth (1.3.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.7.2)
   - location (0.0.1):
     - Flutter
   - onesignal_flutter (3.3.2):
@@ -59,7 +42,6 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
-  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -71,14 +53,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppAuth
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
-    - GoogleSignIn
-    - GTMAppAuth
-    - GTMSessionFetcher
     - OneSignalXCFramework
 
 EXTERNAL SOURCES:
@@ -86,8 +64,6 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_facebook_auth:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
-  google_sign_in_ios:
-    :path: ".symlinks/plugins/google_sign_in_ios/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   onesignal_flutter:
@@ -106,17 +82,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   FBAEMKit: c2b2895363b7e57192013d1dc49fdf498b28624c
   FBSDKCoreKit: 58139803d861e72c7661dc875611a759352a55ac
   FBSDKCoreKit_Basics: 1ffc68326a5ece051d85574f02a0adcf27c2a5f2
   FBSDKLoginKit: 19e2a878556c2ee4f20486dc406e582783cd7578
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_facebook_auth: 15cb21b480686decd54d40ba19bce27f6cca0dc5
-  google_sign_in_ios: 90eec6616c4c2105b9f9fe5c774773d13565b504
-  GoogleSignIn: 3c68388ac221f379676e8f1cb115df3aaf73b93f
-  GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   onesignal_flutter: f3ff66c97498f9131481441a362ef5f0e6cb6d16
   OneSignalXCFramework: 81ceac017a290f23793443323090cfbe888f74ea

@@ -25,15 +25,18 @@ class Helpers {
   }
 
   static launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    Uri uri = Uri.parse(url);
+    print("This is an url");
+    print(uri.runtimeType);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
   }
 
   static double screenAwareSize(double size, BuildContext context) {
-    double baseHeight = 640.0;
+    //double baseHeight = 640.0;
     //return size * MediaQuery.of(context).size.height / baseHeight;
     return size;
   }
