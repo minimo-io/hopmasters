@@ -1,3 +1,4 @@
+import 'package:Hops/components/more_than_one_brewery_alert.dart';
 import 'package:Hops/components/order_details_box.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/models/brewery.dart';
@@ -691,39 +692,6 @@ class _CartViewState extends State<CartView> {
             )));
   }
 
-  Widget _buildOrdersAlertBox(Cart cart) {
-    int breweriesCount = cart.getBreweriesFromCart().length;
-
-    if (breweriesCount > 1) {
-      return Card(
-        elevation: cardsElevations,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.warning,
-                color: Colors.redAccent,
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
-              Expanded(
-                  child: Text(
-                      "Recuerda que estas comprando directamente a las cervecerías. Por lo tanto cada pedido se procesará por separado.",
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.redAccent,
-                          fontWeight: FontWeight.normal)))
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -833,7 +801,13 @@ class _CartViewState extends State<CartView> {
                                       }
                                     }),
                                 // build alert box for order(s), if needed
-                                _buildOrdersAlertBox(cart),
+                                // (cart),
+                                MoreThanOneBreweryAlert(
+                                  cart,
+                                  cardElevation: 1,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 0.0, vertical: 3.0),
+                                ),
                                 // add actual breweries and beers
                                 Padding(
                                   padding: const EdgeInsets.only(

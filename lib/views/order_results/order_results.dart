@@ -8,8 +8,10 @@ class OrderResultsView extends StatelessWidget {
   static const String routeName = "/orderResults";
   final String results;
   final String payment;
+  final double amount;
 
-  const OrderResultsView({this.results = "", this.payment = "cod", Key? key})
+  const OrderResultsView(
+      {this.results = "", this.payment = "cod", this.amount = 0.0, Key? key})
       : super(key: key);
 
   Map<String, dynamic> _resultTextParams(List results, bool errorFounded) {
@@ -116,6 +118,20 @@ class OrderResultsView extends StatelessWidget {
                                   fontSize: bankDetailsFontSize,
                                   color: Colors.grey)),
                           Text("BROU")
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Total",
+                              style: TextStyle(
+                                  fontSize: bankDetailsFontSize,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold)),
+                          Text("\$" + amount.toString())
                         ],
                       ),
                     ],
@@ -349,6 +365,7 @@ class OrderResultsView extends StatelessWidget {
                         height: 20.0,
                       ),
                       _buildPaymentInfo(payment, context),
+                      // Text(results),
                       const SizedBox(
                         height: 300,
                       ),

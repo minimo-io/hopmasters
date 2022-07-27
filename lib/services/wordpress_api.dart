@@ -816,7 +816,6 @@ class WordpressAPI {
       }
     } on DioError catch (e) {
       return jsonDecode("{}");
-      print(e.message);
     }
   }
 

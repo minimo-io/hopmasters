@@ -1,4 +1,5 @@
 import 'package:Hops/components/card_horizontal.dart';
+import 'package:Hops/components/more_than_one_brewery_alert.dart';
 import 'package:Hops/constants.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -207,6 +208,11 @@ class _CheckoutViewState extends State<CheckoutView> {
 
                       //await Future.delayed(const Duration(milliseconds: 3000));
                       // orders created now remove cart and redirect with params
+                      double savedTotalAmount = double.parse(
+                          (cart.finalPrice() + cart.totalDeliveryCost)
+                              .round()
+                              .toString());
+
                       cart.removeAll();
 
                       setState(() {
@@ -214,10 +220,12 @@ class _CheckoutViewState extends State<CheckoutView> {
                         isLoadingApiCall = false;
                       });
 
-                      //Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                      //Navigator.of(context).popUntil(ModalRoute.withName('/'));ç
+
                       Navigator.pushNamed(context, "/orderResults", arguments: {
                         'results': ordersResults.toString(),
                         'payment': _paymentSelected.id,
+                        'amount': savedTotalAmount
                       });
                     },
                     child: Text("Realizar pedido ",
@@ -634,9 +642,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                                       });
                                   },
                                 )),
+                            MoreThanOneBreweryAlert(
+                              cart,
+                              cardElevation: 1,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 3.0),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
+
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12.0, vertical: 0.0),

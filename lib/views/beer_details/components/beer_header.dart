@@ -877,17 +877,17 @@ class _BeerHeaderState extends State<BeerHeader>
                                           //return Container(child: Text( _itemsCount.toString() ));
                                         }),
 
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
 
                                         Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 20, top: 0),
                                             //height: 50,
-                                            child: Align(
+                                            child: const Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Text("QUIOSCOS y BARES",
+                                              child: Text("BARES",
                                                   style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:

@@ -455,7 +455,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
     );
   }
 
-  Widget _buildPaymentInfo(String paymentTitle) {
+  Widget _buildPaymentInfo(String paymentTitle, String orderTotal) {
     const double bankDetailsFontSize = 12.0;
     const TextStyle bankDetailsValues =
         TextStyle(fontSize: 13, color: Colors.black87);
@@ -469,8 +469,8 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
             Row(
               children: [
                 Text("PAGO: " + paymentTitle,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15)),
               ],
             ),
             Column(
@@ -516,6 +516,18 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                             fontSize: bankDetailsFontSize, color: Colors.grey)),
                     Text(
                       "BROU",
+                      style: bankDetailsValues,
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Total",
+                        style: TextStyle(
+                            fontSize: bankDetailsFontSize, color: Colors.grey)),
+                    Text(
+                      "\$" + orderTotal,
                       style: bankDetailsValues,
                     )
                   ],
@@ -676,7 +688,8 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0),
                                       child: _buildPaymentInfo(
-                                          order["payment_method_title"]),
+                                          order["payment_method_title"],
+                                          order["total"]),
                                     ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(

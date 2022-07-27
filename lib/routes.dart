@@ -77,12 +77,11 @@ class Routes {
         case OrderResultsView.routeName:
           final results = args!['results'] as String;
           final payment = args['payment'] as String;
+          final amount = args['amount'] as double;
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => OrderResultsView(
-              results: results,
-              payment: payment,
-            ),
+                results: results, payment: payment, amount: amount),
           );
         case CheckoutView.routeName:
           return MaterialPageRoute(
