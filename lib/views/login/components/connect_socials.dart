@@ -56,30 +56,30 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
       padding: const EdgeInsets.symmetric(
           horizontal: _buttonsPaddingHorizontal,
           vertical: _buttonsPaddingVertical),
-      child: new Container(
+      child: Container(
         margin: EdgeInsets.only(right: 8.0),
         alignment: Alignment.center,
-        child: new Row(
+        child: Row(
           children: <Widget>[
-            new Expanded(
-              child: new FlatButton(
-                shape: new RoundedRectangleBorder(
+            Expanded(
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
                 color: backgroundColor,
                 onPressed: onTap as void Function()?,
-                child: new Container(
-                  child: new Row(
+                child: Container(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      new Expanded(
-                        child: new FlatButton(
+                      Expanded(
+                        child: FlatButton(
                           onPressed: onTap,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             top: 18.0,
                             bottom: 18.0,
                           ),
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
@@ -247,16 +247,13 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
               //padding: EdgeInsets.only(top:50),
               height: MediaQuery.of(context).size.height + 80,
               decoration: widget.headerDecoration,
-              child: new Column(
+              child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TopLogo(
                     topPadding: 0,
                     bottomPadding: 50.0,
-                  ),
-                  SizedBox(
-                    height: 0,
                   ),
                   //_createButton(backgroundColor: Colors.black, title: "Conectate con Apple"),
                   /*
@@ -301,7 +298,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                           setState(() => this.isLoadingApiCall = false );
                         }
 */
-                        print("Lets do it! OK!");
+                        if (DEBUG) print("Lets do it! OK!");
                         final credential =
                             await SignInWithApple.getAppleIDCredential(
                           scopes: [
@@ -393,11 +390,11 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                   //     socialIcon: "assets/images/icons/google.png"),
                   if (SHOW_LOGIN_EMAIL)
                     _createButton(
-                        backgroundColor: Color.fromRGBO(25, 25, 25, 0.4),
+                        backgroundColor: const Color.fromRGBO(59, 59, 59, 1),
                         title: "Conectate con tu Email",
                         onTap: () => super.gotoSignUp(widget.controller!),
                         socialIcon: "assets/images/icons/email.png"),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
@@ -412,20 +409,14 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                                     fontSize: 11,
                                     color: Colors.black.withOpacity(0.8)));
                           } else {
-                            return Container(
-                                decoration: BoxDecoration(
-                                    //color: Color.fromRGBO(112, 207, 61, .5),
-                                    color: Colors.black.withOpacity(.9),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 2.0),
-                                  child: Text(snapshot.data.toString(),
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.white.withOpacity(.8))),
-                                ));
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 3.0),
+                              child: Text(snapshot.data.toString(),
+                                  style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.black.withOpacity(.8))),
+                            );
                           }
                         } else {
                           return Container();
