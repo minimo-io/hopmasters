@@ -829,20 +829,27 @@ class WordpressAPI {
         _apiKey +
         "&consumer_secret=" +
         _apiSecret;
-    print(searchQuery);
+
+    searchQuery = _WP_BASE_API +
+        "/wp/v2/search?search=" +
+        query! +
+        "&type=post&subtype=page,product,tiendas,locales,bares,promos";
+
+    if (DEBUG) print(searchQuery);
     try {
       var response = await Dio().get(
         searchQuery,
-        options: new Options(
+        options: Options(
             headers: {HttpHeaders.contentTypeHeader: "application/json"}),
       );
-
+      if (DEBUG) print(searchQuery);
       if (response.statusCode == 200) {
+        if (DEBUG) print(response.data);
+
         return response.data;
       }
     } on DioError catch (e) {
       return jsonDecode("{}");
-      print(e.message);
     }
   }
 

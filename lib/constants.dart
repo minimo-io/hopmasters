@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 const APP_TITLE = "HOPS";
 const DEBUG = true;
+const siteUrl = "https://hops.uy";
 
 const double cardsElevations = 0.5;
 
