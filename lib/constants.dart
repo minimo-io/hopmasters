@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 const APP_TITLE = "HOPS";
 const DEBUG = true;
 
+const double cardsElevations = 0.5;
+
 // Only put constants shared between files here.
 
 // height of the 'Gallery' header
