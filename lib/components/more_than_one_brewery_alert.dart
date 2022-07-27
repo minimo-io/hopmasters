@@ -17,7 +17,7 @@ class MoreThanOneBreweryAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int breweriesCount = cart!.getBreweriesFromCart().length;
+    int breweriesCount = cart.getBreweriesFromCart().length;
 
     if (breweriesCount > 1) {
       return Padding(
