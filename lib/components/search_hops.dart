@@ -86,31 +86,41 @@ class SearchHops extends SearchDelegate {
                           */
                         }
 
-                        return ListTile(
-                          title: Text(resultTitle),
-                          onTap: () {
-                            if (openOnApp) {
-                              if (postSubtype == "product") {
-                                Navigator.pushNamed(
-                                  context,
-                                  "/beer",
-                                  arguments: {'beerId': result["id"]},
-                                );
-                              } else if (postSubtype == "page") {
-                                Navigator.pushNamed(
-                                  context,
-                                  "/brewery",
-                                  arguments: {'breweryId': result["id"]},
-                                );
-                              }
-                            } else {
-                              Helpers.launchURL(
-                                  siteUrl + "/?p=" + result["id"].toString());
-                            }
-                          },
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ListTile(
+                              title: Text(resultTitle),
+                              subtitle:
+                                  Text(result["data"]["convertedPostType"]),
+                              leading: Image.network(result["data"]["image"]),
+                              dense: true,
+                              onTap: () {
+                                if (openOnApp) {
+                                  if (postSubtype == "product") {
+                                    Navigator.pushNamed(
+                                      context,
+                                      "/beer",
+                                      arguments: {'beerId': result["id"]},
+                                    );
+                                  } else if (postSubtype == "page") {
+                                    Navigator.pushNamed(
+                                      context,
+                                      "/brewery",
+                                      arguments: {'breweryId': result["id"]},
+                                    );
+                                  }
+                                } else {
+                                  Helpers.launchURL(siteUrl +
+                                      "/?p=" +
+                                      result["id"].toString());
+                                }
+                              },
+                            ),
+                          ],
                         );
-                        //print(result);
-                        return Container();
                       }),
                 );
               } else {

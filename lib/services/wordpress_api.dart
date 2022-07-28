@@ -820,19 +820,19 @@ class WordpressAPI {
   }
 
   static Future<List<dynamic>?> search({String? query}) async {
-    String searchQuery = _WP_BASE_API +
-        _WP_REST_WC_URI +
-        "products/?_embed&fields=name&search=" +
-        query! +
-        "&consumer_key=" +
-        _apiKey +
-        "&consumer_secret=" +
-        _apiSecret;
+    // String searchQuery = _WP_BASE_API +
+    //     _WP_REST_WC_URI +
+    //     "products/?_embed&fields=name&search=" +
+    //     query! +
+    //     "&consumer_key=" +
+    //     _apiKey +
+    //     "&consumer_secret=" +
+    //     _apiSecret;
 
-    searchQuery = _WP_BASE_API +
+    String searchQuery = _WP_BASE_API +
         "/wp/v2/search?search=" +
         query! +
-        "&type=post&subtype=page,product,tiendas,locales,bares,promos";
+        "&type=post&subtype=page,product,bares"; // promos, tiendas,locales
 
     if (DEBUG) print(searchQuery);
     try {
