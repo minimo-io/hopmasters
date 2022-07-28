@@ -65,7 +65,7 @@ class _AccountViewState extends State<AccountView>
         },
         child: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: PRIMARY_GRADIENT_COLOR,
             ),
             child: FutureBuilder(
@@ -75,7 +75,7 @@ class _AccountViewState extends State<AccountView>
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return Center(
+                      return const Center(
                           child: CircularProgressIndicator(
                               color: PROGRESS_INDICATOR_COLOR));
                     default:
@@ -84,16 +84,16 @@ class _AccountViewState extends State<AccountView>
                       } else {
                         return Column(
                           children: [
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             BreweryProfilePic(
                                 key: UniqueKey(),
                                 avatarUrl: snapshot.data[0].data.avatarUrl,
                                 userId: snapshot.data[0].data.id),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
 
                             ProfileMenu(
                               text: "Mis pedidos",
-                              icon: Icon(Icons.shopping_cart),
+                              icon: const Icon(Icons.shopping_cart),
                               press: () {
                                 Navigator.pushNamed(context, "orders");
                               },
@@ -166,7 +166,7 @@ class _AccountViewState extends State<AccountView>
 
                             ProfileMenu(
                               text: "Experiencias",
-                              icon: Icon(Icons.place),
+                              icon: const Icon(Icons.place),
                               press: () {
                                 Navigator.pushNamed(context, "experiences");
                               },
@@ -194,17 +194,16 @@ class _AccountViewState extends State<AccountView>
 
                             ProfileMenu(
                               text: "Mi perfil",
-                              icon: Icon(Icons.verified_user),
+                              icon: const Icon(Icons.verified_user),
                               press: () {
-                                var notificationClient =
-                                    new HopsNotifications();
+                                var notificationClient = HopsNotifications();
                                 notificationClient.message(
                                     context, "¡En próximas versiones!");
                               },
                             ),
                             ProfileMenu(
                               text: "Acerca de Hops",
-                              icon: Icon(Icons.help_center),
+                              icon: const Icon(Icons.help_center),
                               press: () {
                                 showAboutDialog(
                                   context: context,
@@ -212,9 +211,9 @@ class _AccountViewState extends State<AccountView>
                                   applicationIcon: MyAppIcon(),
                                   applicationLegalese:
                                       'Esta es una aplicación pensada para mayores de 18 años.',
-                                  children: [
+                                  children: const [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 20),
+                                      padding: EdgeInsets.only(top: 20),
                                       child: Text(
                                           '¡Gracias por descargarte Hops! Estamos pleno desarrollo mejorando la app para apoyar a la comunidad de cervecera artesanal ¡Unite a lo local!'),
                                     ),
@@ -265,7 +264,7 @@ class MyAppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: SizedBox(

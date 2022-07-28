@@ -140,6 +140,7 @@ class _HomeViewState extends State<HomeView>
                           case ConnectionState.waiting:
                             return ScoreButton(
                               contrast: "low",
+                              score: 0,
                               text: "Cargando puntaje...",
                               image: Image.asset(
                                 "assets/images/medal.png",
@@ -153,10 +154,11 @@ class _HomeViewState extends State<HomeView>
                             } else {
                               _scoreOverview =
                                   snapshot.data["result"].toString();
+                              if (_scoreOverview.isEmpty) _scoreOverview = "0";
                               return ScoreButton(
                                 contrast: "low",
-                                text:
-                                    "Tenés " + _scoreOverview + " puntos Hops",
+                                score: int.parse(_scoreOverview),
+                                text: _scoreOverview + " puntos canjeables",
                                 image: Image.asset(
                                   "assets/images/medal.png",
                                   height: 20,
