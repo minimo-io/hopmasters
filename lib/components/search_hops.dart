@@ -63,28 +63,27 @@ class SearchHops extends SearchDelegate {
                       itemBuilder: (context, index) {
                         Map result = snapshot.data[index];
                         String postSubtype = result["subtype"];
+                        bool openOnApp = result["data"]["openOnApp"];
 
-                        String resultTitle = "";
-                        bool openOnApp = false;
-                        switch (postSubtype) {
-                          case "product":
-                            resultTitle = result["title"];
-                            openOnApp = true;
-                            break;
-                          case "page":
-                            resultTitle = result["title"];
-                            openOnApp = true;
-                            break;
-                          default:
-                            openOnApp = false;
-                            resultTitle = result["title"];
-                          /*
-                          case "tiendas":
-                          case "locales":
-                          case "bares":
-                          case "promos":
-                          */
-                        }
+                        // switch (postSubtype) {
+                        //   case "product":
+
+                        //     openOnApp = true;
+                        //     break;
+                        //   case "page":
+                        //     resultTitle = result["title"];
+                        //     openOnApp = true;
+                        //     break;
+                        //   default:
+                        //     openOnApp = false;
+                        //     resultTitle = result["title"];
+                        //   /*
+                        //   case "tiendas":
+                        //   case "locales":
+                        //   case "bares":
+                        //   case "promos":
+                        //   */
+                        //}
 
                         return Column(
                           children: [
@@ -92,7 +91,7 @@ class SearchHops extends SearchDelegate {
                               height: 10,
                             ),
                             ListTile(
-                              title: Text(resultTitle),
+                              title: Text(result["title"]),
                               subtitle:
                                   Text(result["data"]["convertedPostType"]),
                               leading: Image.network(result["data"]["image"]),
