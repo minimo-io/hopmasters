@@ -121,7 +121,7 @@ class WordpressAPI {
   // instead of the first function this returns a Map with more details
   static Future<Map<String, dynamic>> signUp(Customer customer) async {
     var authToken = base64.encode(utf8.encode(_apiKey + ":" + _apiSecret));
-    Map<String, dynamic> ret = new Map();
+    Map<String, dynamic> ret = Map();
     ret["result"] = false;
     ret["status"] = "ERROR_UNKNOWN";
 
@@ -129,7 +129,7 @@ class WordpressAPI {
       var response = await Dio().post(
         _WP_BASE_API + _WP_REST_WC_URI + _WP_REST_WC_CUSTOMER,
         data: customer.toJson(),
-        options: new Options(headers: {
+        options: Options(headers: {
           HttpHeaders.authorizationHeader: 'basic $authToken',
           HttpHeaders.contentTypeHeader: "application/json"
         }),
@@ -801,8 +801,8 @@ class WordpressAPI {
       query = query + "&location=" + location.latitude.toString() + "|" + location.longitude.toString();
     }
      */
-    print("PAYMENTS QUERY");
-    print(query);
+    if (DEBUG) print("PAYMENTS QUERY");
+    if (DEBUG) print(query);
 
     try {
       var response = await Dio().get(

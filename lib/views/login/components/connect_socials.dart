@@ -136,15 +136,12 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
           String goToRoute = "/";
 
           // ask for location
-          Location location = new Location();
-          print(location);
+          Location location = Location();
+
           location.serviceEnabled().then((serviceEnabled) {
-            print("Service Enabled");
-            print(serviceEnabled);
             if (!serviceEnabled) {
               location.requestService().then((serviceEnabled) {
                 if (!serviceEnabled) {
-                  print("Service NOT enabled");
                   return;
                 } else {
                   location.hasPermission().then((permissionGranted) {
@@ -185,10 +182,14 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
 
           // redirect
           if (signUpResult == true) {
+            // Navigator.pushReplacementNamed(
+            //   context,
+            //   "preferences",
+            //   arguments: {'fromMainApp': false},
+            // );
             Navigator.pushReplacementNamed(
               context,
-              "preferences",
-              arguments: {'fromMainApp': false},
+              "/",
             );
           } else {
             Navigator.pushReplacementNamed(
@@ -330,7 +331,7 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
                           String pwd =
                               WordpressAPI.generatePassword(userData["email"]);
 
-                          Customer customer = new Customer(
+                          Customer customer = Customer(
                               email: userData["email"],
                               firstName: userName["firstName"],
                               lastName: userName["lastName"],
