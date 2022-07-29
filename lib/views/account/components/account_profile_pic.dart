@@ -46,8 +46,10 @@ class _BreweryProfilePicState extends State<BreweryProfilePic> {
                   borderRadius: BorderRadius.circular(50),
                   side: const BorderSide(color: Colors.white),
                 ),
-                color: Color(0xFFF5F6F9),
-                onPressed: () {},
+                color: const Color(0xFFF5F6F9),
+                onPressed: () {
+                  Navigator.pushNamed(context, "scores");
+                },
                 child: Row(children: [
                   //Icon(Icons.sports_bar, size: 15,),
                   Image.asset(

@@ -25,8 +25,7 @@ class ScoreButton extends StatelessWidget {
       child: Card(
         elevation: .3,
         child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -44,12 +43,12 @@ class ScoreButton extends StatelessWidget {
                 )),
                 InkWell(
                   onTap: () {
-                    print("OK");
+                    Navigator.pushNamed(context, "scores");
                   },
                   child: Badge(
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 5.0),
+                        horizontal: 12.0, vertical: 4.0),
                     toAnimate: false,
                     shape: BadgeShape.square,
                     borderRadius: BorderRadius.circular(20.0),
@@ -70,28 +69,28 @@ class ScoreButton extends StatelessWidget {
             )),
       ),
     );
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 0),
-      child: FlatButton(
-        padding: const EdgeInsets.all(10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        //color: Color(0xFFF5F6F9),
-        color: (this.contrast == "high" ? Colors.black : Color(0xFFF5F6F9)),
-        onPressed: press,
-        child: Row(
-          children: [
-            image,
-            const SizedBox(width: 20),
-            Expanded(
-                child: Text(
-              text,
-              style: TextStyle(
-                  color:
-                      (this.contrast == "high" ? Colors.white : Colors.black)),
-            )),
-          ],
-        ),
-      ),
-    );
+    // return Padding(
+    //   padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 0),
+    //   child: FlatButton(
+    //     padding: const EdgeInsets.all(10),
+    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //     //color: Color(0xFFF5F6F9),
+    //     color: (this.contrast == "high" ? Colors.black : Color(0xFFF5F6F9)),
+    //     onPressed: press,
+    //     child: Row(
+    //       children: [
+    //         image,
+    //         const SizedBox(width: 20),
+    //         Expanded(
+    //             child: Text(
+    //           text,
+    //           style: TextStyle(
+    //               color:
+    //                   (this.contrast == "high" ? Colors.white : Colors.black)),
+    //         )),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }

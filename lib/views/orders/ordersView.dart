@@ -40,6 +40,20 @@ class _OrdersViewState extends State<OrdersView> {
     return titles[0];
   }
 
+  String _buildItemsQuantity(List lineItems) {
+    int quantity = 0;
+    for (int i = 0; i < lineItems.length; i++) {
+      quantity += int.parse(lineItems[i]["quantity"].toString());
+      // order["line_items"].length.toString() +
+      //                                 " " +
+      //                                 "cerveza" +
+      //                                 (order["line_items"].length > 1
+      //                                     ? "s"
+      //                                     : "")
+    }
+    return quantity.toString() + " " + "cerveza" + (quantity > 1 ? "s" : "");
+  }
+
   Widget _buildSingleOrderBox(Map<String, dynamic> order) {
     String finalStatus = order["status"];
     Brewery brewery = Brewery.fromJson(order["brewery"]);
@@ -147,13 +161,7 @@ class _OrdersViewState extends State<OrdersView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                  order["line_items"].length.toString() +
-                                      " " +
-                                      "cerveza" +
-                                      (order["line_items"].length > 1
-                                          ? "s"
-                                          : ""),
+                              Text(_buildItemsQuantity(order["line_items"]),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 14.0),
@@ -180,13 +188,16 @@ class _OrdersViewState extends State<OrdersView> {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 12.0, bottom: 5.0),
-                            child: Divider(
-                              color: Colors.grey.withOpacity(.1),
-                              thickness: 2.0,
-                            ),
+                          // Padding(
+                          //   padding:
+                          //       const EdgeInsets.only(top: 12.0, bottom: 5.0),
+                          //   child: Divider(
+                          //     color: Colors.grey.withOpacity(.1),
+                          //     thickness: 2.0,
+                          //   ),
+                          // ),
+                          const SizedBox(
+                            height: 10.0,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,6 +207,10 @@ class _OrdersViewState extends State<OrdersView> {
                                   "Detalles",
                                   style: TextStyle(fontSize: 12.0),
                                 ),
+                                // padding: const EdgeInsets.all(0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 5.0),
+                                size: Size.zero,
                                 icon: const Icon(
                                   Icons.info,
                                   size: 12.0,

@@ -157,18 +157,18 @@ class _AccountViewState extends State<AccountView>
                             ),
 
                             ProfileMenu(
-                              text: "Ayuda",
-                              icon: const Icon(Icons.help_outline),
-                              press: () {
-                                Helpers.userAskedForHelp();
-                              },
-                            ),
-
-                            ProfileMenu(
                               text: "Experiencias",
                               icon: const Icon(Icons.place),
                               press: () {
                                 Navigator.pushNamed(context, "experiences");
+                              },
+                            ),
+
+                            ProfileMenu(
+                              text: "Ayuda",
+                              icon: const Icon(Icons.help_outline),
+                              press: () {
+                                Helpers.userAskedForHelp();
                               },
                             ),
 

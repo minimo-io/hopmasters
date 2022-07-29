@@ -1,5 +1,6 @@
 import 'package:Hops/views/order_details/order_details.dart';
 import 'package:Hops/views/order_results/order_results.dart';
+import 'package:Hops/views/scores/scoresView.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/views/login/loginView.dart';
@@ -93,6 +94,12 @@ class Routes {
           return MaterialPageRoute(
             settings: routeSettings,
             builder: (_) => ExperiencesView(),
+          );
+
+        case ScoresView.routeName:
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => ScoresView(),
           );
 
         case ShippingDetails.routeName:

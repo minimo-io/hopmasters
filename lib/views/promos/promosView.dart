@@ -164,22 +164,18 @@ class _PromosViewState extends State<PromosView>
                                       style: TextStyle(fontSize: 13),
                                     ),
                                     style: ButtonStyle(
-                                        padding:
-                                            MaterialStateProperty.all<EdgeInsets>(
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 15,
-                                                    vertical: 0)),
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                promo.rgbColor),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.all(Radius.circular(10.0)),
-                                                side: (1 == 1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))))),
+                                        minimumSize: MaterialStateProperty.all<Size>(
+                                            Size.zero),
+                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 5.0)),
+                                        foregroundColor: MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                        backgroundColor: MaterialStateProperty.all<Color>(
+                                            promo.rgbColor),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                            side: (1 == 1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))))),
                                     onPressed: () {
                                       // share with friends
                                       if (promo.callToActionIcon ==

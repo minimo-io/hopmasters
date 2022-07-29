@@ -548,7 +548,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
 
   Widget _buildOrderItems(List items) {
     List<Widget> listItems = [];
-    TextStyle itemsStyle = TextStyle(fontSize: 13.0, color: Colors.grey);
+    TextStyle itemsStyle = const TextStyle(fontSize: 13.0, color: Colors.grey);
     for (int i = 0; i < items.length; i++) {
       listItems.add(Row(
         mainAxisAlignment: MainAxisAlignment.center,

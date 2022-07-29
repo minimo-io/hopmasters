@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
 
-class ExperiencesView extends StatefulWidget {
-  static const String routeName = "experiences";
-  const ExperiencesView({Key? key}) : super(key: key);
+class ScoresView extends StatefulWidget {
+  static const String routeName = "scores";
+  const ScoresView({Key? key}) : super(key: key);
 
   @override
-  State<ExperiencesView> createState() => _ExperiencesViewState();
+  State<ScoresView> createState() => _ScoresViewState();
 }
 
-class _ExperiencesViewState extends State<ExperiencesView> {
+class _ScoresViewState extends State<ScoresView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +19,7 @@ class _ExperiencesViewState extends State<ExperiencesView> {
           decoration: const BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
-        title:
-            const Text("Experiencias", style: TextStyle(color: Colors.black)),
+        title: const Text("Puntos", style: TextStyle(color: Colors.black)),
         elevation: 0,
       ),
       body: SafeArea(
