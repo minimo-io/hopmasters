@@ -19,9 +19,12 @@ class ScoreMiniButton extends StatelessWidget {
       child: Row(
         children: [
           image,
-
-          SizedBox(width: 10),
-          Expanded(child: Text(text, style: TextStyle(fontSize: 13),)),
+          const SizedBox(width: 5),
+          Expanded(
+              child: Text(
+            (text.isEmpty ? "0" : text),
+            style: const TextStyle(fontSize: 13),
+          )),
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:badges/badges.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -800,9 +801,8 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 2,
+                                  const SizedBox(
+                                    height: 100,
                                   ),
                                 ],
                               ),

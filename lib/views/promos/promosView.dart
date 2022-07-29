@@ -37,7 +37,7 @@ class _PromosViewState extends State<PromosView>
   // user data
   LoginResponse? _userData;
 
-  static List<Filters> _filters = [
+  static final List<Filters> _filters = [
     Filters(id: 1, name: "En bares"),
     Filters(id: 2, name: "Por pedidos online"),
     Filters(id: 3, name: "Puntos Hops"),
@@ -89,7 +89,7 @@ class _PromosViewState extends State<PromosView>
               shape: BoxShape.rectangle,
               border: Border.all(width: 0, color: Colors.white),
               borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Center(
+          child: const Center(
               child: Text("Expiró",
                   style: TextStyle(
                       fontSize: 11,
@@ -100,7 +100,7 @@ class _PromosViewState extends State<PromosView>
 
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +138,7 @@ class _PromosViewState extends State<PromosView>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(promo.name!,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15.0),
                           textAlign: TextAlign.left),
                       const SizedBox(
@@ -296,7 +296,7 @@ class _PromosViewState extends State<PromosView>
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
                               child: TextExpandable(
-                                "Gana puntos y accedé a cualquier de estos beneficios con tus compras online a través de HOPS. " +
+                                "Ganá puntos y accedé a cualquier de estos beneficios con tus compras online a través de HOPS. " +
                                     "Canjeá tus puntos por descuentos y beneficos en los bares asociados.",
                                 linesToShow: 2,
                               ),

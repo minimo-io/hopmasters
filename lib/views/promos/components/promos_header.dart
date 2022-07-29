@@ -52,7 +52,7 @@ class _PromosHeaderState extends State<PromosHeader> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                  return SizedBox(
+                  return const SizedBox(
                       width: 5,
                       height: 5,
                       child: CircularProgressIndicator(
@@ -64,7 +64,7 @@ class _PromosHeaderState extends State<PromosHeader> {
                     return Text(' Ups! Errors: ${snapshot.error}');
                   } else {
                     _scoreOverview = snapshot.data["result"].toString();
-                    print(_scoreOverview);
+
                     return ScoreMiniButton(
                       text: _scoreOverview,
                       image: Image.asset(
