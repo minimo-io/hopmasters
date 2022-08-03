@@ -1,3 +1,4 @@
+import 'package:Hops/components/help_action_button.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
@@ -293,41 +294,8 @@ class _OrdersViewState extends State<OrdersView> {
           title: const Text("Pedidos", style: TextStyle(color: Colors.black)),
           elevation: 0,
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 13.0,
-                bottom: 13.0,
-              ),
-              child: InkWell(
-                onTap: () => Helpers.userAskedForHelp(),
-                child: Badge(
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 6.0),
-                  toAnimate: false,
-                  shape: BadgeShape.square,
-                  borderRadius: BorderRadius.circular(20.0),
-                  badgeColor: const Color.fromRGBO(77, 159, 0, .7),
-                  badgeContent: Row(
-                    children: [
-                      Icon(
-                        Icons.help,
-                        size: 15.0,
-                        color: Colors.white.withOpacity(.8),
-                      ),
-                      const SizedBox(
-                        width: 4.0,
-                      ),
-                      Text(
-                        'Ayuda',
-                        style: TextStyle(
-                            color: Colors.white.withOpacity(.8),
-                            fontSize: 11.0),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            const HelpActionButton(
+              padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 0.0),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 10.0),

@@ -1,4 +1,5 @@
 import 'package:Hops/components/card_horizontal.dart';
+import 'package:Hops/components/help_action_button.dart';
 import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/constants.dart';
 import 'package:badges/badges.dart';
@@ -855,50 +856,17 @@ class _CheckoutViewState extends State<CheckoutView> {
 
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
+            decoration: const BoxDecoration(gradient: PRIMARY_GRADIENT_COLOR),
           ),
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text("", style: TextStyle(color: Colors.black)),
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: const Text("", style: TextStyle(color: Colors.black)),
           elevation: 0,
           actions: [
             Consumer<Cart>(builder: (context, cart, child) {
               return Padding(
                   padding: const EdgeInsets.only(right: 5.0),
                   child: (cart.items.isNotEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 13.0, horizontal: 10.0),
-                          child: InkWell(
-                            onTap: () => Helpers.userAskedForHelp(),
-                            child: Badge(
-                              elevation: 0,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 6.0),
-                              toAnimate: false,
-                              shape: BadgeShape.square,
-                              borderRadius: BorderRadius.circular(20.0),
-                              badgeColor: const Color.fromRGBO(77, 159, 0, .7),
-                              badgeContent: Row(
-                                children: [
-                                  Icon(
-                                    Icons.help,
-                                    size: 15.0,
-                                    color: Colors.white.withOpacity(.8),
-                                  ),
-                                  const SizedBox(
-                                    width: 4.0,
-                                  ),
-                                  Text(
-                                    'Ayuda',
-                                    style: TextStyle(
-                                        color: Colors.white.withOpacity(.8),
-                                        fontSize: 11.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                      ? const HelpActionButton()
                       : Container()));
             })
           ],

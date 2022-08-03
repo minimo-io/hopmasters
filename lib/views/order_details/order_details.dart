@@ -1,4 +1,5 @@
 import 'package:Hops/components/error.dart';
+import 'package:Hops/components/help_action_button.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:Hops/theme/style.dart';
@@ -593,41 +594,8 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.done:
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 13.0, horizontal: 10.0),
-                        child: InkWell(
-                          onTap: () => Helpers.userAskedForHelp(),
-                          child: Badge(
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 6.0),
-                            toAnimate: false,
-                            shape: BadgeShape.square,
-                            borderRadius: BorderRadius.circular(20.0),
-                            badgeColor: const Color.fromRGBO(77, 159, 0, .7),
-                            badgeContent: Row(
-                              children: [
-                                Icon(
-                                  Icons.help,
-                                  size: 15.0,
-                                  color: Colors.white.withOpacity(.8),
-                                ),
-                                const SizedBox(
-                                  width: 4.0,
-                                ),
-                                Text(
-                                  'Ayuda',
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(.8),
-                                      fontSize: 11.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                      break;
+                      return const HelpActionButton();
+
                     default:
                       return Container();
                   }

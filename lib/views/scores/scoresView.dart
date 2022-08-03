@@ -1,5 +1,5 @@
+import 'package:Hops/components/help_action_button.dart';
 import 'package:Hops/components/hops_alert.dart';
-import 'package:Hops/components/text_expandable.dart';
 import 'package:Hops/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
@@ -24,6 +24,9 @@ class _ScoresViewState extends State<ScoresView> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: const Text("Puntos", style: TextStyle(color: Colors.black)),
         elevation: 0,
+        actions: const [
+          HelpActionButton(),
+        ],
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -53,7 +56,7 @@ class _ScoresViewState extends State<ScoresView> {
                             EdgeInsets.symmetric(horizontal: appMarginSize),
                         child: HopsAlert(
                             text:
-                                "Los puntos HOPS se ganana por interactuar con la app y pueden ser canjeados por beneficios en los bares asociados en las compras via QR o en la sección de Promos de la app",
+                                "Los Puntos HOPS se obtienen por interactuar con la app. Pueden ser canjeados por beneficios en los bares asociados (comprando via via QR) o en la sección de Promos de la app.",
                             color: Colors.blueAccent,
                             icon: Icons.info),
                       ),

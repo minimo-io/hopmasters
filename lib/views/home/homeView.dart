@@ -164,8 +164,9 @@ class _HomeViewState extends State<HomeView>
                                   height: 20,
                                 ),
                                 press: () {
-                                  if (widget.notifyParent != null)
+                                  if (widget.notifyParent != null) {
                                     widget.notifyParent!(2);
+                                  }
                                   //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
                                 },
                               );
