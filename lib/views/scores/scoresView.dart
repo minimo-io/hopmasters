@@ -1,6 +1,9 @@
 import 'package:Hops/components/help_action_button.dart';
 import 'package:Hops/components/hops_alert.dart';
+import 'package:Hops/components/score_button.dart';
 import 'package:Hops/constants.dart';
+import 'package:Hops/services/shared_services.dart';
+import 'package:Hops/services/wordpress_api.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
@@ -14,6 +17,20 @@ class ScoresView extends StatefulWidget {
 }
 
 class _ScoresViewState extends State<ScoresView> {
+  Future? _userScore;
+  String _scoreOverview = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _userScore = getUserScore();
+  }
+
+  Future getUserScore() async {
+    var userData = await SharedServices.loginDetails();
+    return WordpressAPI.getUserPrefs(userData!.data!.id, indexType: "score");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +49,7 @@ class _ScoresViewState extends State<ScoresView> {
         child: RefreshIndicator(
           onRefresh: () async {
             setState(() {
-              // _userData = SharedServices.loginDetails();
+              _userScore = getUserScore();
             });
           },
           child: SingleChildScrollView(
@@ -50,6 +67,50 @@ class _ScoresViewState extends State<ScoresView> {
                       // ),
                       // AppTitle(title: "Promos"),
                       //const PromosHeader(),
+                      FutureBuilder(
+                          future: _userScore,
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return ScoreButton(
+                                  showDetailsButton: false,
+                                  cardPadding: const EdgeInsets.symmetric(
+                                      horizontal: appMarginSize),
+                                  contrast: "low",
+                                  score: 0,
+                                  text: "Cargando puntaje...",
+                                  image: Image.asset(
+                                    "assets/images/medal.png",
+                                    height: 20,
+                                  ),
+                                  press: () {},
+                                );
+                              default:
+                                if (snapshot.hasError) {
+                                  return Text(
+                                      ' Ups! Errors: ${snapshot.error}');
+                                } else {
+                                  _scoreOverview =
+                                      snapshot.data["result"].toString();
+                                  if (_scoreOverview.isEmpty)
+                                    _scoreOverview = "0";
+                                  return ScoreButton(
+                                    cardPadding: const EdgeInsets.symmetric(
+                                        horizontal: appMarginSize),
+                                    showDetailsButton: false,
+                                    contrast: "low",
+                                    score: int.parse(_scoreOverview),
+                                    text: _scoreOverview + " puntos canjeables",
+                                    image: Image.asset(
+                                      "assets/images/medal.png",
+                                      height: 20,
+                                    ),
+                                    press: () => null,
+                                  );
+                                }
+                            }
+                          }),
 
                       const Padding(
                         padding:
@@ -62,10 +123,10 @@ class _ScoresViewState extends State<ScoresView> {
                       ),
 
                       const SizedBox(
-                        height: 120,
+                        height: 50,
                       ),
                       Image.asset(
-                        "assets/images/loudly-crying-face_1f62d.png",
+                        inConstructionIcon,
                         height: 45,
                       ),
                       const SizedBox(
@@ -90,7 +151,7 @@ class _ScoresViewState extends State<ScoresView> {
                         child: RichText(
                           text: const TextSpan(
                               text:
-                                  "En el futuro podrás comprar tus ingresos a ",
+                                  "En próximas versiones verás aquí el detalle",
                               style: TextStyle(
                                   fontSize: 15, color: Colors.black87)),
                         ),
@@ -98,7 +159,7 @@ class _ScoresViewState extends State<ScoresView> {
                       Center(
                         child: RichText(
                           text: const TextSpan(
-                              text: "festivales, eventos y paseos, además de",
+                              text: "de cómo has ganado y utilizado",
                               style: TextStyle(
                                   fontSize: 15, color: Colors.black87)),
                         ),
@@ -106,8 +167,7 @@ class _ScoresViewState extends State<ScoresView> {
                       Center(
                         child: RichText(
                           text: const TextSpan(
-                              text:
-                                  "administrar tus suscripciones a los clubes.",
+                              text: "tus Puntos Hops.",
                               style: TextStyle(
                                   fontSize: 15, color: Colors.black87)),
                         ),
@@ -115,25 +175,9 @@ class _ScoresViewState extends State<ScoresView> {
                       const SizedBox(
                         height: 10,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Helpers.launchURL("https://hops.uy/revista/turismo/");
-                        },
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                Colors.black.withOpacity(.6)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white.withOpacity(.8)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
-                                  color: Colors.black.withOpacity(.2)),
-                            ))),
-                        child: const Text("Ver en la web por ahora"),
-                      ),
+
                       const SizedBox(
-                        height: 600,
+                        height: 500,
                       ),
                     ],
                   ),

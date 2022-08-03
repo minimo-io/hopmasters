@@ -1,3 +1,4 @@
+import 'package:Hops/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
@@ -44,7 +45,7 @@ class _ExperiencesViewState extends State<ExperiencesView> {
                         height: 120,
                       ),
                       Image.asset(
-                        "assets/images/loudly-crying-face_1f62d.png",
+                        inConstructionIcon,
                         height: 45,
                       ),
                       const SizedBox(

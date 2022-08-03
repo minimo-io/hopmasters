@@ -832,7 +832,7 @@ class _CartViewState extends State<CartView> {
                                     height: 50,
                                   ),
                                   Image.asset(
-                                    "assets/images/loudly-crying-face_1f62d.png",
+                                    noResultsIcon,
                                     height: 45,
                                   ),
                                   const SizedBox(

@@ -10,6 +10,8 @@ class ScoreButton extends StatelessWidget {
     this.press,
     required this.score,
     this.contrast = "low",
+    this.showDetailsButton = true,
+    this.cardPadding = const EdgeInsets.symmetric(horizontal: 20.0),
   }) : super(key: key);
 
   final String text;
@@ -17,13 +19,15 @@ class ScoreButton extends StatelessWidget {
   final VoidCallback? press;
   final String contrast;
   final int score;
+  final bool showDetailsButton;
+  final EdgeInsets cardPadding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: cardPadding,
       child: Card(
-        elevation: .3,
+        elevation: cardsElevations,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
             child: Row(
@@ -41,30 +45,31 @@ class ScoreButton extends StatelessWidget {
                           ? Colors.white
                           : Colors.black)),
                 )),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, "scores");
-                  },
-                  child: Badge(
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 4.0),
-                    toAnimate: false,
-                    shape: BadgeShape.square,
-                    borderRadius: BorderRadius.circular(20.0),
-                    badgeColor: Colors.grey.withOpacity(.8),
-                    badgeContent: Row(
-                      children: [
-                        Text(
-                          'Detalles',
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(.8),
-                              fontSize: titlesRightButtonsSize),
-                        ),
-                      ],
+                if (showDetailsButton)
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, "scores");
+                    },
+                    child: Badge(
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 4.0),
+                      toAnimate: false,
+                      shape: BadgeShape.square,
+                      borderRadius: BorderRadius.circular(20.0),
+                      badgeColor: Colors.grey.withOpacity(.8),
+                      badgeContent: Row(
+                        children: [
+                          Text(
+                            'Detalles',
+                            style: TextStyle(
+                                color: Colors.white.withOpacity(.8),
+                                fontSize: titlesRightButtonsSize),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             )),
       ),

@@ -49,7 +49,8 @@ const showSearchBar = false;
 // text constants
 const String moreThanOneBreweryInOrder =
     "Recuerda que estas comprando directamente a las cervecerías. Por lo tanto cada pedido se procesará por separado.";
-
+const String inConstructionIcon = "assets/images/working_emoji_u1f6a7.png";
+const String noResultsIcon = "assets/images/sad_emoji_u1f979.png";
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 
 enum HopsMenuState { home, favourite, store, profile }
