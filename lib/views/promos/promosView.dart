@@ -277,8 +277,8 @@ class _PromosViewState extends State<PromosView>
                         isExpanded: (i == 0 ? true : false)));
                   }
                 }
-                promosCardList.add(SizedBox(
-                  height: MediaQuery.of(context).size.height - 200,
+                promosCardList.add(const SizedBox(
+                  height: 100,
                 ));
 
                 return SafeArea(
@@ -378,7 +378,7 @@ class _PromosViewState extends State<PromosView>
                                     items: _filters
                                         .map((e) => MultiSelectItem(e, e.name))
                                         .toList(),
-                                    icon: Icon(Icons.check),
+                                    icon: const Icon(Icons.check),
 
                                     onTap: (values) {
                                       _selectedFilters = values;
@@ -387,7 +387,7 @@ class _PromosViewState extends State<PromosView>
                                 ),
 
                               if (!showFilters)
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
 
