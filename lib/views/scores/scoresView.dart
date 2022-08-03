@@ -122,7 +122,7 @@ class _ScoresViewState extends State<ScoresView> {
                       ),
 
                       const SizedBox(
-                        height: 50,
+                        height: 100,
                       ),
                       Image.asset(
                         inConstructionIcon,

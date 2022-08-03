@@ -47,28 +47,32 @@ class _FavoriteBreweriesState extends State<FavoriteBreweries>
                 return Text('Error: ${snapshot.error}');
               } else {
                 if (snapshot.data[0]["result"] == "") {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          noResultsIcon,
-                          height: 45,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text("Todavía no tenés cervecerías favoritas.",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const Text("Encontralas y seguilas para conocer"),
-                        const Text("sus lanzamientos y descuentos."),
-                        const Text("¡Y ganá Puntos Hops!")
-                      ],
+                  return SingleChildScrollView(
+                    child: SizedBox(
+                      //color: Colors.blue,
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            noResultsIcon,
+                            height: 45,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Todavía no tenés cervecerías favoritas.",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          const Text("Encontralas y seguilas para conocer"),
+                          const Text("sus lanzamientos y descuentos."),
+                          const Text("¡Y ganá Puntos Hops!")
+                        ],
+                      ),
                     ),
                   );
                 } else {

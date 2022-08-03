@@ -71,6 +71,7 @@ class _FavoritesViewState extends State<FavoritesView>
         ),
         child: NestedScrollView(
           controller: _scrollController,
+          //physics: const AlwaysScrollableScrollPhysics(),
           headerSliverBuilder: (context, value) {
             return [
               SliverToBoxAdapter(
@@ -96,11 +97,8 @@ class _FavoritesViewState extends State<FavoritesView>
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return Container(
+                      return SizedBox(
                         height: MediaQuery.of(context).size.height,
-                        // alignment: Alignment.center,
-                        color:
-                            (DEBUG ? Colors.transparent : Colors.transparent),
                         child: TabBarView(
                           key: UniqueKey(),
                           controller: _tabController,
