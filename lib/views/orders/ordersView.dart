@@ -375,7 +375,7 @@ class _OrdersViewState extends State<OrdersView> {
                                 ),
                                 Center(
                                   child: RichText(
-                                    text: TextSpan(children: <TextSpan>[
+                                    text: const TextSpan(children: <TextSpan>[
                                       // TextSpan(text: "No hay ", style: TextStyle(fontSize: 20, color: Colors.black87)),
                                       TextSpan(
                                           text: "No hay pedidos.",
@@ -386,13 +386,13 @@ class _OrdersViewState extends State<OrdersView> {
                                     ]),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Center(
                                   child: RichText(
-                                    text: TextSpan(
-                                        text: "Incluye tus cervezas ",
+                                    text: const TextSpan(
+                                        text: "Agregá tus cervezas ",
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: Colors.black87)),
@@ -400,7 +400,7 @@ class _OrdersViewState extends State<OrdersView> {
                                 ),
                                 Center(
                                   child: RichText(
-                                    text: TextSpan(
+                                    text: const TextSpan(
                                         text: "a través de la compra",
                                         style: TextStyle(
                                             fontSize: 20,
@@ -409,14 +409,14 @@ class _OrdersViewState extends State<OrdersView> {
                                 ),
                                 Center(
                                   child: RichText(
-                                    text: TextSpan(
-                                        text: "inmediata.",
-                                        style: TextStyle(
+                                    text: const TextSpan(
+                                        text: "verificada.",
+                                        style: const TextStyle(
                                             fontSize: 20,
                                             color: Colors.black87)),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 ElevatedButton(
@@ -427,7 +427,7 @@ class _OrdersViewState extends State<OrdersView> {
                                   child: Wrap(spacing: 4.0, children: [
                                     Icon(Icons.sports_bar),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 4),
+                                      padding: EdgeInsets.only(top: 4),
                                       child: Text("¡Descubrir cevezas ahora!"),
                                     )
                                   ]),

@@ -14,18 +14,21 @@ class ScoreMiniButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 72,
-      child: Row(
-        children: [
-          image,
-          const SizedBox(width: 5),
-          Expanded(
-              child: Text(
-            (text.isEmpty ? "0" : text),
-            style: const TextStyle(fontSize: 13),
-          )),
-        ],
+    return InkWell(
+      onTap: press,
+      child: SizedBox(
+        width: 72,
+        child: Row(
+          children: [
+            image,
+            const SizedBox(width: 5),
+            Expanded(
+                child: Text(
+              (text.isEmpty ? "0" : text),
+              style: const TextStyle(fontSize: 13),
+            )),
+          ],
+        ),
       ),
     );
   }

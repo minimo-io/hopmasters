@@ -17,14 +17,14 @@ class PromosHeader extends StatefulWidget {
 }
 
 class _PromosHeaderState extends State<PromosHeader> {
-  Future? _userScore;
-  String _scoreOverview = "";
+  // Future? _userScore;
+  // String _scoreOverview = "";
 
   @override
   void initState() {
     super.initState();
     //_breweryBeers = WordpressAPI.getBeersFromBreweryID("89107");
-    _userScore = getUserScore();
+    // _userScore = getUserScore();
     // _discoverBeers = DiscoverBeers();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,41 +45,40 @@ class _PromosHeaderState extends State<PromosHeader> {
         title: "Promos",
         horizontalPadding: 25.0,
       ),
-      Padding(
-        padding: const EdgeInsets.only(right: marginSide),
-        child: FutureBuilder(
-            future: _userScore,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return const SizedBox(
-                      width: 5,
-                      height: 5,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1,
-                        color: Colors.black,
-                      ));
-                default:
-                  if (snapshot.hasError) {
-                    return Text(' Ups! Errors: ${snapshot.error}');
-                  } else {
-                    _scoreOverview = snapshot.data["result"].toString();
+      // Padding(
+      //   padding: const EdgeInsets.only(right: marginSide),
+      //   child: FutureBuilder(
+      //       future: _userScore,
+      //       builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //         switch (snapshot.connectionState) {
+      //           case ConnectionState.waiting:
+      //             return const SizedBox(
+      //                 width: 5,
+      //                 height: 5,
+      //                 child: CircularProgressIndicator(
+      //                   strokeWidth: 1,
+      //                   color: Colors.black,
+      //                 ));
+      //           default:
+      //             if (snapshot.hasError) {
+      //               return Text(' Ups! Errors: ${snapshot.error}');
+      //             } else {
+      //               _scoreOverview = snapshot.data["result"].toString();
 
-                    return ScoreMiniButton(
-                      text: _scoreOverview,
-                      image: Image.asset(
-                        "assets/images/medal.png",
-                        height: 20,
-                      ),
-                      press: () {
-                        Helpers.launchURL(
-                            "https://hops.uy/revista/novedades/como-funciona-hops/");
-                      },
-                    );
-                  }
-              }
-            }),
-      ),
+      //               return ScoreMiniButton(
+      //                 text: _scoreOverview,
+      //                 image: Image.asset(
+      //                   "assets/images/medal.png",
+      //                   height: 20,
+      //                 ),
+      //                 press: () {
+      //                   Navigator.pushNamed(context, "scores");
+      //                 },
+      //               );
+      //             }
+      //         }
+      //       }),
+      // ),
     ]);
   }
 }

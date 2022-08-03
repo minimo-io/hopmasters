@@ -2,8 +2,6 @@ import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/components/order_details_box.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/models/brewery.dart';
-import 'package:Hops/models/promo.dart';
-import 'package:Hops/utils/notifications.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/theme/style.dart';
@@ -11,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:Hops/models/cart.dart';
 import 'package:Hops/models/beer.dart';
 
-import 'package:Hops/components/stars_score.dart';
 import 'package:Hops/components/counter_selector.dart';
 
 import 'package:badges/badges.dart';
@@ -306,7 +303,7 @@ class _CartViewState extends State<CartView> {
                       " voto" +
                       (int.parse(brewery.scoreCount!) == 1 ? "" : "s") +
                       ")",
-                  style: TextStyle(fontSize: 11.0)),
+                  style: const TextStyle(fontSize: 11.0)),
               const SizedBox(
                 width: 5.0,
               ),
@@ -330,7 +327,7 @@ class _CartViewState extends State<CartView> {
         badgeColor: Colors.grey.withOpacity(.3),
         badgeContent: Text(
           text,
-          style: TextStyle(color: Colors.black54, fontSize: 10.0),
+          style: const TextStyle(color: Colors.black54, fontSize: 10.0),
         ),
       ),
     );
@@ -369,7 +366,7 @@ class _CartViewState extends State<CartView> {
                     children: [
                       Text(cartItem.beer!.name!,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 17.0),
                           textAlign: TextAlign.left),
                       if (showBreweryName)
@@ -419,7 +416,7 @@ class _CartViewState extends State<CartView> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(right: 5.0),
+              padding: const EdgeInsets.only(right: 5.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -436,16 +433,16 @@ class _CartViewState extends State<CartView> {
                         },
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.close,
                               color: Colors.red,
                               size: 10.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 2,
                             ),
-                            Text("Remover",
-                                style: TextStyle(
+                            const Text("Remover",
+                                style: const TextStyle(
                                     color: Colors.red, fontSize: 10.0)),
                           ],
                         ),
@@ -855,13 +852,13 @@ class _CartViewState extends State<CartView> {
                                       ]),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Center(
                                     child: RichText(
-                                      text: TextSpan(
-                                          text: "Incluye tus cervezas ",
+                                      text: const TextSpan(
+                                          text: "Agregá tus cervezas ",
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.black87)),
@@ -869,7 +866,7 @@ class _CartViewState extends State<CartView> {
                                   ),
                                   Center(
                                     child: RichText(
-                                      text: TextSpan(
+                                      text: const TextSpan(
                                           text: "a través de la compra",
                                           style: TextStyle(
                                               fontSize: 20,
@@ -878,14 +875,14 @@ class _CartViewState extends State<CartView> {
                                   ),
                                   Center(
                                     child: RichText(
-                                      text: TextSpan(
-                                          text: "inmediata.",
-                                          style: TextStyle(
+                                      text: const TextSpan(
+                                          text: "verificada.",
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               color: Colors.black87)),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   ElevatedButton(
@@ -894,9 +891,9 @@ class _CartViewState extends State<CartView> {
                                           .popUntil(ModalRoute.withName('/'));
                                     },
                                     child: Wrap(spacing: 4.0, children: [
-                                      Icon(Icons.sports_bar),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Icon(Icons.sports_bar),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child:
                                             Text("¡Descubrir cevezas ahora!"),
                                       )

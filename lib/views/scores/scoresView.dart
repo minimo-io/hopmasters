@@ -6,7 +6,6 @@ import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/services/wordpress_api.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
-import 'package:Hops/helpers.dart';
 
 class ScoresView extends StatefulWidget {
   static const String routeName = "scores";
@@ -117,7 +116,7 @@ class _ScoresViewState extends State<ScoresView> {
                             EdgeInsets.symmetric(horizontal: appMarginSize),
                         child: HopsAlert(
                             text:
-                                "Los Puntos HOPS se obtienen por interactuar con la app. Pueden ser canjeados por beneficios en los bares asociados (comprando via via QR) o en la sección de Promos de la app.",
+                                "Los Puntos HOPS se obtienen por interactuar con la app. Pueden ser canjeados por beneficios en los bares asociados (comprando via QR) o en la sección de Promos de la app.",
                             color: Colors.blueAccent,
                             icon: Icons.info),
                       ),

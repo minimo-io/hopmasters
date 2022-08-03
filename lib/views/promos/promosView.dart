@@ -1,4 +1,6 @@
 import 'package:Hops/components/app_title.dart';
+import 'package:Hops/components/hops_alert.dart';
+import 'package:Hops/components/score_button.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/components/async_loader.dart';
 import 'package:Hops/components/text_expandable.dart';
@@ -39,25 +41,33 @@ class _PromosViewState extends State<PromosView>
 
   static final List<Filters> _filters = [
     Filters(id: 1, name: "En bares"),
-    Filters(id: 2, name: "Por pedidos online"),
-    Filters(id: 3, name: "Puntos Hops"),
+    Filters(id: 2, name: "En compras online"),
+    Filters(id: 3, name: "Obtner puntos"),
   ];
   List _selectedFilters = [];
+  Future? _userScore;
+  String _scoreOverview = "";
 
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    //super.initState();
+    super.initState();
 
     _promosFuture = getPromos();
+    _userScore = getUserScore();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _promosFuture!.then((beerData) {
-        print("Promos loaded.");
+        if (DEBUG) print("Promos loaded.");
       });
     });
+  }
+
+  Future getUserScore() async {
+    var userData = await SharedServices.loginDetails();
+    return WordpressAPI.getUserPrefs(userData!.data!.id, indexType: "score");
   }
 
   Future? getPromos() async {
@@ -276,6 +286,7 @@ class _PromosViewState extends State<PromosView>
                     onRefresh: () async {
                       setState(() {
                         _promosFuture = getPromos();
+                        _userScore = getUserScore();
                       });
                     },
                     child: SingleChildScrollView(
@@ -283,62 +294,112 @@ class _PromosViewState extends State<PromosView>
                         decoration: const BoxDecoration(
                           gradient: PRIMARY_GRADIENT_COLOR,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: marginSide,
-                            ),
-                            // AppTitle(title: "Promos"),
-                            const PromosHeader(),
-                            const SizedBox(height: 5),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: TextExpandable(
-                                "Ganá puntos y accedé a cualquier de estos beneficios con tus compras online a través de HOPS. " +
-                                    "Canjeá tus puntos por descuentos y beneficos en los bares asociados.",
-                                linesToShow: 2,
-                              ),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // const SizedBox(
+                              //   height: marginSide,
+                              // ),
+                              const PromosHeader(),
+                              const SizedBox(height: 5),
 
-                            if (showFilters)
+                              FutureBuilder(
+                                  future: _userScore,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.waiting:
+                                        return ScoreButton(
+                                          showDetailsButton: false,
+                                          cardPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: appMarginSize),
+                                          contrast: "low",
+                                          score: 0,
+                                          text: "Cargando puntaje...",
+                                          image: Image.asset(
+                                            "assets/images/medal.png",
+                                            height: 20,
+                                          ),
+                                          press: () {},
+                                        );
+                                      default:
+                                        if (snapshot.hasError) {
+                                          return Text(
+                                              ' Ups! Errors: ${snapshot.error}');
+                                        } else {
+                                          _scoreOverview = snapshot
+                                              .data["result"]
+                                              .toString();
+                                          if (_scoreOverview.isEmpty)
+                                            _scoreOverview = "0";
+                                          return ScoreButton(
+                                            cardPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: appMarginSize),
+                                            showDetailsButton: false,
+                                            contrast: "low",
+                                            score: int.parse(_scoreOverview),
+                                            text: _scoreOverview +
+                                                " puntos canjeables",
+                                            image: Image.asset(
+                                              "assets/images/medal.png",
+                                              height: 20,
+                                            ),
+                                            press: () => null,
+                                          );
+                                        }
+                                    }
+                                  }),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: appMarginSize),
+                                child: HopsAlert(
+                                    text: "Ganá puntos y accedé a cualquier de estos beneficios con tus compras online a través de HOPS. " +
+                                        "Canjeá tus puntos por descuentos y beneficos en los bares asociados.",
+                                    color: Colors.blueAccent,
+                                    icon: Icons.info),
+                              ),
+                              if (showFilters)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: marginSide, vertical: 0),
+                                  child: MultiSelectChipField(
+                                    searchable: false,
+                                    showHeader: false,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            style: BorderStyle.none)),
+                                    //decoration: BoxDecoration(border: BoxBorder),
+
+                                    initialValue: _selectedFilters,
+                                    items: _filters
+                                        .map((e) => MultiSelectItem(e, e.name))
+                                        .toList(),
+                                    icon: Icon(Icons.check),
+
+                                    onTap: (values) {
+                                      _selectedFilters = values;
+                                    },
+                                  ),
+                                ),
+
+                              if (!showFilters)
+                                SizedBox(
+                                  height: 10,
+                                ),
+
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: marginSide, vertical: 10),
-                                child: MultiSelectChipField(
-                                  searchable: false,
-                                  showHeader: false,
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(style: BorderStyle.none)),
-                                  //decoration: BoxDecoration(border: BoxBorder),
-
-                                  initialValue: _selectedFilters,
-                                  items: _filters
-                                      .map((e) => MultiSelectItem(e, e.name))
-                                      .toList(),
-                                  icon: Icon(Icons.check),
-
-                                  onTap: (values) {
-                                    _selectedFilters = values;
-                                  },
+                                    vertical: 8.0, horizontal: marginSide),
+                                child: Column(
+                                  children: promosCardList,
                                 ),
                               ),
-
-                            if (!showFilters)
-                              SizedBox(
-                                height: 10,
-                              ),
-
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: marginSide),
-                              child: Column(
-                                children: promosCardList,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
