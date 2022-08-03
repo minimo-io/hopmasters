@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:Hops/components/alert_box.dart';
 import 'package:Hops/components/hops_button.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -93,7 +94,7 @@ class _BeerHeaderState extends State<BeerHeader>
       heightFactor: 1.2,
       child: new Column(
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Hero(
@@ -116,7 +117,7 @@ class _BeerHeaderState extends State<BeerHeader>
         children: <Widget>[
           Text(
             "\$" + this.widget.beer.price,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 22,
                 fontWeight: FontWeight.bold),
@@ -143,20 +144,20 @@ class _BeerHeaderState extends State<BeerHeader>
 
     Widget _unfollowButton() {
       return Padding(
-          padding: EdgeInsets.only(right: 2),
+          padding: const EdgeInsets.only(right: 2),
           child: _buildButton(
               isGrey: true,
-              text: Text("ABANDONAR"),
-              icon: Icon(Icons.close),
+              text: const Text("ABANDONAR"),
+              icon: const Icon(Icons.close),
               doOnPressed: _unfollowAction));
     }
 
     Widget _followButton() {
       return Padding(
-          padding: EdgeInsets.only(right: 2),
+          padding: const EdgeInsets.only(right: 2),
           child: _buildButton(
-              text: Text("FAVORITA"),
-              icon: Icon(Icons.favorite_border_outlined),
+              text: const Text("FAVORITA"),
+              icon: const Icon(Icons.favorite_border_outlined),
               doOnPressed: _followAction));
     }
 
@@ -166,6 +167,7 @@ class _BeerHeaderState extends State<BeerHeader>
         double price = 0.00,
         String logo = "",
         bool isVerified = true,
+        bool isOfficial = false,
         String storeBeerUrl = "",
         String priceLastUpdate = ""}) {
       return InkWell(
@@ -174,7 +176,7 @@ class _BeerHeaderState extends State<BeerHeader>
         },
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -194,31 +196,51 @@ class _BeerHeaderState extends State<BeerHeader>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(name,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16.0),
                             textAlign: TextAlign.left),
-                        if (priceLastUpdate != "")
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              //crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 1.0),
-                                  child: Icon(
-                                    Icons.visibility,
-                                    color: Colors.black,
-                                    size: 10.0,
-                                  ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          //crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            if (isOfficial)
+                              Badge(
+                                elevation: 0,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 3.0),
+                                toAnimate: false,
+                                shape: BadgeShape.square,
+                                borderRadius: BorderRadius.circular(8),
+                                badgeColor: Colors.blueAccent.withOpacity(.5),
+                                badgeContent: Row(
+                                  children: const [
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 5.0),
+                                      child: Icon(
+                                        Icons.verified,
+                                        size: 15,
+                                        color: Colors.blueAccent,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Oficial",
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 11.0),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(left: 6.0),
-                                    child: Text(priceLastUpdate,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 12.0)))
-                              ],
-                            ),
-                          ),
+                              ),
+                            if (priceLastUpdate != "")
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 6.0),
+                                  child: Text(priceLastUpdate,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 12.0))),
+                          ],
+                        ),
+
                         if (isVerified)
                           Container(
                             child: Row(
@@ -229,7 +251,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                   padding: const EdgeInsets.only(left: 1.0),
                                   child: new CircleAvatar(
                                     backgroundColor:
-                                        Color.fromRGBO(25, 119, 227, 1),
+                                        const Color.fromRGBO(25, 119, 227, 1),
                                     child: new Icon(
                                       Icons.gpp_good,
                                       color: Colors.white,
@@ -238,11 +260,11 @@ class _BeerHeaderState extends State<BeerHeader>
                                     radius: 10.0,
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                     padding: EdgeInsets.only(left: 6.0),
                                     child: Text("verificado",
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 12.0)))
+                                        style: const TextStyle(fontSize: 12.0)))
                               ],
                             ),
                           )
@@ -255,10 +277,11 @@ class _BeerHeaderState extends State<BeerHeader>
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Padding(
-                          padding: EdgeInsets.only(left: 6.0, right: 10.0),
+                          padding:
+                              const EdgeInsets.only(left: 6.0, right: 10.0),
                           child: Text("\$" + price.round().toString(),
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20.0, color: Colors.black54)))
                     ],
                   ),
@@ -289,7 +312,7 @@ class _BeerHeaderState extends State<BeerHeader>
         },
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -313,14 +336,14 @@ class _BeerHeaderState extends State<BeerHeader>
                           if (name != null)
                             Text(name,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                                 textAlign: TextAlign.left),
                           if (address != null)
                             Text(address,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, color: Colors.black54),
                                 textAlign: TextAlign.left)
                         ]),
@@ -336,7 +359,8 @@ class _BeerHeaderState extends State<BeerHeader>
                         Padding(
                           padding: const EdgeInsets.only(left: 1.0),
                           child: new CircleAvatar(
-                            backgroundColor: Color.fromRGBO(25, 119, 227, 1),
+                            backgroundColor:
+                                const Color.fromRGBO(25, 119, 227, 1),
                             child: new Icon(
                               Icons.gpp_good,
                               color: Colors.white,
@@ -345,11 +369,11 @@ class _BeerHeaderState extends State<BeerHeader>
                             radius: 12.0,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                             padding: EdgeInsets.only(left: 6.0),
                             child: Text("verificado",
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 12.0)))
+                                style: const TextStyle(fontSize: 12.0)))
                       ],
                     ),
                   )
@@ -364,33 +388,22 @@ class _BeerHeaderState extends State<BeerHeader>
       return Column(
         children: [
           Container(
-              padding: EdgeInsets.only(left: 20, top: 0),
+              padding: const EdgeInsets.only(left: 20, top: 0),
               //height: 50,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text("TIENDAS ONLINE",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               )),
-
-          /*
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0, left:20.0, top:10.0),
-            child: AlertBox(
-              text: "Estamos integrando nuevas tiendas online ¡Unite!",
-              icon: Icons.info
-            ),
-          ),
-           */
-
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           if (widget.beer.stores != null)
             for (var store in widget.beer.stores)
               Container(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: _buildOnlineShopCard(
                       id: store.id,
                       name: store.name,
@@ -399,14 +412,15 @@ class _BeerHeaderState extends State<BeerHeader>
                       priceLastUpdate: store.priceLastUpdate,
                       logo: store.image,
                       storeBeerUrl: store.url,
+                      isOfficial: store.isOfficial,
                       isVerified: (store.isVerified.toLowerCase() == "true"
                           ? true
                           : false))),
           if (widget.beer.stores == null)
             Container(
                 width: MediaQuery.of(context).size.width * 0.90,
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                child: Text(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: const Text(
                   "Ninguna otra tienda online tiene esta cerveza.",
                   style: TextStyle(
                       fontSize: 14,
@@ -421,17 +435,16 @@ class _BeerHeaderState extends State<BeerHeader>
       List<Widget> barWidgetList = [];
       // print(barsList[0].name);
       for (var bar in barsList) {
-        print(bar.avatar);
         barWidgetList.add(Container(
             width: MediaQuery.of(context).size.width * 0.90,
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.90,
                 //padding: EdgeInsets.symmetric(horizontal: 20),
                 child: _buildShopCard(
                     name: bar.name, address: bar.address, logo: bar.avatar))));
       }
-      barWidgetList.add(SizedBox(
+      barWidgetList.add(const SizedBox(
         height: 50,
       ));
 
@@ -464,7 +477,7 @@ class _BeerHeaderState extends State<BeerHeader>
     showAlertDialog(BuildContext context) {
       // set up the buttons
       Widget cancelButton = FlatButton(
-        child: Text("Seguir agregando"),
+        child: const Text("Seguir agregando"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -577,7 +590,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                                           "instock"
                                                       ? "COMPRA VERIFICADA"
                                                       : "COMPRAR"),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.bold)),
@@ -820,7 +833,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                                             overflow:
                                                                 TextOverflow
                                                                     .ellipsis,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontSize: 20,
                                                                 color: Colors
                                                                     .black54),
@@ -839,14 +852,14 @@ class _BeerHeaderState extends State<BeerHeader>
                                                     .size
                                                     .width *
                                                 0.95,
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 right: 20.0,
                                                 left: 20,
                                                 top: 10.0,
                                                 bottom: 0),
-                                            child: Text(
+                                            child: const Text(
                                               "Con la compra en HOPS ganás puntos canjeables por descuentos en las tiendas y bares asociados.",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   fontStyle: FontStyle.normal,
                                                   color: Colors.black38),
@@ -946,20 +959,21 @@ class _BeerHeaderState extends State<BeerHeader>
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: [
-                                                            SizedBox(
+                                                            const SizedBox(
                                                                 height: 10),
                                                             Image.asset(
                                                               "assets/images/loader-hops.gif",
                                                               width: 100,
                                                             ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
+                                                            const Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
                                                                         top:
                                                                             10),
-                                                                child: Text(
+                                                                child: const Text(
                                                                     "Cargando bares...")),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                                 height: 10),
                                                           ],
                                                         ));
@@ -1113,7 +1127,7 @@ class _BeerHeaderState extends State<BeerHeader>
   Widget _followIconButton() {
     return InkWell(
         onTap: _followAction,
-        child: Icon(
+        child: const Icon(
           Icons.favorite_border,
           color: Colors.white,
         ));
@@ -1122,7 +1136,7 @@ class _BeerHeaderState extends State<BeerHeader>
   Widget _unfollowIconButton() {
     return InkWell(
         onTap: _unfollowAction,
-        child: Icon(
+        child: const Icon(
           Icons.favorite,
           color: Colors.white,
         ));
@@ -1134,10 +1148,10 @@ class _BeerHeaderState extends State<BeerHeader>
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return SizedBox(
+              return const SizedBox(
                   height: 22,
                   width: 22,
-                  child: CircularProgressIndicator(
+                  child: const CircularProgressIndicator(
                     color: PROGRESS_INDICATOR_COLOR,
                     strokeWidth: 1,
                   ));
@@ -1146,10 +1160,10 @@ class _BeerHeaderState extends State<BeerHeader>
                 return Text('Error: ${snapshot.error}');
               } else {
                 if (_isLoadingApiCall == true) {
-                  return SizedBox(
+                  return const SizedBox(
                       height: 22,
                       width: 22,
-                      child: CircularProgressIndicator(
+                      child: const CircularProgressIndicator(
                         color: PROGRESS_INDICATOR_COLOR,
                         strokeWidth: 1,
                       ));

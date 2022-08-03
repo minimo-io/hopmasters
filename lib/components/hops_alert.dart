@@ -7,6 +7,7 @@ class HopsAlert extends StatelessWidget {
   final double cardElevation;
   final String text;
   final IconData icon;
+  final double iconSize;
   final Color color;
 
   const HopsAlert(
@@ -16,6 +17,7 @@ class HopsAlert extends StatelessWidget {
       this.cardElevation = cardsElevations,
       required this.text,
       required this.icon,
+      this.iconSize = 28,
       required this.color,
       Key? key})
       : super(key: key);
@@ -33,6 +35,7 @@ class HopsAlert extends StatelessWidget {
               Icon(
                 icon,
                 color: color,
+                size: iconSize,
               ),
               const SizedBox(
                 width: 15.0,

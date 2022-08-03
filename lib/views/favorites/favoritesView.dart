@@ -1,3 +1,4 @@
+import 'package:Hops/constants.dart';
 import 'package:Hops/models/login.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
@@ -11,7 +12,8 @@ class FavoritesView extends StatefulWidget {
   _FavoritesViewState createState() => _FavoritesViewState();
 }
 
-class _FavoritesViewState extends State<FavoritesView> with SingleTickerProviderStateMixin {
+class _FavoritesViewState extends State<FavoritesView>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
   bool? fixedScroll;
@@ -19,8 +21,14 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
   Future? _loginFuture;
 
   final List<Widget> _tabs = [
-    Tab(key: UniqueKey(), icon: Icon(Icons.storefront_rounded), text: "Cervecerías"),
-    Tab(key: UniqueKey(), icon: Icon(Icons.sports_bar_rounded), text: "Cervezas"),
+    Tab(
+        key: UniqueKey(),
+        icon: const Icon(Icons.storefront_rounded),
+        text: "Cervecerías"),
+    Tab(
+        key: UniqueKey(),
+        icon: const Icon(Icons.sports_bar_rounded),
+        text: "Cervezas"),
   ];
 
   _scrollListener() {
@@ -30,21 +38,22 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
-    _tabController = TabController(length: _tabs.length, vsync: this, initialIndex: 0);
+    _tabController =
+        TabController(length: _tabs.length, vsync: this, initialIndex: 0);
 
     _loginFuture = getUserData();
   }
 
   Future? getUserData() async {
-
     _userData = await SharedServices.loginDetails();
 
     return _userData;
   }
+
 /*
   @override
   void dispose() {
@@ -57,7 +66,7 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: PRIMARY_GRADIENT_COLOR,
         ),
         child: NestedScrollView(
@@ -72,70 +81,65 @@ class _FavoritesViewState extends State<FavoritesView> with SingleTickerProvider
                   controller: _tabController,
                   //isScrollable: true,
                   tabs: _tabs,
-                  /*
-                  onTap: (int index){
-                    print("Index tapped: " + index.toString());
-                    setState(() {
-                      //this.tabIndex = index;
-                    });
-                  },
-                  */
                 ),
               ),
             ];
           },
-          body: Container(
-            child: FutureBuilder(
-                future: _loginFuture,
-                builder: (BuildContext context, AsyncSnapshot snapshot){
-
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return CircularProgressIndicator(color: PROGRESS_INDICATOR_COLOR);
-                    default:
-                      if (snapshot.hasError){
-                        return Text('Error: ${snapshot.error}');
-                      }else{
-                        return Container(
-                          height:MediaQuery.of(context).size.height,
-                          child: TabBarView(
-                            key: UniqueKey(),
-                            controller: _tabController,
-                            children: [
-                              RefreshIndicator(
-                                onRefresh: () async {
-                                  setState(() {
-                                    _loginFuture = getUserData();
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: FavoriteBreweries(key: UniqueKey(), loginResponse: snapshot.data),
-                                ),
+          body: FutureBuilder(
+              future: _loginFuture,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return const CircularProgressIndicator(
+                        color: PROGRESS_INDICATOR_COLOR);
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Container(
+                        height: MediaQuery.of(context).size.height,
+                        // alignment: Alignment.center,
+                        color:
+                            (DEBUG ? Colors.transparent : Colors.transparent),
+                        child: TabBarView(
+                          key: UniqueKey(),
+                          controller: _tabController,
+                          children: [
+                            RefreshIndicator(
+                              onRefresh: () async {
+                                setState(() {
+                                  _loginFuture = getUserData();
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: FavoriteBreweries(
+                                    key: UniqueKey(),
+                                    loginResponse: snapshot.data),
                               ),
-                              RefreshIndicator(
-                                onRefresh: () async {
-                                  setState(() {
-                                    _loginFuture = getUserData();
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: FavoriteBeers(key: UniqueKey(), loginResponse: snapshot.data),
-                                ),
+                            ),
+                            RefreshIndicator(
+                              onRefresh: () async {
+                                setState(() {
+                                  _loginFuture = getUserData();
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: FavoriteBeers(
+                                    key: UniqueKey(),
+                                    loginResponse: snapshot.data),
                               ),
-                              //Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
-                            ],),
-                        );
-                      }
-                  }
-
-                }),
-          ),
+                            ),
+                            //Padding(padding: EdgeInsets.all(12), child: Text("Y en esta tab todas tus cervezas favoritas")),
+                          ],
+                        ),
+                      );
+                    }
+                }
+              }),
         ),
       ),
     );
   }
 }
-
-

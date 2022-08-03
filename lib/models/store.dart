@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:Hops/helpers.dart';
+// Store class
 
-class Store{
+class Store {
   String? id;
   String? name;
   String? price;
@@ -9,7 +8,7 @@ class Store{
   String? url;
   String? image;
   String? isVerified;
-
+  late bool isOfficial;
 
   Store({
     this.id,
@@ -19,31 +18,25 @@ class Store{
     this.url,
     this.image,
     this.isVerified,
+    this.isOfficial = false,
   });
 
-  Store.fromJson(Map<String, dynamic> parsedJson){
-
-    id = (parsedJson["id"] != null ? parsedJson["id"] : "" );
-    name = (parsedJson["name"] != null ? parsedJson["name"] : "" );
-    price = (parsedJson["price"] != null ? parsedJson["price"] : "" );
-    priceLastUpdate = (parsedJson["price_last_update"] != null ? parsedJson["price_last_update"] : "" );
-    url = (parsedJson["url"] != null ? parsedJson["url"] : "" );
-    image = (parsedJson["image"] != null ? parsedJson["image"] : "" );
-    isVerified = (parsedJson["is_verified"] != null ? parsedJson["is_verified"] : "" );
-
-
+  Store.fromJson(Map<String, dynamic> parsedJson) {
+    id = (parsedJson["id"] ?? "");
+    name = (parsedJson["name"] ?? "");
+    price = (parsedJson["price"] ?? "");
+    priceLastUpdate = (parsedJson["price_last_update"] ?? "");
+    url = (parsedJson["url"] ?? "");
+    image = (parsedJson["image"] ?? "");
+    isVerified = (parsedJson["is_verified"] ?? "");
+    isOfficial = (parsedJson["is_official"] == "true" ? true : false);
   }
 
-
   static List? allFromResponse(List<dynamic> response) {
-
     return response
         .cast<Map<String, dynamic>>()
         .map((obj) => Store.fromJson(obj))
         .toList()
         .cast<Store>();
   }
-
-
-
 }

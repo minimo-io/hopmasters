@@ -30,46 +30,50 @@ class ScoreButton extends StatelessWidget {
         elevation: cardsElevations,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                image,
-                const SizedBox(width: 5.0),
-                Expanded(
-                    child: Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: (this.contrast == "high"
-                          ? Colors.white
-                          : Colors.black)),
-                )),
-                if (showDetailsButton)
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, "scores");
-                    },
-                    child: Badge(
-                      elevation: 0,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 4.0),
-                      toAnimate: false,
-                      shape: BadgeShape.square,
-                      borderRadius: BorderRadius.circular(20.0),
-                      badgeColor: Colors.grey.withOpacity(.8),
-                      badgeContent: Row(
-                        children: [
-                          Text(
-                            'Detalles',
-                            style: TextStyle(
-                                color: Colors.white.withOpacity(.8),
-                                fontSize: titlesRightButtonsSize),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    image,
+                    const SizedBox(width: 5.0),
+                    Expanded(
+                        child: Text(
+                      text,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: (this.contrast == "high"
+                              ? Colors.white
+                              : Colors.black)),
+                    )),
+                    if (showDetailsButton)
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "scores");
+                        },
+                        child: Badge(
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 4.0),
+                          toAnimate: false,
+                          shape: BadgeShape.square,
+                          borderRadius: BorderRadius.circular(20.0),
+                          badgeColor: Colors.grey.withOpacity(.8),
+                          badgeContent: Row(
+                            children: [
+                              Text(
+                                'Detalles',
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(.8),
+                                    fontSize: titlesRightButtonsSize),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                  ],
+                ),
               ],
             )),
       ),

@@ -1,3 +1,4 @@
+import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/models/loader.dart';
 import 'package:Hops/utils/progress_hud.dart';
 import 'package:Hops/views/home/components/homeNews.dart';
@@ -155,20 +156,24 @@ class _HomeViewState extends State<HomeView>
                               _scoreOverview =
                                   snapshot.data["result"].toString();
                               if (_scoreOverview.isEmpty) _scoreOverview = "0";
-                              return ScoreButton(
-                                contrast: "low",
-                                score: int.parse(_scoreOverview),
-                                text: _scoreOverview + " puntos canjeables",
-                                image: Image.asset(
-                                  "assets/images/medal.png",
-                                  height: 20,
-                                ),
-                                press: () {
-                                  if (widget.notifyParent != null) {
-                                    widget.notifyParent!(2);
-                                  }
-                                  //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
-                                },
+                              return Column(
+                                children: [
+                                  ScoreButton(
+                                    contrast: "low",
+                                    score: int.parse(_scoreOverview),
+                                    text: _scoreOverview + " puntos canjeables",
+                                    image: Image.asset(
+                                      "assets/images/medal.png",
+                                      height: 20,
+                                    ),
+                                    press: () {
+                                      if (widget.notifyParent != null) {
+                                        widget.notifyParent!(2);
+                                      }
+                                      //Helpers.launchURL("https://hops.uy/revista/novedades/como-funciona-hops/");
+                                    },
+                                  ),
+                                ],
                               );
                             }
                         }
