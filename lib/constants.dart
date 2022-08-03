@@ -27,6 +27,7 @@ const splashPageAnimationDurationInMilliseconds = 300;
 // The desktop top padding for a page's first header (e.g. Gallery, Settings)
 const firstHeaderDesktopTopPadding = 5.0;
 
+const appMarginSize = 15.0;
 const marginSide = 18.0;
 
 const titlesLeftSize = 22.0;
@@ -44,6 +45,10 @@ const SHOW_LOGIN_EMAIL = true;
 const SHOW_BREWERY_WHATSAPP_ON_BEER_BUY_OPTIONS = false;
 
 const showSearchBar = false;
+
+// text constants
+const String moreThanOneBreweryInOrder =
+    "Recuerda que estas comprando directamente a las cervecerías. Por lo tanto cada pedido se procesará por separado.";
 
 const beerStyles = ['Todas', 'IPA', 'Blonde', 'APA', 'Kölsch', 'Red'];
 

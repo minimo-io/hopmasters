@@ -1,4 +1,4 @@
-import 'package:Hops/components/more_than_one_brewery_alert.dart';
+import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/components/order_details_box.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/models/brewery.dart';
@@ -802,12 +802,15 @@ class _CartViewState extends State<CartView> {
                                     }),
                                 // build alert box for order(s), if needed
                                 // (cart),
-                                MoreThanOneBreweryAlert(
-                                  cart,
-                                  cardElevation: 1,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 0.0, vertical: 3.0),
-                                ),
+                                if (cart.getBreweriesFromCart().length > 1)
+                                  const HopsAlert(
+                                    text: moreThanOneBreweryInOrder,
+                                    icon: Icons.warning,
+                                    color: Colors.redAccent,
+                                    cardElevation: 1,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 0.0, vertical: 3.0),
+                                  ),
                                 // add actual breweries and beers
                                 Padding(
                                   padding: const EdgeInsets.only(

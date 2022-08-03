@@ -1,3 +1,6 @@
+import 'package:Hops/components/hops_alert.dart';
+import 'package:Hops/components/text_expandable.dart';
+import 'package:Hops/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:Hops/theme/style.dart';
 import 'package:Hops/helpers.dart';
@@ -39,6 +42,22 @@ class _ScoresViewState extends State<ScoresView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // const SizedBox(
+                      //   height: marginSide,
+                      // ),
+                      // AppTitle(title: "Promos"),
+                      //const PromosHeader(),
+
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: appMarginSize),
+                        child: HopsAlert(
+                            text:
+                                "Los puntos HOPS se ganana por interactuar con la app y pueden ser canjeados por beneficios en los bares asociados en las compras via QR o en la sección de Promos de la app",
+                            color: Colors.blueAccent,
+                            icon: Icons.info),
+                      ),
+
                       const SizedBox(
                         height: 120,
                       ),

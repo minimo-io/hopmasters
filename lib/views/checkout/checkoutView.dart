@@ -1,5 +1,5 @@
 import 'package:Hops/components/card_horizontal.dart';
-import 'package:Hops/components/more_than_one_brewery_alert.dart';
+import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/constants.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -280,7 +280,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   bottomHeight = 70;
                                 }));
                           },
-                          child: Text("Cambiar",
+                          child: const Text("Cambiar",
                               style: TextStyle(color: Colors.redAccent)))),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -642,12 +642,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                                       });
                                   },
                                 )),
-                            MoreThanOneBreweryAlert(
-                              cart,
-                              cardElevation: 1,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5.0, vertical: 3.0),
-                            ),
+
+                            if (cart.getBreweriesFromCart().length > 1)
+                              const HopsAlert(
+                                text: moreThanOneBreweryInOrder,
+                                icon: Icons.warning,
+                                color: Colors.redAccent,
+                                cardElevation: 1,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.0, vertical: 3.0),
+                              ),
                             const SizedBox(
                               height: 10,
                             ),
