@@ -361,9 +361,9 @@ class _BeerHeaderState extends State<BeerHeader>
                         Padding(
                           padding: EdgeInsets.only(left: 1.0),
                           child: CircleAvatar(
-                            backgroundColor: Color.fromRGBO(25, 119, 227, 1),
+                            backgroundColor: mainButtonsColor,
                             child: Icon(
-                              Icons.gpp_good,
+                              Icons.star,
                               color: Colors.white,
                               size: 12.0,
                             ),
