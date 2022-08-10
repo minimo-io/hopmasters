@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:Hops/components/alert_box.dart';
+import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/components/hops_button.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -910,6 +911,16 @@ class _BeerHeaderState extends State<BeerHeader>
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             )),
+
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: appMarginSize),
+                                          child: HopsAlert(
+                                              text:
+                                                  "En próximas versiones encontrá acá los bares cercanos y aquellos que acepten pedidos por QR para pickup o consumo en la mesa.",
+                                              color: Colors.blueAccent,
+                                              icon: Icons.info),
+                                        ),
                                         FutureBuilder(
                                             future: _location,
                                             builder: (context, snapshot) {
