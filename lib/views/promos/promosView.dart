@@ -1,4 +1,3 @@
-import 'package:Hops/components/app_title.dart';
 import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/components/score_button.dart';
 import 'package:Hops/constants.dart';
@@ -18,8 +17,6 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:Hops/views/promos/components/promos_header.dart';
 import 'package:Hops/models/cart.dart';
-
-import 'package:Hops/components/score_mini_button.dart';
 
 class PromosView extends StatefulWidget {
   static const String routeName = "promos";
@@ -98,7 +95,7 @@ class _PromosViewState extends State<PromosView>
               color: Colors.red.withOpacity(.8),
               shape: BoxShape.rectangle,
               border: Border.all(width: 0, color: Colors.white),
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+              borderRadius: const BorderRadius.all(const Radius.circular(20))),
           child: const Center(
               child: Text("Expiró",
                   style: TextStyle(
@@ -171,21 +168,21 @@ class _PromosViewState extends State<PromosView>
                                     ),
                                     label: Text(
                                       promo.callToActionText.toString(),
-                                      style: TextStyle(fontSize: 13),
+                                      style: const TextStyle(fontSize: 13),
                                     ),
                                     style: ButtonStyle(
                                         minimumSize: MaterialStateProperty.all<Size>(
                                             Size.zero),
                                         padding: MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.symmetric(
+                                            const EdgeInsets.symmetric(
                                                 horizontal: 15, vertical: 5.0)),
                                         foregroundColor: MaterialStateProperty.all<Color>(
                                             Colors.white),
                                         backgroundColor: MaterialStateProperty.all<Color>(
                                             promo.rgbColor),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                            side: (1 == 1 ? BorderSide(style: BorderStyle.none) : BorderSide(color: Colors.white24))))),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(const Radius.circular(10.0)),
+                                            side: (1 == 1 ? BorderSide(style: BorderStyle.none) : const BorderSide(color: Colors.white24))))),
                                     onPressed: () {
                                       // share with friends
                                       if (promo.callToActionIcon ==
