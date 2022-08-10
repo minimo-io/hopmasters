@@ -161,7 +161,11 @@ class _HomeViewState extends State<HomeView>
                                   ScoreButton(
                                     contrast: "low",
                                     score: int.parse(_scoreOverview),
-                                    text: _scoreOverview + " puntos canjeables",
+                                    text: _scoreOverview +
+                                        " punto" +
+                                        (_scoreOverview != "1" ? "s" : "") +
+                                        " canjeable" +
+                                        (_scoreOverview != "1" ? "s" : ""),
                                     image: Image.asset(
                                       "assets/images/medal.png",
                                       height: 20,

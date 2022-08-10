@@ -340,7 +340,14 @@ class _PromosViewState extends State<PromosView>
                                             contrast: "low",
                                             score: int.parse(_scoreOverview),
                                             text: _scoreOverview +
-                                                " puntos canjeables",
+                                                " punto" +
+                                                (_scoreOverview != "1"
+                                                    ? "s"
+                                                    : "") +
+                                                " canjeable" +
+                                                (_scoreOverview != "1"
+                                                    ? "s"
+                                                    : ""),
                                             image: Image.asset(
                                               "assets/images/medal.png",
                                               height: 20,

@@ -264,7 +264,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                     padding: EdgeInsets.only(left: 6.0),
                                     child: Text("verificado",
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(fontSize: 12.0)))
+                                        style: TextStyle(fontSize: 12.0)))
                               ],
                             ),
                           )
@@ -294,12 +294,14 @@ class _BeerHeaderState extends State<BeerHeader>
     }
 
     Widget _buildShopCard(
-        {String? name = "",
+        {required String id,
+        String? name = "",
         String? address = "",
         String? logo = "",
         bool isVerified = true}) {
       return GestureDetector(
         onTap: () {
+          Helpers.launchURL(siteUrl + "/?p=" + id);
           /*
           Navigator.pushNamed(
             context,
@@ -318,7 +320,7 @@ class _BeerHeaderState extends State<BeerHeader>
               children: [
                 if (logo != null)
                   Hero(
-                    tag: "shop-1",
+                    tag: "shop-" + id,
                     child: Image.network(
                       logo,
                       fit: BoxFit.cover, // this is the solution for border
@@ -355,13 +357,12 @@ class _BeerHeaderState extends State<BeerHeader>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       //crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
+                      children: const <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(left: 1.0),
-                          child: new CircleAvatar(
-                            backgroundColor:
-                                const Color.fromRGBO(25, 119, 227, 1),
-                            child: new Icon(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(25, 119, 227, 1),
+                            child: Icon(
                               Icons.gpp_good,
                               color: Colors.white,
                               size: 12.0,
@@ -369,11 +370,11 @@ class _BeerHeaderState extends State<BeerHeader>
                             radius: 12.0,
                           ),
                         ),
-                        const Padding(
+                        Padding(
                             padding: EdgeInsets.only(left: 6.0),
-                            child: Text("verificado",
+                            child: Text("destacado",
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 12.0)))
+                                style: TextStyle(fontSize: 12.0)))
                       ],
                     ),
                   )
@@ -442,7 +443,10 @@ class _BeerHeaderState extends State<BeerHeader>
                 width: MediaQuery.of(context).size.width * 0.90,
                 //padding: EdgeInsets.symmetric(horizontal: 20),
                 child: _buildShopCard(
-                    name: bar.name, address: bar.address, logo: bar.avatar))));
+                    id: bar.id,
+                    name: bar.name,
+                    address: bar.address,
+                    logo: bar.avatar))));
       }
       barWidgetList.add(const SizedBox(
         height: 50,
@@ -946,6 +950,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                             if (snapshot.data != null) {
                                               return FutureBuilder(
                                                   future: WordpressAPI.getBars(
+                                                      isFeatured: 1,
                                                       location: snapshot.data),
                                                   builder: (context,
                                                       AsyncSnapshot snapshot2) {

@@ -722,14 +722,15 @@ class WordpressAPI {
   }
 
   // get bars
-  static Future<List<dynamic>?> getBars({LocationData? location}) async {
+  static Future<List<dynamic>?> getBars(
+      {LocationData? location, int? isFeatured}) async {
     String query = _WP_BASE_API +
         _WP_REST_WP_URI +
         _WP_REST_WP_BARS +
         "/?_embed&order=desc&orderby=date&per_page=100&page=1";
     query =
         query + "&consumer_key=" + _apiKey + "&consumer_secret=" + _apiSecret;
-    print(location.toString());
+
     if (location != null) {
       query = query +
           "&location=" +
@@ -737,8 +738,10 @@ class WordpressAPI {
           "|" +
           location.longitude.toString();
     }
-
-    print(query);
+    if (isFeatured != null) {
+      query = query + "&is_featured=" + isFeatured.toString();
+    }
+    if (DEBUG) print(query);
 
     try {
       var response = await Dio().get(
