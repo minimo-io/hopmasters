@@ -1,6 +1,7 @@
 import 'package:Hops/components/help_action_button.dart';
 import 'package:Hops/components/hops_alert.dart';
 import 'package:Hops/components/score_button.dart';
+import 'package:Hops/components/table.dart';
 import 'package:Hops/constants.dart';
 import 'package:Hops/services/shared_services.dart';
 import 'package:Hops/services/wordpress_api.dart';
@@ -124,9 +125,42 @@ class _ScoresViewState extends State<ScoresView> {
                             color: Colors.blueAccent,
                             icon: Icons.info),
                       ),
+                      // const SizedBox(
+                      //   height: 3.0,
+                      // ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: marginSide),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Card(
+                              //elevation: cardsElevations,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: HopsTable(
+                                  title: "Detalles",
+                                  rows: const [
+                                    {
+                                      'key': 'Comentario aprobado',
+                                      'value': '+1 punto',
+                                      'icon': Icons.chat,
+                                    },
+                                    {
+                                      'key': 'Compra procesada',
+                                      'value': '+10 puntos',
+                                      'icon': Icons.shopping_cart,
+                                    }
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
 
                       const SizedBox(
-                        height: 100,
+                        height: 60,
                       ),
                       Image.asset(
                         inConstructionIcon,

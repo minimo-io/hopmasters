@@ -779,7 +779,8 @@ class _DiscoverBeersState extends State<DiscoverBeers>
               });
             }),
         _buildCategoryButton(
-            text: "Más Votadas",
+            // text: "Más Votadas",
+            text: "Mejor Votadas",
             isSelected: (_disoverBeersType == "most_voted" ? true : false),
             icon: Icons.star,
             color: Colors.amberAccent,
