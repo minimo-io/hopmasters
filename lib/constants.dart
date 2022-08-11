@@ -34,6 +34,7 @@ const titlesLeftSize = 22.0;
 const double titlesRightButtonsSize = 11;
 const titlesRightButtonsIconSize = 17.0;
 const Color mainButtonsColor = Color.fromRGBO(77, 159, 0, 1);
+
 //const Color mainButtonsColor = Colors.black;
 
 // login buttons
