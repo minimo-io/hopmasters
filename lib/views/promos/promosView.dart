@@ -28,7 +28,7 @@ class PromosView extends StatefulWidget {
 
 class _PromosViewState extends State<PromosView>
     with AutomaticKeepAliveClientMixin {
-  bool showFilters = true;
+  bool showFilters = false;
   // future for lat, lon
   Future<LocationData?>? _latLonFuture;
   // future for promos, send lat, lon
@@ -95,7 +95,7 @@ class _PromosViewState extends State<PromosView>
               color: Colors.red.withOpacity(.8),
               shape: BoxShape.rectangle,
               border: Border.all(width: 0, color: Colors.white),
-              borderRadius: const BorderRadius.all(const Radius.circular(20))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
           child: const Center(
               child: Text("Expiró",
                   style: TextStyle(
@@ -336,7 +336,7 @@ class _PromosViewState extends State<PromosView>
                                             cardPadding:
                                                 const EdgeInsets.symmetric(
                                                     horizontal: appMarginSize),
-                                            showDetailsButton: false,
+                                            showDetailsButton: true,
                                             contrast: "low",
                                             score: int.parse(_scoreOverview),
                                             text: _scoreOverview +

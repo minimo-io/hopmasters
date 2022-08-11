@@ -9,11 +9,11 @@ class HopsTable extends StatelessWidget {
     List<Widget> tableRows = [];
     if (title != null) {
       tableRows.add(
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text("Detalles",
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title!,
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF565656))),

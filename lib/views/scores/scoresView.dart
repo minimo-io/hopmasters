@@ -139,7 +139,7 @@ class _ScoresViewState extends State<ScoresView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: HopsTable(
-                                  title: "Detalles",
+                                  title: "¿Cómo ganar puntos?",
                                   rows: const [
                                     {
                                       'key': 'Comentario aprobado',
