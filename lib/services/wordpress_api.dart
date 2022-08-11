@@ -87,7 +87,7 @@ class WordpressAPI {
       var response = await Dio().post(
         _WP_BASE_API + _WP_JWT_AUTH_URI,
         data: {"username": username, "password": password},
-        options: new Options(headers: {
+        options: Options(headers: {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
         }),
       );
@@ -101,6 +101,7 @@ class WordpressAPI {
             response.data["data"]["avatarUrl"] = customAvatar;
           response.data["data"]["connectionType"] = connectionType;
         }
+        // print("RESPONSE LOGIN:");
         // print(response.data);
         LoginResponse loginResponse = loginResponseFromJson(response.data);
 

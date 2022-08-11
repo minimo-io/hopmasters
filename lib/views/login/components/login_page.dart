@@ -24,10 +24,10 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
   bool isLoadingApiCall = false;
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
-  var notificationsClient = new HopsNotifications();
+  var notificationsClient = HopsNotifications();
 
-  TextEditingController loginUsernameController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
+  TextEditingController loginUsernameController = TextEditingController();
+  TextEditingController loginPasswordController = TextEditingController();
 
   // final FocusNode _loginUsernameFocusNode = FocusNode();
   // final FocusNode _loginPasswordFocusNode = FocusNode();
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
               loginUsernameController.text, loginPasswordController.text)
           .then((response) {
         setState(() {
-          this.isLoadingApiCall = false;
+          isLoadingApiCall = false;
         });
         if (response) {
           _formLoginKey.currentState!.reset();

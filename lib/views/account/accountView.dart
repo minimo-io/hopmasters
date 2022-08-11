@@ -91,6 +91,11 @@ class _AccountViewState extends State<AccountView>
                                 userId: snapshot.data[0].data.id),
                             const SizedBox(height: 20),
 
+                            if (snapshot.data[0].data.roles == "brewery")
+                              ProfileMenu(
+                                  text: "Ventas",
+                                  icon: const Icon(Icons.calculate)),
+
                             ProfileMenu(
                               text: "Mis pedidos",
                               icon: const Icon(Icons.shopping_cart),
