@@ -22,6 +22,7 @@ class Brewery {
     required this.whatsapp,
     required this.viewsCount,
     required this.viewsCountHistory,
+    required this.isHopsClient,
     this.deliveryCost,
     this.deliveryMin,
     this.deliveryTime,
@@ -62,6 +63,7 @@ class Brewery {
         description: baseJson['description'],
         datePublished: baseJson['date_published'],
         dateModified: baseJson['date_modified'],
+        isHopsClient: baseJson['is_hops_client'],
         location: baseJson['location'],
         followers: baseJson['followers'],
         beersCount: baseJson['beers_count'],
@@ -112,4 +114,6 @@ class Brewery {
   int? deliveryMin;
   double? deliveryCost;
   String? deliveryTime;
+
+  String isHopsClient;
 }

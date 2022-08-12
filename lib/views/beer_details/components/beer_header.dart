@@ -394,7 +394,7 @@ class _BeerHeaderState extends State<BeerHeader>
               //height: 50,
               child: const Align(
                 alignment: Alignment.centerLeft,
-                child: Text("TIENDAS ONLINE",
+                child: Text("EN TIENDAS ONLINE",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               )),
@@ -905,7 +905,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                             //height: 50,
                                             child: const Align(
                                               alignment: Alignment.centerLeft,
-                                              child: Text("BARES",
+                                              child: Text("EN BARES",
                                                   style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
@@ -930,7 +930,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                                       const EdgeInsets.only(
                                                           right: 20.0,
                                                           left: 20.0,
-                                                          top: 10.0),
+                                                          top: 5.0),
                                                   child: Container(),
                                                 );
                                               } else {
@@ -951,7 +951,7 @@ class _BeerHeaderState extends State<BeerHeader>
                                             }),
 
                                         const SizedBox(
-                                          height: 15,
+                                          height: 1,
                                         ),
 
                                         FutureBuilder(

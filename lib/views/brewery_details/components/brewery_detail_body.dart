@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Hops/models/brewery.dart';
@@ -30,7 +31,8 @@ class BreweryDetailBody extends StatelessWidget {
     );
   }
 
-  Widget _createCircleBadge(IconData iconData, Color color) {
+  Widget _createCircleBadge(IconData iconData, Color color,
+      {double size = 16.0}) {
     return Padding(
       padding: const EdgeInsets.only(left: 1.0),
       child: CircleAvatar(
@@ -38,9 +40,9 @@ class BreweryDetailBody extends StatelessWidget {
         child: Icon(
           iconData,
           color: (color == Colors.white12 ? Colors.black : Colors.white),
-          size: 16.0,
+          size: size,
         ),
-        radius: 16.0,
+        radius: size,
       ),
     );
   }
@@ -94,22 +96,53 @@ class BreweryDetailBody extends StatelessWidget {
                 ))
           ],
         ),
-        new Padding(
+        Padding(
             padding: const EdgeInsets.only(top: 16.0),
             // child: ExpandableText(brewery!.description),
             child: TextExpandable(
               brewery!.description!,
             )),
-        new Padding(
+        Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: new Row(
+          child: Row(
             children: <Widget>[
-              _createCircleBadge(Icons.sports_bar, brewery!.rgbColor),
+              _createCircleBadge(Icons.sports_bar, brewery!.rgbColor, size: 10),
 //              _createCircleBadge(Icons.cloud, Colors.white12),
 //              _createCircleBadge(Icons.shop, Colors.white12),
               Padding(
-                  padding: EdgeInsets.only(left: 6.0),
-                  child: Text(brewery!.beersCount.toString() + " cervezas"))
+                padding: const EdgeInsets.only(left: 6.0),
+                child: Text(
+                  brewery!.beersCount.toString() + " cerveza(s)",
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+
+              if (brewery!.isHopsClient == "1")
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 8),
+                    _createCircleBadge(Icons.done, Colors.green, size: 10),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    const Text("Vende en Hops", style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+
+              if (brewery!.isHopsClient == "0")
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 8),
+                    _createCircleBadge(Icons.close, Colors.redAccent, size: 10),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    const Text("Todavía no vende en Hops",
+                        style: TextStyle(fontSize: 12)),
+                  ],
+                )
             ],
           ),
         ),
