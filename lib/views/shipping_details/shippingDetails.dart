@@ -38,6 +38,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
   String? _frmTelephone = "";
   String? _frmAddress1 = "";
   String? _frmAddress2 = "";
+  String? _frmLocation = "";
   String? _frmCP = "11200"; // ideally we will never ask for this
 
   @override
@@ -49,7 +50,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _lastOrderData.then((value) {
-        _dropdownValue = value!.city!;
+        _dropdownValue = value!.state!;
       });
     });
   }
@@ -60,7 +61,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
         MaterialStateProperty.all<Color>(
             SECONDARY_BUTTON_COLOR.withOpacity(.65));
     return AnimatedContainer(
-      duration: new Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       height: bottomHeight,
       padding: const EdgeInsets.only(bottom: 5),
       decoration: const BoxDecoration(
@@ -93,7 +94,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                       paymentType: "cod", // cash on delivery
                       address1: _frmAddress1,
                       address2: _frmAddress2,
-                      city: _dropdownValue,
+                      city: _frmLocation,
                       state: _dropdownValue,
                       country: "UY",
                       postCode: _frmCP,
@@ -134,6 +135,10 @@ class _ShippingDetailsState extends State<ShippingDetails> {
             )),
       ),
     );
+  }
+
+  Widget _createShippingInputField() {
+    return Container();
   }
 
   @override
@@ -425,7 +430,7 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                                             _dropdownValue = newValue!;
                                           });
                                         },
-                                        items: <String>['Montevideo']
+                                        items: <String>['Montevideo', 'Rocha']
                                             .map<DropdownMenuItem<String>>(
                                                 (String value) {
                                           return DropdownMenuItem<String>(
@@ -486,6 +491,74 @@ class _ShippingDetailsState extends State<ShippingDetails> {
                                       ),
                                     ),
                                   ),
+
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: _horizontalPadding - 5,
+                                      vertical: 0),
+                                  child: Card(
+                                    elevation: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: 10.0,
+                                          top: 0,
+                                          left: 5.0,
+                                          right: 5.0),
+                                      child: TextFormField(
+                                        initialValue: (snapshot.data != null
+                                            ? snapshot.data.city
+                                            : null),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return "Ingresa tu localidad.";
+                                          }
+                                          if (!RegExp(r'.{5,}').hasMatch(value))
+                                            return 'Sé un poco mas específico (al menos 5 letras o números).';
+                                          if (value.length >= 700)
+                                            return '¡Wow!, ¿podrías ser mas concret@?.';
+                                          return null;
+                                        },
+                                        autovalidateMode:
+                                            (this.formValidatedOnce == true
+                                                ? AutovalidateMode.always
+                                                : AutovalidateMode
+                                                    .onUserInteraction),
+
+                                        onSaved: (String? value) {
+                                          // This optional block of code can be used to run
+                                          // code when the user saves the form.
+                                          setState(() {
+                                            _frmLocation = value;
+                                          });
+                                        },
+
+                                        keyboardType: TextInputType.name,
+                                        textAlignVertical:
+                                            TextAlignVertical.top,
+                                        style: const TextStyle(fontSize: 12.5),
+                                        maxLength: 25,
+
+                                        //style: TextStyle( fontSize: 13 ),
+
+                                        decoration: const InputDecoration(
+                                          hintText: 'Ej: Punta del Diablo',
+                                          border: InputBorder.none,
+                                          helperStyle:
+                                              TextStyle(fontSize: 10.0),
+                                          labelText: 'Localidad',
+                                          //hintText: "Nota para el envío",
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 5.0, vertical: 8.0),
+                                          errorStyle: TextStyle(fontSize: 10.0),
+                                          labelStyle: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: _horizontalPadding - 5,

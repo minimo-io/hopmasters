@@ -692,13 +692,22 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                             ),
                                             Center(
                                                 child: Text(
-                                              "Avenida Central S/N",
+                                              // "Avenida Central S/N",
+                                              order["billing"]["address_1"] +
+                                                  (order["billing"]
+                                                              ["address_2"] !=
+                                                          ""
+                                                      ? ", "
+                                                      : "") +
+                                                  order["billing"]["address_2"],
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             )),
                                             Center(
                                                 child: Text(
-                                              "Punta del Diablo, Rocha",
+                                              order["billing"]["city"] +
+                                                  ", " +
+                                                  order["billing"]["state"],
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             )),
@@ -707,17 +716,24 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                                             ),
                                             Center(
                                                 child: Text(
-                                              "Recibe Nicolás Erramuspe . 096666902",
+                                              "Recibe " +
+                                                  order["billing"]
+                                                      ["first_name"] +
+                                                  " . " +
+                                                  order["billing"]["phone"],
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             )),
-                                            Center(
-                                                child: Text(
-                                              '"La casa blanca pasando el ómnibus, a media cuadra"',
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 12.0),
-                                            )),
+                                            if (order["customer_note"] != "")
+                                              Center(
+                                                  child: Text(
+                                                '""' +
+                                                    order["customer_note"] +
+                                                    '""',
+                                                style: const TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 12.0),
+                                              )),
                                           ],
                                         ),
                                       ),

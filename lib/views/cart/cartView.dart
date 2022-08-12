@@ -640,20 +640,20 @@ class _CartViewState extends State<CartView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Llega en",
-                            style: TextStyle(fontSize: valuesSizes),
-                          ),
-                          Text(
-                            brewery.deliveryTime.toString(),
-                            style: TextStyle(
-                                fontSize: valuesSizes,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   children: [
+                      //     Text(
+                      //       "Llega en",
+                      //       style: TextStyle(fontSize: valuesSizes),
+                      //     ),
+                      //     Text(
+                      //       brewery.deliveryTime.toString(),
+                      //       style: TextStyle(
+                      //           fontSize: valuesSizes,
+                      //           fontWeight: FontWeight.bold),
+                      //     ),
+                      //   ],
+                      // ),
                       Column(
                         children: [
                           Text(
