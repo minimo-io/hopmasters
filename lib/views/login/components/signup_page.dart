@@ -344,7 +344,7 @@ class _SignupPageState extends State<SignupPage> with GotosMixin {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 20.0),
-                        child: FlatButton(
+                        child: TextButton(
                           child: const Text(
                             "¿Ya tienes una cuenta?",
                             style: TextStyle(
@@ -367,11 +367,11 @@ class _SignupPageState extends State<SignupPage> with GotosMixin {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            color: ACTION_BUTTON_PRIMARY_COLOR,
+                          child: TextButton(
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(30.0),
+                            // ),
+                            // color: ACTION_BUTTON_PRIMARY_COLOR,
                             onPressed: () => _onSignUp(),
                             child: Container(
                               padding: const EdgeInsets.symmetric(

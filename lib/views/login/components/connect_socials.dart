@@ -62,23 +62,15 @@ class _ConnectSocialsPageState extends State<ConnectSocialsPage>
         child: Row(
           children: <Widget>[
             Expanded(
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                ),
-                color: backgroundColor,
+              child: TextButton(
                 onPressed: onTap as void Function()?,
                 child: Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: onTap,
-                          padding: const EdgeInsets.only(
-                            top: 18.0,
-                            bottom: 18.0,
-                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

@@ -50,28 +50,31 @@ class _SocialLoginButtonsState extends State<SocialLoginButtons> {
                   child: new Row(
                     children: <Widget>[
                       new Expanded(
-                        child: new FlatButton(
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0),
-                          ),
-                          color: Color(0Xff3B5998),
+                        child: new TextButton(
+                          // shape: new RoundedRectangleBorder(
+                          //   borderRadius: new BorderRadius.circular(30.0),
+                          // ),
+                          // color: Color(0Xff3B5998),
                           onPressed: () => {},
                           child: new Container(
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new Expanded(
-                                  child: new FlatButton(
-                                    onPressed: ()=>{},
-                                    padding: EdgeInsets.only(
-                                      top: 20.0,
-                                      bottom: 20.0,
-                                    ),
+                                  child: TextButton(
+                                    onPressed: () => {},
+                                    // padding: EdgeInsets.only(
+                                    //   top: 20.0,
+                                    //   bottom: 20.0,
+                                    // ),
                                     child: new Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        Image.asset("assets/images/icons/facebook.png", height: 20,),
+                                        Image.asset(
+                                          "assets/images/icons/facebook.png",
+                                          height: 20,
+                                        ),
                                         Text(
                                           "FACEBOOK",
                                           textAlign: TextAlign.center,
@@ -99,28 +102,31 @@ class _SocialLoginButtonsState extends State<SocialLoginButtons> {
                   child: new Row(
                     children: <Widget>[
                       new Expanded(
-                        child: new FlatButton(
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0),
-                          ),
-                          color: Color(0Xffdb3236),
+                        child: new TextButton(
+                          // shape: new RoundedRectangleBorder(
+                          //   borderRadius: new BorderRadius.circular(30.0),
+                          // ),
+                          // color: Color(0Xffdb3236),
                           onPressed: () => {},
                           child: new Container(
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new Expanded(
-                                  child: new FlatButton(
-                                    onPressed: ()=>{},
-                                    padding: EdgeInsets.only(
-                                      top: 20.0,
-                                      bottom: 20.0,
-                                    ),
+                                  child: TextButton(
+                                    onPressed: () => {},
+                                    // padding: EdgeInsets.only(
+                                    //   top: 20.0,
+                                    //   bottom: 20.0,
+                                    // ),
                                     child: new Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        Image.asset("assets/images/icons/google.png", height: 20,),
+                                        Image.asset(
+                                          "assets/images/icons/google.png",
+                                          height: 20,
+                                        ),
                                         Text(
                                           "GOOGLE",
                                           textAlign: TextAlign.center,

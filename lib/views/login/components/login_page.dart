@@ -226,7 +226,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 20.0),
-                        child: FlatButton(
+                        child: TextButton(
                           child: Text(
                             "¿Olvidaste la contraseña?",
                             style: TextStyle(
@@ -250,11 +250,7 @@ class _LoginPageState extends State<LoginPage> with GotosMixin {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: ACTION_BUTTON_PRIMARY_COLOR,
+                          child: TextButton(
                             onPressed: () => _onLogin(context),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
